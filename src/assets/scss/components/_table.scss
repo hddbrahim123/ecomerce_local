@@ -1,0 +1,12 @@
+.table{
+    color: $text-color !important;
+}
+.custom__table{
+    border-collapse: separate;
+    border-spacing:0 12px; 
+
+    tr{
+        background-color: $white-color;
+        color: $text-color !important;
+    }
+}

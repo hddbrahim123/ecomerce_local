@@ -1,0 +1,125 @@
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+
+//Import Star Ratings
+import StarRatings from "react-star-ratings"
+
+import Aos from 'aos'
+import 'aos/dist/aos.css' 
+import ReactHtmlParser from 'react-html-parser'; 
+import { isEmpty } from 'lodash'
+import { getProductViewSeller } from '../../../../Core/ApiCore/ProductSeller'
+
+const SellerProductDetails = (props)=>{
+
+   const [product , setProduct] = useState({})
+
+   useEffect(() => {
+      Aos.init({
+          duration:2000
+      })
+
+      let slug = props.match.params.slug
+      console.log(slug)
+
+      getProductViewSeller(slug)
+         .then(res=>{
+            setProduct(res)
+            console.log(res)})
+  }, [])
+
+    return (
+      <React.Fragment>
+       <section data-aos="fade-down" className="main">
+          <div className="container-fluid pt-2  p-lg-4">
+             <div className="card">
+               <div className="card-body">
+                  <div className="row main__card">
+                     <div data-aos="fade-right" className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5">
+                        <div className="gallery ">
+                           {/* <img src={product.images['0']} alt="product" className="gallery__main__img mb-2"  /> */}
+                           <div className="d-flex justify-content-between  small__img__group">
+                              {!isEmpty(product.images) && product.images.map((image , i)=>(
+                                 <div key={i} className="small__img__item ">
+                                    <img src={image} alt="product"  />
+                                 </div>
+                              ))}                              
+                           </div>
+                        </div>
+                     </div>
+                     <div data-aos="fade-left" className="col-lg-7 p-lg-5">
+                        <div className="info">
+                        <div className="data mb-3">
+                           <span className="data__subtitle mb-2">{product.category}</span>
+                           <h1 className="data__title mb-2 text-capitalize ">{product.name}</h1>
+
+                           <div className="text-muted float-start me-3">
+                           <StarRatings
+                              rating={product.rating}
+                              starRatedColor="#F1B44C"
+                              starEmptyColor="#2D363F"
+                              numberOfStars={5}
+                              name="rating"
+                              starDimension="14px"
+                              starSpacing="3px"
+                           />
+                           </div>
+
+                        <div className="price my-4">
+                           Price : {''}
+                           <span className="price__new ">{product.newPrice} Dh</span>       
+                           <del className="price__old">{product.oldPrice} Dh</del> 
+                        </div>
+
+                        
+                           <p className="data__description">{ ReactHtmlParser (product.description)}</p>     
+                        </div>
+
+                        {/* <div className="size">
+                           <h2 className="size__title mb-4">Size</h2>
+                           <div className="size__content">
+                              <span className="size__tallas">
+                                 40
+                              </span>
+                              <span className="size__tallas active">
+                                 41
+                              </span>
+                              <span className="size__tallas">
+                                 42
+                              </span>
+                              <span className="size__tallas">
+                                 43
+                              </span>
+                           </div>  
+                     </div> */}
+
+                     <div className="action   d-flex justify-content-between align-items-center">
+                        <Link to="#" className="action__addToCart text-capitalize text-center w-100">Commander ici</Link>    
+                     </div> 
+                </div>
+               </div>
+                  </div>
+               </div>
+            </div>
+          </div>
+          <div className="container-fluid pt-2 p-lg-4">
+            <div className="row">
+               <div className="col-lg-12">
+                  <div className="card">
+                     <div className="card-body">
+                     <h5 className="">Details :</h5>
+                        <div className="p-4">
+                           { ReactHtmlParser (product.specification)}
+                        </div>
+                     </div>
+                  </div>   
+               </div>   
+            </div>   
+          </div>  
+       </section>
+       </React.Fragment>
+    )
+}
+
+export default SellerProductDetails

@@ -1,0 +1,18 @@
+//variables
+@import './_variables.scss';
+
+//components
+@import './components/card';
+@import './components/form';
+@import './components/avatar';
+@import './components/button';
+@import './components/badge';
+@import './components/table';
+@import './components/textEditor';
+@import './components/carousel';
+
+
+@import './Admin/_admin.scss';
+
+@import './client/_client.scss'
+
