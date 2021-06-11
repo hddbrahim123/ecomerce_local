@@ -33,16 +33,16 @@ const ProductsCart = ()=>{
     return (
         <React.Fragment>
         <CreateOrderModal isOpen={modal} toggle={toggleModal} />
-            <section className="bg-white p-4">
+            <section className="bg-white p-lg-4">
                 <div className="container-fluid">
                     <div className="row mx-lg-4">
-                        <div className="col-lg-12">
+                        <div className="col-lg-8">
                           {!isEmpty(products) ? 
                             (    <>      
                                     {products.map((product,i)=>(
                                     <div key={i} className="row">
                                         <div  className="col-lg-12">
-                                            <div data-aos="fade-down" className="row productCart  mb-4 bg-white shadow-sm p-2">
+                                            <div data-aos="fade-down" className="row productCart  mb-4 bg-white shadow-sm m-1 p-2">
                                                 <span 
                                                     className="featured__offre"
                                                     style={{cursor:"pointer"}}
@@ -85,25 +85,7 @@ const ProductsCart = ()=>{
                                             </div>  
                                         </div>
                                     </div>                  
-                                    ))}
-
-                                    <div className="row">
-                                        <div className="card my-2 p-2 shadow-sm">
-                                            <div className="card-body d-flex justify-content-between">
-                                                <span>Total</span>                                                                       
-                                                <span>${TotalPrice(products)}</span>                                                                       
-                                            </div>                                                                    
-                                        </div>                                                                    
-                                    </div>
-                                    <div className="row">
-                                        <div className="card my-2 p-2 shadow-sm">
-                                            <Link 
-                                                to="#"
-                                                className="btn btn-primary text-white w-100"
-                                                onClick={toggleModal}
-                                            >Commander ici</Link>                                                                   
-                                        </div>                                                                    
-                                    </div>                    
+                                    ))}                
                                 </>
 
                             ):(
@@ -117,6 +99,19 @@ const ProductsCart = ()=>{
                             )
                            }                         
                         </div>
+                        <div className="col-lg-4">
+                            <div className="card my-2 p-2 shadow-sm">
+                                <div className="card-body d-flex justify-content-between">
+                                    <span>Total</span>                                                                       
+                                    <span>${TotalPrice(products)}</span>                                                                       
+                                </div>
+                                <Link 
+                                    to="#"
+                                    className="btn btn-primary text-white w-100"
+                                    onClick={toggleModal}
+                                >Commander ici</Link>                                                                     
+                            </div>                                                                    
+                        </div>      
                     </div>
                 </div>
             </section>
