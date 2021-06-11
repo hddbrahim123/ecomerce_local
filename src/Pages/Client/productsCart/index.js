@@ -99,15 +99,31 @@ const ProductsCart = ()=>{
                             )
                            }                         
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 h-100">
+                            <div className="card my-2 p-2 shadow-sm">
+                                <div className="card-body">
+                                    <div className="d-flex justify-content-between mb-4">
+                                        <span  className="text-muted text-capitalize">SubTotal</span>                                                                       
+                                        <span className="fw-bold">${TotalPrice(products)}</span> 
+                                    </div>
+                                    <div className="d-flex justify-content-between mb-4">
+                                        <span  className="text-muted text-capitalize">shipping</span>                                                                       
+                                        <span className="fw-bold">-</span> 
+                                    </div>
+                                    <div className="d-flex justify-content-between mb-4">
+                                        <span  className="text-muted text-capitalize">SubTotal</span>                                                                       
+                                        <span className="fw-bold">${TotalPrice(products)}</span> 
+                                    </div>                                                                                                          
+                                </div>                                                                 
+                            </div>  
                             <div className="card my-2 p-2 shadow-sm">
                                 <div className="card-body d-flex justify-content-between">
-                                    <span>Total</span>                                                                       
-                                    <span>${TotalPrice(products)}</span>                                                                       
+                                    <span className="text-capitalize text-muted">Total</span>                                                                       
+                                    <span className="fw-bold">${TotalPrice(products)}</span>                                                                       
                                 </div>
                                 <Link 
                                     to="#"
-                                    className="btn btn-primary text-white w-100"
+                                    className="btn btn-primary border-0 text-white w-100"
                                     onClick={toggleModal}
                                 >Commander ici</Link>                                                                     
                             </div>                                                                    

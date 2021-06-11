@@ -5,19 +5,22 @@ import Arrivals from './Arrivals'
 import Collection from './Collection'
 import Featured from './Featured'
 import Home from './Home'
-import Offer from './Offer'
+import Offre from './Offre'
 
 const Index = ()=>{
 
     const [feuturedProducts , setFeuturedProducts] = useState([])
     const [ArrivalsProducts , setArrivalsProducts] = useState([])
+    const [productsOffre , setProductsOffre] = useState([])
     const [categories , setCategories] = useState([])
 
     useEffect(() => {
         getProductsViewClient()
             .then(res=>{
                 setArrivalsProducts(res)
-                setFeuturedProducts(res)})
+                setFeuturedProducts(res)
+                setProductsOffre(res)
+            })
 
         getCategories()
             .then(res=>setCategories(res))
@@ -28,7 +31,7 @@ const Index = ()=>{
             <Featured FeuturedProducts={feuturedProducts} />
             <Collection categories={categories} />
             <Arrivals products={ArrivalsProducts} />
-            <Offer />
+            <Offre products={productsOffre}/>
         </React.Fragment>
     )
 }

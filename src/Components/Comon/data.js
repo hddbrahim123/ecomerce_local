@@ -3,6 +3,8 @@ const slide = {
     description:"Best Product With warranty Best Product",
     image:"../../../assets/images/laptop2.jpg"
 }
+
+
 export {
     slide
 }

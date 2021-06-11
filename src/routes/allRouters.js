@@ -12,6 +12,7 @@ import SellerLogin from "../Pages/Seller/Authentication/SellerLogin"
 import Category from "../Pages/Seller/category"
 import CreateCateory from "../Pages/Seller/category/Create"
 import Orders from "../Pages/Seller/Order"
+import OrderView from "../Pages/Seller/Order/OrderView"
 import Products from "../Pages/Seller/Products"
 import CreateProduct from "../Pages/Seller/Products/Create"
 import SellerProductDetails from "../Pages/Seller/Products/ProductDetails"
@@ -35,6 +36,7 @@ const sellerRoutes = [
     { path:'/seller/product/:slug' , component: SellerProductDetails },
 
     { path:'/seller/orders' , component: Orders },
+    { path:'/seller/order/:slug' , component: OrderView },
 
   { path: "/seller", exact: true, component: () => <Redirect to="/seller/dashboard" /> },
 

@@ -4,6 +4,11 @@ import { Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, Mo
 import { createOrder } from '../../../Core/ApiCore/Order'
 import TotalPrice from '../../../Core/helpers/totalPrice'
 
+//Import toastr
+import toastr from "toastr"
+import "toastr/build/toastr.min.css"
+import { withRouter } from 'react-router'
+
 const CreateOrderModal = (props)=>{
     const {isOpen, toggle} = props
     let products = useSelector(state => state.Cart.products)
@@ -25,15 +30,25 @@ const CreateOrderModal = (props)=>{
         e.preventDefault()
 
         order.totalAmount = TotalPrice(products)
-        order.products = products
+        order.items = products
         order.totalQty = totalQty
-        console.log(order)
 
         createOrder(order)
           .then(res=>{
+            if(res.success){
+
+              toastr.options.progressBar=true
+              toastr.success("Order Created SuccessFully", "Created SuccessFully")
+              props.history.push("/seller/orders")
+
+            }else{
+              toastr.options.progressBar=true
+              toastr.error("Order Error", "Check your form")
+            }
             console.log(res)
         })
     }
+
     useEffect(()=>{
     },[])
     return (
@@ -158,4 +173,4 @@ const CreateOrderModal = (props)=>{
     )
 }
 
-export default CreateOrderModal
+export default withRouter(CreateOrderModal)

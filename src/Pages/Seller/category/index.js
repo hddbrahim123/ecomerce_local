@@ -45,7 +45,7 @@ const Category = ()=>{
                 {!isEmpty(categories) && categories.map((category,i)=>(
                 <Tr className="py-5" key={i}>
                   <Th>
-                    {category.name}
+                    <h5 className="my-3">{category.name}</h5>
                   </Th>
                   <Td>
                     {category.active 

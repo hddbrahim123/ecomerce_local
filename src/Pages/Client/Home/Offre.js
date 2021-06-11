@@ -1,19 +1,17 @@
 import { isEmpty } from 'lodash'
 import React, { useState } from 'react'
 
-import laptop from '../../../assets/images/laptop2.jpg'
-
 const Arrivals = ({products})=>{
     return (
         <React.Fragment>
             <section>
-                <div className="container-fluid">
+                <div className="container-fluid my-3">
                     <div className="row">
                         <div className="col-lg-12 ">
                             <div className="card shadow-sm mx-lg-5">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h4 className="">Offres du jour</h4>
+                                        <h4 className="">Le meilleur de nos boutiques officielles | Jusqu'à -25%</h4>
                                         {!isEmpty(products) && products.map((product,i)=>(
                                             <div className="col-lg-2">
                                                 <div className="text-center m-2">
