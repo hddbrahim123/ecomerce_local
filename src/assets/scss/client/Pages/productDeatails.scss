@@ -12,12 +12,14 @@
         width: 100% !important;
         height: auto;
     }
-}
-.small__img__item{
-    img{
-        width: 100% !important;
+    &__small__img{
+        flex-basis: 24%;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        opacity: .8;
     }
 }
+
 .data{
     display: flex;
     flex-direction: column;

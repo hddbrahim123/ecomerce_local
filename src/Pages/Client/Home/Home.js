@@ -25,7 +25,7 @@ const Home = ()=>{
           <section className="bg-white">
             <div className="container-fluid px-lg-4 p-lg-2">
               <div className="row">
-                <div className="col-lg-3">
+                <div className="col-lg-3 d-none d-lg-block">
                   <div className="card my-4 shadow-sm">
                     <div className="card-body">
                       <FilterCategoryHome  categories={categories} />
@@ -34,7 +34,7 @@ const Home = ()=>{
                 </div>
                 <div className="col-lg-9">
                 <div className="card my-4 shadow-sm">
-                  <div className="card-body">
+                  <div className="card-body m-0 p-0">
                     <Slide />
                   </div>
                 </div>

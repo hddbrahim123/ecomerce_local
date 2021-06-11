@@ -3,10 +3,55 @@ import { Link } from 'react-router-dom'
 
 import laptop from '../../../assets/images/laptop2.jpg'
 
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import Aos from 'aos'
 import 'aos/dist/aos.css' 
+import { isEmpty } from 'lodash'
 
-const Collection = ()=>{
+const Collection = ({categories})=>{
+
+
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 2000,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        cssEase: "linear",
+        pauseOnHover: true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
+    };
 
     useEffect(() => {
         Aos.init({
@@ -18,46 +63,18 @@ const Collection = ()=>{
         <React.Fragment>
             <section>
               <div className="container-fluid collection mb-5">
-                <div data-aos="fade-down" className="collection__box shadow-sm">
-                    <div className="collection__data">
-                        <h2 className="collection__title mb-2">Laptop </h2>
-                        <Link to="#" className="collection__link">
-                            <span className="collection__name">view collection</span>
-                            <i className='bx bx-right-arrow-alt collection__icon'></i>
-                        </Link>
+                  {!isEmpty(categories) && categories.map((category,i)=>(
+                    <div  data-aos="fade-down" className="collection__box shadow-sm">
+                        <div className="collection__data">
+                            <p className="collection__title fs-6 mb-2">{category.name} </p>
+                            <Link to="/products" className="collection__link">
+                                <span className="collection__name">view collection</span>
+                                <i className='bx bx-right-arrow-alt collection__icon'></i>
+                            </Link>
+                        </div>
+                        <img src={laptop} alt="name" className="collection__img" />
                     </div>
-                    <img src={laptop} alt="name" className="collection__img" />
-                </div>
-                <div data-aos="fade-down" className="collection__box shadow-sm">
-                    <div className="collection__data">
-                        <h2 className="collection__title mb-2">Laptop</h2>
-                        <Link to="#" className="collection__link">
-                            <span className="collection__name">view collection</span>
-                            <i className='bx bx-right-arrow-alt collection__icon'></i>
-                        </Link>
-                    </div>
-                    <img src={laptop} alt="name" className="collection__img" />
-                </div>
-                <div data-aos="fade-down" className="collection__box shadow-sm">
-                    <div className="collection__data">
-                        <h2 className="collection__title mb-2">Laptop</h2>
-                        <Link to="#" className="collection__link">
-                            <span className="collection__name">view collection</span>
-                            <i className='bx bx-right-arrow-alt collection__icon'></i>
-                        </Link>
-                    </div>
-                    <img src={laptop} alt="name" className="collection__img" />
-                </div>
-                <div data-aos="fade-down" className="collection__box shadow-sm">
-                    <div className="collection__data">
-                        <h2 className="collection__title mb-2">Laptop </h2>
-                        <Link to="#" className="collection__link">
-                            <span className="collection__name">view collection</span>
-                            <i className='bx bx-right-arrow-alt collection__icon'></i>
-                        </Link>
-                    </div>
-                    <img src={laptop} alt="name" className="collection__img" />
-                </div>
+                  ))}                
               </div>
             </section>
         </React.Fragment>

@@ -27,7 +27,7 @@ const ProductCard = ({product})=>{
                         <h5 className="mb-3 text-truncate">
                             <Link
                             to={"/product/" + product.slug}
-                            className="text-dark"
+                            className="first-color text-capitalize"
                             >
                             {product.name}{" "}
                             </Link>

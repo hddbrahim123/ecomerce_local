@@ -13,8 +13,10 @@ import laptop from '../../../assets/images/laptop2.jpg'
 
 import Aos from 'aos'
 import 'aos/dist/aos.css' 
+import { isEmpty } from 'lodash';
+import ProductCard from '../productshoop/ProductCard';
 
-const Featured = ()=>{
+const Featured = ({FeuturedProducts})=>{
   var settings = {
     dots: true,
     infinite: true,
@@ -69,92 +71,13 @@ const Featured = ()=>{
                 
                 <div className="container-fluid px-lg-5">
                   <div className="row">
-                  {/* <Slider {...settings}> */}
-                    <div className="col-lg-3 col-md-4 col-sm-6">
-                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
-                      <span className="featured__offre">10%</span>  
-                      <img src={laptop} alt="name" width="100%" className="featured__img" />
-                      <span className="featured__name">Nike Jorden</span>
-                      <StarRatings
-                        rating={4}
-                        starRatedColor="#F1B44C"
-                        starEmptyColor="#2D363F"
-                        numberOfStars={5}
-                        name="rating"
-                        starDimension="14px"
-                        starSpacing="3px"
-                      />
-                      <span className="featured__price">$300</span>
-                      <Link to="#" className="featured__link">
-                          <span className="featured__name__link">Add to Cart</span>
-                          <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>  
-                     </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6">
-                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
-                      <span className="featured__offre">10%</span>  
-                      <img src={laptop} alt="name" width="100%" className="featured__img" />
-                      <span className="featured__name">Nike Jorden</span>
-                      <StarRatings
-                        rating={4}
-                        starRatedColor="#F1B44C"
-                        starEmptyColor="#2D363F"
-                        numberOfStars={5}
-                        name="rating"
-                        starDimension="14px"
-                        starSpacing="3px"
-                      />
-                      <span className="featured__price">$300</span>
-                      <Link to="#" className="featured__link">
-                          <span className="featured__name__link">Add to Cart</span>
-                          <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>  
-                     </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6">
-                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
-                      <span className="featured__offre">10%</span>  
-                      <img src={laptop} alt="name" width="100%" className="featured__img" />
-                      <span className="featured__name">Nike Jorden</span>
-                      <StarRatings
-                        rating={4}
-                        starRatedColor="#F1B44C"
-                        starEmptyColor="#2D363F"
-                        numberOfStars={5}
-                        name="rating"
-                        starDimension="14px"
-                        starSpacing="3px"
-                      />
-                      <span className="featured__price">$300</span>
-                      <Link to="#" className="featured__link">
-                          <span className="featured__name__link">Add to Cart</span>
-                          <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>  
-                     </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6">
-                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
-                      <span className="featured__offre">10%</span>  
-                      <img src={laptop} alt="name" width="100%" className="featured__img" />
-                      <span className="featured__name">Nike Jorden</span>
-                      <StarRatings
-                        rating={4}
-                        starRatedColor="#F1B44C"
-                        starEmptyColor="#2D363F"
-                        numberOfStars={5}
-                        name="rating"
-                        starDimension="14px"
-                        starSpacing="3px"
-                      />
-                      <span className="featured__price">$300</span>
-                      <Link to="#" className="featured__link">
-                          <span className="featured__name__link">Add to Cart</span>
-                          <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>  
-                     </div>
-                    </div>
-                  {/* </Slider> */}
+                  <Slider {...settings}>
+                      {!isEmpty(FeuturedProducts) && FeuturedProducts.map((product , i)=>(
+                          <div key={product.slug} className="col-lg-3">
+                              <ProductCard product={product} />
+                          </div>
+                      ))}
+                  </Slider>
                   </div>
                 </div>
               </div>  

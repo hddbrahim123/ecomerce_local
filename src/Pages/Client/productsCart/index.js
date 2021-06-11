@@ -33,7 +33,7 @@ const ProductsCart = ()=>{
     return (
         <React.Fragment>
         <CreateOrderModal isOpen={modal} toggle={toggleModal} />
-            <section className="bg-white p-lg-4">
+            <section className=" p-lg-4">
                 <div className="container-fluid">
                     <div className="row mx-lg-4">
                         <div className="col-lg-8">

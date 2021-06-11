@@ -54,15 +54,16 @@ const ProductDetails = (props)=>{
                      <div data-aos="fade-right" className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5">
                         <div className="gallery ">
                            <img src={product.images[index]} width="100%" alt="product" className="gallery__main__img mb-2"  />
-                           <div className="d-flex justify-content-between  small__img__group">
+                           <div className="d-flex justify-content-center">
                               {!isEmpty(product.images) && product.images.map((image , i)=>(
-                                 <div key={i} className="small__img__item ">
+                                 <div key={i} className="gallery__small__img m-1">
                                     <img 
                                        src={image} 
                                        alt={product.name}
                                        onClick={()=>handleImage(i)}
+                                       width="100%"
                                     />
-                                 </div>
+                                 </div>                                 
                               ))}                              
                            </div>
                         </div>
