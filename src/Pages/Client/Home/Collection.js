@@ -74,7 +74,7 @@ const Collection = ({categories})=>{
                         </div>
                         <img src={laptop} alt="name" className="collection__img" />
                     </div>
-                  ))}                
+                  ))}               
               </div>
             </section>
         </React.Fragment>
