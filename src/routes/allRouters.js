@@ -3,6 +3,7 @@ import { Redirect } from "react-router"
 //imports Client Pages
 import Home from "../Pages/Client/Home"
 import ProductDetails from "../Pages/Client/ProductDetails"
+import ProductsCart from "../Pages/Client/productsCart"
 import ProductsShop from "../Pages/Client/productshoop"
 
 //imports Seller Pages
@@ -19,6 +20,7 @@ const clientRoutes = [
     { path:'/' , component:Home},
     { path:'/products' , component: ProductsShop},
     { path:'/product/:slug' , component: ProductDetails},
+    { path:'/products/cart' , component: ProductsCart},
 ]
 
 const sellerRoutes = [

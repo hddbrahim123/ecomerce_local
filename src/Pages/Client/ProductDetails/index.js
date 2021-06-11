@@ -11,13 +11,25 @@ import 'aos/dist/aos.css'
 import { getProductDetailViewClient } from '../../../Core/ApiCore/ProductClient'
 import ReactHtmlParser from 'react-html-parser'; 
 import { isEmpty } from 'lodash'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../../store/action'
 
 const ProductDetails = (props)=>{
 
    const [product , setProduct] = useState({})
    const [index , setIndex] = useState(0)
 
+   const dispatch = useDispatch()
+
+
    const handleImage =(i)=>setIndex(i)
+
+   const addItemCart = (product)=>{
+      const { slug , name , newPrice , images } = product
+
+      dispatch(addToCart({ slug , name , newPrice , images}))
+      props.history.push('/products/cart')
+  }
 
    useEffect(() => {
       Aos.init({
@@ -41,7 +53,7 @@ const ProductDetails = (props)=>{
                   <div className="row main__card">
                      <div data-aos="fade-right" className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5">
                         <div className="gallery ">
-                           <img src={product.images[index]} alt="product" className="gallery__main__img mb-2"  />
+                           <img src={product.images[index]} width="100%" alt="product" className="gallery__main__img mb-2"  />
                            <div className="d-flex justify-content-between  small__img__group">
                               {!isEmpty(product.images) && product.images.map((image , i)=>(
                                  <div key={i} className="small__img__item ">
@@ -49,7 +61,6 @@ const ProductDetails = (props)=>{
                                        src={image} 
                                        alt={product.name}
                                        onClick={()=>handleImage(i)}
-                                       width="100px"
                                     />
                                  </div>
                               ))}                              
@@ -83,27 +94,33 @@ const ProductDetails = (props)=>{
                         
                            <p className="data__description">{ ReactHtmlParser (product.description)}</p>     
                         </div>
-
-                        <div className="size">
-                           <h2 className="size__title mb-4">Size</h2>
-                           <div className="size__content">
-                              <span className="size__tallas">
-                                 40
-                              </span>
-                              <span className="size__tallas active">
-                                 41
-                              </span>
-                              <span className="size__tallas">
-                                 42
-                              </span>
-                              <span className="size__tallas">
-                                 43
-                              </span>
-                           </div>  
-                     </div>
+                        {!isEmpty(product.size) && (
+                           <div className="size">
+                              <h2 className="size__title mb-4">Size</h2>
+                              <div className="size__content">
+                                 <span className="size__tallas">
+                                    40
+                                 </span>
+                                 <span className="size__tallas active">
+                                    41
+                                 </span>
+                                 <span className="size__tallas">
+                                    42
+                                 </span>
+                                 <span className="size__tallas">
+                                    43
+                                 </span>
+                              </div>  
+                           </div>
+                        )}
+                        
 
                      <div className="action   d-flex justify-content-between align-items-center">
-                        <Link to="#" className="action__addToCart text-center w-100 text-capitalize">Commander ici</Link>   
+                        <Link 
+                           to="#" 
+                           className="action__addToCart text-center w-100 text-capitalize"
+                           onClick={()=>{addItemCart(product)}}
+                        >Commander ici</Link>   
                      </div> 
                 </div>
                </div>

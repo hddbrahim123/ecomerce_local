@@ -21,17 +21,17 @@ const ReleatedProduct = ()=>{
           <section>
             <div className="releated">
               <h2 className="releated__title text-center">releated product</h2>
-              <div cl="container-fluid">
+              <div className="container-fluid">
                 <div className="row">
                   <div data-aos="fade-down" className="col-lg-4 ">
-                    <div className="row releated__box shadow">
+                    <div className="row releated__box shadow-sm">
                       <div className="col-lg-4">
                       <img src={new1} alt="name" className="releated__img" width="100%" />       
                       </div>
                       <div className="col-lg-8">
                         <div className="text-center text-md-left pt-4 ">
                           <h5 className="text-muted mb-3 text-truncate">
-                            <Link to="#" className="text-muted releated__name">
+                            <Link to="#" className="first-color releated__name">
                               Wirless Headphone
                             </Link>
                           </h5>
@@ -47,14 +47,14 @@ const ReleatedProduct = ()=>{
                     </div>  
                   </div>
                   <div data-aos="fade-down" className="col-lg-4 ">
-                    <div className="row releated__box shadow">
+                    <div className="row releated__box shadow-sm">
                       <div className="col-lg-4">
                       <img src={new1} alt="name" className="releated__img" width="100%" />       
                       </div>
                       <div className="col-lg-8">
                         <div className="text-center text-md-left pt-4 ">
                           <h5 className="mb-3 text-truncate">
-                            <Link to="#" className="text-muted releated__name">
+                            <Link to="#" className="first-color releated__name">
                               Wirless Headphone
                             </Link>
                           </h5>
@@ -70,14 +70,14 @@ const ReleatedProduct = ()=>{
                     </div>  
                   </div>
                   <div data-aos="fade-down" className="col-lg-4 ">
-                    <div className="row releated__box shadow">
+                    <div className="row releated__box shadow-sm">
                       <div className="col-lg-4">
                       <img src={new1} alt="name" className="releated__img" width="100%"/>       
                       </div>
                       <div className="col-lg-8">
                         <div className="text-center text-md-left pt-4 ">
                           <h5 className="mb-3 text-truncate">
-                            <Link to="#" className="text-muted releated__name">
+                            <Link to="#" className="first-color releated__name">
                               Wirless Headphone
                             </Link>
                           </h5>

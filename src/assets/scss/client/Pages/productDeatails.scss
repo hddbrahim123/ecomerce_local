@@ -8,9 +8,14 @@
 }
 
 .gallery{
-    .small__img__item{
-        flex-basis: 24%;
-        cursor: pointer;        
+    &__main__img{
+        width: 100% !important;
+        height: auto;
+    }
+}
+.small__img__item{
+    img{
+        width: 100% !important;
     }
 }
 .data{

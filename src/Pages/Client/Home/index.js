@@ -1,4 +1,5 @@
 import React from 'react'
+import Arrivals from './Arrivals'
 import Collection from './Collection'
 import Featured from './Featured'
 import Home from './Home'
@@ -10,6 +11,7 @@ const index = ()=>{
             <Home />
             <Featured />
             <Collection />
+            <Arrivals />
             <Offer />
         </React.Fragment>
     )

@@ -23,32 +23,16 @@ const Slide = ()=>{
 
     return (
         <React.Fragment>
-            <Slider {...settings}>
+            {/* <Slider {...settings}> */}
                 <div className="home__slide d-flex justify-content-between align-items-center p-lg-2" >
                     <div className="m-2">
-                        <h6 className="home__slide__title text-capitalize fw-bold fs-5  first-color  my-4">50% off  for your first shopping</h6>
-                        <p className="text-muted mb-3">Best Product With warranty Best Product</p>
+                        <h6 className="home__slide__title text-capitalize fw-bold fs-6  first-color  my-4">50% off  for your first shopping</h6>
+                        <p className="text-muted  mb-3">Best Product With warranty Best Product</p>
                         <Link className="home__slide__btn btn btn-primary py-2 px-2 my-4 border-0" to="products">Shoop Now</Link>
                     </div>
-                    <img src={laptop} alt="name" className="home__slide__img" width="180" />
+                    <img src={laptop} alt="name" className="home__slide__img" width="160px" />
                 </div>
-                <div className="home__slide d-flex justify-content-between align-items-center p-lg-2" >
-                    <div className="m-2">
-                        <h6 className="home__slide__title text-capitalize fw-bold fs-5  first-color  my-4">50% off  for your first shopping</h6>
-                        <p className="text-muted mb-3">Best Product With warranty Best Product</p>
-                        <Link className="home__slide__btn btn btn-primary py-2 px-2 my-4 border-0" to="products">Shoop Now</Link>
-                    </div>
-                    <img src={laptop} alt="name" className="home__slide__img" width="180" />
-                </div>
-                <div className="home__slide d-flex justify-content-between align-items-center p-lg-2" >
-                    <div className="m-2">
-                        <h6 className="home__slide__title text-capitalize fw-bold fs-5  first-color  my-4">50% off  for your first shopping</h6>
-                        <p className="text-muted mb-3">Best Product With warranty Best Product</p>
-                        <Link className="home__slide__btn btn btn-primary py-2 px-2 my-4 border-0" to="products">Shoop Now</Link>
-                    </div>
-                    <img src={laptop} alt="name" className="home__slide__img" width="180" />
-                </div>
-            </Slider>
+            {/* </Slider> */}
         </React.Fragment>
     )
 }

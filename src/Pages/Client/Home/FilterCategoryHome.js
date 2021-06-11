@@ -15,7 +15,7 @@ const FilterCategoryHome = ({categories})=>{
             <ul className="d-none d-lg-block">
                 {!isEmpty(categories) && categories.map((category , i)=>(
                     <li key={i} className="list-unstyled my-4">
-                        <Link to="#" className="text-muted my-4">
+                        <Link to="/products" className="text-muted my-4">
                             <img src={icon} alt={category.name} className="mx-1"  />
                             {" "}{category.name}
                             <img src={icone} alt={category.name} className="float-end" />

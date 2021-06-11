@@ -32,8 +32,12 @@ const Home = ()=>{
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-9 p-0">
-                  <Slide />
+                <div className="col-lg-9">
+                <div className="card my-4 shadow-sm">
+                  <div className="card-body">
+                    <Slide />
+                  </div>
+                </div>
                 </div>
               </div>
             </div>

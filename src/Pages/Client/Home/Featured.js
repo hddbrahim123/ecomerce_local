@@ -5,14 +5,53 @@ import { Link } from 'react-router-dom'
 import StarRatings from "react-star-ratings"
 
 
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import laptop from '../../../assets/images/laptop2.jpg'
 
 import Aos from 'aos'
 import 'aos/dist/aos.css' 
 
 const Featured = ()=>{
-
-
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 2000,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    cssEase: "linear",
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+};
 
   useEffect(() => {
     Aos.init({
@@ -30,6 +69,7 @@ const Featured = ()=>{
                 
                 <div className="container-fluid px-lg-5">
                   <div className="row">
+                  {/* <Slider {...settings}> */}
                     <div className="col-lg-3 col-md-4 col-sm-6">
                      <div data-aos="fade-down" className="featured__box shadow-sm"> 
                       <span className="featured__offre">10%</span>  
@@ -52,7 +92,7 @@ const Featured = ()=>{
                      </div>
                     </div>
                     <div className="col-lg-3 col-md-4 col-sm-6">
-                      <div data-aos="fade-down" className="featured__box shadow-sm"> 
+                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
                       <span className="featured__offre">10%</span>  
                       <img src={laptop} alt="name" width="100%" className="featured__img" />
                       <span className="featured__name">Nike Jorden</span>
@@ -69,11 +109,11 @@ const Featured = ()=>{
                       <Link to="#" className="featured__link">
                           <span className="featured__name__link">Add to Cart</span>
                           <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>
-                      </div>  
+                      </Link>  
+                     </div>
                     </div>
                     <div className="col-lg-3 col-md-4 col-sm-6">
-                      <div data-aos="fade-down" className="featured__box shadow-sm"> 
+                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
                       <span className="featured__offre">10%</span>  
                       <img src={laptop} alt="name" width="100%" className="featured__img" />
                       <span className="featured__name">Nike Jorden</span>
@@ -90,11 +130,11 @@ const Featured = ()=>{
                       <Link to="#" className="featured__link">
                           <span className="featured__name__link">Add to Cart</span>
                           <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>
-                      </div>  
+                      </Link>  
+                     </div>
                     </div>
                     <div className="col-lg-3 col-md-4 col-sm-6">
-                      <div data-aos="fade-down" className="featured__box"> 
+                     <div data-aos="fade-down" className="featured__box shadow-sm"> 
                       <span className="featured__offre">10%</span>  
                       <img src={laptop} alt="name" width="100%" className="featured__img" />
                       <span className="featured__name">Nike Jorden</span>
@@ -111,9 +151,10 @@ const Featured = ()=>{
                       <Link to="#" className="featured__link">
                           <span className="featured__name__link">Add to Cart</span>
                           <i className='bx bx-right-arrow-alt featured__icon'></i>
-                      </Link>
-                      </div>   
+                      </Link>  
+                     </div>
                     </div>
+                  {/* </Slider> */}
                   </div>
                 </div>
               </div>  
