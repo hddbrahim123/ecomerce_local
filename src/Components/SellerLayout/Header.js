@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import avatar from '../../assets/icons/avatar-1.jpg'
+import profile from '../../assets/icons/HDD.png'
 import { toggleLeftmenu } from '../../store/layout/actions'
 
 const Header = ()=>{
@@ -24,7 +25,7 @@ const Header = ()=>{
               <div className="head__toggle" onClick={()=> {dispatch(toggleLeftmenu(!isOpen))}}>
                 <div className="head__brand">
                    <i className='bx bxs-disc nav__icon' ></i>
-                   <span className="head__logo">hddbrahim</span>
+                   <span className="head__logo"><img src={profile} alt="name" width="100%"/></span>
                 </div>
 
                 {isOpen ? 

@@ -12,7 +12,12 @@ h1,h2,h3,p{
 .first-color{
     color: $first-color !important;
 }
-
+.bg-grey{
+    background-color: $text-color-light !important;
+}
+.bg-primary{
+    background-color: $first-color !important;
+}
 body{
     background-color: $body-color !important;
     overflow-x: hidden !important;
