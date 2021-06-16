@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-
 
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import { getCategories } from '../../../Core/ApiCore/Category'
 import FilterCategoryHome from './FilterCategoryHome'
 import Slide from './Slide'
-import icone from '../../../assets/images/icon-img/4.png'
 
 const Home = ()=>{
 
@@ -35,7 +32,7 @@ const Home = ()=>{
                 <div data-aos="fade-left" className="col-lg-9">
                 <div className="card my-4 shadow-sm">
                   <div className="card-body m-0 p-0">
-                    <Slide />
+                    <Slide  />
                   </div>
                 </div>
                 </div>

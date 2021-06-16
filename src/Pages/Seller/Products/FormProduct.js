@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
+
+import {Link} from "react-router-dom"
 
 //Import toastr
 import toastr from "toastr"
 import "toastr/build/toastr.min.css"
 
 //Import lodash
-import { isEmpty } from "lodash";
+import { isEmpty, uniqBy } from "lodash";
 import * as _ from "lodash"
 
 // Import Editor
@@ -15,12 +17,22 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
 import { getCategories } from "../../../Core/ApiCore/Category";
-import { SaveProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
+import { getProductViewSeller, RemoveImage, SaveProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
-//Upload Images
-import ImageUploader from 'react-images-upload';
 
-const CreateProduct = (props) => {
+
+import Breadcrumb from '../../../Components/Comon/Breadcrumb'
+
+import Dropzone from "react-dropzone"
+
+import {useDropzone} from 'react-dropzone';
+
+
+
+
+
+
+const FormProduct = (props) => {
 
   //handle product
   const [product , setProduct] = useState({
@@ -34,6 +46,8 @@ const CreateProduct = (props) => {
     "metaKeywords": "Half sleeve T-shirt",
     "metaDescription": "Half sleeve "
   })
+  const [productEdit , setProductEdit] = useState({})
+
 
   //handle Editor description
   const [descriptionState, setdescriptionState] = useState(EditorState.createEmpty())
@@ -55,52 +69,93 @@ const CreateProduct = (props) => {
 
 
   const handleProduct = (e) => setProduct({...product ,[e.target.id]:e.target.value })
+  const handleProductEdit = (e) => setProductEdit({...productEdit ,[e.target.id]:e.target.value })
 
   //categories
   const [categories , setCategories] = useState([])
 
+
+
+
+
   //handle Image
-  const [formData] = useState(new FormData())
+  var formData = new FormData();
 
-  const onDrop = pictures => {
-    _.forEach(pictures, picture =>{
-      formData.append("photos", picture)
-    })
-    console.log(formData.getAll('photos'))
-  };
+  // const [files, setFiles] = useState([]);
 
+  const [files, setFiles] = useState([]);
+
+  const {getRootProps, getInputProps} = useDropzone({
+    accept: 'image/*',
+    onDrop: acceptedFiles => {
+      setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })));
+      // acceptedFiles.map(file=>{
+      //   formData.append("photos", file)
+      // })
+      console.log('files',files)
+    }
+  });
 
 
   const submitProduct = (e)=>{
     e.preventDefault()
+
     product.Description =  description
     product.Specification =  specification
+
+    
+
     SaveProduct(product)
       .then(res=>{
         if(res.success){
           const slug = res.data.slug
-          console.log('slug', slug)
+
+          files.map(file=>{
+            formData.append("photos", file)
+          })
+          console.log('form',formData.getAll('photos'))
+
           UploadImage(slug,formData)
             .then(res=>console.log(res))
 
           toastr.options.progressBar=true
           toastr.success("Product Created SuccessFully", "Created")
-          props.history.push("/seller/products")
+          props.history.push(`/seller/product/${slug}`)
 
         }else{
           toastr.error("", "Error")
         }
       })
-    console.log(product)
   }
 
+  const deleteImage = (slug)=>{
+    RemoveImage(slug)
+      .then(res=>{
+        console.log(res)
+        // let imageList = productEdit.images
+        // imageList = imageList.filter(image => image.slug !== slug )
+      })
+  }
   useEffect(() => {
+    
+    const slug = props.match.params.slug
+    if(slug){
+      getProductViewSeller(slug)
+        .then(res=>{
+          setProductEdit(res)
+          console.log('edit',productEdit)
+        })
+    }
+
     getCategories()
       .then(res=>setCategories(res))
   }, [])
 
   return (
     <React.Fragment>
+       <Breadcrumb item="Produits" link="/seller/products" title={!isEmpty(productEdit) ? "Edit produit" : "ajouter produit"} />
         <form onSubmit={submitProduct}>
           <div className="card">
             <div className="card-body">
@@ -113,8 +168,8 @@ const CreateProduct = (props) => {
                         type="text" 
                         className="form-control" 
                         placeholder="Name..." 
-                        value={product.name}
-                        onChange={handleProduct}
+                        value={!isEmpty(productEdit)  ? productEdit.name : product.name}
+                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                       />
                     </div>
                   </div>
@@ -124,9 +179,9 @@ const CreateProduct = (props) => {
                       <select 
                         id="categoryId" 
                         className="form-select"
-                        onChange={handleProduct}
+                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
+                        value={!isEmpty(productEdit) ?  productEdit.categoryId  : product.categoryId }
                       >
-                        <option>Select category</option>
                         {!isEmpty(categories) && categories.map((category , i)=>(
                           <option key={i} value={category.id}>{category.name}</option>
                         ))}
@@ -143,8 +198,8 @@ const CreateProduct = (props) => {
                         type="number" 
                         className="form-control" 
                         placeholder="old Price ..."
-                        value={product.oldPrice}
-                        onChange={handleProduct}
+                        value={!isEmpty(productEdit) ?  productEdit.oldPrice  : product.oldPrice }
+                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                       />
                     </div>
                   </div>
@@ -156,8 +211,8 @@ const CreateProduct = (props) => {
                         type="number"
                         className="form-control"
                         placeholder="New Price"
-                        value={product.newPrice}
-                        onChange={handleProduct}
+                        value={!isEmpty(productEdit) ?  productEdit.newPrice  : product.newPrice }
+                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                       />
                     </div>
                   </div>  
@@ -171,8 +226,8 @@ const CreateProduct = (props) => {
                         type="number"
                         className="form-control"
                         placeholder="Quantity..."
-                        value={product.quantity}
-                        onChange={handleProduct}
+                        value={!isEmpty(productEdit) ?  productEdit.quantity  : product.quantity }
+                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                       />
                     </div>
                   </div>
@@ -212,15 +267,40 @@ const CreateProduct = (props) => {
 
           <div className="card mt-4">
             <div className="card-body">
-            <ImageUploader
-              withIcon={true}
-              withPreview={true}
-              onChange={onDrop}
-              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-              maxFileSize={5242880}
-            />
+            <section className="container">
+              <div {...getRootProps({className: 'dropzone'})}>
+                <input {...getInputProps()} />
+                <div className="d-flex flex-column align-items-center mt-5 justify-content-center">
+                  <div className="mb-3">
+                      <i className="display-4 text-muted bx bxs-cloud-upload" />
+                  </div>
+                  <p className="text-capitalize">Drag or Upload Images</p>
+                </div>
+              </div>
+              <div className="card-body d-flex justify-content-center align-items-center m-4 border-2 ">
+                {!isEmpty(files) && files.map((image , i)=>(
+                  <div key={i} className="position-relative m-2">
+                    <span className="featured__offre">X</span>
+                    <img src={image.preview} alt={productEdit.name} width="150px"  />
+                  </div>
+                ))}                
+              </div>
+            </section>
             </div>
           </div>
+
+          {!isEmpty(productEdit.images) && (
+            <div className="card mt-4">
+              <div className="card-body d-flex justify-content-center align-items-center m-4 border-2 ">
+                {!isEmpty(productEdit.images) && productEdit.images.map((image , i)=>(
+                  <div key={i} className="position-relative m-2">
+                    <span className="featured__offre">X</span>
+                    <img src={image} alt={productEdit.name} width="200px"  />
+                  </div>
+                ))}                
+              </div>
+            </div>
+          )}
           
           <div className="card mt-4">
             <div className="card-body">
@@ -232,8 +312,8 @@ const CreateProduct = (props) => {
                       id="metaTitle"
                       className="form-control"
                       placeholder="Meta Title..."
-                      value={product.metaTitle}
-                      onChange={handleProduct}
+                      value={!isEmpty(productEdit) ?  productEdit.metaTitle  : product.metaTitle }
+                      onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                     />
                   </div>
                   <div className="mb-3">
@@ -242,8 +322,8 @@ const CreateProduct = (props) => {
                       id="metaKeywords"
                       className="form-control"
                       placeholder="Meta Keywords..."
-                      value={product.metaKeywords}
-                      onChange={handleProduct}
+                      value={!isEmpty(productEdit) ?  productEdit.metaKeywords  : product.metaKeywords }
+                      onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                     />
                   </div>
                 </div>
@@ -255,8 +335,8 @@ const CreateProduct = (props) => {
                       className="form-control" 
                       placeholder="meta description..."
                       rows="5"
-                      onChange={handleProduct}
-                      defaultValue={product.metaDescription}
+                      onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
+                      value={!isEmpty(productEdit) ?  productEdit.Description  : product.metaDescription }
                       >
                     </textarea>
                   </div>
@@ -267,7 +347,7 @@ const CreateProduct = (props) => {
 
           <div className="card mt-4">
             <div className="card-body">
-              <button type="submit" className="btn btn-primary w-100" >Save Product</button>
+              <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? "modifier le produit"  : "engegistr le produit" }</button>
             </div>
           </div>
 
@@ -276,4 +356,4 @@ const CreateProduct = (props) => {
   )
 }
 
-export default CreateProduct
+export default FormProduct

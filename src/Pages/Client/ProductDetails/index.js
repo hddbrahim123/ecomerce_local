@@ -8,7 +8,7 @@ import ReleatedProduct from './Releated'
 
 import Aos from 'aos'
 import 'aos/dist/aos.css' 
-import { getProductDetailViewClient } from '../../../Core/ApiCore/ProductClient'
+import { getProductDetailViewClient, getRelatedProducts } from '../../../Core/ApiCore/ProductClient'
 import ReactHtmlParser from 'react-html-parser'; 
 import { isEmpty } from 'lodash'
 import { useDispatch } from 'react-redux'
@@ -17,6 +17,8 @@ import { addToCart } from '../../../store/action'
 const ProductDetails = (props)=>{
 
    const [product , setProduct] = useState({})
+   const [releatedProducts , setReleatedProducts] = useState([])
+   
    const [index , setIndex] = useState(0)
 
    const dispatch = useDispatch()
@@ -40,6 +42,9 @@ const ProductDetails = (props)=>{
 
       getProductDetailViewClient(slug)
          .then(res=>setProduct(res))
+
+      getRelatedProducts(slug , parseInt(3))
+         .then(res=>setReleatedProducts(res))
   }, [])
 
     return (
@@ -150,7 +155,7 @@ const ProductDetails = (props)=>{
        
        </section>
        <section>
-         <ReleatedProduct />
+         <ReleatedProduct ReleatedProducts={releatedProducts} />
        </section>
        </React.Fragment>
     )

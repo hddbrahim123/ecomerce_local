@@ -2,16 +2,16 @@ import isAuthSeller from "../helpers/isAuthSeller"
 import { API_URL } from "../../config"
 
 
-export const getProductsSeller = ()=>{
+export const getProductsSeller = (filters)=>{
     const {token} = isAuthSeller().data
-    return fetch(`${API_URL}/Admin/GetProductsView`,{
+    return fetch(`${API_URL}/Admin/GetProductsViewPage`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },
-        body:JSON.stringify({})
+        body:JSON.stringify(filters)
 
     })
     .then(res=>res.json())
@@ -60,5 +60,33 @@ export const UploadImage = (slug , images)=>{
         body:images
     })
     .then()
+    .catch(err=>console.error(err))
+}
+
+export const RemoveProduct = (slug)=>{
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Admin/RemoveProduct?slug=${slug}`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({})
+    })
+    .then(res=>res.json())
+    .catch(err=>console.error(err))
+}
+
+export const RemoveImage = (slug)=>{
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Admin/RemoveImage?slug=${slug}`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({})
+    })
+    .then(res=>res.json())
     .catch(err=>console.error(err))
 }

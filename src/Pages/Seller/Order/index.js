@@ -8,6 +8,8 @@ import { isEmpty } from "lodash";
 import { getOrders } from "../../../Core/ApiCore/Order";
 import moment from "moment";
 
+import Paginate from '../../../Components/Comon/Paginate'
+
 
 const Orders = props => {
 
@@ -29,7 +31,7 @@ const Orders = props => {
 
       <div className="container-fluid">
         <div className="row">
-         <div className="table-rep-plugin ">
+          <div className="table-rep-plugin ">
           <div
             className="table-responsive mb-0"
             data-pattern="priority-columns"
@@ -73,6 +75,7 @@ const Orders = props => {
             </Table>
           </div>
         </div>
+          
         </div>
        </div>                   
    </React.Fragment>

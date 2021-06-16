@@ -6,20 +6,55 @@ import FilterCategory from './FilterCategory'
 import FilterPrice from './FilterPrice'
 import ProductCard from './ProductCard'
 
+import Paginate from '../../../Components/Comon/Paginate'
+
+
 const ProductsShop = ()=>{
 
     const [categories, setCategories] = useState([])
     const [products, setProducts] = useState([])
 
+    //State Pagination
+    const [pagination , setPagination] = useState({
+        pageNumber:1,
+        totalPage:10
+    })
+
+    const [filters, setFilters] = useState({
+        pageNumber: 1,
+        length:15,
+    })
+
+    //Handle Page click
+    const onPageChange = (newPage)=>{
+        setFilters({
+        ...filters,
+        pageNumber:newPage
+    })}
+
+
     useEffect(() => {
         getCategories()
             .then(res=>setCategories(res))
         
-            getProductsViewClient()
-                .then(res=>{
-                    console.log(res)
-                    setProducts(res)})
+            
     }, [])
+    useEffect(() => {
+            getProductsViewClient(filters)
+                .then(res=>{
+                    setProducts(res.list)
+
+                    setPagination({
+                        ...pagination,
+                        pageNumber:res.pageNumber,
+                        totalPage:res.totalPage
+                      })
+
+                    console.log(res)
+                })
+    
+      }, [filters])
+    
     return (
         <React.Fragment>
             <div className="container-fluid vh-100 pt-2 p-lg-4">
@@ -44,6 +79,7 @@ const ProductsShop = ()=>{
                                 </div>
                             ))}
                         </div>
+                        <Paginate pagination={pagination} onPageChange={onPageChange}  className="justify-content-center"/>
                     </div>
                 </div>
             </div>

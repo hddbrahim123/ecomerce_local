@@ -14,7 +14,7 @@ import CreateCateory from "../Pages/Seller/category/Create"
 import Orders from "../Pages/Seller/Order"
 import OrderView from "../Pages/Seller/Order/OrderView"
 import Products from "../Pages/Seller/Products"
-import CreateProduct from "../Pages/Seller/Products/Create"
+import FormProduct from "../Pages/Seller/Products/FormProduct"
 import SellerProductDetails from "../Pages/Seller/Products/ProductDetails"
 
 const clientRoutes = [
@@ -31,10 +31,11 @@ const sellerRoutes = [
     { path:'/seller/categories/create' , component: CreateCateory },
 
 
-    { path:'/seller/products/create' , component: CreateProduct },
     { path:'/seller/products' , component: Products },
     { path:'/seller/product/:slug' , component: SellerProductDetails },
-
+    { path:'/seller/products/create' , component: FormProduct },
+    { path:'/seller/product/edit/:slug' , component: FormProduct },
+    
     { path:'/seller/orders' , component: Orders },
     { path:'/seller/order/:slug' , component: OrderView },
 

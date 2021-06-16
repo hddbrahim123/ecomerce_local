@@ -1,7 +1,8 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
-import {Link} from "react-router-dom"
-const Offre = ({products})=>{
+import { Link , withRouter } from 'react-router-dom'
+
+const TopSale = ({productsTopSale})=>{
     return (
         <React.Fragment>
             <section>
@@ -11,8 +12,8 @@ const Offre = ({products})=>{
                             <div className="card shadow-sm mx-lg-5">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h4 className="">Le meilleur de nos boutiques officielles | Jusqu'à -25%</h4>
-                                        {!isEmpty(products) && products.map((product,i)=>(
+                                        <h4 className="text-capitalize">Top Sale</h4>
+                                        {!isEmpty(productsTopSale) && productsTopSale.map((product,i)=>(
                                             <div key={i} className="col-lg-2">
                                                 <div className="text-center m-2">
                                                     <img src={product.image} alt="name" width="100%" className="" />
@@ -40,4 +41,4 @@ const Offre = ({products})=>{
     )
 }
 
-export default Offre
+export default withRouter(TopSale)

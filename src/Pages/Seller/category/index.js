@@ -9,11 +9,13 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import { Link } from 'react-router-dom'
 
+import Paginate from '../../../Components/Comon/Paginate'
 
 const Category = ()=>{
 
   const [categories , setCategories] = useState([])
 
+  
   useEffect(() => {
     getCategories()
       .then(res=>{
@@ -26,7 +28,7 @@ const Category = ()=>{
       <React.Fragment>
         <div className="container-fluid">
         <div className="row">
-         <div className="table-rep-plugin ">
+          <div className="table-rep-plugin ">
           <div
             className="table-responsive mb-0"
             data-pattern="priority-columns"
@@ -72,7 +74,7 @@ const Category = ()=>{
               </Tbody>
             </Table>
           </div>
-        </div>
+        </div>           
         </div>
        </div>
       </React.Fragment>

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import Slider from 'react-slick'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 import laptop from '../../../assets/images/laptop2.jpg'
 import { Link } from 'react-router-dom';
@@ -13,17 +10,6 @@ const Slide = ()=>{
 
     const [slideProduct , setSlideProduct] = useState({})
 
-    var settings = {
-        dots: true,
-        infinite: true,
-        speed: 2000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        cssEase: "linear",
-        pauseOnHover: true,
-    };
 
     useEffect(() => {
         setSlideProduct(slide)
@@ -31,7 +17,6 @@ const Slide = ()=>{
 
     return (
         <React.Fragment>
-            {/* <Slider {...settings}> */}
             {!isEmpty(slideProduct) && (
                 <div className="home__slide d-flex justify-content-between align-items-center p-lg-2" >
                     <div className="m-2">
@@ -42,8 +27,6 @@ const Slide = ()=>{
                     <img src={laptop} alt={slideProduct.title} className="home__slide__img" width="160px" />
                 </div>
             )}
-                
-            {/* </Slider> */}
         </React.Fragment>
     )
 }

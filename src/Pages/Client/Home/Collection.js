@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 import laptop from '../../../assets/images/laptop2.jpg'
 
-import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -12,46 +11,6 @@ import 'aos/dist/aos.css'
 import { isEmpty } from 'lodash'
 
 const Collection = ({categories})=>{
-
-
-
-    var settings = {
-        dots: true,
-        infinite: true,
-        speed: 2000,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        cssEase: "linear",
-        pauseOnHover: true,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              initialSlide: 2
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-        ]
-    };
 
     useEffect(() => {
         Aos.init({
@@ -64,7 +23,7 @@ const Collection = ({categories})=>{
             <section>
               <div className="container-fluid collection mb-5">
                   {!isEmpty(categories) && categories.map((category,i)=>(
-                    <div  data-aos="fade-down" className="collection__box shadow-sm">
+                    <div key={i} data-aos="fade-down" className="collection__box shadow-sm">
                         <div className="collection__data">
                             <p className="collection__title fs-6 mb-2">{category.name} </p>
                             <Link to="/products" className="collection__link">
