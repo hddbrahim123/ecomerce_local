@@ -17,6 +17,23 @@ export const getOrders = ()=>{
     .catch(err=>console.error(err))
 }
 
+export const GetOrderDetailsView = (orderNumber)=>{
+    const {token} = isAuthSeller().data
+    return fetch(`${API_URL}/Admin/GetOrderView?orderNumber=${orderNumber}`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({})
+
+    })
+    .then(res=>res.json())
+    .then(res=>res)
+    .catch(err=>console.error(err))
+}
+
 export const createOrder = (order)=>{
     return fetch(`${API_URL}/User/CreateOrder`,{
         method:"POST",

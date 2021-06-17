@@ -15,9 +15,9 @@ const CreateOrderModal = (props)=>{
     let totalQty = useSelector(state => state.Cart.count)
 
     const [order , setOrder] = useState({
-        "firstName": "string",
+        "fullName": "string",
         "lastName": "string",
-        "phone": 0,
+        "phone": "string",
         "address": "string",
         "ordersNote": "string",
     })
@@ -32,6 +32,7 @@ const CreateOrderModal = (props)=>{
         order.totalAmount = TotalPrice(products)
         order.items = products
         order.totalQty = totalQty
+        console.log(order)
 
         createOrder(order)
           .then(res=>{
@@ -39,7 +40,8 @@ const CreateOrderModal = (props)=>{
 
               toastr.options.progressBar=true
               toastr.success("Order Created SuccessFully", "Created SuccessFully")
-              props.history.push("/seller/orders")
+              localStorage.removeItem("cart")
+              props.history.push("/products")
 
             }else{
               toastr.options.progressBar=true
@@ -66,43 +68,23 @@ const CreateOrderModal = (props)=>{
           <ModalBody>
             <form>
             <Row>
-            <Col md="6">
-
-              <FormGroup className="mb-4 px-2" row>
-                <Label
-                htmlFor="firstName"
-                className="form-label"
-                >
-                  first Name
-                </Label>
-                <Input
-                    type="text"
-                    className="form-control"
-                    id="firstName"
-                    placeholder="Enter your name"
-                    onChange={handleOrder}
-                />
-                </FormGroup>
-                </Col>
-                <Col md="6">
-
                 <FormGroup className="mb-4 px-2" row>
-
                 <Label
-                    htmlFor="lastName"
+                    htmlFor="fullName"
                     className="form-label"
                     >
-                    last Name
+                    fullName
                 </Label>
+                <Col md={12}>
                 <Input
                     type="text"
                     className="form-control"
-                    id="lastName"
+                    id="fullName"
                     placeholder="Enter your name"
                     onChange={handleOrder}
                 />
+                </Col>
               </FormGroup>
-              </Col>
               </Row>
               <FormGroup className="mb-4" row>
                 <Label

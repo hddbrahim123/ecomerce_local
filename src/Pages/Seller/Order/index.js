@@ -19,6 +19,7 @@ const Orders = props => {
     getOrders()
       .then(res=>{
         setOrders(res)
+        console.log(res)
       })
     
   }, [])

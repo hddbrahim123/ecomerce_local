@@ -37,7 +37,7 @@ const sellerRoutes = [
     { path:'/seller/product/edit/:slug' , component: FormProduct },
     
     { path:'/seller/orders' , component: Orders },
-    { path:'/seller/order/:slug' , component: OrderView },
+    { path:'/seller/order/:orderNumber' , component: OrderView },
 
   { path: "/seller", exact: true, component: () => <Redirect to="/seller/dashboard" /> },
 

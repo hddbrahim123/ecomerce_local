@@ -17,18 +17,47 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
 import { getCategories } from "../../../Core/ApiCore/Category";
-import { getProductViewSeller, RemoveImage, SaveProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
+import { getProductViewEditSeller,  RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
 
 
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
 
-import Dropzone from "react-dropzone"
 
 import {useDropzone} from 'react-dropzone';
 
 
 
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16
+};
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+  marginRight: 8,
+  width: 200,
+  height: 200,
+  padding: 4,
+  boxSizing: 'border-box'
+};
+
+const thumbInner = {
+  display: 'flex',
+  minWidth: 0,
+  overflow: 'hidden'
+};
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%'
+};
 
 
 
@@ -47,6 +76,7 @@ const FormProduct = (props) => {
     "metaDescription": "Half sleeve "
   })
   const [productEdit , setProductEdit] = useState({})
+  const [imagesEdit , setImagesEdit] = useState([])
 
 
   //handle Editor description
@@ -105,7 +135,6 @@ const FormProduct = (props) => {
     product.Description =  description
     product.Specification =  specification
 
-    
 
     SaveProduct(product)
       .then(res=>{
@@ -129,23 +158,66 @@ const FormProduct = (props) => {
         }
       })
   }
+  
+  const submitUpdateProduct = (e)=>{
+    e.preventDefault()
 
-  const deleteImage = (slug)=>{
-    RemoveImage(slug)
+    productEdit.Description =  description
+    productEdit.Specification =  specification
+    productEdit.images =  undefined
+
+
+    
+    console.log("edit",productEdit)
+
+    UpdateProduct(productEdit)
       .then(res=>{
-        console.log(res)
-        // let imageList = productEdit.images
-        // imageList = imageList.filter(image => image.slug !== slug )
+        if(res.success){
+          const slug = res.data.slug
+          if(!isEmpty(files)) {
+            console.log(files)
+            files.map(file=>{
+              formData.append("photos", file)
+            })
+            UploadImage(slug,formData)
+              .then(res=>console.log(res))
+          }
+         
+
+          toastr.options.progressBar=true
+          toastr.success("Product Updated SuccessFully", "Updated")
+          props.history.push(`/seller/product/${slug}`)
+
+        }else{
+          toastr.error("", "Error")
+        }
       })
+  }
+  
+  const deleteImage = (imageGuid)=>{
+    console.log(imageGuid)
+    RemoveImage(imageGuid)
+      .then(res=>{
+       if(res.success){
+        console.log(res)
+          let imagesList = imagesEdit
+          imagesList = imagesList.filter(image=> image.imageGuid !== imageGuid)
+          setImagesEdit(imagesList) 
+       }
+        console.log(res)
+      })
+    
+    
   }
   useEffect(() => {
     
     const slug = props.match.params.slug
     if(slug){
-      getProductViewSeller(slug)
+      getProductViewEditSeller(slug)
         .then(res=>{
           setProductEdit(res)
-          console.log('edit',productEdit)
+          setImagesEdit(res.images)
+          console.log(res)
         })
     }
 
@@ -156,7 +228,7 @@ const FormProduct = (props) => {
   return (
     <React.Fragment>
        <Breadcrumb item="Produits" link="/seller/products" title={!isEmpty(productEdit) ? "Edit produit" : "ajouter produit"} />
-        <form onSubmit={submitProduct}>
+        <form onSubmit={!isEmpty(productEdit) ? submitUpdateProduct :  submitProduct}>
           <div className="card">
             <div className="card-body">
                 <div className="row">
@@ -277,26 +349,35 @@ const FormProduct = (props) => {
                   <p className="text-capitalize">Drag or Upload Images</p>
                 </div>
               </div>
-              <div className="card-body d-flex justify-content-center align-items-center m-4 border-2 ">
+              <div className="card-body" style={thumbsContainer}>
                 {!isEmpty(files) && files.map((image , i)=>(
-                  <div key={i} className="position-relative m-2">
-                    <span className="featured__offre">X</span>
-                    <img src={image.preview} alt={productEdit.name} width="150px"  />
+                  <div style={thumb} key={i}>
+                  <div style={thumbInner}>
+                    <img
+                      src={image.preview}
+                      style={img}
+                    />
                   </div>
+                </div>
                 ))}                
               </div>
             </section>
             </div>
           </div>
 
-          {!isEmpty(productEdit.images) && (
-            <div className="card mt-4">
-              <div className="card-body d-flex justify-content-center align-items-center m-4 border-2 ">
-                {!isEmpty(productEdit.images) && productEdit.images.map((image , i)=>(
-                  <div key={i} className="position-relative m-2">
-                    <span className="featured__offre">X</span>
-                    <img src={image} alt={productEdit.name} width="200px"  />
+          {!isEmpty(imagesEdit) && (
+            <div  className="card mt-4">
+              <div className="card-body" style={thumbsContainer}>
+                {!isEmpty(imagesEdit) && imagesEdit.map((image , i)=>(
+                  <div style={thumb} key={i} className="position-relative">
+                  <div style={thumbInner}>
+                  <span onClick={()=>deleteImage(image.imageGuid)} style={{cursor : "pointer"}}  className="featured__offre">X</span>
+                    <img
+                      src={image.image}
+                      style={img}
+                    />
                   </div>
+                </div>
                 ))}                
               </div>
             </div>

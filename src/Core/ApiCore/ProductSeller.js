@@ -36,9 +36,40 @@ export const getProductViewSeller = (slug)=>{
     .catch(err=>console.error(err))
 }
 
+export const getProductViewEditSeller = (slug)=>{
+    const {token} = isAuthSeller().data
+    return fetch(`${API_URL}/Admin/GetProductEdit?slug=${slug}`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({})
+
+    })
+    .then(res=>res.json())
+    .then(res=>res)
+    .catch(err=>console.error(err))
+}
+
 export const SaveProduct = (product)=>{
     const { token } = isAuthSeller().data
     return fetch(`${API_URL}/Admin/CreateProduct`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify(product)
+    })
+    .then(res=>res.json())
+    .catch(err=>console.error(err))
+}
+
+export const UpdateProduct = (product)=>{
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Admin/UpdateProduct`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
