@@ -19,13 +19,11 @@ export const createCategory = (category)=>{
 }
 
 export const getCategories = ()=>{
-    const {token} = isAuthSeller().data
     return fetch(`${API_URL}/Category/GetCategories`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
             "Content-Type":"application/json",
-            "Authorization":`Bearer ${token}`
         }
     })
     .then(res=>res.json())

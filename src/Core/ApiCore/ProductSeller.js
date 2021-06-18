@@ -108,9 +108,9 @@ export const RemoveProduct = (slug)=>{
     .catch(err=>console.error(err))
 }
 
-export const RemoveImage = (slug)=>{
+export const RemoveImage = (imageGuid)=>{
     const { token } = isAuthSeller().data
-    return fetch(`${API_URL}/Admin/RemoveImage?slug=${slug}`,{
+    return fetch(`${API_URL}/Admin/RemoveImage?imageGuid=${imageGuid}`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
