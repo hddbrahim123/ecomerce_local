@@ -28,7 +28,8 @@ const SellerProductDetails = (props)=>{
       let slug = props.match.params.slug
 
       getProductViewSeller(slug)
-         .then(res=>setProduct(res))
+         .then(res=>{setProduct(res)
+         console.log(res)})
   }, [])
 
     return (

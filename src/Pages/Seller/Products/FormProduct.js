@@ -20,6 +20,8 @@ import { getCategories } from "../../../Core/ApiCore/Category";
 import { getProductViewEditSeller,  RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
 
@@ -71,6 +73,8 @@ const FormProduct = (props) => {
     "oldPrice": 300,
     "newPrice": 250,
     "quantity": 100,
+    "description": "description",
+    "specification": "Specification",
     "metaTitle": "Half sleeve T-shirt",
     "metaKeywords": "Half sleeve T-shirt",
     "metaDescription": "Half sleeve "
@@ -78,26 +82,36 @@ const FormProduct = (props) => {
   const [productEdit , setProductEdit] = useState({})
   const [imagesEdit , setImagesEdit] = useState([])
 
-
-  //handle Editor description
-  const [descriptionState, setdescriptionState] = useState(EditorState.createEmpty())
-  const [description, setdescription] = useState()
-
-  const onEditorStateDescriptionChange = (descriptionState)=>{
-    setdescriptionState(descriptionState)
-    setdescription(draftToHtml(convertToRaw(descriptionState.getCurrentContent())))
+  const handleDescription = e => {
+    setProduct({
+      ...product ,
+      description:e
+    })
+    console.log('des  :',product.description)
+  }
+  const handleEditDescription = e => {
+    setProductEdit({
+      ...productEdit ,
+      description:e
+    })
+    console.log('des  :',product.description)
   }
 
-  //handle Editor specification
-  const [specificationState, setSpecificationState] = useState(EditorState.createEmpty())
-  const [specification, setSpecification] = useState()
-
-  const onEditorStateSpecificationChange = (specificationState)=>{
-    setSpecificationState(specificationState)
-    setSpecification(draftToHtml(convertToRaw(specificationState.getCurrentContent())))
+  
+  const handleSpecification = (e)=>{
+    setProduct({
+      ...product ,
+      specification:e
+    })
+    console.log('spe  :',product.specification)
   }
-
-
+  const handleEditSpecification = (e)=>{
+    setProductEdit({
+      ...productEdit ,
+      specification:e
+    })
+    console.log('spe  :',product.specification)
+  }
   const handleProduct = (e) => setProduct({...product ,[e.target.id]:e.target.value })
   const handleProductEdit = (e) => setProductEdit({...productEdit ,[e.target.id]:e.target.value })
 
@@ -121,9 +135,6 @@ const FormProduct = (props) => {
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
-      // acceptedFiles.map(file=>{
-      //   formData.append("photos", file)
-      // })
       console.log('files',files)
     }
   });
@@ -132,9 +143,7 @@ const FormProduct = (props) => {
   const submitProduct = (e)=>{
     e.preventDefault()
 
-    product.Description =  description
-    product.Specification =  specification
-
+    console.log(product)
 
     SaveProduct(product)
       .then(res=>{
@@ -161,14 +170,8 @@ const FormProduct = (props) => {
   
   const submitUpdateProduct = (e)=>{
     e.preventDefault()
-
-    productEdit.Description =  description
-    productEdit.Specification =  specification
-    productEdit.images =  undefined
-
-
     
-    console.log("edit",productEdit)
+    productEdit.images = undefined
 
     UpdateProduct(productEdit)
       .then(res=>{
@@ -308,13 +311,10 @@ const FormProduct = (props) => {
                   <div className="col-lg-12">
                     <div className="mb-3">
                       <label htmlFor="Description" className="form-label">Description</label>
-                      <Editor
-                        wrapperClassName="wrapper-class"
-                        editorClassName="editor-class"
-                        toolbarClassName="toolbar-class"                        
-                        placeholder="Description ..."
-                        editorState={descriptionState}
-                        onEditorStateChange={onEditorStateDescriptionChange}
+                      <ReactQuill 
+                        theme="snow" 
+                        value={!isEmpty(productEdit) ?  productEdit.description  : product.description }
+                        onChange={!isEmpty(productEdit) ? (e)=>handleEditDescription(e) : (e)=>handleDescription(e) }
                       />
                     </div>
                   </div>
@@ -323,13 +323,10 @@ const FormProduct = (props) => {
                   <div className="col-lg-12">
                     <div className="mb-3">
                       <label htmlFor="Specification" className="form-label">Specification</label>
-                      <Editor
-                        toolbarClassName="toolbar-class"
-                        wrapperClassName="wrapper-class"
-                        editorClassName="editor-class"
-                        placeholder="specification ..."
-                        editorState={specificationState}
-                        onEditorStateChange={onEditorStateSpecificationChange}
+                      <ReactQuill 
+                        theme="snow" 
+                        value={!isEmpty(productEdit) ?  productEdit.specification  : product.specification }
+                        onChange={!isEmpty(productEdit) ? (e)=>handleEditSpecification(e) : (e)=>handleSpecification(e) }
                       />
                     </div>
                   </div>
