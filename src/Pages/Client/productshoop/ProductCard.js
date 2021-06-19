@@ -1,14 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, withRouter } from 'react-router-dom'
 
 
 //Import Star Ratings
 import StarRatings from "react-star-ratings"
 
-const ProductCard = ({product})=>{
+const ProductCard = (props)=>{
+    const {product , history} = props
+    
     return (
         <React.Fragment>
-            <div className="card m-2 mb-4 shadow-sm">
+            <div 
+                onClick={() =>
+                    history.push(`/product/${product.slug}`)
+                }
+                className="card m-2 mb-4 shadow-sm" style={{cursor:"pointer"}}>
                 <div className="card-body">
                     <div className="product-img position-relative">
                         {product.isOffer ? (
@@ -56,4 +62,4 @@ const ProductCard = ({product})=>{
     )
 }
 
-export default ProductCard
+export default withRouter(ProductCard)

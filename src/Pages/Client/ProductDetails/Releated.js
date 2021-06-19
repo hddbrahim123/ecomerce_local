@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 
 
@@ -7,7 +7,9 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import { isEmpty } from 'lodash'
 
-const ReleatedProduct = ({ReleatedProducts})=>{
+const ReleatedProduct = (props)=>{
+
+  const {ReleatedProducts , history} = props
 
   useEffect(()=>{
     Aos.init({
@@ -23,7 +25,7 @@ const ReleatedProduct = ({ReleatedProducts})=>{
                 <div className="container-fluid">
                   <div className="row">
                     {!isEmpty(ReleatedProducts) && ReleatedProducts.map((releatedProduct , i)=>(
-                        <div key={i} data-aos="fade-down" className="col-lg-4 ">
+                        <div onClick={()=>history.push(`/product/${releatedProduct.slug}`)} key={i} data-aos="fade-down" className="col-lg-4 ">
                           <div className="row releated__box shadow-sm">
                             <div className="col-lg-4">
                             <img src={releatedProduct.image} alt="name" className="releated__img" width="100%" />       
@@ -55,4 +57,4 @@ const ReleatedProduct = ({ReleatedProducts})=>{
     )
 }
 
-export default ReleatedProduct
+export default withRouter(ReleatedProduct)
