@@ -16,6 +16,8 @@ import OrderView from "../Pages/Seller/Order/OrderView"
 import Products from "../Pages/Seller/Products"
 import FormProduct from "../Pages/Seller/Products/FormProduct"
 import SellerProductDetails from "../Pages/Seller/Products/ProductDetails"
+import Slides from "../Pages/Seller/Slide"
+import FormSlide from "../Pages/Seller/Slide/FormSlide"
 
 const clientRoutes = [
     { path:'/' , component:Home},
@@ -38,6 +40,10 @@ const sellerRoutes = [
     
     { path:'/seller/orders' , component: Orders },
     { path:'/seller/order/:orderNumber' , component: OrderView },
+
+    { path:'/seller/slide/create' , component: FormSlide },
+    { path:'/seller/slides' , component: Slides },
+    
 
   { path: "/seller", exact: true, component: () => <Redirect to="/seller/dashboard" /> },
 

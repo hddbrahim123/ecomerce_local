@@ -11,17 +11,14 @@ import { isEmpty, uniqBy } from "lodash";
 import * as _ from "lodash"
 
 // Import Editor
-import { Editor } from "react-draft-wysiwyg"
-import { EditorState , convertToRaw } from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import { getCategories } from "../../../Core/ApiCore/Category";
 import { getProductViewEditSeller,  RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+
 
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
 

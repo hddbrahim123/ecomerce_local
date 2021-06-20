@@ -1,5 +1,19 @@
 import { API_URL } from "../../config"
 
+export const getProductsSlide = (count)=>{
+    return fetch(`${API_URL}/Home/GetSlideData`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify({})
+    })
+    .then(res=>res.json())
+    .then(res=>res)
+    .catch(err=>console.error(err))
+}
+
 export const getProductsTopRating = (count)=>{
     return fetch(`${API_URL}/Home/GetProductsTopRating?count=${count}`,{
         method:"POST",
@@ -12,7 +26,7 @@ export const getProductsTopRating = (count)=>{
     .then(res=>res.json())
     .then(res=>res)
     .catch(err=>console.error(err))
-}   
+} 
 
 export const getProductsOffer = (count)=>{
     return fetch(`${API_URL}/Home/GetProductsOffer?count=${count}`,{

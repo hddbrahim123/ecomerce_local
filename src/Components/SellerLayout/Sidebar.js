@@ -8,15 +8,18 @@ const Sidebar = ()=>{
 
   const [category , setCategory] = useState(false)
   const [product , setProduct] = useState(false)
+  const [slide , setSlide] = useState(false)
 
   const toggleCategoryDropdown = () => setCategory(!category)
   const toggleProductDropdown = () => setProduct(!product)
-
+  const toggleSlideDropdown = () => setSlide(!slide)
+  
     return (
         <React.Fragment>
          <div className={isOpen ? "sidebar show__sidebar " : "sidebar shadow-sm"}>
            <nav className="sidebar__container">
               <div className="sidebar__list">
+
                 <div className="sidebar__items">
                   <h2 className="sidebar__subtitle">home</h2>
 
@@ -25,6 +28,25 @@ const Sidebar = ()=>{
                     <span className="sidebar__name">dashboard</span>
                   </Link>
                 </div>
+
+                <div className="sidebar__items">
+                  <h2 className="sidebar__subtitle">shoop</h2>
+
+                  <div className="sidebar__dropdown">  
+                    <Link to="#" className="sidebar__links" onClick={toggleSlideDropdown}>
+                        <i className='bx bx-home sidebar__icon' ></i>
+                        <span className="sidebar__name">Slide</span>
+                        <i className='bx bx-chevron-down sidebar__icon sidebar__dropdown__icon'></i>
+                    </Link>
+                    <div className={ slide ? "sidebar__dropdown__collapse show__dropdown" : "sidebar__dropdown__collapse" }>
+                      <div className="sidebar__dropdown__content">
+                        <Link to="/seller/slide/create" className="sidebar__dropdown__links">ajouter slide</Link>
+                        <Link to="/seller/slides" className="sidebar__dropdown__links">afficher slides</Link>
+                      </div>  
+                    </div>                      
+                  </div>
+                </div>
+
 
                 <div className="sidebar__items">
                   <h2 className="sidebar__subtitle">shoop</h2>

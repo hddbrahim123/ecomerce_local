@@ -5,6 +5,7 @@ import 'aos/dist/aos.css'
 import { getCategories } from '../../../Core/ApiCore/Category'
 import FilterCategoryHome from './FilterCategoryHome'
 import Slide from './Slide'
+import { getProductsSlide } from '../../../Core/ApiCore/ProductHome'
 
 const Home = ()=>{
 
@@ -14,6 +15,12 @@ const Home = ()=>{
     Aos.init({
       duration:2000
     })
+
+    getProductsSlide()
+      .then(res=>{
+        console.log(res)
+      })
+
     getCategories()
       .then(res=>setCategories(res))
   },[])
