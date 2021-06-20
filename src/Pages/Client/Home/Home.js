@@ -10,6 +10,7 @@ import { getProductsSlide } from '../../../Core/ApiCore/ProductHome'
 const Home = ()=>{
 
   const [categories , setCategories] = useState([])
+  const [slides , setSlides] = useState([])
 
   useEffect(()=>{
     Aos.init({
@@ -18,7 +19,7 @@ const Home = ()=>{
 
     getProductsSlide()
       .then(res=>{
-        console.log(res)
+        setSlides(res)
       })
 
     getCategories()
@@ -39,7 +40,7 @@ const Home = ()=>{
                 <div data-aos="fade-left" className="col-lg-9">
                 <div className="card my-4 shadow-sm">
                   <div className="card-body m-0 p-0">
-                    <Slide  />
+                    <Slide slides={slides}  />
                   </div>
                 </div>
                 </div>

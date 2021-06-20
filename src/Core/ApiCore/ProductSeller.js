@@ -121,3 +121,18 @@ export const RemoveImage = (imageGuid)=>{
     .then(res=>res.json())
     .catch(err=>console.error(err))
 }
+
+
+export const SaveSlide = (slide)=>{
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Home/InsertSlide`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify(slide)
+    })
+    .then(res=>res.json())
+    .catch(err=>console.error(err))
+}

@@ -1,6 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
-
-import {Link} from "react-router-dom"
+import React, { useEffect, useState } from "react"
 
 //Import toastr
 import toastr from "toastr"

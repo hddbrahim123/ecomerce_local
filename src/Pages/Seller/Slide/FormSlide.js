@@ -4,12 +4,52 @@ import React, { useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const FormSlide = ()=>{
+//Import toastr
+import toastr from "toastr"
+import "toastr/build/toastr.min.css"
+
+import {useDropzone} from 'react-dropzone';
+
+
+import { SaveSlide } from '../../../Core/ApiCore/ProductSeller';
+import { isEmpty } from 'lodash';
+
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16
+};
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+  marginRight: 8,
+  width: 200,
+  height: 200,
+  padding: 4,
+  boxSizing: 'border-box'
+};
+
+const thumbInner = {
+  display: 'flex',
+  minWidth: 0,
+  overflow: 'hidden'
+};
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%'
+};
+
+const FormSlide = (props)=>{
 
     const [slide , setSlide ] = useState({
         "title":"title",
         "description":"description",
-        "image": new FormData()
     })
 
     const handleSlide = (e)=>{
@@ -26,10 +66,34 @@ const FormSlide = ()=>{
         })
     }
 
+    //handle Image
+  var formData = new FormData();
+
+
+  const [files, setFiles] = useState([]);
+
+  const {getRootProps, getInputProps} = useDropzone({
+    accept: 'image/*',
+    onDrop: acceptedFiles => {
+      setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })));
+      console.log('files',files)
+    }
+  });
+
     const submitSlide = (e)=>{
         e.preventDefault()
-
-        console.log(slide)
+        SaveSlide(slide)
+          .then(res=>{
+            if(res.success){
+              toastr.options.progressBar = true
+              toastr.success("Slide Created SuccessFully","success")
+              props.history.push("/seller/slides")
+            }else{
+              toastr.error(res.message,res.code)
+            }
+          })
     }
 
     return (
@@ -67,7 +131,7 @@ const FormSlide = ()=>{
             </div>
           </div>
 
-          {/* <div className="card mt-4">
+          <div className="card mt-4">
             <div className="card-body">
             <section className="container">
               <div {...getRootProps({className: 'dropzone'})}>
@@ -93,7 +157,7 @@ const FormSlide = ()=>{
               </div>
             </section>
             </div>
-          </div> */}
+          </div>
           
           <div className="card mt-4">
             <div className="card-body">
