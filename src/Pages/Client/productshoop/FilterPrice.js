@@ -4,10 +4,12 @@ import React from 'react'
 import Nouislider from "nouislider-react"
 import "nouislider/distribute/nouislider.css"
 
-const  FilterPrice = ()=>{
+const  FilterPrice = ({handleFilters})=>{
 
-    const onUpdate = (render, handle, value) => {
 
+
+    const onUpdate = (value) => {
+        handleFilters(value)
       }
 
     return (

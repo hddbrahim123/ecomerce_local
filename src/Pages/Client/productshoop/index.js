@@ -20,9 +20,12 @@ const ProductsShop = ()=>{
         totalPage:10
     })
 
+
     const [filters, setFilters] = useState({
         pageNumber: 1,
-        length:15,
+        length:55,
+        category:[],
+        price:[]
     })
 
     //Handle Page click
@@ -32,10 +35,20 @@ const ProductsShop = ()=>{
         pageNumber:newPage
     })}
 
+    const handleFilters = (data,filterBy)=>{
+        setFilters({
+            ...filters,
+            [filterBy]:data
+        })
+        console.log('shop : ', data , filterBy)
+    }
+
 
     useEffect(() => {
         getCategories()
-            .then(res=>setCategories(res))
+            .then(res=>{setCategories(res)
+                console.log(res)
+            })
         
             
     }, [])
@@ -62,16 +75,23 @@ const ProductsShop = ()=>{
                     <div className="col-lg-3">
                         <div className="card my-2 shadow-sm">
                             <div className="card-body">
-                               <FilterCategory categories={categories} /> 
+                               <FilterCategory 
+                                    categories={categories} 
+                                    handleFilters={(data)=>handleFilters(data,'category')}     
+                               /> 
                             </div>
                         </div>
                         <div className="card my-2 shadow-sm">
                             <div className="card-body">
-                               <FilterPrice /> 
+                               <FilterPrice 
+                                    handleFilters={(data)=>handleFilters(data,'price')}
+                               /> 
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-9">
+                    {JSON.stringify(filters)}
+
                         <div className="row">
                             {!isEmpty(products) && products.map((product , i)=>(
                                 <div key={product.slug} className="col-lg-4">
