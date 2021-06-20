@@ -90,8 +90,6 @@ const ProductsShop = ()=>{
                         </div>
                     </div>
                     <div className="col-lg-9">
-                    {JSON.stringify(filters)}
-
                         <div className="row">
                             {!isEmpty(products) && products.map((product , i)=>(
                                 <div key={product.slug} className="col-lg-4">

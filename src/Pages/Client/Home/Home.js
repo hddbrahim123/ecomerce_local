@@ -20,6 +20,7 @@ const Home = ()=>{
     getProductsSlide()
       .then(res=>{
         setSlides(res)
+        console.log(res)
       })
 
     getCategories()

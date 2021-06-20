@@ -136,3 +136,30 @@ export const SaveSlide = (slide)=>{
     .then(res=>res.json())
     .catch(err=>console.error(err))
 }
+
+export const UploadImageSlide = (id , images)=>{
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Home/UploadSlideImage?id=${id}`,{
+        method:"POST",
+        headers:{
+            "Authorization":`Bearer ${token}`
+        },
+        body:images
+    })
+    .then()
+    .catch(err=>console.error(err))
+}
+
+export const RemoveSlide = (slideId)=>{
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Home/RemovetSlide?slideId=${slideId}`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({})
+    })
+    .then(res=>res.json())
+    .catch(err=>console.error(err))
+}
