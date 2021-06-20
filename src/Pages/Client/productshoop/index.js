@@ -24,7 +24,7 @@ const ProductsShop = ()=>{
     const [filters, setFilters] = useState({
         pageNumber: 1,
         length:55,
-        category:[],
+        categories:[],
         price:[]
     })
 
@@ -77,7 +77,7 @@ const ProductsShop = ()=>{
                             <div className="card-body">
                                <FilterCategory 
                                     categories={categories} 
-                                    handleFilters={(data)=>handleFilters(data,'category')}     
+                                    handleFilters={(data)=>handleFilters(data,'categories')}     
                                /> 
                             </div>
                         </div>
