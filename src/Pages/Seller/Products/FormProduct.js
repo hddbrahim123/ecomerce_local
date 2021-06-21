@@ -420,7 +420,7 @@ const FormProduct = (props) => {
 
           <div className="card mt-4">
             <div className="card-body">
-              <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? "modifier le produit"  : "engegistr le produit" }</button>
+              <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? "Modifier le produit"  : "Enregister le produit" }</button>
             </div>
           </div>
 
