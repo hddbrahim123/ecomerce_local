@@ -10,15 +10,18 @@ import { getProductsSeller, RemoveProduct } from '../../../Core/ApiCore/ProductS
 
 import Paginate from '../../../Components/Comon/Paginate'
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
-
+import dictionary from "../../../Core/dictionary"
 //Import toastr
 import toastr from "toastr"
 import "toastr/build/toastr.min.css"
 
-const Products = (props) => {
 
+const Products = (props) => {
+  const [language] = useState(localStorage.getItem('language') ?? 'Fr')
   const [products , setProducts] = useState([])
 
+  const content = dictionary.product[language]
+  const messages = dictionary.messages[language]
   //State Pagination
   const [pagination , setPagination] = useState({
     pageNumber:1,
@@ -43,14 +46,14 @@ const Products = (props) => {
         if(res.success){
           
           let productList = products
-          productList = productList.filter(product => product.slug !== slug )
+          productList = productList.filter(product => product.slug !== slug)
           setProducts(productList) 
 
           toastr.options.progressBar=true
-          toastr.success("Product Deleted SuccessFully", "deleted")
-        }else{
+          toastr.success(messages.RemoveProductSuccess, "")
+        } else {
           toastr.options.progressBar=true
-          toastr.error("Product Deleted Error", "deleted")
+          toastr.error(messages.RemoveProductError, "")
         }
       })
   }
@@ -69,11 +72,11 @@ const Products = (props) => {
         }
       )
   }, [filters])
-
+  
     return (
       <React.Fragment>
        <div className="container-fluid">
-       <Breadcrumb item="Dashboard" link="/seller" title="les produits" />
+       <Breadcrumb item={content.titleDashboard} link="/seller" title={content.titleProducts} />
         <div className="row">
           <div className="table-rep-plugin ">
           <div
@@ -85,11 +88,11 @@ const Products = (props) => {
             >
               <Thead className="table-light">
                 <Tr>
-                  <Th className="text-muted">Image</Th>
-                  <Th className="text-muted" data-priority="3">Price</Th>
-                  <Th className="text-muted" data-priority="3">Status</Th>
-                  <Th className="text-muted" data-priority="3">View</Th>
-                  <Th className="text-muted" data-priority="6">Actions</Th>
+                  <Th className="text-muted">{content.titleImage}</Th>
+                  <Th className="text-muted" data-priority="3">{content.titlePrice}</Th>
+                  <Th className="text-muted" data-priority="3">{content.titleStatus}</Th>
+                  <Th className="text-muted" data-priority="3">{content.titleView}</Th>
+                  <Th className="text-muted" data-priority="6">{content.titleActions}</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -103,11 +106,10 @@ const Products = (props) => {
                   <Td>
                     {product.active 
                       ?(
-                        <span className="badge bg-primary">Active</span>
-                          
+                        <span className="badge bg-primary">{content.active}</span>
                       )
                       :(
-                        <span className="badge bg-danger">InActive</span>
+                        <span className="badge bg-danger">{content.inActive}</span>
                       )}
                   </Td>
                   <Td>
@@ -115,7 +117,7 @@ const Products = (props) => {
                       className="btn-sm btn-primary btn-rounded"
                       onClick={()=>{props.history.push(`/seller/product/${product.slug}`)}}
                     >
-                      Details
+                      {content.buttonDetailsText}
                     </button>
                   </Td>
                   <Td>
@@ -123,7 +125,7 @@ const Products = (props) => {
                     <Link onClick={()=>props.history.push(`/seller/product/edit/${product.slug}`)} to="#" className="text-success fw-bold">
                       <i className='bx bx-edit'></i>
                     </Link>
-                    <Link to="#" onClick={()=>deleteProduct(product.slug)} className="text-danger  fw-bold">
+                    <Link to="#" onClick={()=>deleteProduct(product.slug)} className="text-danger fw-bold">
                       <i className='bx bx-trash'></i>
                     </Link>
                     </div>

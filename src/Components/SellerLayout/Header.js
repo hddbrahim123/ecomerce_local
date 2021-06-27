@@ -5,19 +5,20 @@ import { Link } from 'react-router-dom'
 import avatar from '../../assets/icons/avatar-1.jpg'
 import profile from '../../assets/icons/HDD.png'
 import { toggleLeftmenu } from '../../store/layout/actions'
+import dictionary from "../../Core/dictionary"
 
-const Header = ()=>{
-
+const Header = ({language, handleStoreLanguage})=>{
+    
     let isOpen = useSelector(state => state.Layout.leftMenu)
     const dispatch = useDispatch()
-
+    const [CountNotifications] = useState(0)
     const [showProfileMenu , setShowProfileMenu] = useState(false)
     const toggleProfileMenu = ()=>setShowProfileMenu(!showProfileMenu)
-
+    
     const logout = () => {
       localStorage.removeItem('JWT_SELLER')
     }
-
+    const content = dictionary.sellerLayout[language]
     return (
         <React.Fragment>
             <header className="head__main shadow-sm">
@@ -36,10 +37,24 @@ const Header = ()=>{
               </div>
               
               <div className="head__right">
+              <div className="m-3">
+                <select
+                  value={language}
+                  onChange={(e) => {
+                    handleStoreLanguage(e.target.value);
+                  }}
+                >
+                  {dictionary.languages.map((value, index) => (
+                    <option key={index} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              </div>
                 <div className="head__notification">
                   <div className="head__notification__toggle">
                     <i className="bx bx-bell bx-tada " />
-                    <span >3</span>
+                    {CountNotifications > 0 ? <span>{CountNotifications}</span> : ""}
                   </div>
                   
 

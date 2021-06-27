@@ -15,15 +15,10 @@ import 'react-quill/dist/quill.snow.css';
 import { getCategories } from "../../../Core/ApiCore/Category";
 import { getProductViewEditSeller,  RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
-
-
-
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
 
-
 import {useDropzone} from 'react-dropzone';
-
-
+import dictionary from "../../../Core/dictionary"
 
 const thumbsContainer = {
   display: 'flex',
@@ -57,9 +52,12 @@ const img = {
 };
 
 
-
 const FormProduct = (props) => {
-
+  const [language] = useState(
+    localStorage.getItem("language") ?? "Fr"
+  );
+  const content = dictionary.product[language]
+  const messages = dictionary.messages[language]
   //handle product
   const [product , setProduct] = useState({
     "name": "Half sleeve T-shirt",
@@ -114,9 +112,6 @@ const FormProduct = (props) => {
   const [categories , setCategories] = useState([])
 
 
-
-
-
   //handle Image
   var formData = new FormData();
 
@@ -151,14 +146,14 @@ const FormProduct = (props) => {
           console.log('form',formData.getAll('photos'))
 
           UploadImage(slug,formData)
-            .then(res=>console.log(res))
-
-          toastr.options.progressBar=true
-          toastr.success("Product Created SuccessFully", "Created")
-          props.history.push(`/seller/product/${slug}`)
-
+            .then(res=>{
+              console.log(res)
+              toastr.options.progressBar=true
+              toastr.success(messages.insertProductSuccess, "")
+              props.history.push(`/seller/product/${slug}`)
+            })
         }else{
-          toastr.error("", "Error")
+          toastr.error(messages.insertProductError, "Error")
         }
       })
   }
@@ -178,16 +173,15 @@ const FormProduct = (props) => {
               formData.append("photos", file)
             })
             UploadImage(slug,formData)
-              .then(res=>console.log(res))
+              .then(res=>{
+                console.log(res)
+                toastr.options.progressBar=true
+                toastr.success(messages.updateProductSuccess, "")
+                props.history.push(`/seller/product/${slug}`)      
+              })
           }
-         
-
-          toastr.options.progressBar=true
-          toastr.success("Product Updated SuccessFully", "Updated")
-          props.history.push(`/seller/product/${slug}`)
-
         }else{
-          toastr.error("", "Error")
+          toastr.error(messages.updateProductError, "Error")
         }
       })
   }
@@ -204,8 +198,6 @@ const FormProduct = (props) => {
        }
         console.log(res)
       })
-    
-    
   }
   useEffect(() => {
     
@@ -225,19 +217,19 @@ const FormProduct = (props) => {
 
   return (
     <React.Fragment>
-       <Breadcrumb item="Produits" link="/seller/products" title={!isEmpty(productEdit) ? "Edit produit" : "ajouter produit"} />
+       <Breadcrumb item={content.titleSaveProduct} link="/seller/products" title={!isEmpty(productEdit) ? content.titleEditProduit : content.titleAddProduit} />
         <form onSubmit={!isEmpty(productEdit) ? submitUpdateProduct :  submitProduct}>
           <div className="card">
             <div className="card-body">
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="mb-3">                         
-                      <label htmlFor="name" className="">Name</label>
+                      <label htmlFor="name" className="">{content.productName}</label>
                       <input 
                         id="name" 
                         type="text" 
                         className="form-control" 
-                        placeholder="Name..." 
+                        placeholder={content.productPlaceHolderName}
                         value={!isEmpty(productEdit)  ? productEdit.name : product.name}
                         onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                       />
@@ -245,7 +237,7 @@ const FormProduct = (props) => {
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-3">
-                      <label htmlFor="categoryId" className="">Categories</label>
+                      <label htmlFor="categoryId" className="">{content.productCategory}</label>
                       <select 
                         id="categoryId" 
                         className="form-select"
@@ -262,12 +254,12 @@ const FormProduct = (props) => {
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="mb-3">
-                      <label htmlFor="oldPrice" className="">Old Price</label>
+                      <label htmlFor="oldPrice" className="">{content.productOldPrice}</label>
                       <input 
                         id="oldPrice" 
                         type="number" 
                         className="form-control" 
-                        placeholder="old Price ..."
+                        placeholder={content.productPlaceHolderOldPrice}
                         value={!isEmpty(productEdit) ?  productEdit.oldPrice  : product.oldPrice }
                         onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                       />
@@ -275,14 +267,14 @@ const FormProduct = (props) => {
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-3">
-                      <label htmlFor="newPrice" className="">New Price</label>
+                      <label htmlFor="newPrice" className="">{content.productNewPrice}</label>
                       <input 
                         id="newPrice"
                         type="number"
                         className="form-control"
-                        placeholder="New Price"
-                        value={!isEmpty(productEdit) ?  productEdit.newPrice  : product.newPrice }
-                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
+                        placeholder={content.productPlaceHolderNewPrice}
+                        value={!isEmpty(productEdit) ? productEdit.newPrice : product.newPrice }
+                        onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
                       />
                     </div>
                   </div>  
@@ -290,14 +282,14 @@ const FormProduct = (props) => {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="mb-3">
-                      <label htmlFor="quantity" className="form-label">Quantity</label>
+                      <label htmlFor="quantity" className="form-label">{content.quantity}</label>
                       <input 
                         id="quantity"
                         type="number"
                         className="form-control"
-                        placeholder="Quantity..."
-                        value={!isEmpty(productEdit) ?  productEdit.quantity  : product.quantity }
-                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
+                        placeholder={content.productPlaceHolderQuantity}
+                        value={!isEmpty(productEdit) ? productEdit.quantity : product.quantity }
+                        onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
                       />
                     </div>
                   </div>
@@ -305,7 +297,7 @@ const FormProduct = (props) => {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="mb-3">
-                      <label htmlFor="Description" className="form-label">Description</label>
+                      <label htmlFor="Description" className="form-label">{content.productDescription}</label>
                       <ReactQuill 
                         theme="snow" 
                         value={!isEmpty(productEdit) ?  productEdit.description  : product.description }
@@ -317,7 +309,7 @@ const FormProduct = (props) => {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="mb-3">
-                      <label htmlFor="Specification" className="form-label">Specification</label>
+                      <label htmlFor="Specification" className="form-label">{content.productSpecification}</label>
                       <ReactQuill 
                         theme="snow" 
                         value={!isEmpty(productEdit) ?  productEdit.specification  : product.specification }
@@ -338,7 +330,7 @@ const FormProduct = (props) => {
                   <div className="mb-3">
                       <i className="display-4 text-muted bx bxs-cloud-upload" />
                   </div>
-                  <p className="text-capitalize">Drag or Upload Images</p>
+                  <p className="text-capitalize">{content.productImages}</p>
                 </div>
               </div>
               <div className="card-body" style={thumbsContainer}>
@@ -380,36 +372,36 @@ const FormProduct = (props) => {
               <div className="row">
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="metTitle" className="form-label">meta title</label>
+                    <label htmlFor="metTitle" className="form-label">{content.labelMetaTitle}</label>
                     <input 
                       id="metaTitle"
                       className="form-control"
-                      placeholder="Meta Title..."
-                      value={!isEmpty(productEdit) ?  productEdit.metaTitle  : product.metaTitle }
-                      onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
+                      placeholder={content.placeHolderMetaTitle}
+                      value={!isEmpty(productEdit) ? productEdit.metaTitle : product.metaTitle }
+                      onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
                     />
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="metKeywords" className="form-label">meta Keywords</label>
+                    <label htmlFor="metKeywords" className="form-label">{content.labelMetaKeywords}</label>
                     <input 
                       id="metaKeywords"
                       className="form-control"
-                      placeholder="Meta Keywords..."
-                      value={!isEmpty(productEdit) ?  productEdit.metaKeywords  : product.metaKeywords }
+                      placeholder={content.placeHolderMetaKeywords}
+                      value={!isEmpty(productEdit) ? productEdit.metaKeywords : product.metaKeywords }
                       onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
                     />
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="metaDescription" className="form-label">Meta Description</label>
+                    <label htmlFor="metaDescription" className="form-label">{content.labelMetaDescription}</label>
                     <textarea 
                       id="metaDescription" 
                       className="form-control" 
-                      placeholder="meta description..."
+                      placeholder={content.placeHolderMetaDescription}
                       rows="5"
-                      onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
-                      value={!isEmpty(productEdit) ?  productEdit.Description  : product.metaDescription }
+                      onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                      value={!isEmpty(productEdit) ? productEdit.Description : product.metaDescription}
                       >
                     </textarea>
                   </div>
@@ -420,7 +412,7 @@ const FormProduct = (props) => {
 
           <div className="card mt-4">
             <div className="card-body">
-              <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? "Modifier le produit"  : "Enregister le produit" }</button>
+              <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? content.buttonUpdateProduct : content.buttonAddProduct}</button>
             </div>
           </div>
 

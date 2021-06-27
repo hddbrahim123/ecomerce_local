@@ -8,9 +8,10 @@ import TotalPrice from '../../../Core/helpers/totalPrice'
 import toastr from "toastr"
 import "toastr/build/toastr.min.css"
 import { withRouter } from 'react-router'
+import dictionary from "../../../Core/dictionary"
 
 const CreateOrderModal = (props)=>{
-    const {isOpen, toggle} = props
+    const {isOpen, toggle, language} = props
     let products = useSelector(state => state.Cart.products)
     let totalQty = useSelector(state => state.Cart.count)
 
@@ -22,8 +23,6 @@ const CreateOrderModal = (props)=>{
         "ordersNote": "string",
     })
 
-
-    
     const handleOrder = (e) => setOrder({ ...order, [e.target.id]: e.target.value })
 
     const submitOrder = (e)=>{
@@ -36,23 +35,23 @@ const CreateOrderModal = (props)=>{
 
         createOrder(order)
           .then(res=>{
-            if(res.success){
-
+            if(res.success)
+            {
               toastr.options.progressBar=true
-              toastr.success("Order Created SuccessFully", "Created SuccessFully")
+              toastr.success(messages.OrdreCreateSuccess, "Created SuccessFully")
               localStorage.removeItem("cart")
               props.history.push("/products")
-
-            }else{
+            }
+            else
+            {
               toastr.options.progressBar=true
-              toastr.error("Order Error", "Check your form")
+              toastr.error(messages.OrdreCreateError, "Check your form")
             }
             console.log(res)
         })
     }
-
-    useEffect(()=>{
-    },[])
+    const content = dictionary.orderContent[language]
+    const messages = dictionary.messages[language]
     return (
         <Modal
         isOpen={isOpen}
@@ -64,7 +63,7 @@ const CreateOrderModal = (props)=>{
         toggle={toggle}
       >
         <div className="modal-content">
-          <ModalHeader toggle={toggle}>Create Order</ModalHeader>
+          <ModalHeader toggle={toggle}>{content.titleCreateOrder}</ModalHeader>
           <ModalBody>
             <form>
             <Row>
@@ -73,14 +72,14 @@ const CreateOrderModal = (props)=>{
                     htmlFor="fullName"
                     className="form-label"
                     >
-                    fullName
+                    {content.labelFullName}
                 </Label>
                 <Col md={12}>
                 <Input
                     type="text"
                     className="form-control"
                     id="fullName"
-                    placeholder="Enter your name"
+                    placeholder={content.placeHolderEnterFullName}
                     onChange={handleOrder}
                 />
                 </Col>
@@ -89,17 +88,16 @@ const CreateOrderModal = (props)=>{
               <FormGroup className="mb-4" row>
                 <Label
                 htmlFor="phone"
-                
                 className="form-label"
                 >
-                Phone
+                {content.labelPhone}
                 </Label>
                 <Col md={12}>
                 <input
                     type="text"
                     className="form-control"
                     id="phone"
-                    placeholder="Enter your Phone no."
+                    placeholder={content.labelPlaceHolderPhone}
                     onChange={handleOrder}
                 />
                 </Col>
@@ -109,14 +107,14 @@ const CreateOrderModal = (props)=>{
                 htmlFor="address"
                 className="form-label"
                 >
-                Address
+                {content.labelAddress}
                 </Label>
                 <Col md="12">
                 <textarea
                     className="form-control"
                     id="address"
                     rows="3"
-                    placeholder="Enter full address"
+                    placeholder={content.labelPlaceHolderAddress}
                     onChange={handleOrder}
                 />
                 </Col>
@@ -127,27 +125,26 @@ const CreateOrderModal = (props)=>{
                 
                 className="form-label"
                 >
-                Order Notes:
+                {content.labelOrderNotes}
                 </Label>
                 <Col md="12">
                 <textarea
                     className="form-control"
                     id="ordersNote"
                     rows="3"
-                    placeholder="Write some note.."
+                    placeholder={content.placeHolderOrderNote}
                     onChange={handleOrder}
                 />
                 </Col>
                </FormGroup>
             </form>
-                  
           </ModalBody>
           <ModalFooter className="d-flex justify-content-between">
             <Button type="button" color="primary" onClick={submitOrder}>
-              Create Order
+            {content.buttonCreateOrderText}
             </Button>
             <Button type="button" color="secondary" onClick={toggle}>
-              Close
+            {content.buttonCloseText}
             </Button>
           </ModalFooter>
         </div>

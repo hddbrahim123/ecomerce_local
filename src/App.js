@@ -18,6 +18,7 @@ import ClientMiddleware from "./routes/middleware/ClientMiddleware";
 import AuthSellerMiddleware from "./routes/middleware/AuthSellerMiddleware";
 
 const App = ()=>{
+
   return (
     <React.Fragment>
       <Router>
@@ -54,7 +55,7 @@ const App = ()=>{
         </Switch>
       </Router>
     </React.Fragment>
-      
+
   );
 }
 

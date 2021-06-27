@@ -1,7 +1,9 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
 import {Link} from "react-router-dom"
-const Offre = ({products})=>{
+import dictionary from "../../../Core/dictionary"
+const Offre = ({language,products})=>{
+    const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
             <section>
@@ -11,7 +13,7 @@ const Offre = ({products})=>{
                             <div className="card shadow-sm mx-lg-5">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h4 className="">Le meilleur de nos boutiques officielles | Jusqu'à -25%</h4>
+                                        <h4 className="">{content.titleOffer}</h4>
                                         {!isEmpty(products) && products.map((product,i)=>(
                                             <div key={i} className="col-lg-2">
                                                 <div className="text-center m-2">

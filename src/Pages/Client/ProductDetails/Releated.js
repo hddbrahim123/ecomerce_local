@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
-
-
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import { isEmpty } from 'lodash'
+import dictionary from "../../../Core/dictionary"
 
 const ReleatedProduct = (props)=>{
 
@@ -16,12 +15,12 @@ const ReleatedProduct = (props)=>{
       duration:2000
     })
   },[])
-
+  const content = dictionary.detailProductContent[props.language]
     return (
         <React.Fragment>
           <section>
               <div className="releated">
-                <h2 className="releated__title text-left text-capitalize">releated product</h2>
+                <h2 className="releated__title text-left text-capitalize">{content.titleRelatedProducts}</h2>
                 <div className="container-fluid">
                   <div className="row">
                     {!isEmpty(ReleatedProducts) && ReleatedProducts.map((releatedProduct , i)=>(

@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 
 import icon from '../../../assets/images/icon-img/5.png'
 import icone from '../../../assets/images/icon-img/4.png'
-
-const FilterCategoryHome = ({categories})=>{
+import dictionary from "../../../Core/dictionary"
+const FilterCategoryHome = ({language,categories})=>{
+    const content = dictionary.headerContent[language]
     return (
         <React.Fragment>
             <div className="text-muted d-flex align-items-center justify-content-between ">
-                Categories
+                {content.titleFilterCategories}
                 <img src={icone} alt="icon" className=" float-end" />
             </div>
             <ul className="d-none d-lg-block">

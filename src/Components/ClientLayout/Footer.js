@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import Aos from 'aos'
 import 'aos/dist/aos.css' 
 
-const Footer = ()=>{
+import footerContent from '../../Core/dictionary'
+
+const Footer = (props)=>{
 
     useEffect(() => {
         Aos.init({
@@ -12,6 +14,7 @@ const Footer = ()=>{
         })
     }, [])
 
+    var content = footerContent[props.language]
     return (
         <React.Fragment>
             <footer data-aos="fade-up" className="footer">

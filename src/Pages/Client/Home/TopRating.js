@@ -1,9 +1,10 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
 import { Link , withRouter } from 'react-router-dom'
+import dictionary from "../../../Core/dictionary"
 
-
-const TopRating = ({products})=>{
+const TopRating = ({language,products})=>{
+    const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
             <section>
@@ -13,7 +14,7 @@ const TopRating = ({products})=>{
                             <div className="card shadow-sm mx-lg-5">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h4 className="text-capitalize">top rating</h4>
+                                        <h4 className="text-capitalize">{content.titleTopRating}</h4>
                                         {!isEmpty(products) && products.map((product,i)=>(
                                             <div key={i} className="col-lg-2">
                                                 <div className="text-center m-2">

@@ -20,23 +20,25 @@ import "toastr/build/toastr.min.css"
 
 const Slides = ()=>{
 
-    const [slides , setSlides] = useState([])
+    const [slides, setSlides] = useState([])
 
     const deleteSlide = (id) =>{
       RemoveSlide(id)
         .then(res=>{
-          if(res.success){
+          if(res.success)
+          {
             let slideList = slides
-            slideList = slideList.filter(slide=>slide.id != id)
+            slideList = slideList.filter(slide=>slide.id !== id)
             setSlides(slideList)
 
             toastr.options.progressBar = true
             toastr.success("Slide Deleted SuccessFully","success")
-          }else{
+          }
+          else
+          {
             toastr.options.progressBar = true
             toastr.error("Slide Deleted Error","Error")
           }
-          
         })
     }
 

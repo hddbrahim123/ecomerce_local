@@ -13,9 +13,12 @@ import ReactHtmlParser from 'react-html-parser';
 import { isEmpty } from 'lodash'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../../store/action'
+import dictionary from "../../../Core/dictionary"
 
 const ProductDetails = (props)=>{
-
+   const [language] = useState(
+      localStorage.getItem("language") ?? "Fr"
+    );
    const [product , setProduct] = useState({})
    const [releatedProducts , setReleatedProducts] = useState([])
    
@@ -46,6 +49,7 @@ const ProductDetails = (props)=>{
       getRelatedProducts(slug , parseInt(3))
          .then(res=>setReleatedProducts(res))
   }, [])
+  const content = dictionary.detailProductContent[language]
 
     return (
       <React.Fragment>
@@ -92,7 +96,7 @@ const ProductDetails = (props)=>{
                            </div>
 
                         <div className="price my-4">
-                           Price : {''}
+                           {content.labelPrice} : {''}
                            <span className="price__new ">{product.newPrice} Dh</span>       
                            <del className="price__old">{product.oldPrice} Dh</del> 
                         </div>
@@ -126,7 +130,7 @@ const ProductDetails = (props)=>{
                            to="#" 
                            className="action__addToCart text-center w-100 text-capitalize"
                            onClick={()=>{addItemCart(product)}}
-                        >Commander ici</Link>   
+                        >{content.buttonCommandText}</Link>   
                      </div> 
                 </div>
                </div>
@@ -140,7 +144,7 @@ const ProductDetails = (props)=>{
                <div className="col-lg-12">
                   <div className="card">
                      <div className="card-body">
-                     <h5 className="">Details :</h5>
+                     <h5 className="">{content.titleDetails}</h5>
                         <div className="p-lg-4">
                            { ReactHtmlParser (product.specification)}
                         </div>
@@ -155,7 +159,7 @@ const ProductDetails = (props)=>{
        
        </section>
        <section>
-         <ReleatedProduct ReleatedProducts={releatedProducts} />
+         <ReleatedProduct language={language} ReleatedProducts={releatedProducts} />
        </section>
        </React.Fragment>
     )

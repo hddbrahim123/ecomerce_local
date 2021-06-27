@@ -16,6 +16,8 @@ import {
 } from "../../../Core/ApiCore/ProductSeller";
 import { isEmpty } from "lodash";
 
+import dictionary from "../../../Core/dictionary"
+
 const thumbsContainer = {
   display: "flex",
   flexDirection: "row",
@@ -48,6 +50,9 @@ const img = {
 };
 
 const FormSlide = (props) => {
+  const [language] = useState(
+    localStorage.getItem("language") ?? "Fr"
+  );
   const [slide, setSlide] = useState({
     title: "title",
     description: "description",
@@ -107,7 +112,7 @@ const FormSlide = (props) => {
       }
     });
   };
-
+  var content = dictionary.homeContent[language]
   return (
     <React.Fragment>
       <form onSubmit={submitSlide}>
@@ -117,13 +122,13 @@ const FormSlide = (props) => {
               <div className="col-lg-12">
                 <div className="mb-3">
                   <label htmlFor="title" className="">
-                    title
+                    {content.labelSlideTitle}
                   </label>
                   <input
                     id="title"
                     type="text"
                     className="form-control"
-                    placeholder="Title..."
+                    placeholder={content.placeHolderSlideTitle}
                     value={slide.title}
                     onChange={handleSlide}
                   />
@@ -134,7 +139,7 @@ const FormSlide = (props) => {
               <div className="col-lg-12">
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
-                    Description
+                  {content.labelSlideDescription}
                   </label>
                   <ReactQuill
                     theme="snow"
@@ -156,7 +161,7 @@ const FormSlide = (props) => {
                   <div className="mb-3">
                     <i className="display-4 text-muted bx bxs-cloud-upload" />
                   </div>
-                  <p className="text-capitalize">Drag or Upload Images</p>
+                  <p className="text-capitalize">{content.labelSlideImage}</p>
                 </div>
               </div>
               <div className="card-body" style={thumbsContainer}>
@@ -172,11 +177,10 @@ const FormSlide = (props) => {
             </section>
           </div>
         </div>
-
         <div className="card mt-4">
           <div className="card-body">
             <button type="submit" className="btn btn-primary w-100">
-            Enregister slide
+            {content.buttonSaveSlideText}
             </button>
           </div>
         </div>
