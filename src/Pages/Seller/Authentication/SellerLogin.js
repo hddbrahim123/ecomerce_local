@@ -27,6 +27,7 @@ const SellerLogin = props => {
       .then(res => { 
         console.log(res)
         if(res.success){
+          console.log(JSON.stringify(res))
           localStorage.setItem('JWT_SELLER', JSON.stringify(res))
           props.history.push('/seller')
           toastr.options.progressBar = true;
@@ -67,7 +68,6 @@ const SellerLogin = props => {
                     <Form
                       onSubmit={submitSeller}
                       className="form-horizontal"
-                      
                     >
                       <div className="mb-3">
                         <Input

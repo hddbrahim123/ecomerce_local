@@ -25,6 +25,7 @@ const SellerLayout = (props) => {
   function storeLanguageInLocalStorage(language) {
     setLanguage(language)
     localStorage.setItem("language", language);
+    window.location.reload()
   }
 };
 

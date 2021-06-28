@@ -134,7 +134,12 @@ const FormProduct = (props) => {
     e.preventDefault()
 
     console.log(product)
-
+    if (!product.categoryId) {
+      return
+    }
+    if (files.length == 0) {
+      return
+    }
     SaveProduct(product)
       .then(res=>{
         if(res.success){
@@ -149,11 +154,12 @@ const FormProduct = (props) => {
             .then(res=>{
               console.log(res)
               toastr.options.progressBar=true
-              toastr.success(messages.insertProductSuccess, "")
+              toastr.success(res.message ?? messages.InsertProductSuccess, "")
               props.history.push(`/seller/product/${slug}`)
             })
         }else{
-          toastr.error(messages.insertProductError, "Error")
+          console.log(res.message ?? messages.InsertProductError ?? res.code)
+          toastr.error(res.message ?? messages.InsertProductError ?? res.code, "")
         }
       })
   }
@@ -202,7 +208,8 @@ const FormProduct = (props) => {
   useEffect(() => {
     
     const slug = props.match.params.slug
-    if(slug){
+    if(slug)
+    {
       getProductViewEditSeller(slug)
         .then(res=>{
           setProductEdit(res)
@@ -212,7 +219,10 @@ const FormProduct = (props) => {
     }
 
     getCategories()
-      .then(res=>setCategories(res))
+      .then(res=>{
+        //res.push({})
+        setCategories(res)
+      })
   }, [])
 
   return (
@@ -282,7 +292,7 @@ const FormProduct = (props) => {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="mb-3">
-                      <label htmlFor="quantity" className="form-label">{content.quantity}</label>
+                      <label htmlFor="quantity" className="form-label">{content.productLabelQuantity}</label>
                       <input 
                         id="quantity"
                         type="number"

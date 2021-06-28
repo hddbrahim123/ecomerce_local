@@ -19,7 +19,8 @@ const ClientLayout = (props) => {
 
   function storeLanguageInLocalStorage(language) {
     setLanguage(language)
-    localStorage.setItem("language", language);
+    localStorage.setItem("language", language)
+    window.location.reload()
   }
 };
 
