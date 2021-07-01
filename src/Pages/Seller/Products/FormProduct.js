@@ -13,11 +13,11 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import { getCategories } from "../../../Core/ApiCore/Category";
-import { getProductViewEditSeller,  RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
+import { getProductViewEditSeller, RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
 
-import {useDropzone} from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import dictionary from "../../../Core/dictionary"
 
 const thumbsContainer = {
@@ -59,57 +59,72 @@ const FormProduct = (props) => {
   const content = dictionary.product[language]
   const messages = dictionary.messages[language]
   //handle product
-  const [product , setProduct] = useState({
-    "name": "Half sleeve T-shirt",
-    "categoryId": 0,
-    "rating": 4,
-    "oldPrice": 300,
-    "newPrice": 250,
-    "quantity": 100,
-    "description": "description",
-    "specification": "Specification",
-    "metaTitle": "Half sleeve T-shirt",
-    "metaKeywords": "Half sleeve T-shirt",
-    "metaDescription": "Half sleeve "
+  const [product, setProduct] = useState({
+    name: "Half sleeve T-shirt",
+    categoryId: 0,
+    rating: 4,
+    oldPrice: 300,
+    newPrice: 250,
+    quantity: 100,
+    description: "description",
+    specification: "Specification",
+    etails: "details",
+    metaTitle: "Half sleeve T-shirt",
+    metaKeywords: "Half sleeve T-shirt",
+    metaDescription: "Half sleeve"
   })
-  const [productEdit , setProductEdit] = useState({})
-  const [imagesEdit , setImagesEdit] = useState([])
+  const [productEdit, setProductEdit] = useState({})
+  const [imagesEdit, setImagesEdit] = useState([])
 
   const handleDescription = e => {
     setProduct({
-      ...product ,
-      description:e
+      ...product,
+      description: e
     })
-    console.log('des  :',product.description)
+    console.log('des  :', product.description)
   }
   const handleEditDescription = e => {
     setProductEdit({
-      ...productEdit ,
-      description:e
+      ...productEdit,
+      description: e
     })
-    console.log('des  :',product.description)
+    console.log('des  :', product.description)
   }
 
-  
-  const handleSpecification = (e)=>{
+
+  const handleSpecification = (e) => {
     setProduct({
-      ...product ,
-      specification:e
+      ...product,
+      specification: e
     })
-    console.log('spe  :',product.specification)
+    console.log('spe  :', product.specification)
   }
-  const handleEditSpecification = (e)=>{
+  const handleEditSpecification = (e) => {
     setProductEdit({
-      ...productEdit ,
-      specification:e
+      ...productEdit,
+      specification: e
     })
-    console.log('spe  :',product.specification)
+    console.log('spe  :', product.specification)
   }
-  const handleProduct = (e) => setProduct({...product ,[e.target.id]:e.target.value })
-  const handleProductEdit = (e) => setProductEdit({...productEdit ,[e.target.id]:e.target.value })
+  const handleDetails = (e) => {
+    setProduct({
+      ...product,
+      details: e
+    })
+    console.log('spe  :', product.specification)
+  }
+  const handleEditDetails = (e) => {
+    setProductEdit({
+      ...productEdit,
+      details: e
+    })
+    console.log('spe  :', product.specification)
+  }
+  const handleProduct = (e) => setProduct({ ...product, [e.target.id]: e.target.value })
+  const handleProductEdit = (e) => setProductEdit({ ...productEdit, [e.target.id]: e.target.value })
 
   //categories
-  const [categories , setCategories] = useState([])
+  const [categories, setCategories] = useState([])
 
 
   //handle Image
@@ -119,314 +134,326 @@ const FormProduct = (props) => {
 
   const [files, setFiles] = useState([]);
 
-  const {getRootProps, getInputProps} = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
-      console.log('files',files)
+      console.log('files', files)
     }
   });
 
 
-  const submitProduct = (e)=>{
+  const submitProduct = (e) => {
     e.preventDefault()
 
     console.log(product)
     if (!product.categoryId) {
+      toastr.error(messages.saveProductCategoryRequired,"")
       return
     }
     if (files.length == 0) {
+      toastr.error(messages.saveProductImagesRequired,"")
       return
     }
     SaveProduct(product)
-      .then(res=>{
-        if(res.success){
+      .then(res => {
+        if (res.success) {
           const slug = res.data.slug
 
-          files.map(file=>{
+          files.map(file => {
             formData.append("photos", file)
           })
-          console.log('form',formData.getAll('photos'))
+          console.log('form', formData.getAll('photos'))
 
-          UploadImage(slug,formData)
-            .then(res=>{
+          UploadImage(slug, formData)
+            .then(res => {
               console.log(res)
-              toastr.options.progressBar=true
-              toastr.success(res.message ?? messages.InsertProductSuccess, "")
+              toastr.options.progressBar = true
+              toastr.success(res.message ?? messages.insertProductSuccess, "")
               props.history.push(`/seller/product/${slug}`)
             })
-        }else{
-          console.log(res.message ?? messages.InsertProductError ?? res.code)
-          toastr.error(res.message ?? messages.InsertProductError ?? res.code, "")
+        } else {
+          console.log(res.message ?? messages.insertProductError ?? res.code)
+          toastr.error(res.message ?? messages.insertProductError ?? res.code, "")
         }
       })
   }
-  
-  const submitUpdateProduct = (e)=>{
+
+  const submitUpdateProduct = (e) => {
     e.preventDefault()
-    
+
     productEdit.images = undefined
 
     UpdateProduct(productEdit)
-      .then(res=>{
-        if(res.success){
+      .then(res => {
+        if (res.success) {
           const slug = res.data.slug
-          if(!isEmpty(files)) {
+          if (!isEmpty(files)) {
             console.log(files)
-            files.map(file=>{
+            files.map(file => {
               formData.append("photos", file)
             })
-            UploadImage(slug,formData)
-              .then(res=>{
+            UploadImage(slug, formData)
+              .then(res => {
                 console.log(res)
-                toastr.options.progressBar=true
+                toastr.options.progressBar = true
                 toastr.success(messages.updateProductSuccess, "")
-                props.history.push(`/seller/product/${slug}`)      
+                props.history.push(`/seller/product/${slug}`)
               })
           }
-        }else{
+        } else {
           toastr.error(messages.updateProductError, "Error")
         }
       })
   }
-  
-  const deleteImage = (imageGuid)=>{
+
+  const deleteImage = (imageGuid) => {
     console.log(imageGuid)
     RemoveImage(imageGuid)
-      .then(res=>{
-       if(res.success){
-        console.log(res)
+      .then(res => {
+        if (res.success) {
+          console.log(res)
           let imagesList = imagesEdit
-          imagesList = imagesList.filter(image=> image.imageGuid !== imageGuid)
-          setImagesEdit(imagesList) 
-       }
+          imagesList = imagesList.filter(image => image.imageGuid !== imageGuid)
+          setImagesEdit(imagesList)
+        }
         console.log(res)
       })
   }
   useEffect(() => {
-    
+
     const slug = props.match.params.slug
-    if(slug)
-    {
-      getProductViewEditSeller(slug)
-        .then(res=>{
-          setProductEdit(res)
-          setImagesEdit(res.images)
-          console.log(res)
-        })
-    }
+    console.log(slug)
 
     getCategories()
-      .then(res=>{
+      .then(res => {
         //res.push({})
         setCategories(res)
+
+        if (!!slug) {
+          getProductViewEditSeller(slug)
+            .then(res => {
+              console.log(res)
+              if (res) {
+                // setProduct({})
+                // setProductEdit(res)
+                // if (res.images) {
+                //   setImagesEdit(res.images)
+                // }
+              }
+            })
+        }
       })
   }, [])
 
   return (
     <React.Fragment>
-       <Breadcrumb item={content.titleSaveProduct} link="/seller/products" title={!isEmpty(productEdit) ? content.titleEditProduit : content.titleAddProduit} />
-        <form onSubmit={!isEmpty(productEdit) ? submitUpdateProduct :  submitProduct}>
-          <div className="card">
-            <div className="card-body">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <div className="mb-3">                         
-                      <label htmlFor="name" className="">{content.productName}</label>
-                      <input 
-                        id="name" 
-                        type="text" 
-                        className="form-control" 
-                        placeholder={content.productPlaceHolderName}
-                        value={!isEmpty(productEdit)  ? productEdit.name : product.name}
-                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-6">
-                    <div className="mb-3">
-                      <label htmlFor="categoryId" className="">{content.productCategory}</label>
-                      <select 
-                        id="categoryId" 
-                        className="form-select"
-                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
-                        value={!isEmpty(productEdit) ?  productEdit.categoryId  : product.categoryId }
-                      >
-                        {!isEmpty(categories) && categories.map((category , i)=>(
-                          <option key={i} value={category.id}>{category.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+      <Breadcrumb item={content.titleSaveProduct} link="/seller/products" title={!isEmpty(productEdit) ? content.titleEditProduit : content.titleAddProduit} />
+      <form onSubmit={!isEmpty(productEdit) ? submitUpdateProduct : submitProduct}>
+        <div className="card">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="name" className="">{content.productName}</label>
+                  <input
+                    id="name"
+                    type="text"
+                    className="form-control"
+                    placeholder={content.productPlaceHolderName}
+                    value={!isEmpty(productEdit) ? productEdit.name : product.name}
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                  />
                 </div>
-                <div className="row">
-                  <div className="col-lg-6">
-                    <div className="mb-3">
-                      <label htmlFor="oldPrice" className="">{content.productOldPrice}</label>
-                      <input 
-                        id="oldPrice" 
-                        type="number" 
-                        className="form-control" 
-                        placeholder={content.productPlaceHolderOldPrice}
-                        value={!isEmpty(productEdit) ?  productEdit.oldPrice  : product.oldPrice }
-                        onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-6">
-                    <div className="mb-3">
-                      <label htmlFor="newPrice" className="">{content.productNewPrice}</label>
-                      <input 
-                        id="newPrice"
-                        type="number"
-                        className="form-control"
-                        placeholder={content.productPlaceHolderNewPrice}
-                        value={!isEmpty(productEdit) ? productEdit.newPrice : product.newPrice }
-                        onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
-                      />
-                    </div>
-                  </div>  
+              </div>
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="categoryId" className="">{content.productCategory}</label>
+                  <select
+                    id="categoryId"
+                    className="form-select"
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                    value={!isEmpty(productEdit) ? productEdit.categoryId : product.categoryId}
+                  >
+                    {!isEmpty(categories) && categories.map((category, i) => (
+                      <option key={i} value={category.id}>{category.name}</option>
+                    ))}
+                  </select>
                 </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="mb-3">
-                      <label htmlFor="quantity" className="form-label">{content.productLabelQuantity}</label>
-                      <input 
-                        id="quantity"
-                        type="number"
-                        className="form-control"
-                        placeholder={content.productPlaceHolderQuantity}
-                        value={!isEmpty(productEdit) ? productEdit.quantity : product.quantity }
-                        onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="mb-3">
-                      <label htmlFor="Description" className="form-label">{content.productDescription}</label>
-                      <ReactQuill 
-                        theme="snow" 
-                        value={!isEmpty(productEdit) ?  productEdit.description  : product.description }
-                        onChange={!isEmpty(productEdit) ? (e)=>handleEditDescription(e) : (e)=>handleDescription(e) }
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="mb-3">
-                      <label htmlFor="Specification" className="form-label">{content.productSpecification}</label>
-                      <ReactQuill 
-                        theme="snow" 
-                        value={!isEmpty(productEdit) ?  productEdit.specification  : product.specification }
-                        onChange={!isEmpty(productEdit) ? (e)=>handleEditSpecification(e) : (e)=>handleSpecification(e) }
-                      />
-                    </div>
-                  </div>
-                </div>
+              </div>
             </div>
-          </div>
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="oldPrice" className="">{content.productOldPrice}</label>
+                  <input
+                    id="oldPrice"
+                    type="number"
+                    className="form-control"
+                    placeholder={content.productPlaceHolderOldPrice}
+                    value={!isEmpty(productEdit) ? productEdit.oldPrice : product.oldPrice}
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="newPrice" className="">{content.productNewPrice}</label>
+                  <input
+                    id="newPrice"
+                    type="number"
+                    className="form-control"
+                    placeholder={content.productPlaceHolderNewPrice}
+                    value={!isEmpty(productEdit) ? productEdit.newPrice : product.newPrice}
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="quantity" className="form-label">{content.productLabelQuantity}</label>
+                  <input
+                    id="quantity"
+                    type="number"
+                    className="form-control"
+                    placeholder={content.productPlaceHolderQuantity}
+                    value={!isEmpty(productEdit) ? productEdit.quantity : product.quantity}
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="Description" className="form-label">{content.productDescription}</label>
+                  <ReactQuill
+                    theme="snow"
+                    value={!isEmpty(productEdit) ? productEdit.description : product.description}
+                    onChange={!isEmpty(productEdit) ? (e) => handleEditDescription(e) : (e) => handleDescription(e)}
+                  />
+                </div>
+              </div>
+            </div>
 
-          <div className="card mt-4">
-            <div className="card-body">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="Specification" className="form-label">{content.productSpecification}</label>
+                  <ReactQuill
+                    theme="snow"
+                    value={!isEmpty(productEdit) ? productEdit.specification : product.specification}
+                    onChange={!isEmpty(productEdit) ? (e) => handleEditSpecification(e) : (e) => handleSpecification(e)}
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="card mt-4">
+          <div className="card-body">
             <section className="container">
-              <div {...getRootProps({className: 'dropzone'})}>
+              <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
                 <div className="d-flex flex-column align-items-center mt-5 justify-content-center">
                   <div className="mb-3">
-                      <i className="display-4 text-muted bx bxs-cloud-upload" />
+                    <i className="display-4 text-muted bx bxs-cloud-upload" />
                   </div>
                   <p className="text-capitalize">{content.productImages}</p>
                 </div>
               </div>
               <div className="card-body" style={thumbsContainer}>
-                {!isEmpty(files) && files.map((image , i)=>(
+                {!isEmpty(files) && files.map((image, i) => (
                   <div style={thumb} key={i}>
-                  <div style={thumbInner}>
-                    <img
-                      src={image.preview}
-                      style={img}
-                    />
+                    <div style={thumbInner}>
+                      <img
+                        src={image.preview}
+                        style={img}
+                      />
+                    </div>
                   </div>
-                </div>
-                ))}                
+                ))}
               </div>
             </section>
-            </div>
           </div>
+        </div>
 
-          {!isEmpty(imagesEdit) && (
-            <div  className="card mt-4">
-              <div className="card-body" style={thumbsContainer}>
-                {!isEmpty(imagesEdit) && imagesEdit.map((image , i)=>(
-                  <div style={thumb} key={i} className="position-relative">
+        {!isEmpty(imagesEdit) && (
+          <div className="card mt-4">
+            <div className="card-body" style={thumbsContainer}>
+              {!isEmpty(imagesEdit) && imagesEdit.map((image, i) => (
+                <div style={thumb} key={i} className="position-relative">
                   <div style={thumbInner}>
-                  <span onClick={()=>deleteImage(image.imageGuid)} style={{cursor : "pointer"}}  className="featured__offre">X</span>
+                    <span onClick={() => deleteImage(image.imageGuid)} style={{ cursor: "pointer" }} className="featured__offre">X</span>
                     <img
                       src={image.image}
                       style={img}
                     />
                   </div>
                 </div>
-                ))}                
-              </div>
+              ))}
             </div>
-          )}
-          
-          <div className="card mt-4">
-            <div className="card-body">
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="metTitle" className="form-label">{content.labelMetaTitle}</label>
-                    <input 
-                      id="metaTitle"
-                      className="form-control"
-                      placeholder={content.placeHolderMetaTitle}
-                      value={!isEmpty(productEdit) ? productEdit.metaTitle : product.metaTitle }
-                      onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="metKeywords" className="form-label">{content.labelMetaKeywords}</label>
-                    <input 
-                      id="metaKeywords"
-                      className="form-control"
-                      placeholder={content.placeHolderMetaKeywords}
-                      value={!isEmpty(productEdit) ? productEdit.metaKeywords : product.metaKeywords }
-                      onChange={!isEmpty(productEdit) ? handleProductEdit :handleProduct}
-                    />
-                  </div>
+          </div>
+        )}
+
+        <div className="card mt-4">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="metTitle" className="form-label">{content.labelMetaTitle}</label>
+                  <input
+                    id="metaTitle"
+                    className="form-control"
+                    placeholder={content.placeHolderMetaTitle}
+                    value={!isEmpty(productEdit) ? productEdit.metaTitle : product.metaTitle}
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                  />
                 </div>
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="metaDescription" className="form-label">{content.labelMetaDescription}</label>
-                    <textarea 
-                      id="metaDescription" 
-                      className="form-control" 
-                      placeholder={content.placeHolderMetaDescription}
-                      rows="5"
-                      onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
-                      value={!isEmpty(productEdit) ? productEdit.Description : product.metaDescription}
-                      >
-                    </textarea>
-                  </div>
+                <div className="mb-3">
+                  <label htmlFor="metKeywords" className="form-label">{content.labelMetaKeywords}</label>
+                  <input
+                    id="metaKeywords"
+                    className="form-control"
+                    placeholder={content.placeHolderMetaKeywords}
+                    value={!isEmpty(productEdit) ? productEdit.metaKeywords : product.metaKeywords}
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="metaDescription" className="form-label">{content.labelMetaDescription}</label>
+                  <textarea
+                    id="metaDescription"
+                    className="form-control"
+                    placeholder={content.placeHolderMetaDescription}
+                    rows="5"
+                    onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
+                    value={!isEmpty(productEdit) ? productEdit.Description : product.metaDescription}
+                  >
+                  </textarea>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="card mt-4">
-            <div className="card-body">
-              <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? content.buttonUpdateProduct : content.buttonAddProduct}</button>
-            </div>
+        </div>
+{JSON.stringify(product)}
+<br />
+{JSON.stringify(productEdit)}
+        <div className="card mt-4">
+          <div className="card-body">
+            <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? content.buttonUpdateProduct : content.buttonAddProduct}</button>
           </div>
+        </div>
 
-        </form>
+      </form>
     </React.Fragment>
   )
 }

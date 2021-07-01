@@ -18,7 +18,7 @@ const ProductsShop = () => {
   //State Pagination
   const [pagination, setPagination] = useState({
     pageNumber: 1,
-    totalPage: 10,
+    totalPage: 1,
   });
 
   const [filters, setFilters] = useState({

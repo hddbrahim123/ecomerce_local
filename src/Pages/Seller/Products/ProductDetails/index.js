@@ -5,14 +5,18 @@ import { Link } from 'react-router-dom'
 //Import Star Ratings
 import StarRatings from "react-star-ratings"
 
+
 import Aos from 'aos'
 import 'aos/dist/aos.css' 
 import ReactHtmlParser from 'react-html-parser'; 
 import { isEmpty } from 'lodash'
 import { getProductViewSeller } from '../../../../Core/ApiCore/ProductSeller'
+import dictionary from "../../../../Core/dictionary"
 
 const SellerProductDetails = (props)=>{
-
+   const [language] = useState(
+      localStorage.getItem("language") ?? dictionary.defaultLanguage
+    );
    const [product , setProduct] = useState({})
    
    const [index , setIndex] = useState(0)
@@ -31,7 +35,7 @@ const SellerProductDetails = (props)=>{
          .then(res=>{setProduct(res)
          console.log(res)})
   }, [])
-
+  const content = dictionary.detailProductContent[language]
     return (
       <React.Fragment>
        <section data-aos="fade-down" className="main">
@@ -39,7 +43,6 @@ const SellerProductDetails = (props)=>{
              <div className="card">
                <div className="card-body">
                {!isEmpty(product) && (
-
                   <div className="row main__card">
                      <div data-aos="fade-right" className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5">
                         <div className="gallery ">
@@ -75,15 +78,12 @@ const SellerProductDetails = (props)=>{
                               starSpacing="3px"
                            />
                            </div>
-
                         <div className="price my-4">
-                           Price : {''}
+                           {content.labelPrice} : {''}
                            <span className="price__new ">{product.newPrice} Dh</span>       
                            <del className="price__old">{product.oldPrice} Dh</del> 
                         </div>
-
-                        
-                           <p className="data__description">{ ReactHtmlParser (product.description)}</p>     
+                        <p className="data__description">{ ReactHtmlParser (product.description)}</p>     
                         </div>
                         {!isEmpty(product.size) && (
                            <div className="size">
@@ -104,14 +104,12 @@ const SellerProductDetails = (props)=>{
                               </div>  
                            </div>
                         )}
-                        
-
                      <div className="action   d-flex justify-content-between align-items-center">
                         <Link 
                            to="#" 
                            className="action__addToCart text-center w-100 text-capitalize"
                            // onClick={()=>{addItemCart(product)}}
-                        >Commander ici</Link>   
+                        >{content.buttonCommandText}</Link>   
                      </div> 
                 </div>
                </div>
@@ -123,14 +121,14 @@ const SellerProductDetails = (props)=>{
           <div className="container-fluid pt-2 p-lg-4">
             <div className="row">
                <div className="col-lg-12">
-                  <div className="card">
+               <div className="card">
                      <div className="card-body">
-                     <h5 className="">Details :</h5>
+                     <h5 className="">{content.titleDetails}</h5>
                         <div className="p-lg-4">
-                           {!!product && !!product.specification ? ReactHtmlParser (product.specification) : ""}
+                        {!!product && !!product.specification ? ReactHtmlParser (product.specification) : ""}
                         </div>
                      </div>
-                  </div>   
+                  </div>
                </div>   
             </div>   
           </div>  

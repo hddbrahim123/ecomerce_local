@@ -38,14 +38,14 @@ const CreateOrderModal = (props)=>{
             if(res.success)
             {
               toastr.options.progressBar=true
-              toastr.success(messages.OrdreCreateSuccess, "Created SuccessFully")
+              toastr.success(messages.ordreCreateSuccess, "Created SuccessFully")
               localStorage.removeItem("cart")
               props.history.push("/products")
             }
             else
             {
               toastr.options.progressBar=true
-              toastr.error(messages.OrdreCreateError, "Check your form")
+              toastr.error(messages.ordreCreateError, "Check your form")
             }
             console.log(res)
         })

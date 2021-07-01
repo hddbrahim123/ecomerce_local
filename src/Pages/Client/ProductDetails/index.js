@@ -17,7 +17,7 @@ import dictionary from "../../../Core/dictionary"
 
 const ProductDetails = (props)=>{
    const [language] = useState(
-      localStorage.getItem("language") ?? "Fr"
+      localStorage.getItem("language") ?? dictionary.defaultLanguage
     );
    const [product , setProduct] = useState({})
    const [releatedProducts , setReleatedProducts] = useState([])
@@ -100,9 +100,7 @@ const ProductDetails = (props)=>{
                            <span className="price__new ">{product.newPrice} Dh</span>       
                            <del className="price__old">{product.oldPrice} Dh</del> 
                         </div>
-
-                        
-                           <p className="data__description">{ ReactHtmlParser (product.description)}</p>     
+                        <p className="data__description">{ ReactHtmlParser (product.description)}</p>     
                         </div>
                         {!isEmpty(product.size) && (
                            <div className="size">
@@ -146,7 +144,7 @@ const ProductDetails = (props)=>{
                      <div className="card-body">
                      <h5 className="">{content.titleDetails}</h5>
                         <div className="p-lg-4">
-                           { ReactHtmlParser (product.specification)}
+                        {!!product && !!product.specification ? ReactHtmlParser (product.specification) : ""}
                         </div>
                      </div>
                   </div>   

@@ -12,15 +12,17 @@ const Paginate = (props) => {
     if (begin < 1) {
       begin = 1;
     }
-    var end = begin + 10;
+    var end = begin + 5;
     if (end > totalPages) {
       end = totalPages;
     }
+    
     var array = [];
     for (var index = begin; index <= end; index++) {
       array.push(index);
     }
     console.log(array);
+    console.log("pageNumber:" + pageNumber + ", end: " + end + ", totalPages:" + totalPages);
     return array;
   }
 

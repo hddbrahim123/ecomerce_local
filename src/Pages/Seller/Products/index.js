@@ -25,12 +25,12 @@ const Products = (props) => {
   //State Pagination
   const [pagination , setPagination] = useState({
     pageNumber:1,
-    totalPage:10
+    totalPage:1
   })
 
   const [filters, setFilters] = useState({
       pageNumber: 1,
-      length:100,
+      length:10,
   })
 
   //Handle Page click
@@ -50,10 +50,10 @@ const Products = (props) => {
           setProducts(productList) 
 
           toastr.options.progressBar=true
-          toastr.success(messages.RemoveProductSuccess, "")
+          toastr.success(messages.removeProductSuccess, "")
         } else {
           toastr.options.progressBar=true
-          toastr.error(messages.RemoveProductError, "")
+          toastr.error(messages.removeProductError, "")
         }
       })
   }
@@ -100,7 +100,7 @@ const Products = (props) => {
                 <Tr key={i}>
                   <Th className="d-flex">
                     <img src={product.image} alt={product.name} className="avatar__lg" />
-                    <h5 className="mx-3 text-capitalize"><Link to="#" className="text-dark" >{product.name}</Link></h5>
+                    <h5 className="mx-3 text-capitalize"><Link to={"/seller/product/"+product.slug} className="text-dark" >{product.name}</Link></h5>
                   </Th>
                   <Td>{product.newPrice}</Td>
                   <Td>
