@@ -26,15 +26,20 @@ const SellerLogin = props => {
     SellerSignin(seller)
       .then(res => { 
         console.log(res)
-        if(res.success){
-          console.log(JSON.stringify(res))
-          localStorage.setItem('JWT_SELLER', JSON.stringify(res))
-          props.history.push('/seller')
-          toastr.options.progressBar = true;
-          toastr.success(res.code, res.message)
+        if (res) {
+          if(res.success){
+            console.log(JSON.stringify(res))
+            localStorage.setItem('JWT_SELLER', JSON.stringify(res))
+            props.history.push('/seller')
+            toastr.options.progressBar = true;
+            toastr.success(res.code, res.message)
+          }else{
+            toastr.options.progressBar = true;
+            toastr.error(res.code, res.message)
+          }
         }else{
-          toastr.options.progressBar = true;
-          toastr.error(res.code, res.message)
+            toastr.options.progressBar = true;
+            toastr.error("errorChargeData", "")
         }
       })
   }

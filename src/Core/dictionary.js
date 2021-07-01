@@ -199,6 +199,20 @@ var dictionary = {
       buttonUpdateProduct:"Update product"
     }
   },
+  category:{
+    Fr:{
+      labelCategoryName:"Name",
+      labelActive:"Active",
+      buttonCreateCategoryText:"Enregistrer categorie",
+      buttonUpdateCategoryText:"Modifier categorie"
+    },
+    En:{
+      labelCategoryName:"Name",
+      labelActive:"Active",
+      buttonCreateCategoryText:"Create Category",
+      buttonUpdateCategoryText:"Update Category"
+    }
+  },
   messages:{
     Fr:{
       "AdminNoExiste": "admin non trouvé.",
@@ -207,21 +221,30 @@ var dictionary = {
       "SlugInvalid": "slug invalide.",
       "CategoryObligatory": "Categorie est obligatoire.",
       "CategoryAlreadyExist": "La catégorie existe déjà.",
-      "CategoryNotExist": "Categorie non trouvé.",
-      "OrdreCreateSuccess": "Commande créée avec succès",
-      "OrdreCreateError": "échec de création de la commande",
-      "StatusOrderInvalid": "Statut Commande invalide",
-      "InsertProductSuccess": "Produit enregistré avec succès",
-      "InsertProductError": "échec d'ajout du produit",
-      "RemoveProductSuccess": "Produit supprimé avec succès",
-      "RemoveProductError": "échec de la suppression du produit",
-      "RemoveProductImageError": "échec de la suppression de l'image",
-      "InsertSlideError": "échec d'ajout du slide",
-      "RemoveSlideError": "échec de la suppression du slide",
-      "UpdateProductSuccess": "produit mis à jour avec succès",
-      "UpdateProductError": "échec de la modification du produit",
-      "SlugAlreadyExists": "Slug existe déjà",
-      "UserOrPasswordInvalid": "Email ou mot de passe invalide"
+      "CategoryNotExist": "catégorie non trouvé.",
+      "OrdreCreateSuccess": "Commande créée avec succès.",
+      "OrdreCreateError": "échec de création de la commande.",
+      "StatusOrderInvalid": "Statut Commande invalide.",
+      "InsertProductSuccess": "Produit enregistré avec succès.",
+      "InsertProductError": "échec d'ajout du produit.",
+      "RemoveProductSuccess": "Produit supprimé avec succès.",
+      "RemoveProductError": "échec de la suppression du produit.",
+      "RemoveProductImageError": "échec de la suppression de l'image.",
+      "InsertSlideError": "échec d'ajout du slide.",
+      "RemoveSlideError": "échec de la suppression du slide.",
+      "UpdateProductSuccess": "produit mis à jour avec succès.",
+      "UpdateProductError": "échec de la modification du produit.",
+      "SlugAlreadyExists": "Slug existe déjà.",
+      "UserOrPasswordInvalid": "Email ou mot de passe invalide.",
+      categoryInsertedSuccess :"catégorie enregistré avec succès.",
+      categoryInsertedError :"échec d'ajouter catégorie.",
+      categoryUpdatedSuccess :"catégorie mis à jour avec succès.",
+      categoryUpdatedError :"échec de la modification du catégorie.",
+      categoryObligatory :"nom catégorie est obligatoire.",
+      categoryNotExist :"catégorie non trouvé.",
+      categoryAlreadyExist :"catégorie existe déjà.",
+      categoryDeletedSuccess :"catégorie supprimé avec succès.",
+      categoryDeletedFailed :"échec de la suppression du catégorie."
     },
     En:{
       "AdminNoExiste": "admin not found.",
@@ -244,7 +267,16 @@ var dictionary = {
       "UpdateProductSuccess": "product updated successfully",
       "UpdateProductError": "Error Update Product",
       "SlugAlreadyExists": "Slug déjà existé",
-      "UserOrPasswordInvalid": "Email ou mot de passe invalid"
+      "UserOrPasswordInvalid": "Email ou mot de passe invalid",
+      categoryInsertedSuccess :"Category successfully registered.",
+      categoryInsertedError :"failure to add category.",
+      categoryUpdatedSuccess :"Category updated successfully.",
+      categoryUpdatedError :"failed to modify category.",
+      categoryObligatory :"category name is required.",
+      categoryNotExist :"category not found.",
+      categoryAlreadyExist :"category already exists.",
+      categoryDeletedSuccess :"category deleted successfully.",
+      categoryDeletedFailed :"failed to delete category."
     }
   }
 };

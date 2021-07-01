@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { getCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import FilterCategoryHome from "./FilterCategoryHome";
 import Slide from "./Slide";
 import { getProductsSlide } from "../../../Core/ApiCore/ProductHome";
@@ -21,7 +21,7 @@ const Home = ({language}) => {
       console.log(res);
     });
 
-    getCategories().then((res) => setCategories(res));
+    getActiveCategories().then((res) => setCategories(res));
   }, []);
   return (
     <React.Fragment>

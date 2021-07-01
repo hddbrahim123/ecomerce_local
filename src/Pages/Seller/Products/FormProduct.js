@@ -12,7 +12,7 @@ import * as _ from "lodash"
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import { getProductViewEditSeller,  RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
@@ -157,7 +157,7 @@ const FormProduct = (props) => {
               toastr.success(res.message ?? messages.InsertProductSuccess, "")
               props.history.push(`/seller/product/${slug}`)
             })
-        }else{
+        } else {
           console.log(res.message ?? messages.InsertProductError ?? res.code)
           toastr.error(res.message ?? messages.InsertProductError ?? res.code, "")
         }
@@ -186,7 +186,7 @@ const FormProduct = (props) => {
                 props.history.push(`/seller/product/${slug}`)      
               })
           }
-        }else{
+        } else {
           toastr.error(messages.updateProductError, "Error")
         }
       })
@@ -218,7 +218,7 @@ const FormProduct = (props) => {
         })
     }
 
-    getCategories()
+    getActiveCategories()
       .then(res=>{
         //res.push({})
         setCategories(res)

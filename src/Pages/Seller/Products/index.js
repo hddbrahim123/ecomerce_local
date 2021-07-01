@@ -17,7 +17,7 @@ import "toastr/build/toastr.min.css"
 
 
 const Products = (props) => {
-  const [language] = useState(localStorage.getItem('language') ?? 'Fr')
+  const [language] = useState(localStorage.getItem('language') ?? dictionary.defaultLanguage)
   const [products , setProducts] = useState([])
 
   const content = dictionary.product[language]

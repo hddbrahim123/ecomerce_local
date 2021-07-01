@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
-import { getCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import { getProductsViewClient } from "../../../Core/ApiCore/ProductClient";
 import FilterCategory from "./FilterCategory";
 import FilterPrice from "./FilterPrice";
@@ -45,7 +45,7 @@ const ProductsShop = () => {
   };
 
   useEffect(() => {
-    getCategories().then((res) => {
+    getActiveCategories().then((res) => {
       setCategories(res);
       console.log(res);
     });
