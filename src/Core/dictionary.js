@@ -201,6 +201,20 @@ var dictionary = {
       buttonUpdateProduct:"Update product"
     }
   },
+  category:{
+    Fr:{
+      labelCategoryName:"Name",
+      labelActive:"Active",
+      buttonCreateCategoryText:"Enregistrer categorie",
+      buttonUpdateCategoryText:"Modifier categorie"
+    },
+    En:{
+      labelCategoryName:"Name",
+      labelActive:"Active",
+      buttonCreateCategoryText:"Create Category",
+      buttonUpdateCategoryText:"Update Category"
+    }
+  },
   messages:{
     Fr:{
       adminNoExiste: "admin non trouvé.",
@@ -225,7 +239,16 @@ var dictionary = {
       slugAlreadyExists: "Slug existe déjà",
       userOrPasswordInvalid: "Email ou mot de passe invalide",
       saveProductCategoryRequired: "Svp, Selectionner le categorie.",
-      saveProductImagesRequired: "Svp, Selectionner des images."
+      saveProductImagesRequired: "Svp, Selectionner des images.",
+      categoryInsertedSuccess :"catégorie enregistré avec succès.",
+      categoryInsertedError :"échec d'ajouter catégorie.",
+      categoryUpdatedSuccess :"catégorie mis à jour avec succès.",
+      categoryUpdatedError :"échec de la modification du catégorie.",
+      categoryObligatory :"nom catégorie est obligatoire.",
+      categoryNotExist :"catégorie non trouvé.",
+      categoryAlreadyExist :"catégorie existe déjà.",
+      categoryDeletedSuccess :"catégorie supprimé avec succès.",
+      categoryDeletedFailed :"échec de la suppression du catégorie."
     },
     En:{
       adminNoExiste: "admin not found.",
@@ -250,7 +273,16 @@ var dictionary = {
       slugAlreadyExists: "Slug déjà existé",
       userOrPasswordInvalid: "Email ou mot de passe invalid",
       saveProductCategoryRequired: "Svp, Selectionner le categorie.",
-      saveProductImagesRequired: "Svp, Selectionner des images."
+      saveProductImagesRequired: "Svp, Selectionner des images.",
+      categoryInsertedSuccess :"Category successfully registered.",
+      categoryInsertedError :"failure to add category.",
+      categoryUpdatedSuccess :"Category updated successfully.",
+      categoryUpdatedError :"failed to modify category.",
+      categoryObligatory :"category name is required.",
+      categoryNotExist :"category not found.",
+      categoryAlreadyExist :"category already exists.",
+      categoryDeletedSuccess :"category deleted successfully.",
+      categoryDeletedFailed :"failed to delete category."
     }
   }
 };

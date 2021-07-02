@@ -227,8 +227,8 @@ const FormProduct = (props) => {
     const slug = props.match.params.slug
     console.log(slug)
 
-    getCategories()
-      .then(res => {
+    getActiveCategories()
+      .then(res=>{
         //res.push({})
         setCategories(res)
 

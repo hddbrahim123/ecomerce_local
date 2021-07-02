@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import {
   getProductsLatestProductsViewUser,
   getProductsOffer,
@@ -34,7 +34,7 @@ const Index = () => {
 
     getProductsTopRating(12).then((res) => setProductsTopRating(res));
 
-    getCategories().then((res) => setCategories(res));
+    getActiveCategories().then((res) => setCategories(res));
   }, []);
   return (
     <React.Fragment>

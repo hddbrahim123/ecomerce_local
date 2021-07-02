@@ -31,6 +31,7 @@ const sellerRoutes = [
     
     { path:'/seller/categories' , component: Category },
     { path:'/seller/categories/create' , component: CreateCateory },
+    { path:'/seller/categories/edit/:id' , component: CreateCateory },
 
 
     { path:'/seller/products' , component: Products },
