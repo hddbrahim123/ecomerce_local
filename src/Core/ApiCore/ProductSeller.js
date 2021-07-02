@@ -139,7 +139,7 @@ export const SaveSlide = (slide)=>{
 
 export const UploadImageSlide = (id , images)=>{
     const { token } = isAuthSeller().data
-    return fetch(`${API_URL}/Home/UploadSlideImage?id=${id}`,{
+    return fetch(`${API_URL}/Home/UploadSlideImage?slideId=${id}`,{
         method:"POST",
         headers:{
             "Authorization":`Bearer ${token}`
