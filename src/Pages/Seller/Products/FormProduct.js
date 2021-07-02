@@ -12,7 +12,7 @@ import * as _ from "lodash"
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import { getProductViewEditSeller, RemoveImage, SaveProduct, UpdateProduct, UploadImage } from "../../../Core/ApiCore/ProductSeller";
 
 import Breadcrumb from '../../../Components/Comon/Breadcrumb'
@@ -68,7 +68,7 @@ const FormProduct = (props) => {
     quantity: 100,
     description: "description",
     specification: "Specification",
-    etails: "details",
+    details: "details",
     metaTitle: "Half sleeve T-shirt",
     metaKeywords: "Half sleeve T-shirt",
     metaDescription: "Half sleeve"
@@ -79,46 +79,44 @@ const FormProduct = (props) => {
   const handleDescription = e => {
     setProduct({
       ...product,
-      description: e
+      description: e ?? ""
     })
-    console.log('des  :', product.description)
+    console.log('des  :', product.description , e)
   }
   const handleEditDescription = e => {
     setProductEdit({
       ...productEdit,
-      description: e
+      description: e ?? ""
     })
-    console.log('des  :', product.description)
+    console.log('des  :', product.description , e)
   }
-
-
   const handleSpecification = (e) => {
     setProduct({
       ...product,
-      specification: e
+      specification: e ?? ""
     })
-    console.log('spe  :', product.specification)
+    console.log('spe  :', product.specification , e)
   }
   const handleEditSpecification = (e) => {
     setProductEdit({
       ...productEdit,
-      specification: e
+      specification: e ?? ""
     })
-    console.log('spe  :', product.specification)
+    console.log('spe  :', product.specification , e)
   }
   const handleDetails = (e) => {
     setProduct({
       ...product,
-      details: e
+      details: e ?? ""
     })
-    console.log('spe  :', product.specification)
+    console.log('spe  :', product.specification , e)
   }
   const handleEditDetails = (e) => {
     setProductEdit({
       ...productEdit,
-      details: e
+      details: e ?? ""
     })
-    console.log('spe  :', product.specification)
+    console.log('spe  :', product.specification , e)
   }
   const handleProduct = (e) => setProduct({ ...product, [e.target.id]: e.target.value })
   const handleProductEdit = (e) => setProductEdit({ ...productEdit, [e.target.id]: e.target.value })
@@ -184,12 +182,24 @@ const FormProduct = (props) => {
   const submitUpdateProduct = (e) => {
     e.preventDefault()
 
+    console.log(productEdit)
+    if (!productEdit.categoryId) {
+      toastr.error(messages.saveProductCategoryRequired,"")
+      return
+    }
+    if ((files == undefined || files.length == 0) && (imagesEdit == undefined || imagesEdit.length == 0)) {
+      toastr.error(messages.saveProductImagesRequired,"")
+      return
+    }
+    
     productEdit.images = undefined
 
     UpdateProduct(productEdit)
       .then(res => {
         if (res.success) {
+
           const slug = res.data.slug
+          console.log(slug)
           if (!isEmpty(files)) {
             console.log(files)
             files.map(file => {
@@ -197,11 +207,16 @@ const FormProduct = (props) => {
             })
             UploadImage(slug, formData)
               .then(res => {
-                console.log(res)
+                console.log(res,messages.updateProductSuccess)
                 toastr.options.progressBar = true
                 toastr.success(messages.updateProductSuccess, "")
                 props.history.push(`/seller/product/${slug}`)
               })
+          }else {
+                console.log(res,messages.updateProductSuccess)
+                toastr.options.progressBar = true
+                toastr.success(messages.updateProductSuccess, "")
+                props.history.push(`/seller/product/${slug}`)
           }
         } else {
           toastr.error(messages.updateProductError, "Error")
@@ -237,11 +252,14 @@ const FormProduct = (props) => {
             .then(res => {
               console.log(res)
               if (res) {
-                // setProduct({})
-                // setProductEdit(res)
-                // if (res.images) {
-                //   setImagesEdit(res.images)
-                // }
+                if (res.images) {
+                  setImagesEdit(res.images)
+                }
+                productEdit.images = undefined
+                res.images = undefined
+                setProductEdit(res)
+                setProduct({})
+                
               }
             })
         }
@@ -277,6 +295,7 @@ const FormProduct = (props) => {
                     onChange={!isEmpty(productEdit) ? handleProductEdit : handleProduct}
                     value={!isEmpty(productEdit) ? productEdit.categoryId : product.categoryId}
                   >
+                    <option>Select category</option>
                     {!isEmpty(categories) && categories.map((category, i) => (
                       <option key={i} value={category.id}>{category.name}</option>
                     ))}
@@ -333,8 +352,21 @@ const FormProduct = (props) => {
                   <label htmlFor="Description" className="form-label">{content.productDescription}</label>
                   <ReactQuill
                     theme="snow"
-                    value={!isEmpty(productEdit) ? productEdit.description : product.description}
+                    value={!isEmpty(productEdit) ? productEdit.description??"" : product.description??""}
                     onChange={!isEmpty(productEdit) ? (e) => handleEditDescription(e) : (e) => handleDescription(e)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="Details" className="form-label">{content.productDetails}</label>
+                  <ReactQuill
+                    theme="snow"
+                    value={!isEmpty(productEdit) ? productEdit.details??"" : product.details??""}
+                    onChange={!isEmpty(productEdit) ? (e) => handleEditDetails(e) : (e) => handleDetails(e)}
                   />
                 </div>
               </div>
@@ -346,7 +378,7 @@ const FormProduct = (props) => {
                   <label htmlFor="Specification" className="form-label">{content.productSpecification}</label>
                   <ReactQuill
                     theme="snow"
-                    value={!isEmpty(productEdit) ? productEdit.specification : product.specification}
+                    value={!isEmpty(productEdit) ? productEdit.specification??"" : product.specification??""}
                     onChange={!isEmpty(productEdit) ? (e) => handleEditSpecification(e) : (e) => handleSpecification(e)}
                   />
                 </div>
@@ -444,9 +476,9 @@ const FormProduct = (props) => {
             </div>
           </div>
         </div>
-{JSON.stringify(product)}
+{/* {JSON.stringify(product)}
 <br />
-{JSON.stringify(productEdit)}
+{JSON.stringify(productEdit)} */}
         <div className="card mt-4">
           <div className="card-body">
             <button type="submit" className="btn btn-primary w-100" >{!isEmpty(productEdit) ? content.buttonUpdateProduct : content.buttonAddProduct}</button>
