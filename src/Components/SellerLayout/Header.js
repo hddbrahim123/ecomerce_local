@@ -18,7 +18,7 @@ const Header = ({language, handleStoreLanguage})=>{
     const logout = () => {
       localStorage.removeItem('JWT_SELLER')
     }
-    const content = dictionary.sellerLayout[language]
+    // const content = dictionary.sellerLayout[language]
     return (
         <React.Fragment>
             <header className="head__main shadow-sm">

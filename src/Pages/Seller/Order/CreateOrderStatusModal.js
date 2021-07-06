@@ -38,7 +38,6 @@ const CreateOrderStatusModal = (props)=>{
       getOrdersStatus()
         .then(res=>{
           setOrderStatus(res)
-          console.log(res)
         })
     },[])
     return (
