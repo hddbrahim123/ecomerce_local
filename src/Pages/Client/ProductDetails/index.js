@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import MetaTags from "react-meta-tags";
 
 //Import Star Ratings
 import StarRatings from "react-star-ratings";
@@ -54,6 +55,9 @@ const ProductDetails = (props) => {
 
   return (
     <React.Fragment>
+      <MetaTags>
+        <title>{product.metaTitle}</title>
+      </MetaTags>
       <section data-aos="fade-down" className="main">
         <div className="container-fluid pt-2  p-lg-4">
           <div className="card">

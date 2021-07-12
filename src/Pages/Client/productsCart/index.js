@@ -16,7 +16,7 @@ import CreateOrderModal from "./CreateOrderModal";
 import dictionary from "../../../Core/dictionary";
 
 const ProductsCart = () => {
-  const [language] = useState(localStorage.getItem("language") ?? "Fr");
+  const [language] = useState(localStorage.getItem("language") ?? dictionary.defaultLanguage);
   let products = useSelector((state) => state.Cart.products);
 
   const dispatch = useDispatch();

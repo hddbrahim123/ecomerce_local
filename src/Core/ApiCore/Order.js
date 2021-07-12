@@ -1,10 +1,16 @@
 import { API_URL } from "../../config"
 import isAuthSeller from "../helpers/isAuthSeller"
+import queryString from "query-string";
 
-
-export const getOrders = ()=>{
+export const getOrders = (status)=>{
+    //var query = queryString.stringify(filter);
+    var query = ''
+    if (status) {
+        query += `status=${status}`
+    }
+    console.log(query)
     const {token} = isAuthSeller().data
-    return fetch(`${API_URL}/Admin/GetOrdersView`,{
+    return fetch(`${API_URL}/Admin/GetOrdersView?${query}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -62,7 +68,7 @@ export const createOrder = (order)=>{
     .catch(err=>console.error(err))
 }
 
-export const UpdateOrderStatus = (orderNumber , status)=>{
+export const UpdateOrderStatus = (orderNumber, status)=>{
     const {token} = isAuthSeller().data
     return fetch(`${API_URL}/Admin/UpdateOrderStatus?orderNumber=${orderNumber}&status=${status}`,{
         method:"POST",

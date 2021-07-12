@@ -6,6 +6,7 @@ import { isEmpty } from 'lodash'
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 
+import Dashboard from '..'
 import { getProductsSeller, RemoveProduct } from '../../../Core/ApiCore/ProductSeller'
 
 import Paginate from '../../../Components/Comon/Paginate'
@@ -63,18 +64,21 @@ const Products = (props) => {
       .then(
         res=>{
           console.log(res)
-          setProducts(res.list)
-          setPagination({
-            ...pagination,
-            pageNumber:res.pageNumber,
-            totalPage:res.totalPage
-          })
+          if (res && res.list) {
+            setProducts(res.list)
+            setPagination({
+              ...pagination,
+              pageNumber:res.pageNumber,
+              totalPage:res.totalPage
+            })
+          }
         }
       )
   }, [filters])
   
     return (
       <React.Fragment>
+        <Dashboard props />
        <div className="container-fluid">
        <Breadcrumb item={content.titleDashboard} link="/seller" title={content.titleProducts} />
         <div className="row">

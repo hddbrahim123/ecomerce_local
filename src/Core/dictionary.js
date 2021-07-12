@@ -75,11 +75,24 @@ var dictionary = {
       labelShipping:"Expédition",
       labelTotal:"Total",
       buttonOrderText:"Commander ici",
-      buttonCloseText:"Fermer"
+      buttonCloseText:"Fermer",
+      titleOrdersSeller:"Liste de commandes | Vendeurs",
+      headColOrderId:"id commande",
+      headColOrderClient:"client",
+      headColOrderTotal:"total",
+      headColOrderStatus:"status",
+      headColOrderDate:"date",
+      headColOrderActions:"Actions",
+      buttonViewDetailsText:"View Details",
+      modalOrderHeadTitle:"Status Commande",
+      modalOrderLabelStatus:"Status",
+      modalOrderButtonUpdateStatusText:"Modifier Status",
+      modalOrderButtonCloseText:"Fermer",
+      ordersFound:"{count} commande(s) trouvé(s)"
     },
     En: {
       titleCreateOrder: "Create Order",
-      labelFullName: "fullName",
+      labelFullName: "Full Name",
       placeHolderEnterFullName: "Enter your name",
       labelPhone: "Phone",
       labelPlaceHolderPhone: "Enter your Phone no.",
@@ -92,7 +105,20 @@ var dictionary = {
       labelShipping:"Shipping",
       labelTotal:"Total",
       buttonOrderText:"Order here",
-      buttonCloseText:"Close"
+      buttonCloseText:"Close",
+      titleOrdersSeller:"List Orders | Sellers",
+      headColOrderId:"order Number",
+      headColOrderClient:"customer",
+      headColOrderTotal:"total",
+      headColOrderStatus:"state",
+      headColOrderDate:"date",
+      headColOrderActions:"Actions",
+      buttonViewDetailsText:"View Details",
+      modalOrderHeadTitle:"Create Order",
+      modalOrderLabelStatus:"Status",
+      modalOrderButtonUpdateStatusText:"Update Status",
+      modalOrderButtonCloseText:"Close",
+      ordersFound:"{count} orders found"
     }
   },
   sellerLayout: {
@@ -217,22 +243,38 @@ var dictionary = {
       buttonUpdateCategoryText:"Update Category"
     }
   },
+  paymentStatus:{
+    Fr:{
+      Pending: "En attente",
+      Processing: "En cours",
+      Completed: "Fermé",
+      Canceled: "Annulé"
+    },
+    En:{
+      Pending: "Pending",
+      Processing: "Processing",
+      Completed: "Completed",
+      Canceled: "Canceled"
+    }
+  },
   messages:{
     Fr:{
       adminNoExiste: "admin non trouvé.",
       userNoExiste: "utilisateur non trouvé.",
       sellerNoExiste: "vendeur non trouvé.",
       slugInvalid: "slug invalide.",
-      ordreCreateSuccess: "Commande créée avec succès",
-      ordreCreateError: "échec de création de la commande",
-      statusOrderInvalid: "Statut Commande invalide",
-      insertProductSuccess: "Produit enregistré avec succès",
-      insertProductError: "échec d'ajout du produit",
-      removeProductSuccess: "Produit supprimé avec succès",
-      removeProductError: "échec de la suppression du produit",
-      removeProductImageError: "échec de la suppression de l'image",
-      insertSlideError: "échec d'ajout du slide",
-      removeSlideError: "échec de la suppression du slide",
+      ordreCreateSuccess: "Commande créée avec succès.",
+      ordreCreateError: "échec de création de la commande.",
+      ordreFullNameRequired:"SVP, entrez votre nom.",
+      ordrePhoneRequired:"SVP, entrez votre téléphone.",
+      statusOrderInvalid: "Statut Commande invalide.",
+      insertProductSuccess: "Produit enregistré avec succès.",
+      insertProductError: "échec d'ajout du produit.",
+      removeProductSuccess: "Produit supprimé avec succès.",
+      removeProductError: "échec de la suppression du produit.",
+      removeProductImageError: "échec de la suppression de l'image.",
+      insertSlideError: "échec d'ajout du slide.",
+      removeSlideError: "échec de la suppression du slide.",
       updateProductSuccess: "produit mis à jour avec succès",
       updateProductError: "échec de la modification du produit",
       slugAlreadyExists: "Slug existe déjà",
@@ -247,7 +289,8 @@ var dictionary = {
       categoryNotExist :"catégorie non trouvé.",
       categoryAlreadyExist :"catégorie existe déjà.",
       categoryDeletedSuccess :"catégorie supprimé avec succès.",
-      categoryDeletedFailed :"échec de la suppression du catégorie."
+      categoryDeletedFailed :"échec de la suppression du catégorie.",
+      checkForm:"Vérifiez votre formulaire"
     },
     En:{
       adminNoExiste: "admin not found.",
@@ -256,6 +299,8 @@ var dictionary = {
       slugInvalid: "slug invalid.",
       ordreCreateSuccess: "Order Created SuccessFully",
       ordreCreateError: "Ordre Create Error",
+      ordreFullNameRequired:"Please enter your full name.",
+      ordrePhoneRequired:"Please enter your phone.",
       statusOrderInvalid: "Status Order Invalid",
       insertProductSuccess: "Product registered successfully",
       insertProductError: "product add failure",
@@ -278,7 +323,8 @@ var dictionary = {
       categoryNotExist :"category not found.",
       categoryAlreadyExist :"category already exists.",
       categoryDeletedSuccess :"category deleted successfully.",
-      categoryDeletedFailed :"failed to delete category."
+      categoryDeletedFailed :"failed to delete category.",
+      checkForm:"Check your form"
     }
   }
 };

@@ -9,7 +9,8 @@ const Dashboard = (props) => {
         
       } else {
         localStorage.setItem('JWT_SELLER','')
-        props.history.push('/seller/login')
+        window.location = '/seller/login'
+        //props.history.push('/seller/login')
       }
     });
   }, []);

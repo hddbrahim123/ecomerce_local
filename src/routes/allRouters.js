@@ -27,7 +27,7 @@ const clientRoutes = [
 ]
 
 const sellerRoutes = [
-    { path:'/seller/dashboard' , component: Dashboard },
+    { path:'/seller/dashboard' , component: Products },
     
     { path:'/seller/categories' , component: Category },
     { path:'/seller/categories/create' , component: CreateCateory },
