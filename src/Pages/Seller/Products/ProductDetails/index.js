@@ -153,7 +153,7 @@ const SellerProductDetails = (props) => {
             <div className="col-lg-12">
               <div className="card">
                 <div className="card-body">
-                  <h5 className="">{content.titleDetails}</h5>
+                  <h5 className="">{content.titleSpecification}</h5>
                   <div className="p-lg-4">
                     {!!product && !!product.specification
                       ? ReactHtmlParser(product.specification)

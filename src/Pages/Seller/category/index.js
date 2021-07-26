@@ -22,6 +22,7 @@ const Category = ()=>{
     setCategoryADelete(categoryId)
     setIsOpen(true)
   }
+  const content = dictionary.category[language]
   const messages = dictionary.messages[language]
   const handleDeleteCategory = () => {
     console.log('delete cat id => ' + categoryADelete)
@@ -57,6 +58,11 @@ const Category = ()=>{
     return (
       <React.Fragment>
         <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-3 ">
+            <Link to="/seller/categories/create" className="pull-rigth">{content.buttonNewCategory}</Link>
+          </div>
+        </div>
         <div className="row">
           <div className="table-rep-plugin ">
           <div

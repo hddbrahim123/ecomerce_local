@@ -27,6 +27,8 @@ var dictionary = {
       placeHolderSlideTitle:"Title...",
       labelSlideDescription:"Description",
       labelSlideImage:"Drag or Upload Images",
+      labelSlideLink:"Lien",
+      placeHolderSlideLink:"Lien...",
       buttonSaveSlideText:"Enregistrer slide"
     },
     En: {
@@ -40,6 +42,8 @@ var dictionary = {
       placeHolderSlideTitle:"Title...",
       labelSlideDescription:"Description",
       labelSlideImage:"Drag or Upload Images",
+      labelSlideLink:"Link",
+      placeHolderSlideLink:"Link...",
       buttonSaveSlideText:"Save slide"
     },
   },
@@ -162,6 +166,7 @@ var dictionary = {
       titleStatus:"Status",
       titleView:"Vue",
       titleActions:"Actions",
+      labelActive:"Active",
       active:"Active",
       inActive:"InActive",
       buttonDetailsText:"Details",
@@ -188,7 +193,9 @@ var dictionary = {
       labelMetaDescription:"Meta Description",
       placeHolderMetaDescription:"Meta Description...",
       buttonAddProduct:"Enregistrer le produit",
-      buttonUpdateProduct:"Modifier le produit"
+      buttonUpdateProduct:"Modifier le produit",
+      buttonNewProduct: "Nouveau produit",
+      
     },
     En:{
       titleDashboard:"Dashboard",
@@ -199,6 +206,7 @@ var dictionary = {
       titleStatus:"State",
       titleView:"View",
       titleActions:"Actions",
+      labelActive:"Active",
       active:"Active",
       inActive:"InActive",
       buttonDetailsText:"Details",
@@ -226,7 +234,8 @@ var dictionary = {
       labelMetaDescription:"Meta Description",
       placeHolderMetaDescription:"meta description...",
       buttonAddProduct:"Save product",
-      buttonUpdateProduct:"Update product"
+      buttonUpdateProduct:"Update product",
+      buttonNewProduct: "New product",
     }
   },
   category:{
@@ -234,13 +243,15 @@ var dictionary = {
       labelCategoryName:"Name",
       labelActive:"Active",
       buttonCreateCategoryText:"Enregistrer categorie",
-      buttonUpdateCategoryText:"Modifier categorie"
+      buttonUpdateCategoryText:"Modifier categorie",
+      buttonNewCategory:"Nouveau categorie"
     },
     En:{
       labelCategoryName:"Name",
       labelActive:"Active",
       buttonCreateCategoryText:"Create Category",
-      buttonUpdateCategoryText:"Update Category"
+      buttonUpdateCategoryText:"Update Category",
+      buttonNewCategory:"New category"
     }
   },
   paymentStatus:{

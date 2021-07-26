@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 
 // Import Editor
 import ReactQuill from "react-quill";
@@ -16,7 +16,7 @@ import {
 } from "../../../Core/ApiCore/ProductSeller";
 import { isEmpty } from "lodash";
 
-import dictionary from "../../../Core/dictionary"
+import dictionary from "../../../Core/dictionary";
 
 const thumbsContainer = {
   display: "flex",
@@ -51,11 +51,12 @@ const img = {
 
 const FormSlide = (props) => {
   const [language] = useState(
-    localStorage.getItem("language") ?? "Fr"
+    localStorage.getItem("language") ?? dictionary.defaultLanguage
   );
   const [slide, setSlide] = useState({
-    title: "title",
-    description: "description",
+    title: "",
+    description: "",
+    link: "product/",
   });
 
   const handleSlide = (e) => {
@@ -86,10 +87,9 @@ const FormSlide = (props) => {
             preview: URL.createObjectURL(file),
           })
         )
-      );
-      console.log("files", files);
-    },
-  });
+      )
+    }
+  })
 
   const submitSlide = (e) => {
     e.preventDefault();
@@ -110,9 +110,10 @@ const FormSlide = (props) => {
       } else {
         toastr.error(res.message, res.code);
       }
-    });
-  };
-  var content = dictionary.homeContent[language]
+    })
+  }
+  var content = dictionary.homeContent[language];
+  useEffect(() => {}, []);
   return (
     <React.Fragment>
       <form onSubmit={submitSlide}>
@@ -139,7 +140,7 @@ const FormSlide = (props) => {
               <div className="col-lg-12">
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
-                  {content.labelSlideDescription}
+                    {content.labelSlideDescription}
                   </label>
                   <ReactQuill
                     theme="snow"
@@ -149,9 +150,25 @@ const FormSlide = (props) => {
                 </div>
               </div>
             </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="link" className="form-label">
+                    {content.labelSlideLink}
+                  </label>
+                  <input
+                    id="link"
+                    type="text"
+                    className="form-control"
+                    placeholder={content.placeHolderSlideLink}
+                    value={slide.link}
+                    onChange={handleSlide}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
         <div className="card mt-4">
           <div className="card-body">
             <section className="container">
@@ -180,7 +197,7 @@ const FormSlide = (props) => {
         <div className="card mt-4">
           <div className="card-body">
             <button type="submit" className="btn btn-primary w-100">
-            {content.buttonSaveSlideText}
+              {content.buttonSaveSlideText}
             </button>
           </div>
         </div>

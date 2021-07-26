@@ -51,6 +51,11 @@ const Slides = ()=>{
         <React.Fragment>
         <div className="container-fluid">
         <div className="row">
+          <div className="col-md-3 ">
+            <Link to="/seller/slide/create" className="pull-rigth">Nouveau Slide</Link>
+          </div>
+        </div>
+        <div className="row">
           <div className="table-rep-plugin ">
           <div
             className="table-responsive mb-0"
@@ -81,9 +86,12 @@ const Slides = ()=>{
                   </Td>
                   <Td>
                     <div className="d-flex gap-3">
-                    <Link to="#" className="text-success">
+                    {
+                      false &&
+                      <Link to="#" className="text-success">
                       <i className='bx bx-edit'></i>
-                    </Link>
+                      </Link>
+                    }
                     <Link onClick={()=>deleteSlide(slide.id)} to="#" className="text-danger" style={{cursor:"pointer"}}>
                         <i className='bx bx-trash'></i>
                     </Link>

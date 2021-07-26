@@ -5,6 +5,7 @@ import MetaTags from "react-meta-tags";
 //Import Star Ratings
 import StarRatings from "react-star-ratings";
 import ReleatedProduct from "./Releated";
+import ModalPhotos from './ModalPhotos'
 
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -29,8 +30,10 @@ const ProductDetails = (props) => {
 
   const dispatch = useDispatch();
 
-  const handleImage = (i) => setIndex(i);
+  const handleImage = (i) => { setIndex(i);  }
 
+  const [isOpen, setIsOpen] = useState(false)
+  const toggle = ()=> setIsOpen(!false)
   const addItemCart = (product) => {
     const { slug, name, newPrice, images } = product;
 
@@ -50,7 +53,7 @@ const ProductDetails = (props) => {
     getRelatedProducts(slug, parseInt(3)).then((res) =>
       setReleatedProducts(res)
     );
-  }, []);
+  }, [props]);
   const content = dictionary.detailProductContent[language];
 
   return (
@@ -58,6 +61,7 @@ const ProductDetails = (props) => {
       <MetaTags>
         <title>{product.metaTitle}</title>
       </MetaTags>
+      <ModalPhotos images={product.images} isOpen={isOpen} toggle={toggle} init_index={()=>index}></ModalPhotos>
       <section data-aos="fade-down" className="main">
         <div className="container-fluid pt-2  p-lg-4">
           <div className="card">
@@ -73,6 +77,7 @@ const ProductDetails = (props) => {
                         src={product.images[index]}
                         width="100%"
                         alt="product"
+                        onClick={toggle}
                         className="gallery__main__img mb-2"
                       />
                       <div className="d-flex justify-content-center">
@@ -121,9 +126,9 @@ const ProductDetails = (props) => {
                             {product.oldPrice} Dh
                           </del>
                         </div>
-                        <p className="data__description">
+                        <div className="data__description">
                           {ReactHtmlParser(product.description)}
-                        </p>
+                        </div>
                       </div>
                       {!isEmpty(product.size) && (
                         <div className="size">
