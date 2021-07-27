@@ -5,7 +5,7 @@ import MetaTags from "react-meta-tags";
 //Import Star Ratings
 import StarRatings from "react-star-ratings";
 import ReleatedProduct from "./Releated";
-import ModalPhotos from './ModalPhotos'
+import ModalPhotos from "./ModalPhotos";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -30,10 +30,12 @@ const ProductDetails = (props) => {
 
   const dispatch = useDispatch();
 
-  const handleImage = (i) => { setIndex(i);  }
+  const handleImage = (i) => {
+    setIndex(i);
+  };
 
-  const [isOpen, setIsOpen] = useState(false)
-  const toggle = ()=> setIsOpen(!false)
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
   const addItemCart = (product) => {
     const { slug, name, newPrice, images } = product;
 
@@ -61,7 +63,15 @@ const ProductDetails = (props) => {
       <MetaTags>
         <title>{product.metaTitle}</title>
       </MetaTags>
-      <ModalPhotos images={product.images} isOpen={isOpen} toggle={toggle} init_index={()=>index}></ModalPhotos>
+
+      <ModalPhotos
+        images={product.images}
+        isOpen={isOpen}
+        toggle={toggle}
+        index={index}
+        setIndex={setIndex}
+      />
+
       <section data-aos="fade-down" className="main">
         <div className="container-fluid pt-2  p-lg-4">
           <div className="card">

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, ModalHeader, Container,Row, Col, Button } from "reactstrap";
+import { withRouter } from "react-router";
 
 const ModalPhotos = (props) => {
-  const { images, isOpen, toggle, init_index } = props
-  const [index, setIndex] = useState(init_index());
-  const handleClick = (i) => {
-    setIndex(i);
-  };
+  const { images, isOpen, toggle, index, setIndex } = props
+
+  // const [index, setIndex] = useState(init_index());
+
   useEffect(() => {
-    setIndex(init_index());
+    
   }, [])
+
   return (
     <Modal
       isOpen={isOpen}
@@ -24,7 +25,6 @@ const ModalPhotos = (props) => {
       <div className="modal-content">
         <ModalHeader toggle={toggle}></ModalHeader>
         <ModalBody>
-          <p>{index}</p>
           <div className="row">
             <div className="col-md-2 col-sm-2 col-lg-2">
               {images &&
@@ -32,9 +32,9 @@ const ModalPhotos = (props) => {
                 images.map((image, i) => (
                   <div key={"pic_"+i} className="gallery__small__img m-1">
                     <img
-                      width="50px"
+                      width="60px"
                       src={image}
-                      onClick={()=>handleClick(i)}
+                      onClick={()=>setIndex(i)}
                       alt="photo"
                     ></img>
                   </div>
@@ -45,9 +45,9 @@ const ModalPhotos = (props) => {
                 {images && images.length && (
                   <img
                     src={images[index]}
-                    width="200px"
+                    width="100%"
                     alt="product"
-                    className="gallery__main__img mb-2"
+                    className="mb-1"
                   ></img>
                 )}
               </div>
@@ -57,7 +57,7 @@ const ModalPhotos = (props) => {
         <ModalFooter className="d-flex justify-content-between"></ModalFooter>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default ModalPhotos;
+export default withRouter(ModalPhotos)
