@@ -93,11 +93,11 @@ const SellerProductDetails = (props) => {
                         <div className="price my-4">
                           {content.labelPrice} : {""}
                           <span className="price__new ">
-                            {product.newPrice && product.oldPrice} Dh
+                            {product.newPrice && product.oldPrice} Dhs
                           </span>
                           {product.isOffer && 
                            <del className="price__old">
-                              {product.oldPrice} Dh
+                              {product.oldPrice} Dhs
                            </del>
                           }
                         </div>

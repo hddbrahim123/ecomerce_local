@@ -11,8 +11,11 @@ from "./actionTypes"
 export const addToCart = (item)=>{
 
     let items = JSON.parse(localStorage.getItem('cart')) || []
-
-    items = uniqBy([{...item , qty:1} , ...items],'slug')
+    let index = items.findIndex(e=>e.slug === item.slug)
+    if (index === -1) {
+        //items = uniqBy([{...item , qty:1} , ...items],'slug')
+        items = [...items, {...item , qty:1}]
+    }
 
     localStorage.setItem('cart', JSON.stringify(items))
 

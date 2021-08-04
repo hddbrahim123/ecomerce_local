@@ -18,6 +18,7 @@ import dictionary from "../../../Core/dictionary";
 //Import toastr
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import ModalConfirmation from "../../../Components/Comon/ModalConfirmation";
 
 const Products = (props) => {
   const [language] = useState(
@@ -32,7 +33,7 @@ const Products = (props) => {
     pageNumber: 1,
     totalPage: 1,
   });
-
+  const [isOpen, setIsOpen] = useState(false)
   const [filters, setFilters] = useState({
     pageNumber: 1,
     length: 10,
@@ -90,6 +91,16 @@ const Products = (props) => {
             <Link to="/seller/products/create" className="pull-rigth">{content.buttonNewProduct}</Link>
           </div>
         </div>
+        <ModalConfirmation 
+          isOpen={isOpen} 
+          toggle={()=>setIsOpen(!isOpen)} 
+          title="RemoveProduct" 
+          message="RemoveProductMessageConfirmation" 
+          buttonTextProcess="buttonRemoveProduct" 
+          buttonTextClose="buttonClose" 
+          handleProcess={deleteProduct} 
+        />
+
         <div className="row">
           <div className="table-rep-plugin ">
             <div

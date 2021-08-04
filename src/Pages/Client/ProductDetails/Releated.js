@@ -39,9 +39,9 @@ const ReleatedProduct = (props)=>{
                                 
                                 <h5 className="releated__price">
                                   <span className="text-muted  ms-2">
-                                    <del>{releatedProduct.oldPrice}Dh</del>
+                                    <del>{releatedProduct.oldPrice} Dhs</del>
                                   </span>{" "}
-                                  <b>{releatedProduct.newPrice}Dh</b>
+                                  <b>{releatedProduct.newPrice} Dhs</b>
                                 </h5>
                               </div>       
                             </div>    

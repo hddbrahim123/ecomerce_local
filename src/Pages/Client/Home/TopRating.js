@@ -3,7 +3,7 @@ import React from 'react'
 import { Link , withRouter } from 'react-router-dom'
 import dictionary from "../../../Core/dictionary"
 
-const TopRating = ({language,products})=>{
+const TopRating = ({language, products, history})=>{
     const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
@@ -16,7 +16,10 @@ const TopRating = ({language,products})=>{
                                     <div className="row">
                                         <h4 className="text-capitalize">{content.titleTopRating}</h4>
                                         {!isEmpty(products) && products.map((product,i)=>(
-                                            <div key={i} className="col-lg-2">
+                                            <div key={i} className="col-lg-2" style={{cursor:"pointer"}}
+                                            onClick={() =>
+                                                history.push(`/product/${product.slug}`)
+                                            }>
                                                 <div className="text-center m-2">
                                                     <img src={product.image} alt="name" width="100%" className="" />
                                                     <h5 className="mb-3 text-truncate">
@@ -27,11 +30,10 @@ const TopRating = ({language,products})=>{
                                                         {product.name}{" "}
                                                         </Link>
                                                     </h5>
-                                                    <h6 className="text-muted">{product.newPrice}Dh</h6>
+                                                    <h6 className="text-muted">{product.newPrice} Dhs</h6>
                                                 </div>
                                             </div>
                                         ))}
-                                        
                                     </div>
                                 </div>
                             </div>

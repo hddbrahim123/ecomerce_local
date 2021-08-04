@@ -113,7 +113,15 @@ const Category = ()=>{
         </div>           
         </div>
        </div>
-       <ModalConfirmation isOpen={isOpen} toggle={toggleModal} title="RemoveCategory" message="RemoveCategoryMessageConfirmation" buttonTextProcess="buttonRemoveCategory" buttonTextClose="buttonClose" handleProcess={handleDeleteCategory} />
+       <ModalConfirmation 
+          isOpen={isOpen} 
+          toggle={toggleModal} 
+          title={content.titleRemoveCategory} 
+          message={content.removeCategoryMessageConfirmation} 
+          buttonTextProcess={content.buttonRemoveCategory} 
+          buttonTextClose={content.buttonClose} 
+          handleProcess={handleDeleteCategory} 
+       />
       </React.Fragment>
     )
 }

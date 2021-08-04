@@ -244,28 +244,42 @@ var dictionary = {
       labelActive:"Active",
       buttonCreateCategoryText:"Enregistrer categorie",
       buttonUpdateCategoryText:"Modifier categorie",
-      buttonNewCategory:"Nouveau categorie"
+      buttonNewCategory:"Nouveau categorie",
+      titleRemoveCategory:"supprimer categorie",
+      removeCategoryMessageConfirmation:"voulez-vous supprimer categorie ?!",
+      buttonRemoveCategory:"supprimer categorie",
+      buttonClose:"Fermer"
     },
     En:{
       labelCategoryName:"Name",
       labelActive:"Active",
       buttonCreateCategoryText:"Create Category",
       buttonUpdateCategoryText:"Update Category",
-      buttonNewCategory:"New category"
+      buttonNewCategory:"New category",
+      titleRemoveCategory:"supprimer categorie",
+      removeCategoryMessageConfirmation:"voulez-vous supprimer categorie ?!",
+      buttonRemoveCategory:"supprimer categorie",
+      buttonClose:"Fermer"
     }
   },
   paymentStatus:{
     Fr:{
-      Pending: "En attente",
-      Processing: "En cours",
-      Completed: "Fermé",
-      Canceled: "Annulé"
+      Pending: "En cours",
+      Processing: "En attente",
+      WaitPayment: "Attente paiement",
+      Rembourse: "Remboursé",
+      Completed: "Terminé",
+      Canceled: "Annulé",
+      Failed: "Échouée"
     },
     En:{
       Pending: "Pending",
       Processing: "Processing",
+      WaitPayment: "Wait Payment",
+      Rembourse: "Rembourse",
       Completed: "Completed",
-      Canceled: "Canceled"
+      Canceled: "Canceled",
+      Failed: "Failed"
     }
   },
   messages:{

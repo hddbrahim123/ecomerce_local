@@ -3,7 +3,8 @@ import React from 'react'
 import { Link , withRouter } from 'react-router-dom'
 import dictionary from "../../../Core/dictionary"
 
-const TopSale = ({language,productsTopSale})=>{
+const TopSale = (props)=>{
+    const {language,productsTopSale, history} = props
     const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
@@ -16,7 +17,11 @@ const TopSale = ({language,productsTopSale})=>{
                                     <div className="row">
                                         <h4 className="text-capitalize">{content.titleTopSale}</h4>
                                         {!isEmpty(productsTopSale) && productsTopSale.map((product,i)=>(
-                                            <div key={i} className="col-lg-2">
+                                            <div key={i} className="col-lg-2" style={{cursor:"pointer"}}
+                                            onClick={() =>
+                                                history.push(`/product/${product.slug}`)
+                                            }
+                                            >
                                                 <div className="text-center m-2">
                                                     <img src={product.image} alt="name" width="100%" className="" />
                                                     <h5 className="mb-3 text-truncate">
@@ -27,11 +32,10 @@ const TopSale = ({language,productsTopSale})=>{
                                                         {product.name}{" "}
                                                         </Link>
                                                     </h5>
-                                                    <h6 className="text-muted">{product.newPrice}Dh</h6>
+                                                    <h6 className="text-muted">{product.newPrice} Dhs</h6>
                                                 </div>
                                             </div>
                                         ))}
-                                        
                                     </div>
                                 </div>
                             </div>

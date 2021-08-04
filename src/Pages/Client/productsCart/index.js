@@ -76,9 +76,9 @@ const ProductsCart = () => {
                             </h5>
                             <div className="d-flex justify-content-between align-items-end ">
                               <h5 className="text-muted fs-6">
-                                ${product.newPrice} X {product.qty} ={" "}
+                                {product.newPrice} X {product.qty} ={" "}
                                 <span className="first-color">
-                                  ${product.newPrice * product.qty}
+                                  {product.newPrice * product.qty} Dhs
                                 </span>
                               </h5>
                               <div className="">

@@ -51,9 +51,9 @@ const ProductCard = (props)=>{
                         </div>
                         <h5 className="my-0">
                             <span className="text-muted me-2">
-                            <del>${product.oldPrice}</del>
+                            <del>{product.oldPrice} Dhs</del>
                             </span>
-                            <b>${product.newPrice}</b>
+                            <b>{product.newPrice} Dhs</b>
                         </h5>
                     </div>    
                 </div>                

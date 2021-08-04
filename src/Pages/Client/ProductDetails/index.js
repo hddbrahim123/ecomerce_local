@@ -37,9 +37,9 @@ const ProductDetails = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const addItemCart = (product) => {
-    const { slug, name, newPrice, images } = product;
+    const { slug, name, newPrice, oldPrice, images } = product;
 
-    dispatch(addToCart({ slug, name, newPrice, images }));
+    dispatch(addToCart({ slug, name, newPrice: newPrice ?? oldPrice, images }));
     props.history.push("/products/cart");
   };
 
@@ -50,11 +50,18 @@ const ProductDetails = (props) => {
 
     let slug = props.match.params.slug;
 
-    getProductDetailViewClient(slug).then((res) => setProduct(res));
-
-    getRelatedProducts(slug, parseInt(3)).then((res) =>
-      setReleatedProducts(res)
-    );
+    if (slug) {
+      getProductDetailViewClient(slug).then((res) => {
+        if (res) {
+          setProduct(res);
+          getRelatedProducts(slug, parseInt(3)).then((res) =>
+            setReleatedProducts(res)
+          );
+        } else {
+          props.history.push("/");
+        }
+      });
+    }
   }, [props]);
   const content = dictionary.detailProductContent[language];
 
@@ -83,6 +90,7 @@ const ProductDetails = (props) => {
                     className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5"
                   >
                     <div className="gallery ">
+                      <div style={{backgroundImage: `${product.images[index]}`}}></div>
                       <img
                         src={product.images[index]}
                         width="100%"
@@ -130,10 +138,10 @@ const ProductDetails = (props) => {
                         <div className="price my-4">
                           {content.labelPrice} : {""}
                           <span className="price__new ">
-                            {product.newPrice} Dh
+                            {product.newPrice} Dhs
                           </span>
                           <del className="price__old">
-                            {product.oldPrice} Dh
+                            {product.oldPrice} Dhs
                           </del>
                         </div>
                         <div className="data__description">
@@ -186,22 +194,24 @@ const ProductDetails = (props) => {
             </div>
           </div>
         </div>
-        <div className="container-fluid pt-2 p-lg-4">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="">{content.titleSpecification}</h5>
-                  <div className="p-lg-4">
-                    {!!product && !!product.specification
-                      ? ReactHtmlParser(product.specification)
-                      : ""}
+        {product.specification && (
+          <div className="container-fluid pt-2 p-lg-4">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="">{content.titleSpecification}</h5>
+                    <div className="p-lg-4">
+                      {!!product && !!product.specification
+                        ? ReactHtmlParser(product.specification)
+                        : ""}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
       <section></section>
       <section>

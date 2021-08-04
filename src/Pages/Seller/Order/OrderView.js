@@ -52,9 +52,9 @@ const OrderView = (props) => {
                           </h5>
                           <div className="d-flex justify-content-between align-items-end ">
                             <h5 className="text-muted fs-6">
-                              {item.newPrice}Dh X {item.qty} ={" "}
+                              {item.newPrice} Dhs X {item.qty} ={" "}
                               <span className="first-color">
-                                {item.newPrice * item.qty}Dh
+                                {item.newPrice * item.qty} Dhs
                               </span>
                             </h5>
                           </div>

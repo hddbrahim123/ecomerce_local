@@ -1,8 +1,9 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
-import {Link} from "react-router-dom"
+import {Link,withRouter} from "react-router-dom"
 import dictionary from "../../../Core/dictionary"
-const Offre = ({language,products})=>{
+const Offre = (props)=>{
+    const {language,products,history} = props
     const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
@@ -15,7 +16,10 @@ const Offre = ({language,products})=>{
                                     <div className="row">
                                         <h4 className="">{content.titleOffer}</h4>
                                         {!isEmpty(products) && products.map((product,i)=>(
-                                            <div key={i} className="col-lg-2">
+                                            <div key={i} className="col-lg-2" style={{cursor:"pointer"}}
+                                            onClick={() =>
+                                                history?.push(`/product/${product.slug}`)
+                                            }>
                                                 <div className="text-center m-2">
                                                     <img src={product.image} alt="name" width="100%" className="" />
                                                     <h5 className="mb-3 text-truncate">
@@ -26,7 +30,7 @@ const Offre = ({language,products})=>{
                                                         {product.name}{" "}
                                                         </Link>
                                                     </h5>
-                                                    <h6 className="text-muted">{product.newPrice}Dh</h6>
+                                                    <h6 className="text-muted">{product.newPrice} Dhs</h6>
                                                 </div>
                                             </div>
                                         ))}
@@ -42,4 +46,4 @@ const Offre = ({language,products})=>{
     )
 }
 
-export default Offre
+export default withRouter(Offre)
