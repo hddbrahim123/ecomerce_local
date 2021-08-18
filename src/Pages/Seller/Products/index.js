@@ -112,6 +112,9 @@ const Products = (props) => {
                   <Tr>
                     <Th className="text-muted">{content.titleImage}</Th>
                     <Th className="text-muted" data-priority="3">
+                      {content.titleQuantity}
+                    </Th>
+                    <Th className="text-muted" data-priority="3">
                       {content.titlePrice}
                     </Th>
                     <Th className="text-muted" data-priority="3">
@@ -144,6 +147,7 @@ const Products = (props) => {
                             </Link>
                           </h5>
                         </Th>
+                        <Td>{product.quantity}</Td>
                         <Td>{product.newPrice}</Td>
                         <Td>
                           {product.active ? (

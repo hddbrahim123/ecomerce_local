@@ -72,6 +72,11 @@ const FormProduct = (props) => {
     description: "",
     specification: "",
     details: "",
+    mainCharacteristics: "",
+    technicalDescription: "",
+    general: "",
+    garantie: "",
+    venduWith: "",
     metaTitle: "",
     metaKeywords: "",
     metaDescription: "",
@@ -85,42 +90,36 @@ const FormProduct = (props) => {
       ...product,
       description: e ?? "",
     });
-    console.log("des  :", product.description, e);
   };
   const handleEditDescription = (e) => {
     setProductEdit({
       ...productEdit,
       description: e ?? "",
     });
-    console.log("des  :", product.description, e);
   };
   const handleSpecification = (e) => {
     setProduct({
       ...product,
       specification: e ?? "",
     });
-    console.log("spe  :", product.specification, e);
   };
   const handleEditSpecification = (e) => {
     setProductEdit({
       ...productEdit,
       specification: e ?? "",
     });
-    console.log("spe  :", product.specification, e);
   };
   const handleDetails = (e) => {
     setProduct({
       ...product,
       details: e ?? "",
     });
-    console.log("spe  :", product.specification, e);
   };
   const handleEditDetails = (e) => {
     setProductEdit({
       ...productEdit,
       details: e ?? "",
     });
-    console.log("spe  :", product.specification, e);
   };
   const handleProduct = (e) => {
     const value =
@@ -242,7 +241,7 @@ const FormProduct = (props) => {
       } else {
         toastr.error(messages.updateProductError, "Error");
       }
-    });
+    }).catch(res=>{toastr.error(messages.updateProductError, "Error")});
   };
 
   const deleteImage = (imageGuid) => {
@@ -477,6 +476,121 @@ const FormProduct = (props) => {
                       !isEmpty(productEdit)
                         ? (e) => handleEditDetails(e)
                         : (e) => handleDetails(e)
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="mainCharacteristics" className="form-label">
+                    {content.productMainCharacteristics}
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    value={
+                      !isEmpty(productEdit)
+                        ? productEdit.mainCharacteristics ?? ""
+                        : product.mainCharacteristics ?? ""
+                    }
+                    onChange={
+                      !isEmpty(productEdit)
+                        ? (e) => setProductEdit({...productEdit, mainCharacteristics:e})
+                        : (e) => setProduct({...product, mainCharacteristics:e})
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="technicalDescription" className="form-label">
+                    {content.productTechnicalDescription}
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    value={
+                      !isEmpty(productEdit)
+                        ? productEdit.technicalDescription ?? ""
+                        : product.technicalDescription ?? ""
+                    }
+                    onChange={
+                      !isEmpty(productEdit)
+                        ? (e) => setProductEdit({...productEdit, technicalDescription:e})
+                        : (e) => setProduct({...product, technicalDescription:e})
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="venduWith" className="form-label">
+                    {content.productVenduWith}
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    value={
+                      !isEmpty(productEdit)
+                        ? productEdit.venduWith ?? ""
+                        : product.venduWith ?? ""
+                    }
+                    onChange={
+                      !isEmpty(productEdit)
+                        ? (e) => setProductEdit({...productEdit, venduWith:e})
+                        : (e) => setProduct({...product, venduWith:e})
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="general" className="form-label">
+                    {content.productGeneral}
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    value={
+                      !isEmpty(productEdit)
+                        ? productEdit.general ?? ""
+                        : product.general ?? ""
+                    }
+                    onChange={
+                      !isEmpty(productEdit)
+                        ? (e) => setProductEdit({...productEdit, general:e})
+                        : (e) => setProduct({...product, general:e})
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="garantie" className="form-label">
+                    {content.productGarantie}
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    value={
+                      !isEmpty(productEdit)
+                        ? productEdit.garantie ?? ""
+                        : product.garantie ?? ""
+                    }
+                    onChange={
+                      !isEmpty(productEdit)
+                        ? (e) => setProductEdit({...productEdit, garantie:e})
+                        : (e) => setProduct({...product, garantie:e})
                     }
                   />
                 </div>

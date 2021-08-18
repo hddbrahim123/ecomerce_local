@@ -40,7 +40,7 @@ const ProductDetails = (props) => {
     const { slug, name, newPrice, oldPrice, images } = product;
 
     dispatch(addToCart({ slug, name, newPrice: newPrice ?? oldPrice, images }));
-    props.history.push("/products/cart");
+    props.history.push("/cart");
   };
 
   useEffect(() => {
@@ -178,6 +178,7 @@ const ProductDetails = (props) => {
             </div>
           </div>
         </div>
+        
         <div className="container-fluid pt-2 p-lg-4">
           <div className="row">
             <div className="col-lg-12">

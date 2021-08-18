@@ -23,34 +23,31 @@ const clientRoutes = [
     { path:'/' , component:Home},
     { path:'/products' , component: ProductsShop},
     { path:'/product/:slug' , component: ProductDetails},
-    { path:'/products/cart' , component: ProductsCart},
+    { path:'/cart' , component: ProductsCart},
 ]
 
 const sellerRoutes = [
-    { path:'/seller/dashboard' , component: Products },
+    { exact: true, path:'/seller', component: Products },
     
-    { path:'/seller/categories' , component: Category },
-    { path:'/seller/categories/create' , component: CreateCateory },
-    { path:'/seller/categories/edit/:id' , component: CreateCateory },
+    { exact: true, path:'/seller/categories' , component: Category },
+    { exact: true, path:'/seller/categories/create' , component: CreateCateory },
+    { exact: true, path:'/seller/categories/edit/:id' , component: CreateCateory },
 
 
-    { path:'/seller/products' , component: Products },
-    { path:'/seller/product/:slug' , component: SellerProductDetails },
-    { path:'/seller/products/create' , component: FormProduct },
-    { path:'/seller/product/edit/:slug' , component: FormProduct },
+    { exact: true, path:'/seller/products' , component: Products },
+    { exact: true, path:'/seller/product/:slug' , component: SellerProductDetails },
+    { exact: true, path:'/seller/products/create' , component: FormProduct },
+    { exact: true, path:'/seller/product/edit/:slug' , component: FormProduct },
     
-    { path:'/seller/orders' , component: Orders },
-    { path:'/seller/order/:orderNumber' , component: OrderView },
+    { exact: true, path:'/seller/orders' , component: Orders },
+    { exact: true, path:'/seller/order/:orderNumber' , component: OrderView },
 
-    { path:'/seller/slide/create' , component: FormSlide },
-    { path:'/seller/slides' , component: Slides },
+    { exact: true, path:'/seller/slide/create' , component: FormSlide },
+    { exact: true, path:'/seller/slides' , component: Slides },
     
-
-  { path: "/seller", exact: true, component: () => <Redirect to="/seller/dashboard" /> },
-
 ]
-const authSeller = [
-  { path:'/seller/login' , component: SellerLogin },
+  const authSeller = [
+  { exact: true, path:'/seller/login' , component: SellerLogin },
 ]
 
 export { clientRoutes , sellerRoutes , authSeller}

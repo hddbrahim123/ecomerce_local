@@ -54,7 +54,7 @@ const CreateOrderModal = (props) => {
       createOrder(order).then((res) => {
         if (res.success) {
           toastr.options.progressBar = true;
-          toastr.success(messages.ordreCreateSuccess, "Created SuccessFully");
+          toastr.success(messages.ordreCreateSuccess, "");
           localStorage.removeItem("cart");
           props.history.push("/products");
         } else {

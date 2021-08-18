@@ -16,12 +16,13 @@ import { authSeller, clientRoutes, sellerRoutes } from "./routes/allRouters";
 import SellerMiddleware from "./routes/middleware/SellerMiddleware";
 import ClientMiddleware from "./routes/middleware/ClientMiddleware";
 import AuthSellerMiddleware from "./routes/middleware/AuthSellerMiddleware";
+import Home from "./Pages/Client/Home/Home";
 
 const App = ()=>{
 
   return (
     <React.Fragment>
-      <Router>
+      <Router basename={"./"}>
         <Switch>
           {clientRoutes.map((route , i)=>(
             <ClientMiddleware 
@@ -52,6 +53,13 @@ const App = ()=>{
               exact
             />
           ))}
+          
+          <ClientMiddleware 
+              component={clientRoutes[0].component}
+              path={clientRoutes[0].path}
+              layout={ClientLayout}
+              key={1}
+            />
         </Switch>
       </Router>
     </React.Fragment>
