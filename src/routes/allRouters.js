@@ -22,32 +22,32 @@ import FormSlide from "../Pages/Seller/Slide/FormSlide"
 const clientRoutes = [
     { path:'/' , component:Home},
     { path:'/products' , component: ProductsShop},
-    { path:'/product/:slug' , component: ProductDetails},
     { path:'/cart' , component: ProductsCart},
+    { path:'/product/:slug' , component: ProductDetails},
 ]
 
 const sellerRoutes = [
-    { exact: true, path:'/seller', component: Products },
+    { path:'/seller', component: Products },
     
-    { exact: true, path:'/seller/categories' , component: Category },
-    { exact: true, path:'/seller/categories/create' , component: CreateCateory },
-    { exact: true, path:'/seller/categories/edit/:id' , component: CreateCateory },
+    { path:'/seller/categories' , component: Category },
+    { path:'/seller/categories/create' , component: CreateCateory },
+    { path:'/seller/categories/edit/:id' , component: CreateCateory },
 
 
-    { exact: true, path:'/seller/products' , component: Products },
-    { exact: true, path:'/seller/product/:slug' , component: SellerProductDetails },
-    { exact: true, path:'/seller/products/create' , component: FormProduct },
-    { exact: true, path:'/seller/product/edit/:slug' , component: FormProduct },
+    { path:'/seller/products' , component: Products },
+    { path:'/seller/product/:slug' , component: SellerProductDetails },
+    { path:'/seller/products/create' , component: FormProduct },
+    { path:'/seller/product/edit/:slug' , component: FormProduct },
     
-    { exact: true, path:'/seller/orders' , component: Orders },
-    { exact: true, path:'/seller/order/:orderNumber' , component: OrderView },
+    { path:'/seller/orders' , component: Orders },
+    { path:'/seller/order/:orderNumber' , component: OrderView },
 
-    { exact: true, path:'/seller/slide/create' , component: FormSlide },
-    { exact: true, path:'/seller/slides' , component: Slides },
+    { path:'/seller/slide/create' , component: FormSlide },
+    { path:'/seller/slides' , component: Slides },
     
 ]
   const authSeller = [
-  { exact: true, path:'/seller/login' , component: SellerLogin },
+  { path:'/seller/login' , component: SellerLogin },
 ]
 
 export { clientRoutes , sellerRoutes , authSeller}

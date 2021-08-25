@@ -90,7 +90,9 @@ const ProductDetails = (props) => {
                     className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5"
                   >
                     <div className="gallery ">
-                      <div style={{backgroundImage: `${product.images[index]}`}}></div>
+                      <div
+                        style={{ backgroundImage: `${product.images[index]}` }}
+                      ></div>
                       <img
                         src={product.images[index]}
                         width="100%"
@@ -178,7 +180,8 @@ const ProductDetails = (props) => {
             </div>
           </div>
         </div>
-        
+
+
         <div className="container-fluid pt-2 p-lg-4">
           <div className="row">
             <div className="col-lg-12">

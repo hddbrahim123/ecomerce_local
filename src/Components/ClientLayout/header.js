@@ -70,9 +70,9 @@ const Header = ({language, handleStoreLanguage}) => {
           </select>
         </div>
         <div className="nav__cart">
-          <a href="/cart">
+          <Link to="/cart">
             <img src={cart} alt="cart" />
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

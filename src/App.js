@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router , Switch} from "react-router-dom";
+import { HashRouter as Router , Switch} from "react-router-dom";
 
 import './assets/scss/App.scss'
 
@@ -22,7 +22,7 @@ const App = ()=>{
 
   return (
     <React.Fragment>
-      <Router basename={"./"}>
+      <Router>
         <Switch>
           {clientRoutes.map((route , i)=>(
             <ClientMiddleware 
@@ -60,6 +60,7 @@ const App = ()=>{
               layout={ClientLayout}
               key={1}
             />
+            
         </Switch>
       </Router>
     </React.Fragment>
