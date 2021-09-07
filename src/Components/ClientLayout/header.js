@@ -70,12 +70,13 @@ const Header = ({language, handleStoreLanguage}) => {
           </select>
         </div> */}
         <div className="nav__cart">
-          <Link to="/cart">
-            <span>
-              <img src={cart} alt="cart" />
-            </span>
+        <span className="">
+              2<Link to="/cart">
             
+            <img src={cart} alt="cart" />
           </Link>
+            </span>
+          
         </div>
       </nav>
     </header>

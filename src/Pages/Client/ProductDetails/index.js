@@ -162,7 +162,7 @@ const ProductDetails = (props) => {
                         </div>
                       )}
 
-                      <div className="action   d-flex justify-content-between align-items-center">
+                      <div className="action d-flex justify-content-between align-items-center">
                         <Link
                           to="#"
                           className="action__addToCart text-center w-100 text-capitalize"
@@ -180,24 +180,20 @@ const ProductDetails = (props) => {
             </div>
           </div>
         </div>
-
-
-        <div className="container-fluid pt-2 p-lg-4">
+        {product.details && (<div className="container-fluid pt-2 p-lg-4">
           <div className="row">
             <div className="col-lg-12">
               <div className="card">
                 <div className="card-body">
                   <h5 className="">{content.titleDetails}</h5>
                   <div className="p-lg-4">
-                    {!!product && !!product.details
-                      ? ReactHtmlParser(product.details)
-                      : ""}
+                    {ReactHtmlParser(product.details)}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div>)}
         {product.specification && (
           <div className="container-fluid pt-2 p-lg-4">
             <div className="row">

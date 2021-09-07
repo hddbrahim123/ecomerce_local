@@ -41,7 +41,7 @@ const Index = () => {
       <Home language={language} />
       <LatestProducts language={language} latestProducts={latestProducts} />
       <TopSale language={language} productsTopSale={productsTopSale} />
-      <Collection language={language} categories={categories} />
+      {/* <Collection language={language} categories={categories} /> */}
       <TopRating language={language} products={productsTopRating} />
       <Offre language={language} products={productsOffre} />
     </React.Fragment>

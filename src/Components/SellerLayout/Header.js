@@ -26,19 +26,18 @@ const Header = ({language, handleStoreLanguage})=>{
               <div className="head__toggle" onClick={()=> {dispatch(toggleLeftmenu(!isOpen))}}>
                 <div className="head__brand">
                    <i className='bx bxs-disc nav__icon' ></i>
-                   <span className="head__logo"><img src={profile} alt="name" width="100%"/></span>
+                   {/* <span className="head__logo"><img src={profile} alt="name" width="100%"/></span> */}
+                   <span className="head__logo">ETNT Boutique</span>
                 </div>
-
                 {isOpen ? 
                     <i className='bx bx-x head__icon'></i>
                 :
                     <i className='bx bx-menu-alt-left head__icon'></i>
                 }
               </div>
-              
               <div className="head__right">
               <div className="m-3">
-                <select
+                {/* <select
                   value={language}
                   onChange={(e) => {
                     handleStoreLanguage(e.target.value);
@@ -49,15 +48,13 @@ const Header = ({language, handleStoreLanguage})=>{
                       {value}
                     </option>
                   ))}
-                </select>
+                </select> */}
               </div>
                 <div className="head__notification">
                   <div className="head__notification__toggle">
                     <i className="bx bx-bell bx-tada " />
                     {CountNotifications > 0 ? <span>{CountNotifications}</span> : ""}
                   </div>
-                  
-
                    <div className="head__notification__collapse">
                     <div className="head__notification__content shadow">
                        <div className="head__notification__header d-flex justify-content-between">
@@ -78,7 +75,6 @@ const Header = ({language, handleStoreLanguage})=>{
                          </Link>
                        </div>
                        <div className="head__notification__footer">
-                       
                        </div>                        
                     </div> 
                    </div>
@@ -86,7 +82,7 @@ const Header = ({language, handleStoreLanguage})=>{
 
               <div className="head__profile" onClick={toggleProfileMenu}>
                <img src={avatar} alt="profile" className="head__avatar" />
-               <span className="head__profile__name headprofile__icon">Hddbrahim</span>
+               <span className="head__profile__name headprofile__icon">Vendeur</span>
                <i className='bx bx-down-arrow-alt head__profile__icon'></i>
 
                <div className={showProfileMenu ? "head__profile__collapse show__profile" : "head__profile__collapse"}>
@@ -99,7 +95,6 @@ const Header = ({language, handleStoreLanguage})=>{
                         </ul>   
                    </div> 
                </div>
-               
               </div>
               </div>
              </nav>
