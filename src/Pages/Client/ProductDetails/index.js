@@ -142,9 +142,9 @@ const ProductDetails = (props) => {
                           <span className="price__new ">
                             {product.newPrice} Dhs
                           </span>
-                          <del className="price__old">
+                          {product.oldPrice != product.newPrice && (<del className="price__old">
                             {product.oldPrice} Dhs
-                          </del>
+                          </del>)}
                         </div>
                         <div className="data__description">
                           {ReactHtmlParser(product.description)}
