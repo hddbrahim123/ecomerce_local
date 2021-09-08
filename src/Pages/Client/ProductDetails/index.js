@@ -146,9 +146,9 @@ const ProductDetails = (props) => {
                           <span className="price__new ">
                             {product.newPrice} Dhs
                           </span>
-                          <del className="price__old">
+                          {product.oldPrice != product.newPrice && (<del className="price__old">
                             {product.oldPrice} Dhs
-                          </del>
+                          </del>)}
                         </div>
                         <div className="data__description">
                           {ReactHtmlParser(product.description)}
@@ -166,7 +166,7 @@ const ProductDetails = (props) => {
                         </div>
                       )}
 
-                      <div className="action   d-flex justify-content-between align-items-center">
+                      <div className="action d-flex justify-content-between align-items-center">
                         <Link
                           to="#"
                           className="action__addToCart text-center w-100 text-capitalize"
@@ -194,15 +194,13 @@ const ProductDetails = (props) => {
                 <div className="card-body">
                   <h5 className="">{content.titleDetails}</h5>
                   <div className="p-lg-4">
-                    {!!product && !!product.details
-                      ? ReactHtmlParser(product.details)
-                      : ""}
+                    {ReactHtmlParser(product.details)}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div>)}
         {product.specification && (
           <div className="container-fluid pt-2 p-lg-4">
             <div className="row">

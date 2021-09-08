@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import iconmenu from "../../assets/icons/icon-menu.svg";
-import brand from "../../assets/icons/nike-logo.svg";
+// import brand from "../../assets/icons/nike-logo.svg";
 import cart from "../../assets/icons/shopping-bag.svg";
 
 import Aos from "aos";
@@ -28,9 +28,9 @@ const Header = ({language, handleStoreLanguage}) => {
         <div className="nav__toggle" onClick={toggleMenu}>
           <img src={iconmenu} alt="icon-toggle" />
         </div>
-        <div className="nav__brand">
+        {/* <div className="nav__brand">
           <img src={brand} alt="icon-brand" />
-        </div>
+        </div> */}
         <div className={show ? "nav__menu show" : "nav__menu"}>
           <ul className="nav__list">
             <li className="nav__item ">
@@ -43,7 +43,7 @@ const Header = ({language, handleStoreLanguage}) => {
                 {content.shoop}
               </Link>
             </li>
-            <li className="nav__item">
+            {/* <li className="nav__item">
               <Link to="#" className="nav__link">
                 {content.about}
               </Link>
@@ -52,10 +52,10 @@ const Header = ({language, handleStoreLanguage}) => {
               <Link to="#" className="nav__link">
                 {content.contact}
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
-        <div className="m-3">
+        {/* <div className="m-3">
           <select
             value={language}
             onChange={(e) => {
@@ -68,11 +68,15 @@ const Header = ({language, handleStoreLanguage}) => {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
         <div className="nav__cart">
-          <Link to="/cart">
+        <span className="">
+              2<Link to="/cart">
+            
             <img src={cart} alt="cart" />
           </Link>
+            </span>
+          
         </div>
       </nav>
     </header>

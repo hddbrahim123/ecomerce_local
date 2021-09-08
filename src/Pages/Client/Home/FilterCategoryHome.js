@@ -5,14 +5,15 @@ import { Link } from 'react-router-dom'
 import icon from '../../../assets/images/icon-img/5.png'
 import icone from '../../../assets/images/icon-img/4.png'
 import dictionary from "../../../Core/dictionary"
+
 const FilterCategoryHome = ({language,categories})=>{
     const content = dictionary.headerContent[language]
     return (
         <React.Fragment>
-            <div className="text-muted d-flex align-items-center justify-content-between ">
+            {/* <div className="text-muted d-flex align-items-center justify-content-between ">
                 {content.titleFilterCategories}
                 <img src={icone} alt="icon" className=" float-end" />
-            </div>
+            </div> */}
             <ul className="d-none d-lg-block">
                 {!isEmpty(categories) && categories.map((category , i)=>(
                     <li key={i} className="list-unstyled my-4">

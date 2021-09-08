@@ -122,7 +122,7 @@ const ProductsCart = () => {
                 <div className="card-body">
                   <div className="d-flex justify-content-between mb-4">
                     <span className="text-muted text-capitalize">{content.labelSubTotal}</span>
-                    <span className="fw-bold">${TotalPrice(products)}</span>
+                    <span className="fw-bold">{TotalPrice(products)} Dhs</span>
                   </div>
                   <div className="d-flex justify-content-between mb-4">
                     <span className="text-muted text-capitalize">{content.labelShipping}</span>
@@ -130,14 +130,14 @@ const ProductsCart = () => {
                   </div>
                   <div className="d-flex justify-content-between mb-4">
                     <span className="text-muted text-capitalize">{content.labelSubTotal}</span>
-                    <span className="fw-bold">${TotalPrice(products)}</span>
+                    <span className="fw-bold">{TotalPrice(products)} Dhs</span>
                   </div>
                 </div>
               </div>
               <div className="card my-2 p-2 shadow-sm">
                 <div className="card-body d-flex justify-content-between">
                   <span className="text-capitalize text-muted">{content.labelTotal}</span>
-                  <span className="fw-bold">${TotalPrice(products)}</span>
+                  <span className="fw-bold">{TotalPrice(products)} Dhs</span>
                 </div>
                 <Link
                   to="#"

@@ -50,7 +50,7 @@ var dictionary = {
   detailProductContent: {
     Fr: {
       labelPrice: "Prix",
-      buttonCommandText: "Commander ici",
+      buttonCommandText: "Ajouter au panier",
       titleDetails: "Détails :",
       titleSpecification: "Spécification :",
       titleRelatedProducts: "Produits connexes",
