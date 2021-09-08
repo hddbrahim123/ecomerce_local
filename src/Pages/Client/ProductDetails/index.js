@@ -7,6 +7,7 @@ import StarRatings from "react-star-ratings";
 import ReleatedProduct from "./Releated";
 import ModalPhotos from "./ModalPhotos";
 
+import { isEmpty, map } from "lodash";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import {
@@ -14,16 +15,18 @@ import {
   getRelatedProducts,
 } from "../../../Core/ApiCore/ProductClient";
 import ReactHtmlParser from "react-html-parser";
-import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
+import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
+import FicheTechnique from "./FicheTechnique";
 
 const ProductDetails = (props) => {
   const [language] = useState(
     localStorage.getItem("language") ?? dictionary.defaultLanguage
   );
   const [product, setProduct] = useState({});
+  
   const [releatedProducts, setReleatedProducts] = useState([]);
 
   const [index, setIndex] = useState(0);
@@ -54,6 +57,7 @@ const ProductDetails = (props) => {
       getProductDetailViewClient(slug).then((res) => {
         if (res) {
           setProduct(res);
+          
           getRelatedProducts(slug, parseInt(3)).then((res) =>
             setReleatedProducts(res)
           );
@@ -181,6 +185,7 @@ const ProductDetails = (props) => {
           </div>
         </div>
 
+        <FicheTechnique product={product}></FicheTechnique>
 
         <div className="container-fluid pt-2 p-lg-4">
           <div className="row">
