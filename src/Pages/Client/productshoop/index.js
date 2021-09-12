@@ -23,7 +23,7 @@ const ProductsShop = () => {
 
   const [filters, setFilters] = useState({
     pageNumber: 1,
-    length: 5,
+    length: 10,
     categories: [],
     price: [],
   });

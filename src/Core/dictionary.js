@@ -24,12 +24,15 @@ var dictionary = {
       titleFilterCategories: "Catégories",
       titleTopSale: "Meilleure vente",
       labelSlideTitle:"title",
+      labelSlideIndex:"Ordre",
       placeHolderSlideTitle:"Title...",
+      placeHolderSlideIndex:"Ordre...",
       labelSlideDescription:"Description",
       labelSlideImage:"Drag or Upload Images",
       labelSlideLink:"Lien",
       placeHolderSlideLink:"Lien...",
-      buttonSaveSlideText:"Enregistrer slide"
+      buttonSaveSlideText:"Enregistrer slide",
+      buttonEditSlideText:"Modifier slide"
     },
     En: {
       titleLatestProduct: "Recommended for you",
@@ -39,12 +42,15 @@ var dictionary = {
       titleFilterCategories: "Categories",
       titleTopSale: "Top Sale",
       labelSlideTitle:"title",
+      labelSlideIndex:"Order",
       placeHolderSlideTitle:"Title...",
+      placeHolderSlideIndex:"Order...",
       labelSlideDescription:"Description",
       labelSlideImage:"Drag or Upload Images",
       labelSlideLink:"Link",
       placeHolderSlideLink:"Link...",
-      buttonSaveSlideText:"Save slide"
+      buttonSaveSlideText:"Save slide",
+      buttonEditSlideText:"Edit slide"
     },
   },
   detailProductContent: {
@@ -171,7 +177,7 @@ var dictionary = {
       active:"Active",
       inActive:"InActive",
       buttonDetailsText:"Details",
-      titleEditProduit:"Edit produit",
+      titleEditProduit:"Modifier les données du produit",
       titleAddProduit:"ajouter produit",
       titleSaveProduct:"Produits",
       productName:"Nom",
@@ -217,7 +223,7 @@ var dictionary = {
       active:"Active",
       inActive:"InActive",
       buttonDetailsText:"Details",
-      titleEditProduit:"Edit produit",
+      titleEditProduit:"Edit product data",
       titleAddProduit:"ajouter produit",
       titleSaveProduct:"Produits",
       productName:"Name",
@@ -318,6 +324,7 @@ var dictionary = {
       userOrPasswordInvalid: "Email ou mot de passe invalide",
       saveProductCategoryRequired: "Svp, Selectionner le categorie.",
       saveProductImagesRequired: "Svp, Selectionner des images.",
+      saveProductPriceRequired: "Svp, Entrez le prix du produit",
       categoryInsertedSuccess :"catégorie enregistré avec succès.",
       categoryInsertedError :"échec d'ajouter catégorie.",
       categoryUpdatedSuccess :"catégorie mis à jour avec succès.",
@@ -327,7 +334,8 @@ var dictionary = {
       categoryAlreadyExist :"catégorie existe déjà.",
       categoryDeletedSuccess :"catégorie supprimé avec succès.",
       categoryDeletedFailed :"échec de la suppression du catégorie.",
-      checkForm:"Vérifiez votre formulaire"
+      checkForm:"Vérifiez votre formulaire",
+      UpdateSlideError:"échec de la modification du slide"
     },
     En:{
       adminNoExiste: "admin not found.",
@@ -351,7 +359,8 @@ var dictionary = {
       slugAlreadyExists: "Slug déjà existé",
       userOrPasswordInvalid: "Email ou mot de passe invalid",
       saveProductCategoryRequired: "Svp, Selectionner le categorie.",
-      saveProductImagesRequired: "Svp, Selectionner des images.",
+      saveProductImagesRequired: "Please, Select the pictures.",
+      saveProductPriceRequired: "Please enter the price of the product",
       categoryInsertedSuccess :"Category successfully registered.",
       categoryInsertedError :"failure to add category.",
       categoryUpdatedSuccess :"Category updated successfully.",
@@ -361,7 +370,8 @@ var dictionary = {
       categoryAlreadyExist :"category already exists.",
       categoryDeletedSuccess :"category deleted successfully.",
       categoryDeletedFailed :"failed to delete category.",
-      checkForm:"Check your form"
+      checkForm:"Check your form",
+      UpdateSlideError:"échec de la modification du slide"
     }
   }
 };

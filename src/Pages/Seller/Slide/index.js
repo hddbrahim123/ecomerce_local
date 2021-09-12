@@ -66,6 +66,7 @@ const Slides = ()=>{
             >
               <Thead>
                 <Tr>
+                  <Th></Th>
                   <Th>Image</Th>
                   <Th>Title</Th>
                   <Th>Description</Th>
@@ -75,6 +76,9 @@ const Slides = ()=>{
               <Tbody>
                 {!isEmpty(slides) && slides.map((slide,i)=>(
                 <Tr className="py-5" key={i}>
+                  <Td>
+                    <p className="my-3">{slide.index}</p>
+                  </Td>
                   <Td>
                     <img src={slide.image} alt={slide.title} width="100px" />
                   </Td>
@@ -87,8 +91,7 @@ const Slides = ()=>{
                   <Td>
                     <div className="d-flex gap-3">
                     {
-                      false &&
-                      <Link to="#" className="text-success">
+                      <Link to={"/seller/slide/edit/"+slide.id} className="text-success">
                       <i className='bx bx-edit'></i>
                       </Link>
                     }

@@ -187,7 +187,7 @@ const ProductDetails = (props) => {
 
         <FicheTechnique product={product}></FicheTechnique>
 
-        <div className="container-fluid pt-2 p-lg-4">
+        {product.details && (<div className="container-fluid pt-2 p-lg-4">
           <div className="row">
             <div className="col-lg-12">
               <div className="card">
@@ -201,6 +201,7 @@ const ProductDetails = (props) => {
             </div>
           </div>
         </div>)}
+
         {product.specification && (
           <div className="container-fluid pt-2 p-lg-4">
             <div className="row">
@@ -209,9 +210,7 @@ const ProductDetails = (props) => {
                   <div className="card-body">
                     <h5 className="">{content.titleSpecification}</h5>
                     <div className="p-lg-4">
-                      {!!product && !!product.specification
-                        ? ReactHtmlParser(product.specification)
-                        : ""}
+                      {ReactHtmlParser(product.specification)}
                     </div>
                   </div>
                 </div>

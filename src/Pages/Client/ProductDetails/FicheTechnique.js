@@ -40,7 +40,8 @@ function FicheTechnique({ product }) {
   ]);
   const [offset, setOffset] = useState(0)
   
-  return (
+  return (product[data[0]] && product[data[1]] && product[data[2]] && 
+  product[data[3]] && product[data[4]]) ? (
     <Card data-aos="fade-up">
       <CardBody>
         <CardTitle>Fiche technique :</CardTitle>
@@ -61,7 +62,7 @@ function FicheTechnique({ product }) {
         ))}
       </CardBody>
     </Card>
-  );
+  ) : "";
 }
 
 export default FicheTechnique;

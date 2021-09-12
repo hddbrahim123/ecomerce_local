@@ -93,7 +93,7 @@ const Products = (props) => {
         </div>
         <ModalConfirmation 
           isOpen={isOpen} 
-          toggle={()=>setIsOpen(!isOpen)} 
+          toggle={()=>setIsOpen(!isOpen)}
           title="RemoveProduct" 
           message="RemoveProductMessageConfirmation" 
           buttonTextProcess="buttonRemoveProduct" 
@@ -140,7 +140,7 @@ const Products = (props) => {
                           />
                           <h5 className="mx-3 text-capitalize">
                             <Link
-                              to={"/seller/product/" + product.slug}
+                              to={"/seller/product/edit/" + product.slug}
                               className="text-dark"
                             >
                               {product.name}

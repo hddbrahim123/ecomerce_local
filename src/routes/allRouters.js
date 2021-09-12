@@ -43,6 +43,7 @@ const sellerRoutes = [
     { path:'/seller/order/:orderNumber' , component: OrderView },
 
     { path:'/seller/slide/create' , component: FormSlide },
+    { path:'/seller/slide/edit/:id' , component: FormSlide },
     { path:'/seller/slides' , component: Slides },
     
 ]

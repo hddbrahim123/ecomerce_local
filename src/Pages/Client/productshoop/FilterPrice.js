@@ -17,11 +17,10 @@ const FilterPrice = ({ language,handleFilters }) => {
           <div className="card-body">
             <h5 className="font-size-14 mb-4">{content.titlePrice}</h5>
             <br />
-
             <Nouislider
               range={{ min: 0, max: 10000 }}
               tooltips={true}
-              start={[100, 3000]}
+              start={[0, 10000]}
               connect
               onSlide={onUpdate}
             />

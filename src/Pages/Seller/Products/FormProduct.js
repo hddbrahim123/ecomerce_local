@@ -151,13 +151,12 @@ const FormProduct = (props) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+      let newFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
       );
+      setFiles([...files, ...newFiles]);
       console.log("files", files);
     },
   });
@@ -173,6 +172,18 @@ const FormProduct = (props) => {
     if (files.length == 0) {
       toastr.error(messages.saveProductImagesRequired, "");
       return;
+    }
+    if (!product.oldPrice && !product.newPrice) {
+      toastr.error(messages.saveProductPriceRequired, "");
+      return;
+    }
+    if (!product.oldPrice) {
+      product.oldPrice = product.newPrice;
+      setProduct({ ...product, oldPrice: product.newPrice });
+    }
+    if (!product.newPrice) {
+      product.newPrice = product.oldPrice;
+      setProduct({ ...product, newPrice: product.oldPrice });
     }
     SaveProduct(product).then((res) => {
       if (res.success) {
@@ -217,31 +228,35 @@ const FormProduct = (props) => {
 
     productEdit.images = undefined;
 
-    UpdateProduct(productEdit).then((res) => {
-      if (res.success) {
-        const slug = res.data.slug;
-        console.log(slug);
-        if (!isEmpty(files)) {
-          console.log(files);
-          files.map((file) => {
-            formData.append("photos", file);
-          });
-          UploadImage(slug, formData).then((res) => {
+    UpdateProduct(productEdit)
+      .then((res) => {
+        if (res.success) {
+          const slug = res.data.slug;
+          console.log(slug);
+          if (!isEmpty(files)) {
+            console.log(files);
+            files.map((file) => {
+              formData.append("photos", file);
+            });
+            UploadImage(slug, formData).then((res) => {
+              console.log(res, messages.updateProductSuccess);
+              toastr.options.progressBar = true;
+              toastr.success(messages.updateProductSuccess, "");
+              props.history.push(`/seller/product/${slug}`);
+            });
+          } else {
             console.log(res, messages.updateProductSuccess);
             toastr.options.progressBar = true;
             toastr.success(messages.updateProductSuccess, "");
             props.history.push(`/seller/product/${slug}`);
-          });
+          }
         } else {
-          console.log(res, messages.updateProductSuccess);
-          toastr.options.progressBar = true;
-          toastr.success(messages.updateProductSuccess, "");
-          props.history.push(`/seller/product/${slug}`);
+          toastr.error(messages.updateProductError, "Error");
         }
-      } else {
+      })
+      .catch((res) => {
         toastr.error(messages.updateProductError, "Error");
-      }
-    }).catch(res=>{toastr.error(messages.updateProductError, "Error")});
+      });
   };
 
   const deleteImage = (imageGuid) => {
@@ -249,8 +264,8 @@ const FormProduct = (props) => {
     RemoveImage(imageGuid).then((res) => {
       if (res.success) {
         console.log(res);
-        let imagesList = imagesEdit;
-        imagesList = imagesList.filter(
+
+        let imagesList = imagesEdit.filter(
           (image) => image.imageGuid !== imageGuid
         );
         setImagesEdit(imagesList);
@@ -282,6 +297,44 @@ const FormProduct = (props) => {
       }
     });
   }, []);
+
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote", "code-block"],
+
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }], // superscript/subscript
+      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+      [{ direction: "rtl" }], // text direction
+
+      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+
+      ["clean"], // remove formatting button
+    ],
+  };
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
 
   return (
     <React.Fragment>
@@ -444,6 +497,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.description ?? ""
@@ -467,6 +521,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.details ?? ""
@@ -490,6 +545,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.mainCharacteristics ?? ""
@@ -497,8 +553,13 @@ const FormProduct = (props) => {
                     }
                     onChange={
                       !isEmpty(productEdit)
-                        ? (e) => setProductEdit({...productEdit, mainCharacteristics:e})
-                        : (e) => setProduct({...product, mainCharacteristics:e})
+                        ? (e) =>
+                            setProductEdit({
+                              ...productEdit,
+                              mainCharacteristics: e,
+                            })
+                        : (e) =>
+                            setProduct({ ...product, mainCharacteristics: e })
                     }
                   />
                 </div>
@@ -513,6 +574,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.technicalDescription ?? ""
@@ -520,8 +582,13 @@ const FormProduct = (props) => {
                     }
                     onChange={
                       !isEmpty(productEdit)
-                        ? (e) => setProductEdit({...productEdit, technicalDescription:e})
-                        : (e) => setProduct({...product, technicalDescription:e})
+                        ? (e) =>
+                            setProductEdit({
+                              ...productEdit,
+                              technicalDescription: e,
+                            })
+                        : (e) =>
+                            setProduct({ ...product, technicalDescription: e })
                     }
                   />
                 </div>
@@ -536,6 +603,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.venduWith ?? ""
@@ -543,8 +611,9 @@ const FormProduct = (props) => {
                     }
                     onChange={
                       !isEmpty(productEdit)
-                        ? (e) => setProductEdit({...productEdit, venduWith:e})
-                        : (e) => setProduct({...product, venduWith:e})
+                        ? (e) =>
+                            setProductEdit({ ...productEdit, venduWith: e })
+                        : (e) => setProduct({ ...product, venduWith: e })
                     }
                   />
                 </div>
@@ -559,6 +628,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.general ?? ""
@@ -566,8 +636,8 @@ const FormProduct = (props) => {
                     }
                     onChange={
                       !isEmpty(productEdit)
-                        ? (e) => setProductEdit({...productEdit, general:e})
-                        : (e) => setProduct({...product, general:e})
+                        ? (e) => setProductEdit({ ...productEdit, general: e })
+                        : (e) => setProduct({ ...product, general: e })
                     }
                   />
                 </div>
@@ -582,6 +652,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.garantie ?? ""
@@ -589,8 +660,8 @@ const FormProduct = (props) => {
                     }
                     onChange={
                       !isEmpty(productEdit)
-                        ? (e) => setProductEdit({...productEdit, garantie:e})
-                        : (e) => setProduct({...product, garantie:e})
+                        ? (e) => setProductEdit({ ...productEdit, garantie: e })
+                        : (e) => setProduct({ ...product, garantie: e })
                     }
                   />
                 </div>
@@ -605,6 +676,7 @@ const FormProduct = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.specification ?? ""
@@ -639,6 +711,16 @@ const FormProduct = (props) => {
                   files.map((image, i) => (
                     <div style={thumb} key={i}>
                       <div style={thumbInner}>
+                        <span
+                          onClick={() => {
+                            let newFiles = files.filter((e) => e != image);
+                            setFiles(newFiles);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          className="featured__offre"
+                        >
+                          XXX
+                        </span>
                         <img src={image.preview} style={img} />
                       </div>
                     </div>
@@ -735,9 +817,6 @@ const FormProduct = (props) => {
             </div>
           </div>
         </div>
-        {/* {JSON.stringify(product)}
-<br />
-{JSON.stringify(productEdit)} */}
         <div className="card mt-4">
           <div className="card-body">
             <button type="submit" className="btn btn-primary w-100">

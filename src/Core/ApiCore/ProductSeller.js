@@ -119,10 +119,23 @@ export const RemoveImage = (imageGuid) => {
         .catch(err => console.error(err))
 }
 
-
-export const SaveSlide = (slide) => {
+export const InsertSlide = (slide) => {
     const { token } = isAuthSeller().data
     return fetch(`${API_URL}/Home/InsertSlide`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(slide)
+    })
+        .then(res => res.json())
+        .catch(err => console.error(err))
+}
+
+export const UpdateSlide = (slide) => {
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Home/UpdateSlide`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -150,6 +163,30 @@ export const UploadImageSlide = (id, images) => {
 export const RemoveSlide = (slideId) => {
     const { token } = isAuthSeller().data
     return fetch(`${API_URL}/Home/RemovetSlide?slideId=${slideId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .catch(err => console.error(err))
+}
+export const GetSlide = (slideId) => {
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Home/GetSlide?slideId=${slideId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .catch(err => console.error(err))
+}
+export const GetLastSlideView = () => {
+    const { token } = isAuthSeller().data
+    return fetch(`${API_URL}/Home/GetLastSlideView`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

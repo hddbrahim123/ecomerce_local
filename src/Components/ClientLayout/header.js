@@ -9,10 +9,13 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 import dictionary from "../../Core/dictionary";
+import { useSelector } from "react-redux";
 
 const Header = ({language, handleStoreLanguage}) => {
   const [show, setShow] = useState(false);
   const toggleMenu = () => setShow(!show);
+
+  let countItem = useSelector(state => state.Cart.count)
 
   useEffect(() => {
     Aos.init({
@@ -71,11 +74,10 @@ const Header = ({language, handleStoreLanguage}) => {
         </div> */}
         <div className="nav__cart">
         <span className="">
-              2<Link to="/cart">
-            
-            <img src={cart} alt="cart" />
-          </Link>
-            </span>
+          <Link to="/cart">
+            <img src={cart} alt="cart" /> {countItem > 0 && <span className="badge bg-warning">{countItem}</span>}
+          </Link> 
+        </span>
           
         </div>
       </nav>

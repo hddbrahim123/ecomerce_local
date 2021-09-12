@@ -11,10 +11,13 @@ import "toastr/build/toastr.min.css";
 import { useDropzone } from "react-dropzone";
 
 import {
-  SaveSlide,
+  GetSlide,
+  InsertSlide,
+  UpdateSlide,
   UploadImageSlide,
+  GetLastSlideView
 } from "../../../Core/ApiCore/ProductSeller";
-import { isEmpty } from "lodash";
+import { isEmpty, isNumber } from "lodash";
 
 import dictionary from "../../../Core/dictionary";
 
@@ -54,22 +57,26 @@ const FormSlide = (props) => {
     localStorage.getItem("language") ?? dictionary.defaultLanguage
   );
   const [slide, setSlide] = useState({
+    id:0,
     title: "",
     description: "",
     link: "product/",
+    index: 0
   });
 
-  const handleSlide = (e) => {
+  const handleChangeSlide = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setSlide({
       ...slide,
-      [e.target.id]: e.target.value,
-    });
+      [e.target.id]: value
+    })
   };
 
-  const handleDescription = (e) => {
+  const handleChangeDescription = (e) => {
     setSlide({
       ...slide,
-      description: e,
+      description: e
     });
   };
 
@@ -93,32 +100,141 @@ const FormSlide = (props) => {
 
   const submitSlide = (e) => {
     e.preventDefault();
-    SaveSlide(slide).then((res) => {
-      console.log(res);
-      if (res.success) {
-        files.map((file) => {
-          formData.append("photos", file);
-        });
-        let id = res.data.id;
-        UploadImageSlide(id, formData).then((res) => {
-          console.log(res);
-
-          toastr.options.progressBar = true;
-          toastr.success("Slide Created SuccessFully", "success");
-          props.history.push("/seller/slides");
-        });
-      } else {
-        toastr.error(res.message, res.code);
-      }
-    })
+    // if (!isNumber(slide.index)) {
+    //   slide.index = 0
+    //   setSlide({
+    //     ...slide,
+    //     index: 0
+    //   })
+    // }else{
+    //   slide.index = parseInt(slide.index) ?? 0
+    //   setSlide({
+    //     ...slide,
+    //     index: parseInt(slide.index) ?? 0
+    //   })
+    // }
+    
+    if (slide.id) {
+      UpdateSlide(slide).then(res=>{
+        if (res.success) {
+          files.map((file) => {
+            formData.append("photos", file);
+          });
+          let id = res.data.id;
+          UploadImageSlide(id, formData).then((res) => {
+            console.log(res);
+  
+            toastr.options.progressBar = true;
+            toastr.success("Slide Created SuccessFully", "success");
+            props.history.push("/seller/slides");
+          });
+        } else {
+          toastr.error(res.message, res.code ?? "UpdateSlideError");
+        }
+      })
+    } else {
+      InsertSlide(slide).then((res) => {
+        if (res.success) {
+          files.map((file) => {
+            formData.append("photos", file);
+          });
+          let id = res.data.id;
+          UploadImageSlide(id, formData).then((res) => {
+            console.log(res);
+  
+            toastr.options.progressBar = true;
+            toastr.success("Slide Created SuccessFully", "success");
+            props.history.push("/seller/slides");
+          });
+        } else {
+          toastr.error(res.message, res.code ?? "InsertSlideError");
+        }
+      })
+    }
   }
   var content = dictionary.homeContent[language];
-  useEffect(() => {}, []);
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+    
+      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'direction': 'rtl' }],                         // text direction
+    
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+    
+      ['clean']                                         // remove formatting button
+    ]
+  };
+  useEffect(() => {
+    let slideid = props.match.params.id;
+    if (slideid) {
+      GetSlide(slideid).then((res) =>{
+        console.log(res)
+        if (res) {
+          slide.id = res.id;
+          slide.title = res.title;
+          slide.description = res.description;
+          slide.link = res.link;
+          slide.index = res.index
+          //setSlide(res);
+          setSlide({
+            ...slide,
+            id:res.id,
+            title: res.title,
+            description: res.description,
+            link: res.link,
+            index: res.index
+          })
+          setFiles([res.image])
+        }
+      })
+    } else {
+      GetLastSlideView().then((res)=>{
+        console.log(res)
+        if (res) {
+          slide.index = res.index + 1
+          setSlide({
+            ...slide,
+            index: res.index + 1
+          })
+        }
+      })
+    }
+  }, []);
   return (
     <React.Fragment>
+      {JSON.stringify(slide)}
       <form onSubmit={submitSlide}>
         <div className="card">
           <div className="card-body">
+
+          <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="index" className="">
+                    {content.labelSlideIndex}
+                  </label>
+                  <input
+                    id="index"
+                    type="number"
+                    className="form-control"
+                    placeholder={content.placeHolderSlideIndex}
+                    value={slide.index}
+                    onChange={handleChangeSlide}
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="row">
               <div className="col-lg-12">
                 <div className="mb-3">
@@ -131,7 +247,7 @@ const FormSlide = (props) => {
                     className="form-control"
                     placeholder={content.placeHolderSlideTitle}
                     value={slide.title}
-                    onChange={handleSlide}
+                    onChange={handleChangeSlide}
                   />
                 </div>
               </div>
@@ -144,8 +260,9 @@ const FormSlide = (props) => {
                   </label>
                   <ReactQuill
                     theme="snow"
+                    modules={modules}
                     value={slide.description}
-                    onChange={(e) => handleDescription(e)}
+                    onChange={(e) => handleChangeDescription(e)}
                   />
                 </div>
               </div>
@@ -162,7 +279,7 @@ const FormSlide = (props) => {
                     className="form-control"
                     placeholder={content.placeHolderSlideLink}
                     value={slide.link}
-                    onChange={handleSlide}
+                    onChange={e => handleChangeSlide(e)}
                   />
                 </div>
               </div>
@@ -173,7 +290,7 @@ const FormSlide = (props) => {
           <div className="card-body">
             <section className="container">
               <div {...getRootProps({ className: "dropzone" })}>
-                <input {...getInputProps()} />
+                <input {...getInputProps()} multiple={false} />
                 <div className="d-flex flex-column align-items-center mt-5 justify-content-center">
                   <div className="mb-3">
                     <i className="display-4 text-muted bx bxs-cloud-upload" />
@@ -197,7 +314,7 @@ const FormSlide = (props) => {
         <div className="card mt-4">
           <div className="card-body">
             <button type="submit" className="btn btn-primary w-100">
-              {content.buttonSaveSlideText}
+              {!slide.id ? content.buttonSaveSlideText : content.buttonEditSlideText}
             </button>
           </div>
         </div>
