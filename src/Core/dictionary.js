@@ -98,7 +98,8 @@ var dictionary = {
       modalOrderLabelStatus:"Status",
       modalOrderButtonUpdateStatusText:"Modifier Status",
       modalOrderButtonCloseText:"Fermer",
-      ordersFound:"{count} commande(s) trouvé(s)"
+      ordersFound:"{count} commande(s) trouvé(s)",
+      cartEmpty:"Votre panier est vide"
     },
     En: {
       titleCreateOrder: "Create Order",
@@ -128,7 +129,8 @@ var dictionary = {
       modalOrderLabelStatus:"Status",
       modalOrderButtonUpdateStatusText:"Update Status",
       modalOrderButtonCloseText:"Close",
-      ordersFound:"{count} orders found"
+      ordersFound:"{count} orders found",
+      cartEmpty:"Your Cart is Empty"
     }
   },
   sellerLayout: {

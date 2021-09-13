@@ -23,7 +23,7 @@ const ProductsShop = () => {
 
   const [filters, setFilters] = useState({
     pageNumber: 1,
-    length: 10,
+    length: 9,
     categories: [],
     price: [],
   });
@@ -66,7 +66,7 @@ const ProductsShop = () => {
 
   return (
     <React.Fragment>
-      <div className="container-fluid vh-100 pt-2 p-lg-4">
+      <div className="container-fluid pt-2 p-lg-4">
         <div className="row">
           <div className="col-lg-3">
             <div className="card my-2 shadow-sm">

@@ -29,13 +29,13 @@ const ProductsCart = () => {
   }, []);
   const content = dictionary.orderContent[language];
   return (
-    <React.Fragment>
+    <section>
       <CreateOrderModal
         language={language}
         isOpen={modal}
         toggle={toggleModal}
       />
-      <section className=" p-lg-4">
+      
         <div className="container-fluid">
           <div className="row mx-lg-4">
             <div className="col-lg-8">
@@ -111,7 +111,7 @@ const ProductsCart = () => {
                 <div className="card m-lg-4">
                   <div className="card-body">
                     <div className="text-center">
-                      <h2 className="first-color">Your Cart is Empty</h2>
+                      <h2 className="first-color">{content.cartEmpty}</h2>
                     </div>
                   </div>
                 </div>
@@ -150,8 +150,8 @@ const ProductsCart = () => {
             </div>
           </div>
         </div>
-      </section>
-    </React.Fragment>
+      
+    </section>
   );
 };
 

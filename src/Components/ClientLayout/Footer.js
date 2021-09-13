@@ -16,7 +16,7 @@ const Footer = (props) => {
 
   var content = footerContent[props.language];
   return (
-    <footer className="footer">
+    <footer data-aos="fade-up" className="footer mb-auto py-3">
       <div className="container">
         <div className="row">
           <div className="col-lg-3">
