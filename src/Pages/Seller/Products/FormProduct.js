@@ -251,11 +251,11 @@ const FormProduct = (props) => {
             props.history.push(`/seller/product/${slug}`);
           }
         } else {
-          toastr.error(messages.updateProductError, "Error");
+          toastr.error(messages.updateProductError);
         }
       })
       .catch((res) => {
-        toastr.error(messages.updateProductError, "Error");
+        toastr.error(messages.updateProductError);
       });
   };
 

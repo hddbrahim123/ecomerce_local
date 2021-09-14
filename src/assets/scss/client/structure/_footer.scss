@@ -1,5 +1,9 @@
 .footer{
     position: fixed;
+    //display: table-footer-group;
+    margin-bottom: 0;
+    //float:inline-end;
+    //line-height: normal;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -7,7 +11,6 @@
     padding: 18px 5px;
     overflow: hidden ;
     text-align: center;
-
     &__title{
         font-size: $big-font-size;
         font-weight: $font-medium;

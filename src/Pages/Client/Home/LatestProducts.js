@@ -9,9 +9,11 @@ import "aos/dist/aos.css";
 import { isEmpty } from "lodash";
 import ProductCard from "../productshoop/ProductCard";
 
-import dictionary from "../../../Core/dictionary"
+// import dictionary from "../../../Core/dictionary"
+import { Link } from "react-router-dom";
 
-const LatestProducts = ({ language, latestProducts }) => {
+const LatestProducts = (props) => {
+  const { language, latestProducts, dictionary } = props
   var settings = {
     dots: true,
     infinite: true,
@@ -56,30 +58,42 @@ const LatestProducts = ({ language, latestProducts }) => {
     });
   }, []);
   
-  const content = dictionary.headerContent[language]
+  const content = dictionary.homeContent[language]
 
   return (
     <React.Fragment>
       <section>
-        <div className="featured my-5">
-          <div className="container-fluid px-lg-5">
-            <h2 className="featured__title text-capitalize fs-4 fw-bold mx-2 mb-2">
-            {content.titleLatestProduct}
-            </h2>
-          </div>
-          <div className="container-fluid px-lg-5">
-            <div className="row">
-              <Slider {...settings}>
-                {!isEmpty(latestProducts) &&
-                  latestProducts.map((product, i) => (
-                    <div key={product.slug} className="col-lg-3">
-                      <ProductCard product={product} />
+      <div className="container-fluid my-3">
+                    <div className="row">
+                        <div className="col-lg-12 ">
+                            <div className="card shadow-sm mx-lg-5">
+                                <div className="card-body">
+                                    <div className="row">
+                                        <h4 className="text-capitalize">{content.titleLatestProduct}</h4>
+                                        {!isEmpty(latestProducts) && latestProducts.map((product,i)=>(
+                                            <div key={i} className="col-lg-2" style={{cursor:"pointer"}}
+                                                onClick={() => window.location = `/#/product/${product.slug}`}
+                                            >
+                                                <div className="text-center m-2">
+                                                    <img src={product.image} alt="name" width="100%" className="" />
+                                                    <h5 className="mb-3 text-truncate">
+                                                        <Link
+                                                        to={"/product/" + product.slug}
+                                                        className="first-color text-capitalize"
+                                                        >
+                                                        {product.name}{" "}
+                                                        </Link>
+                                                    </h5>
+                                                    <h6 className="text-muted">{product.newPrice} Dhs</h6>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
-                  ))}
-              </Slider>
-            </div>
-          </div>
-        </div>
+                </div>
       </section>
     </React.Fragment>
   );

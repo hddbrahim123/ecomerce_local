@@ -32,12 +32,12 @@ const Slides = ()=>{
             setSlides(slideList)
 
             toastr.options.progressBar = true
-            toastr.success("Slide Deleted SuccessFully","success")
+            toastr.success("Slide est supprimé avec succès")
           }
           else
           {
             toastr.options.progressBar = true
-            toastr.error("Slide Deleted Error","Error")
+            toastr.error("Echec de suppression du slide")
           }
         })
     }

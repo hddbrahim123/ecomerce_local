@@ -87,7 +87,7 @@ const Orders = (props) => {
         //window.location.reload();
         //props.history.push(`/seller/order/${orderNumber}`);
       } else {
-        toastr.error(res.message, res.code);
+        toastr.error(res.message);
       }
     });
   };

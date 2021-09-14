@@ -88,12 +88,12 @@ const Header = ({language, handleStoreLanguage})=>{
                <div className={showProfileMenu ? "head__profile__collapse show__profile" : "head__profile__collapse"}>
                   <div className="head__profile__content shadow">
                         <ul>
-                          <li><Link to="#" className="head__profile__link"><i className='bx bx-user head__profile__link__icon'></i>profile</Link> </li>
+                          {/* <li><Link to="#" className="head__profile__link"><i className='bx bx-user head__profile__link__icon'></i>profile</Link> </li>
                           <li><Link to="#" className="head__profile__link"><i className='bx bx-log-out head__profile__link__icon' ></i>setting</Link> </li>
-                          <hr/>
+                          <hr/> */}
                           <li><Link to="#" onClick={logout} className="head__profile__link"><i className='bx bx-log-out head__profile__link__icon' ></i>log out</Link> </li>
                         </ul>   
-                   </div> 
+                   </div>
                </div>
               </div>
               </div>

@@ -12,7 +12,7 @@ const FilterPrice = ({ language,handleFilters }) => {
   const content = dictionary.product[language]
   return (
     <React.Fragment>
-      <div className="my-4 pt-3">
+      <div className="my-4 pt-0">
         <div className="card shadow-sm">
           <div className="card-body">
             <h5 className="font-size-14 mb-4">{content.titlePrice}</h5>

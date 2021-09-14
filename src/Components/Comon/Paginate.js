@@ -7,7 +7,7 @@ const Paginate = (props) => {
   const { pagination, onPageChange, className } = props;
   const { pageNumber, totalPage } = pagination;
 
-  function arrayPages(totalPages, pageNumber) {
+  const arrayPages = (totalPages, pageNumber) => {
     var begin = pageNumber - 5;
     if (begin < 1) {
       begin = 1;

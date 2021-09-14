@@ -35,7 +35,7 @@ const SellerLogin = props => {
             toastr.success(res.code, res.message)
           }else{
             toastr.options.progressBar = true;
-            toastr.error(res.code, res.message)
+            toastr.error(res.message)
           }
         }else{
             toastr.options.progressBar = true;

@@ -125,11 +125,11 @@ const FormSlide = (props) => {
             console.log(res);
   
             toastr.options.progressBar = true;
-            toastr.success("Slide Created SuccessFully", "success");
+            toastr.success("Slide modifié avec succès", "success");
             props.history.push("/seller/slides");
           });
         } else {
-          toastr.error(res.message, res.code ?? "UpdateSlideError");
+          toastr.error(res.message);
         }
       })
     } else {
@@ -143,11 +143,11 @@ const FormSlide = (props) => {
             console.log(res);
   
             toastr.options.progressBar = true;
-            toastr.success("Slide Created SuccessFully", "success");
+            toastr.success("Slide enregistré avec succès", "success");
             props.history.push("/seller/slides");
           });
         } else {
-          toastr.error(res.message, res.code ?? "InsertSlideError");
+          toastr.error(res.message);
         }
       })
     }

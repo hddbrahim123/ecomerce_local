@@ -14,14 +14,14 @@ const ProductCard = (props) => {
                 onClick={() =>
                     history.push(`/product/${product.slug}`)
                 }
-                className="card m-2 mb-4 shadow-sm" style={{ cursor: "pointer" }}>
+                className="card m-1 mb-2 shadow-sm" style={{ cursor: "pointer" }}>
                 <div className="card-body">
                     <div className="product-img position-relative">
                         {product.isOffer ? (
                             <span className="featured__offre">
                                 {`-${product.offer}%`}
                             </span>
-                        ) : null}
+                        ) : ""}
 
                         <img
                             src={product.image}

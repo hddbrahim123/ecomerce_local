@@ -34,7 +34,7 @@ const Slide = ({language,slides})=>{
                             <p className="text-muted  mb-3">{ ReactHtmlParser (slide.description)}</p>
                             <Link className="home__slide__btn btn btn-primary py-2 px-2 my-4 border-0" to={slide.link}>{content.slideShoopLinkText}</Link>
                         </div>
-                        <img src={slide.image} alt={slide.title} className="home__slide__img my-1" width="150px" />
+                        <img src={slide.image} alt={slide.title} className="home__slide__img my-1" height="450px" />
                     </div>
                 ))}
             </Slider>

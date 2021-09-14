@@ -23,10 +23,13 @@ body{
     overflow-x: hidden !important;
     margin: 0 !important;
     padding: 0 !important;
+    //height:100vh;
+    //display:flex; 
+    //flex-direction:column; 
 }
 
 #page__topbar{
     margin-top: $header-height;
-
+    margin-bottom: 100px;
    
 }

@@ -1,9 +1,9 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
 import { Link , withRouter } from 'react-router-dom'
-import dictionary from "../../../Core/dictionary"
+// import dictionary from "../../../Core/dictionary"
 
-const TopRating = ({language, products, history})=>{
+const TopRating = ({language, products, dictionary, history})=>{
     const content = dictionary.homeContent[language]
     return (
         <React.Fragment>

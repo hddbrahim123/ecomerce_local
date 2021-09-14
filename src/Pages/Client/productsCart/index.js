@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import {
   removeProductInCart,
   incProductQty,
-  decProductQty,
+  decProductQty
 } from "../../../store/action";
 import CreateOrderModal from "./CreateOrderModal";
 import dictionary from "../../../Core/dictionary";
@@ -59,7 +59,7 @@ const ProductsCart = () => {
                           </span>
                           <div className="col-lg-2">
                             <img
-                              src={product.images[0]}
+                              src={product.images && product.images.length ? product.images[0] : ""}
                               alt="name"
                               className="productCart__img"
                               width="100%"

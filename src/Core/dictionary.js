@@ -17,7 +17,7 @@ var dictionary = {
   },
   homeContent: {
     Fr: {
-      titleLatestProduct: "Recommandé pour vous",
+      titleLatestProduct: "Derniers produits",
       titleOffer: "Le meilleur de nos boutiques officielles | Jusqu'à -25%",
       titleTopRating: "meilleure note",
       slideShoopLinkText: "Achetez maintenant",
@@ -35,7 +35,7 @@ var dictionary = {
       buttonEditSlideText:"Modifier slide"
     },
     En: {
-      titleLatestProduct: "Recommended for you",
+      titleLatestProduct: "Latest products",
       titleOffer: "The best of our official stores | Up to -25%",
       titleTopRating: "top rating",
       slideShoopLinkText: "Shop Now",

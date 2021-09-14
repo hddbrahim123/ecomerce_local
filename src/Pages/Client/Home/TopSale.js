@@ -1,10 +1,10 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
 import { Link , withRouter } from 'react-router-dom'
-import dictionary from "../../../Core/dictionary"
+// import dictionary from "../../../Core/dictionary"
 
 const TopSale = (props)=>{
-    const {language,productsTopSale, history} = props
+    const {language,productsTopSale, dictionary, history} = props
     const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
@@ -18,9 +18,7 @@ const TopSale = (props)=>{
                                         <h4 className="text-capitalize">{content.titleTopSale}</h4>
                                         {!isEmpty(productsTopSale) && productsTopSale.map((product,i)=>(
                                             <div key={i} className="col-lg-2" style={{cursor:"pointer"}}
-                                            onClick={() =>
-                                                history.push(`/product/${product.slug}`)
-                                            }
+                                                onClick={() => history.push(`/product/${product.slug}`)}
                                             >
                                                 <div className="text-center m-2">
                                                     <img src={product.image} alt="name" width="100%" className="" />

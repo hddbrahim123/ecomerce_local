@@ -1,10 +1,11 @@
-import { uniqBy } from "lodash"
+
 import 
 { 
     REMOVE_PRODUCT_IN_CART,
     ADD_ITEM_TO_CART,
     DEC_PRODUCT_QTY,
     INC_PRODUCT_QTY,
+    GET_PRODUCT_CART_QTY
 } 
 from "./actionTypes"
 
@@ -24,6 +25,21 @@ export const addToCart = (item)=>{
         payload:items
     }
 }
+
+const getProductCartQty = (slug)=>{
+    let items = JSON.parse(localStorage.getItem('cart'))
+    let qty = 0
+    if (items && items.length) {
+        let item = items.find(product=> product.slug === slug)
+        if (item) {
+            qty = item.qty
+        }
+    }
+    return{
+        type: GET_PRODUCT_CART_QTY,
+        payload:qty
+    }
+  }
 
 export const incProductQty = (item)=>{
     let items = JSON.parse(localStorage.getItem('cart'))

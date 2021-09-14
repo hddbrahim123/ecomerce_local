@@ -15,8 +15,8 @@ import {
   getRelatedProducts,
 } from "../../../Core/ApiCore/ProductClient";
 import ReactHtmlParser from "react-html-parser";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../store/action";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, decProductQty, incProductQty } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
 import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
 import FicheTechnique from "./FicheTechnique";
@@ -37,15 +37,17 @@ const ProductDetails = (props) => {
     setIndex(i);
   };
 
+  let item = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug) : {})
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const addItemCart = (product) => {
     const { slug, name, newPrice, oldPrice, images } = product;
 
-    dispatch(addToCart({ slug, name, newPrice: newPrice ?? oldPrice, images }));
-    props.history.push("/cart");
+    dispatch(addToCart({ slug, name, newPrice: newPrice ?? oldPrice, images, qty:1 }));
+    //props.history.push("/cart");
   };
-
+  
   useEffect(() => {
     Aos.init({
       duration: 2000,
@@ -165,13 +167,32 @@ const ProductDetails = (props) => {
                           </div>
                         </div>
                       )}
-
+                      {(item && item.qty > 0) && (<div className="">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            dispatch(decProductQty(item));
+                          }}
+                        >
+                          -
+                        </button>
+                        <span className="px-2">{item.qty}</span>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            dispatch(incProductQty(item));
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>)}
                       <div className="action d-flex justify-content-between align-items-center">
                         <Link
                           to="#"
                           className="action__addToCart text-center w-100 text-capitalize"
                           onClick={() => {
                             addItemCart(product);
+                            
                           }}
                         >
                           {content.buttonCommandText}

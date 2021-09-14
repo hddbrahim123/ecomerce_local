@@ -16,10 +16,10 @@ const Footer = (props) => {
 
   var content = footerContent[props.language];
   return (
-    <footer data-aos="fade-up" className="footer mb-auto py-3">
+    <footer className="footer mt-auto py-3">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3">
+          <div className="col-lg-10">
             {/* <h2 className="footer__title">Social media</h2> */}
             <SocialFollow></SocialFollow>
             {/* <ul className="footer__menu">

@@ -23,7 +23,7 @@ const ProductsShop = () => {
 
   const [filters, setFilters] = useState({
     pageNumber: 1,
-    length: 9,
+    length: 12,
     categories: [],
     price: [],
   });
@@ -89,7 +89,7 @@ const ProductsShop = () => {
             <div className="row">
               {!isEmpty(products) &&
                 products.map((product, i) => (
-                  <div key={product.slug} className="col-lg-4">
+                  <div key={product.slug} className="col-lg-3 p-0">
                     <ProductCard product={product} />
                   </div>
                 ))}

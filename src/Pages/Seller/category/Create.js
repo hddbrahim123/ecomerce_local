@@ -34,7 +34,7 @@ const CreateCateory = (props) => {
           toastr.success(messages.categoryInsertedSuccess, "");
           props.history.push("/seller/categories");
         } else {
-          toastr.error(res.message, res.code);
+          toastr.error(res.message);
         }
       })
     } else {
@@ -44,7 +44,7 @@ const CreateCateory = (props) => {
           toastr.success(messages.categoryInsertedSuccess, "");
           props.history.push("/seller/categories");
         } else {
-          toastr.error(res.message, res.code);
+          toastr.error(res.message);
         }
       })
     }
