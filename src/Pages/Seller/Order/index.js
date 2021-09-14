@@ -157,7 +157,7 @@ const Orders = (props) => {
                         <Td>
                           <h5 className="my-3">{order.fullName}</h5>
                         </Td>
-                        <Td>{order.totalAmount} Dh</Td>
+                        <Td>{order.totalAmount} Dhs</Td>
                         <Td>
                           <span className="badge bg-primary px-2">
                             {paymentStatus[order.statusName]}

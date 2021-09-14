@@ -15,7 +15,7 @@ export const SellerSignin = (user) => {
 };
 
 export const isConnect = () => {
-  const { token } = isAuthSeller().data;
+  const { token } = isAuthSeller();
   return fetch(`${API_URL}/Account/IsConnecte`, {
     method: "POST",
     headers: {

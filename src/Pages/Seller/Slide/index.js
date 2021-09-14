@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 
 import { getProductsSlide } from '../../../Core/ApiCore/ProductHome'
 import { RemoveSlide } from '../../../Core/ApiCore/ProductSeller'
+import { UpSlide, DownSlide } from '../../../Core/ApiCore/Slide'
 
 //Import toastr
 import toastr from "toastr"
@@ -41,7 +42,19 @@ const Slides = ()=>{
           }
         })
     }
-
+    const Down = (slide) =>{
+      DownSlide(slide.id).then((res)=>{
+        getProductsSlide()
+          .then(res=>setSlides(res))
+      })
+      
+    }
+    const Up = (slide) =>{
+      UpSlide(slide.id).then((res)=>{
+        getProductsSlide()
+          .then(res=>setSlides(res))
+      })
+    }
     useEffect(() => {
         getProductsSlide()
             .then(res=>setSlides(res))
@@ -70,6 +83,7 @@ const Slides = ()=>{
                   <Th>Image</Th>
                   <Th>Title</Th>
                   <Th>Description</Th>
+                  <Th></Th>
                   <Th data-priority="6">Actions</Th>
                 </Tr>
               </Thead>
@@ -87,6 +101,16 @@ const Slides = ()=>{
                   </Td>
                   <Td>
                     <p className="my-3">{ ReactHtmlParser (slide.description)}</p>
+                  </Td>
+                  <Td>
+                  <div>
+                    <Link onClick={()=>{ Down(slide) }} to="#">
+                      <i className='bx bxs-chevron-up'></i>
+                    </Link>
+                    <Link onClick={()=>{ Up(slide) }} to="#">
+                      <i className='bx bxs-chevron-down'></i>
+                    </Link>
+                  </div>
                   </Td>
                   <Td>
                     <div className="d-flex gap-3">

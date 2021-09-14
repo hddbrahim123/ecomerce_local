@@ -23,9 +23,9 @@ const OrderView = (props) => {
         <div className="col-lg-12">
           <div className="card m-lg-2 shadow-sm">
             <div className="card-header d-flex justify-content-between py-2 text-capitalize fw-bold ">
-              <span>Order Id : {order.orderNumber}</span>
-              {order.processAt && <span>Placed on: {order.processAt}</span>}
-              {order.deliveredAt && <span>Delivered on: {order.deliveredAt}</span>}
+              <span>Commande : {order.orderNumber}</span>
+              {order.processAt && <span>Placé sur: {order.processAt}</span>}
+              {order.deliveredAt && <span>Livré le: {order.deliveredAt}</span>}
             </div>
             <div className="card-body">
               <div className="row">
@@ -71,19 +71,19 @@ const OrderView = (props) => {
         <div className="col-lg-6">
           <div className="card h-100 m-lg-2 my-4 shadow-sm">
             <div className="card-header text-capitalize fw-bold ">
-              information de shipping
+            Informations de livraison
             </div>
             <div className="card-body">
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">name</span>
+                <span className="text-muted text-capitalize">Nom complet</span>
                 <span className="fw-bold">{order.fullName}</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">phone</span>
+                <span className="text-muted text-capitalize">Téléphone</span>
                 <span className="fw-bold">{order.phone}</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Address</span>
+                <span className="text-muted text-capitalize">Adresse</span>
                 <span className="fw-bold">{order.address}</span>
               </div>
             </div>
@@ -92,21 +92,21 @@ const OrderView = (props) => {
         <div className="col-lg-6">
           <div className="card h-100 m-lg-2 shadow-sm">
             <div className="card-header text-capitalize fw-bold ">
-              Total summury
+              Montant Total
             </div>
             <div className="card-body">
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">SubTotal</span>
-                <span className="fw-bold">{order.totalAmount}Dh</span>
+                <span className="text-muted text-capitalize">Sous-total</span>
+                <span className="fw-bold">{order.totalAmount} Dhs</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">shipping</span>
+                <span className="text-muted text-capitalize">Livraison</span>
                 <span className="fw-bold">-</span>
               </div>
               <hr />
               <div className="d-flex justify-content-between mb-4">
                 <span className="text-muted text-capitalize">Total</span>
-                <span className="fw-bold">{order.totalAmount}Dh</span>
+                <span className="fw-bold">{order.totalAmount} Dhs</span>
               </div>
             </div>
           </div>

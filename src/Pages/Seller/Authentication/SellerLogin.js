@@ -27,9 +27,9 @@ const SellerLogin = props => {
       .then(res => { 
         console.log(res)
         if (res) {
-          if(res.success){
+          if(res.success && res.data){
             console.log(JSON.stringify(res))
-            localStorage.setItem('JWT_SELLER', JSON.stringify(res))
+            localStorage.setItem('JWT_SELLER', JSON.stringify(res.data))
             props.history.push('/seller')
             toastr.options.progressBar = true;
             toastr.success(res.code, res.message)

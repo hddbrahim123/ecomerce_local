@@ -9,7 +9,7 @@ export const getOrders = (status)=>{
         query += `status=${status}`
     }
     console.log(query)
-    const {token} = isAuthSeller().data
+    const {token} = isAuthSeller()
     return fetch(`${API_URL}/Admin/GetOrdersView?${query}`,{
         method:"POST",
         headers:{
@@ -24,7 +24,7 @@ export const getOrders = (status)=>{
 }
 
 export const getOrdersStatus = ()=>{
-    const {token} = isAuthSeller().data
+    const {token} = isAuthSeller()
     return fetch(`${API_URL}/User/GetOrderStatus`,{
         method:"POST",
         headers:{
@@ -39,7 +39,7 @@ export const getOrdersStatus = ()=>{
 }
 
 export const GetOrderDetailsView = (orderNumber)=>{
-    const {token} = isAuthSeller().data
+    const {token} = isAuthSeller()
     return fetch(`${API_URL}/Admin/GetOrderView?orderNumber=${orderNumber}`,{
         method:"POST",
         headers:{
@@ -69,7 +69,7 @@ export const createOrder = (order)=>{
 }
 
 export const UpdateOrderStatus = (orderNumber, status)=>{
-    const {token} = isAuthSeller().data
+    const {token} = isAuthSeller()
     return fetch(`${API_URL}/Admin/UpdateOrderStatus?orderNumber=${orderNumber}&status=${status}`,{
         method:"POST",
         headers:{
