@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { isEmpty } from "lodash";
+import { filter, isEmpty } from "lodash";
 
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
@@ -19,11 +19,15 @@ import dictionary from "../../../Core/dictionary";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import ModalConfirmation from "../../../Components/Comon/ModalConfirmation";
+import Search from "./Search";
+import { getCategories } from "../../../Core/ApiCore/Category";
 
 const Products = (props) => {
   const [language] = useState(
     localStorage.getItem("language") ?? dictionary.defaultLanguage
   );
+
+  const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
 
   const content = dictionary.product[language];
@@ -37,6 +41,8 @@ const Products = (props) => {
   const [filters, setFilters] = useState({
     pageNumber: 1,
     length: 10,
+    search:"",
+    categoryId:0
   });
 
   //Handle Page click
@@ -46,6 +52,26 @@ const Products = (props) => {
       pageNumber: newPage,
     });
   };
+
+  const handleChange = (e) =>{
+    setFilters({...filters, [e.target.id]: e.target.value})
+  }
+  
+  const searchProducts = (filters) =>{
+    getProductsSeller(filters).then((res) => {
+      console.log(res);
+      if (res && res.list) {
+        setProducts(res.list);
+        setPagination({
+          ...pagination,
+          pageNumber: res.pageNumber,
+          totalPage: res.totalPage,
+        });
+      }
+    });
+  }
+  
+  const [slug, setSlug] = useState("")
 
   const deleteProduct = (slug) => {
     RemoveProduct(slug).then((res) => {
@@ -64,17 +90,14 @@ const Products = (props) => {
   };
 
   useEffect(() => {
-    getProductsSeller(filters).then((res) => {
-      console.log(res);
-      if (res && res.list) {
-        setProducts(res.list);
-        setPagination({
-          ...pagination,
-          pageNumber: res.pageNumber,
-          totalPage: res.totalPage,
-        });
-      }
-    });
+    getCategories()
+      .then(res=>{
+        if (res) {
+          setCategories(res)
+        }
+      })
+      searchProducts(filters)
+    
   }, [filters]);
 
   return (
@@ -86,6 +109,7 @@ const Products = (props) => {
           link="/seller"
           title={content.titleProducts}
         />
+        <Search categories={categories} filters={filters} handleChange={handleChange} searchProducts={()=>searchProducts(filters)} />
         <div className="row">
           <div className="col-md-3 ">
             <Link to="/seller/products/create" className="pull-rigth">{content.buttonNewProduct}</Link>
@@ -94,11 +118,11 @@ const Products = (props) => {
         <ModalConfirmation 
           isOpen={isOpen} 
           toggle={()=>setIsOpen(!isOpen)}
-          title="RemoveProduct" 
-          message="RemoveProductMessageConfirmation" 
-          buttonTextProcess="buttonRemoveProduct" 
-          buttonTextClose="buttonClose" 
-          handleProcess={deleteProduct} 
+          title={content.titleRemoveProduct}
+          message={content.RemoveProductMessageConfirmation}
+          buttonTextProcess={content.buttonRemoveProductText}
+          buttonTextClose={content.buttonClose} 
+          handleProcess={()=>{ deleteProduct(slug); setIsOpen(!isOpen);}} 
         />
 
         <div className="row">
@@ -140,7 +164,8 @@ const Products = (props) => {
                           />
                           <h5 className="mx-3 text-capitalize">
                             <Link
-                              to={"/seller/product/edit/" + product.slug}
+                              target="_blank"
+                              to={"/product/" + product.slug}
                               className="text-dark"
                             >
                               {product.name}
@@ -165,7 +190,7 @@ const Products = (props) => {
                             className="btn-sm btn-primary btn-rounded"
                             onClick={() => {
                               props.history.push(
-                                `/seller/product/${product.slug}`
+                                `/#/product/${product.slug}`
                               );
                             }}
                           >
@@ -187,7 +212,11 @@ const Products = (props) => {
                             </Link>
                             <Link
                               to="#"
-                              onClick={() => deleteProduct(product.slug)}
+                              onClick={()=>
+                              {
+                                setSlug(product.slug);
+                                setIsOpen(!isOpen);
+                              }}
                               className="text-danger fw-bold"
                             >
                               <i className="bx bx-trash"></i>

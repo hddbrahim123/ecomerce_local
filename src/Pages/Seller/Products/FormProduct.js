@@ -706,31 +706,30 @@ const FormProduct = (props) => {
                   <p className="text-capitalize">{content.productImages}</p>
                 </div>
               </div>
+              {/* {JSON.stringify(files)}
               <div className="card-body" style={thumbsContainer}>
                 {!isEmpty(files) &&
                   files.map((image, i) => (
                     <div style={thumb} key={i}>
                       <div style={thumbInner}>
                         <span
-                          onClick={() => {
-                            let newFiles = files.filter((e) => e != image);
-                            setFiles(newFiles);
-                          }}
                           style={{ cursor: "pointer" }}
                           className="featured__offre"
                         >
-                          XXX
+                          X
                         </span>
                         <img src={image.preview} style={img} />
                       </div>
                     </div>
                   ))}
-              </div>
+              </div> */}
             </section>
           </div>
         </div>
-
-        {!isEmpty(imagesEdit) && (
+      {/* {JSON.stringify(imagesEdit)}
+      <br/>
+      {JSON.stringify(files)} */}
+        {(!isEmpty(imagesEdit) || !isEmpty(files)) && (
           <div className="card mt-4">
             <div className="card-body" style={thumbsContainer}>
               {!isEmpty(imagesEdit) &&
@@ -745,6 +744,25 @@ const FormProduct = (props) => {
                         X
                       </span>
                       <img src={image.image} style={img} />
+                    </div>
+                  </div>
+                ))}
+                {!isEmpty(files) &&
+                files.map((image, i) => (
+                  <div style={thumb} key={i+imagesEdit.length} className="position-relative">
+                    <div style={thumbInner}>
+                      <span
+                        onClick={() => {
+                          console.log(image)
+                          let newFiles = files.filter((e) => e != image);
+                          setFiles(newFiles);
+                        }}
+                        style={{ cursor: "pointer" }}
+                        className="featured__offre"
+                      >
+                        X
+                      </span>
+                      <img src={image.preview} style={img} />
                     </div>
                   </div>
                 ))}

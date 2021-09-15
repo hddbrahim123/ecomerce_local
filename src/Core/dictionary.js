@@ -209,7 +209,10 @@ var dictionary = {
       buttonAddProduct:"Enregistrer le produit",
       buttonUpdateProduct:"Modifier le produit",
       buttonNewProduct: "Nouveau produit",
-      
+      titleRemoveProduct:"Suppression du produit",
+      RemoveProductMessageConfirmation:"voulez-vous supprimer ce produit ?",
+      buttonRemoveProductText:"Supprimer",
+      buttonClose:"Fermer"
     },
     En:{
       titleDashboard:"Dashboard",
@@ -256,6 +259,10 @@ var dictionary = {
       buttonAddProduct:"Save product",
       buttonUpdateProduct:"Update product",
       buttonNewProduct: "New product",
+      titleRemoveProduct:"Suppression du produit",
+      RemoveProductMessageConfirmation:"voulez-vous supprimer ce produit ?",
+      buttonRemoveProductText:"Supprimer",
+      buttonClose:"Fermer"
     }
   },
   category:{
