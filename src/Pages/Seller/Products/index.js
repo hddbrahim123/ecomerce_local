@@ -134,20 +134,20 @@ const Products = (props) => {
               <Table className="table custom__table  table-nowrap align-middle table-borderless">
                 <Thead className="table-light">
                   <Tr>
-                    <Th className="text-muted">{content.titleImage}</Th>
-                    <Th className="text-muted" data-priority="3">
+                    <Th key={1} className="text-muted">{content.titleImage}</Th>
+                    <Th key={2} className="text-muted" data-priority="3">
                       {content.titleQuantity}
                     </Th>
-                    <Th className="text-muted" data-priority="3">
+                    <Th key={3} className="text-muted" data-priority="3">
                       {content.titlePrice}
                     </Th>
-                    <Th className="text-muted" data-priority="3">
+                    <Th key={4} className="text-muted" data-priority="3">
                       {content.titleStatus}
                     </Th>
-                    <Th className="text-muted" data-priority="3">
+                    <Th key={5} className="text-muted" data-priority="3">
                       {content.titleView}
                     </Th>
-                    <Th className="text-muted" data-priority="6">
+                    <Th key={6} className="text-muted" data-priority="6">
                       {content.titleActions}
                     </Th>
                   </Tr>

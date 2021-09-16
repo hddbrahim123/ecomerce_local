@@ -4,8 +4,7 @@ import
     ADD_ITEM_TO_CART,
     DEC_PRODUCT_QTY,
     INC_PRODUCT_QTY,
-    REMOVE_PRODUCT_IN_CART,
-    GET_PRODUCT_CART_QTY
+    REMOVE_PRODUCT_IN_CART
 } 
 from "./actionTypes"
 

@@ -13,7 +13,7 @@ const ClientLayout = (props) => {
     <React.Fragment>
       <div className="container">
         <div className="row">
-          <div class="col-lg-24 col-md-12">
+          <div className="col-lg-24 col-md-12">
             <Header
               language={language}
               handleStoreLanguage={storeLanguageInLocalStorage}

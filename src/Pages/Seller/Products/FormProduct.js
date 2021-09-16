@@ -18,13 +18,15 @@ import {
   RemoveImage,
   SaveProduct,
   UpdateProduct,
-  UploadImage,
+  UploadImages,
 } from "../../../Core/ApiCore/ProductSeller";
 
 import Breadcrumb from "../../../Components/Comon/Breadcrumb";
 
 import { useDropzone } from "react-dropzone";
 import dictionary from "../../../Core/dictionary";
+import ListSortable from "../../../Components/Comon/ListSortable";
+import ListSortable2 from "../../../Components/Comon/ListSortable2";
 
 const thumbsContainer = {
   display: "flex",
@@ -58,6 +60,8 @@ const img = {
 };
 
 const FormProduct = (props) => {
+
+  
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const content = dictionary.product[language];
   const messages = dictionary.messages[language];
@@ -151,9 +155,11 @@ const FormProduct = (props) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
+      let position = imagesEdit.length + files.length;
       let newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
+          position:position++
         })
       );
       setFiles([...files, ...newFiles]);
@@ -194,7 +200,7 @@ const FormProduct = (props) => {
         });
         console.log("form", formData.getAll("photos"));
 
-        UploadImage(slug, formData).then((res) => {
+        UploadImages(slug, formData).then((res) => {
           console.log(res);
           toastr.options.progressBar = true;
           toastr.success(res.message ?? messages.insertProductSuccess, "");
@@ -232,17 +238,19 @@ const FormProduct = (props) => {
       .then((res) => {
         if (res.success) {
           const slug = res.data.slug;
-          console.log(slug);
+          if (imagesEdit.length) {
+            UpdateImages()
+          }
           if (!isEmpty(files)) {
             console.log(files);
             files.map((file) => {
               formData.append("photos", file);
             });
-            UploadImage(slug, formData).then((res) => {
+            UploadImages(slug, formData).then((res) => {
               console.log(res, messages.updateProductSuccess);
               toastr.options.progressBar = true;
               toastr.success(messages.updateProductSuccess, "");
-              props.history.push(`/seller/product/${slug}`);
+              // props.history.push(`/seller/product/${slug}`);
             });
           } else {
             console.log(res, messages.updateProductSuccess);
@@ -259,20 +267,29 @@ const FormProduct = (props) => {
       });
   };
 
-  const deleteImage = (imageGuid) => {
-    console.log(imageGuid);
+  const deleteImage = (imageGuid, position) => {
+    
     RemoveImage(imageGuid).then((res) => {
+      
       if (res.success) {
-        console.log(res);
-
-        let imagesList = imagesEdit.filter(
-          (image) => image.imageGuid !== imageGuid
-        );
-        setImagesEdit(imagesList);
+        let index = imagesEdit.findIndex(e => e.imageGuid === imageGuid);
+        if (index !== -1) {
+          imagesEdit.splice(index, 1);
+          imagesEdit.forEach((e) => {
+            if (e.position > position) e.position--
+          });
+        }
+        //setImagesEdit(imagesEdit.filter((image) => image.imageGuid !== imageGuid));
       }
-      console.log(res);
     });
   };
+  
+  const onSortEndHandler = (images, oldIndex, newIndex) =>{
+    console.log(oldIndex, newIndex);
+    setImagesEdit(images.filter((image) => image.image));
+    setFiles(images.filter((image) => image.preview));
+  }
+
   useEffect(() => {
     const slug = props.match.params.slug;
     console.log(slug);
@@ -297,6 +314,34 @@ const FormProduct = (props) => {
       }
     });
   }, []);
+  
+  const ImageElement = ({value, index}) => value.preview ? (
+    <div style={thumb} key={index+imagesEdit.length} className="position-relative">
+      <div style={thumbInner}>
+        <span
+          onClick={() => setFiles(files.filter((e) => e != value))}
+          style={{ cursor: "pointer" }}
+          className="featured__offre"
+        >
+          X
+        </span>
+        <img src={value.preview} style={img} />
+      </div>
+    </div>
+  ) : (
+    <div style={thumb} key={index} index={index} className="position-relative">
+      <div style={thumbInner}>
+        <span
+          onClick={() => deleteImage(value.imageGuid, value.position)}
+          style={{ cursor: "pointer" }}
+          className="featured__offre"
+        >
+          X
+        </span>
+        <img src={value.image} style={img} />
+      </div>
+    </div>
+  )
 
   const modules = {
     toolbar: [
@@ -486,6 +531,29 @@ const FormProduct = (props) => {
                   <label className="form-check-label" htmlFor="active">
                     {content.labelActive}
                   </label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="rating" className="">
+                    {content.productRating}
+                  </label>
+                  <input
+                    id="rating"
+                    type="number"
+                    className="form-control"
+                    placeholder={content.productPlaceHolderRating}
+                    value={
+                      !isEmpty(productEdit)
+                        ? productEdit.rating
+                        : product.rating
+                    }
+                    onChange={
+                      !isEmpty(productEdit) ? handleProductEdit : handleProduct
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -729,46 +797,41 @@ const FormProduct = (props) => {
       {/* {JSON.stringify(imagesEdit)}
       <br/>
       {JSON.stringify(files)} */}
+        {/* {(!isEmpty(imagesEdit) || !isEmpty(files)) && (
+          <div className="card mt-4">
+            <div className="card-body" style={thumbsContainer}>
+              {!isEmpty(imagesEdit) && imagesEdit.map(ImageElement)}
+              {!isEmpty(files) && files.map(NewImage)}
+            </div>
+          </div>
+        )} */}
         {(!isEmpty(imagesEdit) || !isEmpty(files)) && (
           <div className="card mt-4">
             <div className="card-body" style={thumbsContainer}>
-              {!isEmpty(imagesEdit) &&
-                imagesEdit.map((image, i) => (
-                  <div style={thumb} key={i} className="position-relative">
-                    <div style={thumbInner}>
-                      <span
-                        onClick={() => deleteImage(image.imageGuid)}
-                        style={{ cursor: "pointer" }}
-                        className="featured__offre"
-                      >
-                        X
-                      </span>
-                      <img src={image.image} style={img} />
-                    </div>
-                  </div>
-                ))}
-                {!isEmpty(files) &&
-                files.map((image, i) => (
-                  <div style={thumb} key={i+imagesEdit.length} className="position-relative">
-                    <div style={thumbInner}>
-                      <span
-                        onClick={() => {
-                          console.log(image)
-                          let newFiles = files.filter((e) => e != image);
-                          setFiles(newFiles);
-                        }}
-                        style={{ cursor: "pointer" }}
-                        className="featured__offre"
-                      >
-                        X
-                      </span>
-                      <img src={image.preview} style={img} />
-                    </div>
-                  </div>
-                ))}
+              
+            <ListSortable
+                  items={imagesEdit.concat(files)} 
+                  onSortEndHandler={onSortEndHandler} 
+                  element={ImageElement} />
+
+              {/* {!isEmpty(imagesEdit) && 
+                <ListSortable2
+                  items={imagesEdit} 
+                  onSortEndHandler={onSortEndHandler} 
+                  element={ImageElement}
+                  items2={files}
+                  onSortEndHandler2={onSortEndHandler} 
+                  element2={ImageElement} />
+              } */}
+              
+              {/* {!isEmpty(files) && 
+              <ListSortable listData={files} setListData={setFiles} element={NewImage} />} */}
+            
             </div>
           </div>
         )}
+
+        
 
         <div className="card mt-4">
           <div className="card-body">

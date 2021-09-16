@@ -1,5 +1,4 @@
 import { API_URL } from "../../config";
-import isAuthSeller from "../helpers/isAuthSeller";
 
 export const SellerSignin = (user) => {
   return fetch(`${API_URL}/Account/AuthenticateAdmin`, {
@@ -14,8 +13,7 @@ export const SellerSignin = (user) => {
     .catch((err) => console.error(err));
 };
 
-export const isConnect = () => {
-  const { token } = isAuthSeller();
+export const IsConnect = (token) => {
   return fetch(`${API_URL}/Account/IsConnecte`, {
     method: "POST",
     headers: {

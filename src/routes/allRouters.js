@@ -1,4 +1,3 @@
-import { Redirect } from "react-router"
 
 //imports Client Pages
 import Home from "../Pages/Client/Home"

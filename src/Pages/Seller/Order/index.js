@@ -94,7 +94,7 @@ const Orders = (props) => {
   const countFound = ()=>{
     let msg = content.ordersFound.replace('{count}', orders ? orders.length : 0)
     return (
-      <div class="row"><label><span>{msg}</span></label></div>
+      <div className="row"><label><span>{msg}</span></label></div>
     )
   }
   useEffect(() => {

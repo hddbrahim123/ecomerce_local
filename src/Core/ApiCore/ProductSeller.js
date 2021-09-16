@@ -78,7 +78,7 @@ export const UpdateProduct = (product) => {
         .catch(err => console.error(err))
 }
 
-export const UploadImage = (slug, images) => {
+export const UploadImages = (slug, images) => {
     const { token } = isAuthSeller()
     return fetch(`${API_URL}/Admin/UploadImages?slug=${slug}`, {
         method: "POST",

@@ -23,44 +23,44 @@ const Footer = (props) => {
             {/* <h2 className="footer__title">Social media</h2> */}
             <SocialFollow></SocialFollow>
             {/* <ul className="footer__menu">
-                <li class="footer__list">
+                <li className="footer__list">
                   <Link
                     className="footer__link"
                     id="stsocial_facebook"
                     to="https://www.facebook.com/myway.ma"
                     title="Facebook"
                   >
-                    <i class="icon-facebook icon-large"></i>
+                    <i className="icon-facebook icon-large"></i>
                   </Link>
                 </li>
-                <li class="footer__list">
+                <li className="footer__list">
                   <Link
                     className="footer__link"
                     id="stsocial_twitter"
                     to="https://twitter.com/mywayma"
                     title="Twitter"
                   >
-                    <i class="icon-twitter icon-large"></i>
+                    <i className="icon-twitter icon-large"></i>
                   </Link>
                 </li>
-                <li class="footer__list">
+                <li className="footer__list">
                   <Link
                     id="stsocial_youtube"
                     to="https://www.youtube.com/channel/UCNLoBXtwS-m7WmFRDrLkRKQ"
                     className="footer__link"
                     title="Youtube"
                   >
-                    <i class="icon-youtube icon-large"></i>
+                    <i className="icon-youtube icon-large"></i>
                   </Link>
                 </li>
-                <li class="footer__list">
+                <li className="footer__list">
                   <Link
                     className="footer__link"
                     id="stsocial_instagram"
                     to="https://www.instagram.com/myway.ma/"
                     title="Instagram"
                   >
-                    <i class="icon-instagram icon-large"></i>
+                    <i className="icon-instagram icon-large"></i>
                   </Link>
                 </li>
               </ul> */}
