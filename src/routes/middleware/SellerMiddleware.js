@@ -16,6 +16,8 @@ const connecte = () => {
         //props.history.push('/seller/login')
       }
     });
+  }else{
+    return false;
   }
   return true;
 }

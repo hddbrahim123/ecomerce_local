@@ -91,6 +91,19 @@ export const UploadImages = (slug, images) => {
         .catch(err => console.error(err))
 }
 
+export const UpdateImages = (slug, images) => {
+    const { token } = isAuthSeller()
+    return fetch(`${API_URL}/Admin/UpdateImages?slug=${slug}`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: images
+    })
+        .then()
+        .catch(err => console.error(err))
+}
+
 export const RemoveProduct = (slug) => {
     const { token } = isAuthSeller()
     return fetch(`${API_URL}/Admin/RemoveProduct?slug=${slug}`, {

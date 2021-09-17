@@ -29,7 +29,7 @@ const ListSortable = ({items,onSortEndHandler,element}) => {
 
   return (
       <Fragment>
-        <div>{JSON.stringify(items)}</div>
+        {/* <div>{JSON.stringify(items)}</div> */}
         <SortableList items={items} onSortEnd={onSortEnd} distance={1} axis="xy" />
       </Fragment>
   );

@@ -19,6 +19,7 @@ import {
   SaveProduct,
   UpdateProduct,
   UploadImages,
+  UpdateImages
 } from "../../../Core/ApiCore/ProductSeller";
 
 import Breadcrumb from "../../../Components/Comon/Breadcrumb";
@@ -239,24 +240,26 @@ const FormProduct = (props) => {
         if (res.success) {
           const slug = res.data.slug;
           if (imagesEdit.length) {
-            UpdateImages()
-          }
-          if (!isEmpty(files)) {
-            console.log(files);
-            files.map((file) => {
-              formData.append("photos", file);
-            });
-            UploadImages(slug, formData).then((res) => {
-              console.log(res, messages.updateProductSuccess);
-              toastr.options.progressBar = true;
-              toastr.success(messages.updateProductSuccess, "");
-              // props.history.push(`/seller/product/${slug}`);
-            });
-          } else {
-            console.log(res, messages.updateProductSuccess);
-            toastr.options.progressBar = true;
-            toastr.success(messages.updateProductSuccess, "");
-            props.history.push(`/seller/product/${slug}`);
+            UpdateImages(productEdit.slug, imagesEdit).then((res)=>{
+              console.log(res)
+              if (res && !isEmpty(files)) {
+                console.log(files);
+                files.map((file) => {
+                  formData.append("photos", file);
+                });
+                UploadImages(slug, formData).then((res) => {
+                  console.log(res, messages.updateProductSuccess);
+                  toastr.options.progressBar = true;
+                  toastr.success(messages.updateProductSuccess, "");
+                  // props.history.push(`/seller/product/${slug}`);
+                });
+              } else {
+                console.log(res, messages.updateProductSuccess);
+                toastr.options.progressBar = true;
+                toastr.success(messages.updateProductSuccess, "");
+                props.history.push(`/seller/product/${slug}`);
+              }
+            })
           }
         } else {
           toastr.error(messages.updateProductError);
@@ -268,20 +271,19 @@ const FormProduct = (props) => {
   };
 
   const deleteImage = (imageGuid, position) => {
-    
-    RemoveImage(imageGuid).then((res) => {
-      
-      if (res.success) {
-        let index = imagesEdit.findIndex(e => e.imageGuid === imageGuid);
-        if (index !== -1) {
-          imagesEdit.splice(index, 1);
-          imagesEdit.forEach((e) => {
-            if (e.position > position) e.position--
-          });
-        }
-        //setImagesEdit(imagesEdit.filter((image) => image.imageGuid !== imageGuid));
-      }
-    });
+    let index = imagesEdit.findIndex(e => e.imageGuid === imageGuid);
+    if (index !== -1) {
+      imagesEdit.splice(index, 1);
+      imagesEdit.forEach((e) => {
+        if (e.position > position) e.position--
+      });
+    }
+    //setImagesEdit(imagesEdit.filter((image) => image.imageGuid !== imageGuid));
+
+    // RemoveImage(imageGuid).then((res) => {
+    //   if (res.success) {
+    //   }
+    // });
   };
   
   const onSortEndHandler = (images, oldIndex, newIndex) =>{
