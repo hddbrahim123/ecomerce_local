@@ -15,7 +15,6 @@ import "react-quill/dist/quill.snow.css";
 import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import {
   getProductViewEditSeller,
-  RemoveImage,
   SaveProduct,
   UpdateProduct,
   UploadImages,
@@ -27,7 +26,7 @@ import Breadcrumb from "../../../Components/Comon/Breadcrumb";
 import { useDropzone } from "react-dropzone";
 import dictionary from "../../../Core/dictionary";
 import ListSortable from "../../../Components/Comon/ListSortable";
-import ListSortable2 from "../../../Components/Comon/ListSortable2";
+import { Link } from "react-router-dom";
 
 const thumbsContainer = {
   display: "flex",
@@ -62,7 +61,6 @@ const img = {
 
 const FormProduct = (props) => {
 
-  
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const content = dictionary.product[language];
   const messages = dictionary.messages[language];
@@ -146,9 +144,6 @@ const FormProduct = (props) => {
   //categories
   const [categories, setCategories] = useState([]);
 
-  //handle Image
-  var formData = new FormData();
-
   // const [files, setFiles] = useState([]);
 
   const [files, setFiles] = useState([]);
@@ -163,8 +158,11 @@ const FormProduct = (props) => {
           position:position++
         })
       );
+      console.log(newFiles);
+      console.log(position);
       setFiles([...files, ...newFiles]);
-      console.log("files", files);
+      //console.log(files.map(img => img.position));
+      //console.log("files", files);
     },
   });
 
@@ -195,20 +193,19 @@ const FormProduct = (props) => {
     SaveProduct(product).then((res) => {
       if (res.success) {
         const slug = res.data.slug;
-
+        var formData = new FormData();
         files.map((file) => {
           formData.append("photos", file);
         });
-        console.log("form", formData.getAll("photos"));
-
+        // console.log("form", formData.getAll("photos"));
         UploadImages(slug, formData).then((res) => {
-          console.log(res);
+          setProduct({...product, slug:slug});
           toastr.options.progressBar = true;
           toastr.success(res.message ?? messages.insertProductSuccess, "");
-          props.history.push(`/seller/product/${slug}`);
+          // props.history.push(`/seller/product/${slug}`);
         });
       } else {
-        console.log(res.message ?? messages.insertProductError ?? res.code);
+        // console.log(res.message ?? messages.insertProductError ?? res.code);
         toastr.error(
           res.message ?? messages.insertProductError ?? res.code,
           ""
@@ -239,28 +236,26 @@ const FormProduct = (props) => {
       .then((res) => {
         if (res.success) {
           const slug = res.data.slug;
-          if (imagesEdit.length) {
-            UpdateImages(productEdit.slug, imagesEdit).then((res)=>{
-              console.log(res)
+            UpdateImages(productEdit.slug, imagesEdit)
+            .then((res) => {
               if (res && !isEmpty(files)) {
-                console.log(files);
+                var formData = new FormData();
                 files.map((file) => {
                   formData.append("photos", file);
                 });
                 UploadImages(slug, formData).then((res) => {
-                  console.log(res, messages.updateProductSuccess);
+                  setFiles([]);
                   toastr.options.progressBar = true;
                   toastr.success(messages.updateProductSuccess, "");
                   // props.history.push(`/seller/product/${slug}`);
+                  chargeData();
                 });
               } else {
-                console.log(res, messages.updateProductSuccess);
                 toastr.options.progressBar = true;
                 toastr.success(messages.updateProductSuccess, "");
-                props.history.push(`/seller/product/${slug}`);
+                chargeData();
               }
             })
-          }
         } else {
           toastr.error(messages.updateProductError);
         }
@@ -269,40 +264,41 @@ const FormProduct = (props) => {
         toastr.error(messages.updateProductError);
       });
   };
-
+  
   const deleteImage = (imageGuid, position) => {
-    let index = imagesEdit.findIndex(e => e.imageGuid === imageGuid);
-    if (index !== -1) {
-      imagesEdit.splice(index, 1);
-      imagesEdit.forEach((e) => {
-        if (e.position > position) e.position--
-      });
-    }
-    //setImagesEdit(imagesEdit.filter((image) => image.imageGuid !== imageGuid));
-
+    
     // RemoveImage(imageGuid).then((res) => {
     //   if (res.success) {
     //   }
     // });
-  };
   
+    let newFiles = imagesEdit.filter(f => f.imageGuid !== imageGuid);
+    newFiles.forEach(f => { if(f.position > position) f.position-- })
+    setImagesEdit(newFiles);
+    console.log(imagesEdit.concat(files).map(e => e.position));
+  }
+
+  const deleteNewFiles = (value, index) =>
+  {
+    let newFiles = files.filter(f => f !== value);
+    newFiles.forEach(f => { if(f.position > value.position) f.position-- })
+    setFiles(newFiles);
+    console.log(imagesEdit.concat(files).map(e => e.position));
+  }
+
   const onSortEndHandler = (images, oldIndex, newIndex) =>{
     console.log(oldIndex, newIndex);
     setImagesEdit(images.filter((image) => image.image));
     setFiles(images.filter((image) => image.preview));
+    console.log(images.map(img => img.position));
   }
-
-  useEffect(() => {
+  const chargeData = () =>
+  {
     const slug = props.match.params.slug;
-    console.log(slug);
-
     getActiveCategories().then((res) => {
-      //res.push({})
       setCategories(res);
-
       if (!!slug) {
         getProductViewEditSeller(slug).then((res) => {
-          console.log(res);
           if (res) {
             if (res.images) {
               setImagesEdit(res.images);
@@ -315,13 +311,16 @@ const FormProduct = (props) => {
         });
       }
     });
+  }
+  useEffect(() => {
+    chargeData();
   }, []);
   
   const ImageElement = ({value, index}) => value.preview ? (
     <div style={thumb} key={index+imagesEdit.length} className="position-relative">
       <div style={thumbInner}>
         <span
-          onClick={() => setFiles(files.filter((e) => e != value))}
+          onClick={() => deleteNewFiles(value, index)}
           style={{ cursor: "pointer" }}
           className="featured__offre"
         >
@@ -796,45 +795,18 @@ const FormProduct = (props) => {
             </section>
           </div>
         </div>
-      {/* {JSON.stringify(imagesEdit)}
-      <br/>
-      {JSON.stringify(files)} */}
-        {/* {(!isEmpty(imagesEdit) || !isEmpty(files)) && (
-          <div className="card mt-4">
-            <div className="card-body" style={thumbsContainer}>
-              {!isEmpty(imagesEdit) && imagesEdit.map(ImageElement)}
-              {!isEmpty(files) && files.map(NewImage)}
-            </div>
-          </div>
-        )} */}
+      
         {(!isEmpty(imagesEdit) || !isEmpty(files)) && (
           <div className="card mt-4">
             <div className="card-body" style={thumbsContainer}>
-              
             <ListSortable
                   items={imagesEdit.concat(files)} 
                   onSortEndHandler={onSortEndHandler} 
                   element={ImageElement} />
-
-              {/* {!isEmpty(imagesEdit) && 
-                <ListSortable2
-                  items={imagesEdit} 
-                  onSortEndHandler={onSortEndHandler} 
-                  element={ImageElement}
-                  items2={files}
-                  onSortEndHandler2={onSortEndHandler} 
-                  element2={ImageElement} />
-              } */}
-              
-              {/* {!isEmpty(files) && 
-              <ListSortable listData={files} setListData={setFiles} element={NewImage} />} */}
-            
             </div>
           </div>
         )}
-
-        
-
+  
         <div className="card mt-4">
           <div className="card-body">
             <div className="row">
@@ -900,6 +872,13 @@ const FormProduct = (props) => {
             </div>
           </div>
         </div>
+        {product.slug && <div className="card mt-4">
+          <div className="card-body">
+            <Link to={"/product/"+product.slug} target="_blank" className="text-success">
+              <i className='bx bx-view'>Afficher details</i>
+            </Link>
+          </div>
+        </div>}
         <div className="card mt-4">
           <div className="card-body">
             <button type="submit" className="btn btn-primary w-100">

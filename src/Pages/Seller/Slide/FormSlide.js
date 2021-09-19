@@ -178,7 +178,6 @@ const FormSlide = (props) => {
     let slideid = props.match.params.id;
     if (slideid) {
       GetSlide(slideid).then((res) =>{
-        console.log(res)
         if (res) {
           slide.id = res.id;
           slide.title = res.title;
@@ -212,12 +211,11 @@ const FormSlide = (props) => {
   }, []);
   return (
     <React.Fragment>
-      {JSON.stringify(slide)}
       <form onSubmit={submitSlide}>
         <div className="card">
           <div className="card-body">
 
-          <div className="row">
+          {/* <div className="row">
               <div className="col-lg-12">
                 <div className="mb-3">
                   <label htmlFor="index" className="">
@@ -233,7 +231,7 @@ const FormSlide = (props) => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="row">
               <div className="col-lg-12">
@@ -303,7 +301,7 @@ const FormSlide = (props) => {
                   files.map((image, i) => (
                     <div style={thumb} key={i}>
                       <div style={thumbInner}>
-                        <img src={image.preview} style={img} />
+                        <img src={image.preview ?? image} style={img} />
                       </div>
                     </div>
                   ))}

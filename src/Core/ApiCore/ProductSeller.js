@@ -92,13 +92,16 @@ export const UploadImages = (slug, images) => {
 }
 
 export const UpdateImages = (slug, images) => {
+    console.log(images)
     const { token } = isAuthSeller()
     return fetch(`${API_URL}/Admin/UpdateImages?slug=${slug}`, {
         method: "POST",
         headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: images
+        body: JSON.stringify(images)
     })
         .then()
         .catch(err => console.error(err))

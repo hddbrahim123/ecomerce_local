@@ -23,7 +23,7 @@ var dictionary = {
       slideShoopLinkText: "Achetez maintenant",
       titleFilterCategories: "Catégories",
       titleTopSale: "Meilleure vente",
-      labelSlideTitle:"title",
+      labelSlideTitle:"titre",
       labelSlideIndex:"Ordre",
       placeHolderSlideTitle:"Title...",
       placeHolderSlideIndex:"Ordre...",

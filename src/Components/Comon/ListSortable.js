@@ -4,7 +4,7 @@ import { arrayMoveImmutable } from 'array-move';
 
 const ListSortable = ({items,onSortEndHandler,element}) => {
 
-  const SortableItem = SortableElement(element);
+  const SortableItem = SortableElement((props) => element(props));
 
   const SortableList = SortableContainer(({ items }) => {
     return (
@@ -20,9 +20,9 @@ const ListSortable = ({items,onSortEndHandler,element}) => {
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     let arr = arrayMoveImmutable(items, oldIndex, newIndex);
-    // for (let i = 0; i < arr.length; i++) {
-    //   arr[i].position = i;
-    // }
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].position = i;
+    }
     onSortEndHandler(arr, oldIndex, newIndex);
     //setListData(arr);
   };
