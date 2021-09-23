@@ -28,7 +28,8 @@ const ReleatedProduct = (props) => {
                 ReleatedProducts.map((releatedProduct, i) => (
                   <div
                     onClick={() =>
-                      history.push(`/product/${releatedProduct.slug}`)
+                      // history.push(`/product/${releatedProduct.slug}`)
+                      window.location = `/#/product/${releatedProduct.slug}`
                     }
                     key={i}
                     data-aos="fade-down"

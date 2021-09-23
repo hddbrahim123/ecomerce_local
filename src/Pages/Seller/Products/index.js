@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { filter, isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
-import Dashboard from "..";
 import {
+  DownProduct,
   getProductsSeller,
   RemoveProduct,
+  UpProduct,
 } from "../../../Core/ApiCore/ProductSeller";
 
 import Paginate from "../../../Components/Comon/Paginate";
@@ -41,7 +42,7 @@ const Products = (props) => {
   const [filters, setFilters] = useState({
     pageNumber: 1,
     length: 10,
-    search:"",
+    search:'',
     categoryId:0
   });
 
@@ -57,20 +58,29 @@ const Products = (props) => {
     setFilters({...filters, [e.target.id]: e.target.value})
   }
   
-  const searchProducts = (filters) =>{
-    getProductsSeller(filters).then((res) => {
-      console.log(res);
+  const searchProducts = (filters) =>
+  {
+    getProductsSeller(filters).then((res) => 
+    {
       if (res && res.list) {
         setProducts(res.list);
         setPagination({
           ...pagination,
           pageNumber: res.pageNumber,
           totalPage: res.totalPage,
-        });
+        })
       }
-    });
+    })
   }
   
+  const Up = (product) =>{
+    UpProduct(product.slug).then((res)=>{searchProducts(filters)})
+  }
+
+  const Down = (product) =>{
+    DownProduct(product.slug).then((res)=>{searchProducts(filters)})
+  }
+
   const [slug, setSlug] = useState("")
 
   const deleteProduct = (slug) => {
@@ -97,12 +107,11 @@ const Products = (props) => {
         }
       })
       searchProducts(filters)
-    
-  }, [filters]);
+      //OrderProducts(true)
+  }, []);
 
   return (
     <React.Fragment>
-      <Dashboard props />
       <div className="container-fluid">
         <Breadcrumb
           item={content.titleDashboard}
@@ -135,6 +144,7 @@ const Products = (props) => {
                 <Thead className="table-light">
                   <Tr>
                     <Th key={1} className="text-muted">{content.titleImage}</Th>
+                    <Th key={8} className="text-muted">Position</Th>
                     <Th key={2} className="text-muted" data-priority="3">
                       {content.titleQuantity}
                     </Th>
@@ -147,7 +157,9 @@ const Products = (props) => {
                     <Th key={5} className="text-muted" data-priority="3">
                       {content.titleView}
                     </Th>
-                    <Th key={6} className="text-muted" data-priority="6">
+                    <Th key={6} className="text-muted" data-priority="3">
+                    </Th>
+                    <Th key={7} className="text-muted" data-priority="6">
                       {content.titleActions}
                     </Th>
                   </Tr>
@@ -172,6 +184,7 @@ const Products = (props) => {
                             </Link>
                           </h5>
                         </Th>
+                        <Td>{product.position}</Td>
                         <Td>{product.quantity}</Td>
                         <Td>{product.newPrice}</Td>
                         <Td>
@@ -196,6 +209,16 @@ const Products = (props) => {
                           >
                             {content.buttonDetailsText}
                           </button>
+                        </Td>
+                        <Td>
+                          <div>
+                            <Link onClick={()=>{ Down(product); }} to="#">
+                              <i className='bx bxs-chevron-up'></i>
+                            </Link>
+                            <Link onClick={()=>{ Up(product); }} to="#">
+                              <i className='bx bxs-chevron-down'></i>
+                            </Link>
+                          </div>
                         </Td>
                         <Td>
                           <div className="d-flex gap-3">

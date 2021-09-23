@@ -2,7 +2,7 @@ import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 
 import dictionary from "../../../Core/dictionary";
 
@@ -65,12 +65,12 @@ const CreateOrderStatusModal = ({
           </form>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-between">
-          <button type="button" color="primary" onClick={updateOrderStatus}>
+          <Button type="button" color="primary" onClick={updateOrderStatus}>
             {content.modalOrderButtonUpdateStatusText}
-          </button>
-          <button type="button" color="secondary" onClick={toggle}>
+          </Button>
+          <Button type="button" color="secondary" onClick={toggle}>
             {content.modalOrderButtonCloseText}
-          </button>
+          </Button>
         </ModalFooter>
       </div>
     </Modal>

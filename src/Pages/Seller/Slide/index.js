@@ -17,12 +17,15 @@ import { UpSlide, DownSlide } from '../../../Core/ApiCore/Slide'
 //Import toastr
 import toastr from "toastr"
 import "toastr/build/toastr.min.css"
+import ModalConfirmation from '../../../Components/Comon/ModalConfirmation'
+import dictionary from '../../../Core/dictionary'
 
 
 const Slides = ()=>{
 
     const [slides, setSlides] = useState([])
-
+    const [isOpen, setIsOpen] = useState(false)
+    const [slideId, setSlideId] = useState(0)
     const deleteSlide = (id) =>{
       RemoveSlide(id)
         .then(res=>{
@@ -59,7 +62,8 @@ const Slides = ()=>{
         getProductsSlide()
             .then(res=>setSlides(res))
     }, [])
-
+    const [language] = useState(localStorage.getItem("language") ?? "Fr");
+    const content = dictionary.slide[language];
     return (
         <React.Fragment>
         <div className="container-fluid">
@@ -68,6 +72,15 @@ const Slides = ()=>{
             <Link to="/seller/slide/create" className="pull-rigth">Nouveau Slide</Link>
           </div>
         </div>
+        <ModalConfirmation 
+          isOpen={isOpen} 
+          toggle={()=>setIsOpen(!isOpen)}
+          title={content.titleRemoveSlide}
+          message={content.removeSlideMessageConfirmation}
+          buttonTextProcess={content.buttonRemoveSlideText}
+          buttonTextClose={content.buttonClose} 
+          handleProcess={()=>{ deleteSlide(slideId); setIsOpen(!isOpen);}} 
+        />
         <div className="row">
           <div className="table-rep-plugin ">
           <div
@@ -100,7 +113,7 @@ const Slides = ()=>{
                     <h5 className="my-3">{slide.title}</h5>
                   </Td>
                   <Td>
-                    <p className="my-3">{ ReactHtmlParser (slide.description)}</p>
+                    <div className="my-3">{ slide.description ? ReactHtmlParser (slide.description):""}</div>
                   </Td>
                   <Td>
                   <div>
@@ -119,7 +132,7 @@ const Slides = ()=>{
                       <i className='bx bx-edit'></i>
                       </Link>
                     }
-                    <Link onClick={()=>deleteSlide(slide.id)} to="#" className="text-danger" style={{cursor:"pointer"}}>
+                    <Link onClick={()=> { setSlideId(slide.id); setIsOpen(!isOpen); }} to="#" className="text-danger" style={{cursor:"pointer"}}>
                         <i className='bx bx-trash'></i>
                     </Link>
                     </div>

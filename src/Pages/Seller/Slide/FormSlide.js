@@ -1,8 +1,8 @@
 import React, { useEffect,useState } from "react";
 
-// Import Editor
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// // Import Editor
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 
 //Import toastr
 import toastr from "toastr";
@@ -17,9 +17,11 @@ import {
   UploadImageSlide,
   GetLastSlideView
 } from "../../../Core/ApiCore/ProductSeller";
-import { isEmpty, isNumber } from "lodash";
+import { isEmpty, set } from "lodash";
+import ModalConfirmation from '../../../Components/Comon/ModalConfirmation'
 
 import dictionary from "../../../Core/dictionary";
+import TextEditor from "../../../Core/TextEditor";
 
 const thumbsContainer = {
   display: "flex",
@@ -56,6 +58,7 @@ const FormSlide = (props) => {
   const [language] = useState(
     localStorage.getItem("language") ?? dictionary.defaultLanguage
   );
+  const [isOpen, setIsOpen] = useState(false);
   const [slide, setSlide] = useState({
     id:0,
     title: "",
@@ -99,14 +102,14 @@ const FormSlide = (props) => {
   })
 
   const submitSlide = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     // if (!isNumber(slide.index)) {
     //   slide.index = 0
     //   setSlide({
     //     ...slide,
     //     index: 0
     //   })
-    // }else{
+    // } else {
     //   slide.index = parseInt(slide.index) ?? 0
     //   setSlide({
     //     ...slide,
@@ -115,65 +118,55 @@ const FormSlide = (props) => {
     // }
     
     if (slide.id) {
-      UpdateSlide(slide).then(res=>{
+      UpdateSlide(slide).then(res => {
         if (res.success) {
-          files.map((file) => {
-            formData.append("photos", file);
-          });
-          let id = res.data.id;
-          UploadImageSlide(id, formData).then((res) => {
-            console.log(res);
-  
+          if (!isEmpty(files)) {
+            files.map((file) => {
+              formData.append("photos", file);
+            });
+            let id = res.data.id;
+            UploadImageSlide(id, formData).then((res) => {
+              console.log(res);
+              toastr.options.progressBar = true;
+              toastr.success("Slide modifié avec succès", "");
+              window.location.reload()
+            });
+          } else {
             toastr.options.progressBar = true;
-            toastr.success("Slide modifié avec succès", "success");
-            props.history.push("/seller/slides");
-          });
+            toastr.success("Slide modifié avec succès", "");
+            window.location.reload()
+          }
         } else {
           toastr.error(res.message);
         }
       })
     } else {
+      if (isEmpty(files)) {
+        toastr.options.progressBar = true;
+        toastr.error("Svp, Selectionner un image", "");
+      }
       InsertSlide(slide).then((res) => {
         if (res.success) {
-          files.map((file) => {
-            formData.append("photos", file);
-          });
-          let id = res.data.id;
-          UploadImageSlide(id, formData).then((res) => {
-            console.log(res);
-  
-            toastr.options.progressBar = true;
-            toastr.success("Slide enregistré avec succès", "success");
-            props.history.push("/seller/slides");
-          });
+          if (!isEmpty(files)) {
+            files.map((file) => {
+              formData.append("photos", file);
+            });
+            let id = res.data.id;
+            UploadImageSlide(id, formData).then((res) => {
+              console.log(res);
+              toastr.options.progressBar = true;
+              toastr.success(content.saveSlideSuccess, "");
+              //props.history.push("/seller/slides");
+            });
+          }
         } else {
           toastr.error(res.message);
         }
       })
     }
   }
-  var content = dictionary.homeContent[language];
-  const modules = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-      ['blockquote', 'code-block'],
-    
-      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-      [{ 'direction': 'rtl' }],                         // text direction
-    
-      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    
-      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-      [{ 'font': [] }],
-      [{ 'align': [] }],
-    
-      ['clean']                                         // remove formatting button
-    ]
-  };
+  var content = dictionary.slide[language];
+  
   useEffect(() => {
     let slideid = props.match.params.id;
     if (slideid) {
@@ -211,7 +204,16 @@ const FormSlide = (props) => {
   }, []);
   return (
     <React.Fragment>
-      <form onSubmit={submitSlide}>
+      <ModalConfirmation 
+        isOpen={isOpen} 
+        toggle={()=>setIsOpen(!isOpen)}
+        title={slide.id ? content.titleUpdateSlideConfirmation : content.titleSaveSlideConfirmation}
+        message={slide.id ? content.updateSlideMessageConfirmation : content.saveSlideMessageConfirmation}
+        buttonTextProcess={content.buttonSaveSlideTextConfirmation}
+        buttonTextClose={content.buttonClose} 
+        handleProcess={()=>{ submitSlide(); setIsOpen(!isOpen);}} 
+      />
+      <form onSubmit={(e)=>{ e.preventDefault(); setIsOpen(!isOpen); }}>
         <div className="card">
           <div className="card-body">
 
@@ -256,9 +258,7 @@ const FormSlide = (props) => {
                   <label htmlFor="description" className="form-label">
                     {content.labelSlideDescription}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={slide.description}
                     onChange={(e) => handleChangeDescription(e)}
                   />
@@ -301,7 +301,7 @@ const FormSlide = (props) => {
                   files.map((image, i) => (
                     <div style={thumb} key={i}>
                       <div style={thumbInner}>
-                        <img src={image.preview ?? image} style={img} />
+                        <img src={image ? image.preview ?? image : image} style={img} />
                       </div>
                     </div>
                   ))}

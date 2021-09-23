@@ -20,7 +20,7 @@ import FormSlide from "../Pages/Seller/Slide/FormSlide"
 
 const clientRoutes = [
     { path:'/' , component:Home},
-    { path:'/products' , component: ProductsShop},
+    { path:'/products/:category?' , component: ProductsShop},
     { path:'/cart' , component: ProductsCart},
     { path:'/product/:slug' , component: ProductDetails},
 ]

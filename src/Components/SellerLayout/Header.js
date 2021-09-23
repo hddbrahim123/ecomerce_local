@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import avatar from '../../assets/icons/avatar-1.jpg'
-import profile from '../../assets/icons/HDD.png'
+import isAuthSeller from '../../Core/helpers/isAuthSeller'
 import { toggleLeftmenu } from '../../store/layout/actions'
-import dictionary from "../../Core/dictionary"
 
 const Header = ({language, handleStoreLanguage})=>{
     
@@ -15,6 +14,7 @@ const Header = ({language, handleStoreLanguage})=>{
     const [showProfileMenu , setShowProfileMenu] = useState(false)
     const toggleProfileMenu = ()=>setShowProfileMenu(!showProfileMenu)
     
+    const [seller] = useState(isAuthSeller()?.userName ?? "Vendeur")
     const logout = () => {
       localStorage.removeItem('JWT_SELLER')
     }
@@ -82,7 +82,7 @@ const Header = ({language, handleStoreLanguage})=>{
 
               <div className="head__profile" onClick={toggleProfileMenu}>
                <img src={avatar} alt="profile" className="head__avatar" />
-               <span className="head__profile__name headprofile__icon">Vendeur</span>
+               <span className="head__profile__name headprofile__icon">{seller}</span>
                <i className='bx bx-down-arrow-alt head__profile__icon'></i>
 
                <div className={showProfileMenu ? "head__profile__collapse show__profile" : "head__profile__collapse"}>

@@ -7,10 +7,12 @@ import "toastr/build/toastr.min.css";
 //Import lodash
 import { isEmpty, uniqBy } from "lodash";
 import * as _ from "lodash";
+import StarRatings from "react-star-ratings"
 
-// Import Editor
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// // Import Editor
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
+import ModalConfirmation from '../../../Components/Comon/ModalConfirmation'
 
 import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import {
@@ -27,6 +29,7 @@ import { useDropzone } from "react-dropzone";
 import dictionary from "../../../Core/dictionary";
 import ListSortable from "../../../Components/Comon/ListSortable";
 import { Link } from "react-router-dom";
+import TextEditor from "../../../Core/TextEditor";
 
 const thumbsContainer = {
   display: "flex",
@@ -62,6 +65,7 @@ const img = {
 const FormProduct = (props) => {
 
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
+  const [isOpen, setIsOpen] = useState(false);
   const content = dictionary.product[language];
   const messages = dictionary.messages[language];
   //handle product
@@ -87,6 +91,15 @@ const FormProduct = (props) => {
   });
   const [productEdit, setProductEdit] = useState({});
   const [imagesEdit, setImagesEdit] = useState([]);
+  
+  const changeRating = ( newRating, name ) =>
+  {
+    if (!isEmpty(productEdit)) {
+      setProductEdit({...productEdit, rating: newRating})
+    } else {
+      setProduct({...product, rating: newRating})
+    }
+  }
 
   const handleDescription = (e) => {
     setProduct({
@@ -166,30 +179,11 @@ const FormProduct = (props) => {
     },
   });
 
-  const submitProduct = (e) => {
-    e.preventDefault();
-
+  const submitProduct = () => {
+    
+    setIsOpen(!isOpen);
     console.log(product);
-    if (!product.categoryId) {
-      toastr.error(messages.saveProductCategoryRequired, "");
-      return;
-    }
-    if (files.length == 0) {
-      toastr.error(messages.saveProductImagesRequired, "");
-      return;
-    }
-    if (!product.oldPrice && !product.newPrice) {
-      toastr.error(messages.saveProductPriceRequired, "");
-      return;
-    }
-    if (!product.oldPrice) {
-      product.oldPrice = product.newPrice;
-      setProduct({ ...product, oldPrice: product.newPrice });
-    }
-    if (!product.newPrice) {
-      product.newPrice = product.oldPrice;
-      setProduct({ ...product, newPrice: product.oldPrice });
-    }
+    
     SaveProduct(product).then((res) => {
       if (res.success) {
         const slug = res.data.slug;
@@ -206,29 +200,83 @@ const FormProduct = (props) => {
         });
       } else {
         // console.log(res.message ?? messages.insertProductError ?? res.code);
-        toastr.error(
-          res.message ?? messages.insertProductError ?? res.code,
-          ""
-        );
+        toastr.error(res.message ?? messages.insertProductError ?? res.code, "");
       }
     });
   };
-
-  const submitUpdateProduct = (e) => {
-    e.preventDefault();
-
-    console.log(productEdit);
-    if (!productEdit.categoryId) {
-      toastr.error(messages.saveProductCategoryRequired, "");
-      return;
+  const confirmer = () =>
+  {
+    if (!isEmpty(productEdit)) {
+      console.log(productEdit);
+      if (!productEdit.name) {
+        toastr.error(messages.saveProductNameRequired, "");
+        return false;
+      }
+      if (!productEdit.categoryId) {
+        toastr.error(messages.saveProductCategoryRequired, "");
+        return false;
+      }
+      if (!productEdit.quantity) {
+        toastr.error(messages.saveProductQuantityRequired, "");
+        return false;
+      }
+      if (
+        (files == undefined || files.length == 0) &&
+        (imagesEdit == undefined || imagesEdit.length == 0)
+      ) {
+        toastr.error(messages.saveProductImagesRequired, "");
+        return false;
+      }
+      if (!productEdit.oldPrice && !productEdit.newPrice) {
+        toastr.error(messages.saveProductPriceRequired, "");
+        return false;
+      }
+      if (!productEdit.oldPrice) {
+        productEdit.oldPrice = productEdit.newPrice;
+        setProductEdit({ ...productEdit, oldPrice: productEdit.newPrice });
+      }
+      if (!productEdit.newPrice) {
+        productEdit.newPrice = productEdit.oldPrice;
+        setProductEdit({ ...productEdit, newPrice: productEdit.oldPrice });
+      }
+      return true;
+    } else if (!isEmpty(product)) {
+      console.log(product);
+      if (!product.name) {
+        toastr.error(messages.saveProductNameRequired, "");
+        return false;
+      }
+      if (!product.categoryId) {
+        toastr.error(messages.saveProductCategoryRequired, "");
+        return false;
+      }
+      if (!product.quantity) {
+        toastr.error(messages.saveProductQuantityRequired, "");
+        return false;
+      }
+      if (files.length == 0) {
+        toastr.error(messages.saveProductImagesRequired, "");
+        return false;
+      }
+      if (!product.oldPrice && !product.newPrice) {
+        toastr.error(messages.saveProductPriceRequired, "");
+        return false;
+      }
+      if (!product.oldPrice) {
+        product.oldPrice = product.newPrice;
+        setProduct({ ...product, oldPrice: product.newPrice });
+      }
+      if (!product.newPrice) {
+        product.newPrice = product.oldPrice;
+        setProduct({ ...product, newPrice: product.oldPrice });
+      }
+      return true;
     }
-    if (
-      (files == undefined || files.length == 0) &&
-      (imagesEdit == undefined || imagesEdit.length == 0)
-    ) {
-      toastr.error(messages.saveProductImagesRequired, "");
-      return;
-    }
+    return false;
+  }
+  const submitUpdateProduct = () => {
+    
+    setIsOpen(!isOpen);
 
     productEdit.images = undefined;
 
@@ -286,7 +334,8 @@ const FormProduct = (props) => {
     console.log(imagesEdit.concat(files).map(e => e.position));
   }
 
-  const onSortEndHandler = (images, oldIndex, newIndex) =>{
+  const onSortEndHandler = (images, oldIndex, newIndex) =>
+  {
     console.log(oldIndex, newIndex);
     setImagesEdit(images.filter((image) => image.image));
     setFiles(images.filter((image) => image.preview));
@@ -344,44 +393,6 @@ const FormProduct = (props) => {
     </div>
   )
 
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike"], // toggled buttons
-      ["blockquote", "code-block"],
-
-      [{ header: 1 }, { header: 2 }], // custom button values
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }], // superscript/subscript
-      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-      [{ direction: "rtl" }], // text direction
-
-      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-      [{ font: [] }],
-      [{ align: [] }],
-
-      ["clean"], // remove formatting button
-    ],
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-  ];
-
   return (
     <React.Fragment>
       <Breadcrumb
@@ -393,8 +404,17 @@ const FormProduct = (props) => {
             : content.titleAddProduit
         }
       />
+      <ModalConfirmation 
+        isOpen={isOpen} 
+        toggle={()=>setIsOpen(!isOpen)}
+        title={!isEmpty(productEdit) ? content.titleUpdateProductConfirmation : content.titleSaveProductConfirmation}
+        message={!isEmpty(productEdit) ? content.updateProductMessageConfirmation : content.saveProductMessageConfirmation}
+        buttonTextProcess={content.buttonSaveProductText}
+        buttonTextClose={content.buttonClose} 
+        handleProcess={!isEmpty(productEdit) ? submitUpdateProduct : submitProduct}
+      />
       <form
-        onSubmit={!isEmpty(productEdit) ? submitUpdateProduct : submitProduct}
+        onSubmit={(e)=>{ e.preventDefault(); if(confirmer()) setIsOpen(!isOpen); }}
       >
         <div className="card">
           <div className="card-body">
@@ -541,7 +561,19 @@ const FormProduct = (props) => {
                   <label htmlFor="rating" className="">
                     {content.productRating}
                   </label>
-                  <input
+                  <div className="text-muted mb-3">
+                    <StarRatings
+                        rating={!isEmpty(productEdit) ? productEdit.rating : product.rating}
+                        starRatedColor="#F1B44C"
+                        starEmptyColor="#2D363F"
+                        numberOfStars={5}
+                        name="rating"
+                        starDimension="20px"
+                        starSpacing="6px"
+                        changeRating={changeRating}
+                    />
+                  </div>
+                  {/* <input
                     id="rating"
                     type="number"
                     className="form-control"
@@ -554,7 +586,7 @@ const FormProduct = (props) => {
                     onChange={
                       !isEmpty(productEdit) ? handleProductEdit : handleProduct
                     }
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -564,9 +596,7 @@ const FormProduct = (props) => {
                   <label htmlFor="Description" className="form-label">
                     {content.productDescription}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.description ?? ""
@@ -588,9 +618,7 @@ const FormProduct = (props) => {
                   <label htmlFor="Details" className="form-label">
                     {content.productDetails}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.details ?? ""
@@ -612,9 +640,7 @@ const FormProduct = (props) => {
                   <label htmlFor="mainCharacteristics" className="form-label">
                     {content.productMainCharacteristics}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.mainCharacteristics ?? ""
@@ -641,9 +667,7 @@ const FormProduct = (props) => {
                   <label htmlFor="technicalDescription" className="form-label">
                     {content.productTechnicalDescription}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.technicalDescription ?? ""
@@ -670,9 +694,7 @@ const FormProduct = (props) => {
                   <label htmlFor="venduWith" className="form-label">
                     {content.productVenduWith}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.venduWith ?? ""
@@ -695,9 +717,7 @@ const FormProduct = (props) => {
                   <label htmlFor="general" className="form-label">
                     {content.productGeneral}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.general ?? ""
@@ -719,9 +739,7 @@ const FormProduct = (props) => {
                   <label htmlFor="garantie" className="form-label">
                     {content.productGarantie}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.garantie ?? ""
@@ -743,9 +761,7 @@ const FormProduct = (props) => {
                   <label htmlFor="Specification" className="form-label">
                     {content.productSpecification}
                   </label>
-                  <ReactQuill
-                    theme="snow"
-                    modules={modules}
+                  <TextEditor
                     value={
                       !isEmpty(productEdit)
                         ? productEdit.specification ?? ""

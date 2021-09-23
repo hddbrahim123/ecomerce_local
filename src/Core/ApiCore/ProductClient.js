@@ -1,6 +1,5 @@
 import { API_URL } from "../../config"
 
-
 export const getProductsViewClient = (filters)=>{
     return fetch(`${API_URL}/User/GetProductsViewPage`,{
         method:"POST",

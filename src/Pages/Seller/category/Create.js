@@ -7,6 +7,7 @@ import "toastr/build/toastr.min.css";
 import * as _ from "lodash";
 import { createCategory, getCategory, updateCategory } from "../../../Core/ApiCore/Category";
 import dictionary from '../../../Core/dictionary';
+import ModalConfirmation from "../../../Components/Comon/ModalConfirmation";
 
 const CreateCateory = (props) => {
   const [language] = useState(localStorage.getItem('language') ?? dictionary.defaultLanguage)
@@ -14,9 +15,10 @@ const CreateCateory = (props) => {
   const content = dictionary.category[language]
   const [category, setCategory] = useState({
     name: "",
-    active: false,
+    active: true,
   });
 
+  const [isOpen, setIsOpen] = useState(false);
   //handle Product
   const handleCategory = (e) => {
     const value =
@@ -26,7 +28,7 @@ const CreateCateory = (props) => {
 
   //Submit category
   const SubmitCategory = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (category.id) {
       updateCategory(category).then((res) => {
         if (res.success) {
@@ -65,8 +67,17 @@ const CreateCateory = (props) => {
   return (
     <React.Fragment>
       <div>
+      <ModalConfirmation 
+          isOpen={isOpen} 
+          toggle={()=>setIsOpen(!isOpen)}
+          title={category.id ? content.titleUpdateCategory : content.titleSaveCategory}
+          message={category.id ? content.UpdateCategoryMessageConfirmation : content.SaveCategoryMessageConfirmation}
+          buttonTextProcess={content.buttonSaveCategoryText}
+          buttonTextClose={content.buttonClose}
+          handleProcess={()=>{ SubmitCategory(); setIsOpen(!isOpen);}}
+        />
         <div className="row">
-          <form onSubmit={SubmitCategory}>
+          <form onSubmit={(e)=>{e.preventDefault();setIsOpen(!isOpen);}}>
             <div className="col-lg-12">
               <div className="card">
                 <div className="card-body">

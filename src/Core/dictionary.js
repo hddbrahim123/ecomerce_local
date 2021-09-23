@@ -23,16 +23,6 @@ var dictionary = {
       slideShoopLinkText: "Achetez maintenant",
       titleFilterCategories: "Catégories",
       titleTopSale: "Meilleure vente",
-      labelSlideTitle:"titre",
-      labelSlideIndex:"Ordre",
-      placeHolderSlideTitle:"Title...",
-      placeHolderSlideIndex:"Ordre...",
-      labelSlideDescription:"Description",
-      labelSlideImage:"Drag or Upload Images",
-      labelSlideLink:"Lien",
-      placeHolderSlideLink:"Lien...",
-      buttonSaveSlideText:"Enregistrer slide",
-      buttonEditSlideText:"Modifier slide"
     },
     En: {
       titleLatestProduct: "Latest products",
@@ -41,16 +31,6 @@ var dictionary = {
       slideShoopLinkText: "Shop Now",
       titleFilterCategories: "Categories",
       titleTopSale: "Top Sale",
-      labelSlideTitle:"title",
-      labelSlideIndex:"Order",
-      placeHolderSlideTitle:"Title...",
-      placeHolderSlideIndex:"Order...",
-      labelSlideDescription:"Description",
-      labelSlideImage:"Drag or Upload Images",
-      labelSlideLink:"Link",
-      placeHolderSlideLink:"Link...",
-      buttonSaveSlideText:"Save slide",
-      buttonEditSlideText:"Edit slide"
     },
   },
   detailProductContent: {
@@ -96,7 +76,7 @@ var dictionary = {
       buttonViewDetailsText:"View Details",
       modalOrderHeadTitle:"Status Commande",
       modalOrderLabelStatus:"Status",
-      modalOrderButtonUpdateStatusText:"Modifier Status",
+      modalOrderButtonUpdateStatusText:"Enregistrer",
       modalOrderButtonCloseText:"Fermer",
       ordersFound:"{count} commande(s) trouvé(s)",
       cartEmpty:"Votre panier est vide"
@@ -127,7 +107,7 @@ var dictionary = {
       buttonViewDetailsText:"View Details",
       modalOrderHeadTitle:"Create Order",
       modalOrderLabelStatus:"Status",
-      modalOrderButtonUpdateStatusText:"Update Status",
+      modalOrderButtonUpdateStatusText:"Save",
       modalOrderButtonCloseText:"Close",
       ordersFound:"{count} orders found",
       cartEmpty:"Your Cart is Empty"
@@ -214,7 +194,12 @@ var dictionary = {
       titleRemoveProduct:"Suppression du produit",
       RemoveProductMessageConfirmation:"voulez-vous supprimer ce produit ?",
       buttonRemoveProductText:"Supprimer",
-      buttonClose:"Fermer"
+      buttonClose:"Fermer",
+      titleSaveProductConfirmation:"Confirmation d'enregistrement",
+      titleUpdateProductConfirmation:"Confirmation de modification",
+      saveProductMessageConfirmation:"voulez-vous enregistrer ce produit ?",
+      updateProductMessageConfirmation:"voulez-vous modifier ce produit ?",
+      buttonSaveProductText:"Confirmer",
     },
     En:{
       titleDashboard:"Dashboard",
@@ -266,7 +251,60 @@ var dictionary = {
       titleRemoveProduct:"Suppression du produit",
       RemoveProductMessageConfirmation:"voulez-vous supprimer ce produit ?",
       buttonRemoveProductText:"Supprimer",
-      buttonClose:"Fermer"
+      buttonClose:"Fermer",
+      titleSaveProductConfirmation:"Confirmation d'enregistrement",
+      titleUpdateProductConfirmation:"Confirmation de modification",
+      SaveProductMessageConfirmation:"voulez-vous enregistrer ce produit ?",
+      UpdateProductMessageConfirmation:"voulez-vous modifier ce produit ?",
+      buttonSaveProductText:"Confirmer"
+    }
+  },
+  slide:{
+    Fr:{
+      titleRemoveSlide:"Suppression du slide",
+      removeSlideMessageConfirmation:"voulez-vous supprimer slide ?!",
+      buttonRemoveSlideText:"Supprimer",
+      buttonClose:"Fermer",
+      saveSlideSuccess: "Slide enregistré avec succès",
+      saveSlideError:"échec d'enregistrement du slide",
+      titleSaveSlideConfirmation:"Enregistrement du slide",
+      titleUpdateSlideConfirmation:"Modification du slide",
+      saveSlideMessageConfirmation:"voulez-vous ajouter slide ?!",
+      updateSlideMessageConfirmation:"voulez-vous modifier slide ?!",
+      buttonSaveSlideTextConfirmation:"Confirmer",
+      labelSlideTitle:"titre",
+      placeHolderSlideTitle:"Title...",
+      placeHolderSlideIndex:"Ordre...",
+      labelSlideIndex:"Ordre",
+      labelSlideDescription:"Description",
+      labelSlideImage:"Drag or Upload Images",
+      labelSlideLink:"Lien",
+      placeHolderSlideLink:"Lien...",
+      buttonSaveSlideText:"Enregistrer slide",
+      buttonEditSlideText:"Modifier slide"
+    },
+    En:{
+      titleRemoveSlide:"Remove slide",
+      removeSlideMessageConfirmation:"do you want to remove slide ?!",
+      buttonRemoveSlideText:"Remove",
+      buttonClose:"Close",
+      saveSlideSuccess: "Slide enregistré avec succès",
+      saveSlideError:"échec d'enregistrement du slide",
+      titleSaveSlideConfirmation:"Enregistrement du slide",
+      titleUpdateSlideConfirmation:"Modification du slide",
+      saveSlideMessageConfirmation:"voulez-vous ajouter slide ?!",
+      updateSlideMessageConfirmation:"voulez-vous modifier slide ?!",
+      buttonSaveSlideTextConfirmation:"Confirmer",
+      labelSlideTitle:"title",
+      labelSlideIndex:"Order",
+      placeHolderSlideTitle:"Title...",
+      placeHolderSlideIndex:"Order...",
+      labelSlideDescription:"Description",
+      labelSlideImage:"Drag or Upload Images",
+      labelSlideLink:"Link",
+      placeHolderSlideLink:"Link...",
+      buttonSaveSlideText:"Save slide",
+      buttonEditSlideText:"Edit slide"
     }
   },
   category:{
@@ -279,7 +317,12 @@ var dictionary = {
       titleRemoveCategory:"supprimer categorie",
       removeCategoryMessageConfirmation:"voulez-vous supprimer categorie ?!",
       buttonRemoveCategory:"supprimer categorie",
-      buttonClose:"Fermer"
+      buttonClose:"Fermer",
+      titleSaveCategory:"Confirmattion d'enregistrement",
+      titleUpdateCategory:"Confirmattion de modification",
+      SaveCategoryMessageConfirmation:"voulez-vous ajouter la categorie ?!",
+      UpdateCategoryMessageConfirmation:"voulez-vous modifier la categorie ?!",
+      buttonSaveCategoryText:"Confirmer"
     },
     En:{
       labelCategoryName:"Name",
@@ -290,7 +333,12 @@ var dictionary = {
       titleRemoveCategory:"supprimer categorie",
       removeCategoryMessageConfirmation:"voulez-vous supprimer categorie ?!",
       buttonRemoveCategory:"supprimer categorie",
-      buttonClose:"Fermer"
+      buttonClose:"Fermer",
+      titleSaveCategory:"Confirmattion d'enregistrement",
+      titleUpdateCategory:"Confirmattion de modification",
+      SaveCategoryMessageConfirmation:"voulez-vous ajouter la categorie ?!",
+      UpdateCategoryMessageConfirmation:"voulez-vous modifier la categorie ?!",
+      buttonSaveCategoryText:"Confirmer"
     }
   },
   paymentStatus:{
@@ -335,7 +383,9 @@ var dictionary = {
       updateProductError: "échec de la modification du produit",
       slugAlreadyExists: "Slug existe déjà",
       userOrPasswordInvalid: "Email ou mot de passe invalide",
-      saveProductCategoryRequired: "Svp, Selectionner le categorie.",
+      saveProductCategoryRequired: "Svp, Selectionner le categorie du produit.",
+      saveProductNameRequired: "Svp, Selectionner Entrez le nom du produit.",
+      saveProductQuantityRequired: "Svp, Selectionner Entrez la quantité du produit.",
       saveProductImagesRequired: "Svp, Selectionner des images.",
       saveProductPriceRequired: "Svp, Entrez le prix du produit",
       categoryInsertedSuccess :"catégorie enregistré avec succès.",
@@ -372,6 +422,8 @@ var dictionary = {
       slugAlreadyExists: "Slug déjà existé",
       userOrPasswordInvalid: "Email ou mot de passe invalid",
       saveProductCategoryRequired: "Svp, Selectionner le categorie.",
+      saveProductNameRequired: "Svp, Selectionner Entrez le nom du produit.",
+      saveProductQuantityRequired: "Svp, Selectionner Entrez la quantité du produit.",
       saveProductImagesRequired: "Please, Select the pictures.",
       saveProductPriceRequired: "Please enter the price of the product",
       categoryInsertedSuccess :"Category successfully registered.",

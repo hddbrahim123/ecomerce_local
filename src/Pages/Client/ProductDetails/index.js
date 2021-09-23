@@ -93,7 +93,7 @@ const ProductDetails = (props) => {
                 <div className="row main__card">
                   <div
                     data-aos="fade-right"
-                    className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5"
+                    className="col-lg-5 d-flex align-items-top justify-content-center mb-2 p-lg-5"
                   >
                     <div className="gallery ">
                       <div
@@ -153,7 +153,7 @@ const ProductDetails = (props) => {
                           </del>)}
                         </div>
                         <div className="data__description">
-                          {ReactHtmlParser(product.description)}
+                          {product.description?ReactHtmlParser(product.description):""}
                         </div>
                       </div>
                       {!isEmpty(product.size) && (
@@ -215,7 +215,7 @@ const ProductDetails = (props) => {
                 <div className="card-body">
                   <h5 className="">{content.titleDetails}</h5>
                   <div className="p-lg-4">
-                    {ReactHtmlParser(product.details)}
+                    {product.details ? ReactHtmlParser(product.details):""}
                   </div>
                 </div>
               </div>

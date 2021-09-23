@@ -101,9 +101,9 @@ const SellerProductDetails = (props) => {
                            </del>
                           }
                         </div>
-                        <p className="data__description">
-                          {ReactHtmlParser(product.description)}
-                        </p>
+                        <div className="data__description">
+                          {product.description ? ReactHtmlParser(product.description) :""}
+                        </div>
                       </div>
                       {!isEmpty(product.size) && (
                         <div className="size">

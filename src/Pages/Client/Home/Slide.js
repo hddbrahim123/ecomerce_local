@@ -6,12 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 import ReactHtmlParser from 'react-html-parser'
 
-import laptop from '../../../assets/images/laptop2.jpg'
 import { Link } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import dictionary from "../../../Core/dictionary"
 const Slide = ({language,slides})=>{
-
     var settings = {
         dots: true,
         infinite: true,
@@ -30,8 +28,8 @@ const Slide = ({language,slides})=>{
                 {!isEmpty(slides) && slides.map((slide , i)=>(
                     <div key={i} className="home__slide d-flex justify-content-between align-items-center p-lg-2" >
                         <div className="m-2">
-                            <h6 className="home__slide__title text-capitalize fw-bold fs-6  first-color  my-4">{slide.title}</h6>
-                            <p className="text-muted  mb-3">{ ReactHtmlParser (slide.description)}</p>
+                            <h6 className="home__slide__title text-capitalize fw-bold fs-6 first-color my-4">{slide.title}</h6>
+                            <div className="text-muted mb-3">{ slide.description ? ReactHtmlParser(slide.description) : "" }</div>
                             <Link className="home__slide__btn btn btn-primary py-2 px-2 my-4 border-0" to={slide.link}>{content.slideShoopLinkText}</Link>
                         </div>
                         <img src={slide.image} alt={slide.title} className="home__slide__img my-1" height="450px" />

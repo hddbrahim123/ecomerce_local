@@ -135,6 +135,41 @@ export const RemoveImage = (imageGuid) => {
         .catch(err => console.error(err))
 }
 
+export const UpProduct = (slug) => {
+    const { token } = isAuthSeller()
+    return fetch(`${API_URL}/Admin/UpProduct?slug=${slug}`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .catch(err => console.error(err))
+}
+export const DownProduct = (slug) => {
+    const { token } = isAuthSeller()
+    return fetch(`${API_URL}/Admin/DownProduct?slug=${slug}`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .catch(err => console.error(err))
+}
+
+export const OrderProducts = (force) => {
+    const { token } = isAuthSeller()
+    return fetch(`${API_URL}/Admin/OrderProducts?force=${force}`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .catch(err => console.error(err))
+}
+
 export const InsertSlide = (slide) => {
     const { token } = isAuthSeller()
     return fetch(`${API_URL}/Home/InsertSlide`, {
