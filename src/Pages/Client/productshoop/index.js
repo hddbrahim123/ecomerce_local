@@ -15,7 +15,6 @@ const ProductsShop = (props) => {
   );
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-
   //State Pagination
   const [pagination, setPagination] = useState({
     pageNumber: 1,
@@ -32,10 +31,14 @@ const ProductsShop = (props) => {
 
   //Handle Page click
   const onPageChange = (newPage) => {
+    pagination.pageNumber = newPage;
+    setPagination({...pagination, pageNumber: newPage});
+    filters.pageNumber = newPage;
     setFilters({
       ...filters,
       pageNumber: newPage,
     });
+    searchProducts();
   };
 
   const handleFilters = (data, filterBy) => {
@@ -43,7 +46,6 @@ const ProductsShop = (props) => {
       ...filters,
       [filterBy]: data,
     });
-    console.log("shop : ", data, filterBy);
   };
 
   // useEffect(() => {
@@ -59,7 +61,9 @@ const ProductsShop = (props) => {
     });
   }
   useEffect(() => {
-    //let category = props.match.params.category;
+    let category = props.match.params.category;
+    filters.categories = [category];
+    handleFilters([category], 'categories');
     
     getActiveCategories().then((res) => {
       setCategories(res);
@@ -76,6 +80,7 @@ const ProductsShop = (props) => {
               <div className="card-body">
                 <FilterCategory
                   categories={categories}
+                  checkedCategories={filters.categories}
                   handleFilters={(data) => handleFilters(data, "categories")}
                 />
               </div>

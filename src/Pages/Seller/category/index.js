@@ -32,7 +32,7 @@ const Category = ()=>{
         if (res.success) {
           toastr.success(messages.categoryDeletedSuccess,"")
           setIsOpen(false)
-          getCategories()
+          getCategories(false)
             .then(res=>{
               console.log(res)
               if (res) {
@@ -46,7 +46,7 @@ const Category = ()=>{
     })
   }
   useEffect(() => {
-    getCategories()
+    getCategories(false)
       .then(res=>{
         console.log(res)
         if (res) {

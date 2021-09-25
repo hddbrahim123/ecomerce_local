@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { getActiveCategories } from "../../../Core/ApiCore/Category";
+import { getCategories } from "../../../Core/ApiCore/Category";
 // import FilterCategoryHome from "./FilterCategoryHome";
 import Slide from "./Slide";
 import { getProductsSlide } from "../../../Core/ApiCore/ProductHome";
@@ -21,13 +21,13 @@ const Home = ({language}) => {
       setSlides(res);
       console.log(res);
     });
-
-    getActiveCategories().then((res) => setCategories(res));
+    getCategories(true).then((res) => setCategories(res));
+    // getActiveCategories().then((res) => setCategories(res));
   }, []);
   return (
     <React.Fragment>
       <section className="bg-white">
-        <div data-aos="fade-right" className="container-fluid px-lg-4 p-lg-2">
+        <div className="container-fluid px-lg-4 p-lg-2">
           <div className="row">
             <div className="col-3 d-none d-lg-block">
               {/* <div className="card my-4 shadow-sm">

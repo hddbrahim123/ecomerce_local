@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { map } from "lodash";
+import { useSelector } from "react-redux";
 
 const Paginate = (props) => {
-  const { pagination, onPageChange, className } = props;
-  const { pageNumber, totalPage } = pagination;
-
+  
   const arrayPages = (totalPages, pageNumber) => {
-    var begin = pageNumber - 5;
+    var begin = pageNumber - 3;
+    var end = pageNumber + 3;
     if (begin < 1) {
       begin = 1;
+      end += (3 - pageNumber)
     }
-    var end = begin + 5;
     if (end > totalPages) {
       end = totalPages;
+      begin -= (pageNumber + 3 - totalPage)
+      if (begin < 1) {
+        begin = 1;
+      }
     }
     
     var array = [];
@@ -25,12 +29,16 @@ const Paginate = (props) => {
     console.log("pageNumber:" + pageNumber + ", end: " + end + ", totalPages:" + totalPages);
     return array;
   }
+  
+  const { pagination, onPageChange, className } = props;
+  const { pageNumber, totalPage } = pagination;
 
-  const [pages, setPages] = useState(arrayPages(totalPage, pageNumber));
+  let pages = useSelector(()=>arrayPages(totalPage, pageNumber));
 
   const handlePageClick = (newPage) => {
     onPageChange(newPage);
-    setPages(arrayPages(totalPage, newPage));
+    //setPages(arrayPages(totalPage, newPage));
+    //pages
   };
 
   return (
@@ -38,7 +46,7 @@ const Paginate = (props) => {
       <div className="col-lg-12">
         <nav aria-label="Page navigation example">
           <ul className={`pagination mt-2 mb-5 pb-1 ${className}`}>
-            <li
+          <li
               className={pageNumber === 1 ? "page-item disabled" : "page-item"}
             >
               <Link

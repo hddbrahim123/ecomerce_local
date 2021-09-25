@@ -48,10 +48,17 @@ const Products = (props) => {
 
   //Handle Page click
   const onPageChange = (newPage) => {
+    pagination.pageNumber = newPage;
+    setPagination({
+      ...pagination,
+      pageNumber: newPage
+    });
+    filters.pageNumber = newPage;
     setFilters({
       ...filters,
       pageNumber: newPage,
     });
+    searchProducts(filters);
   };
 
   const handleChange = (e) =>{
@@ -100,7 +107,7 @@ const Products = (props) => {
   };
 
   useEffect(() => {
-    getCategories()
+    getCategories(false)
       .then(res=>{
         if (res) {
           setCategories(res)

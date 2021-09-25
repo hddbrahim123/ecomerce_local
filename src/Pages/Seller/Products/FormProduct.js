@@ -7,20 +7,20 @@ import "toastr/build/toastr.min.css";
 //Import lodash
 import { isEmpty, uniqBy } from "lodash";
 import * as _ from "lodash";
-import StarRatings from "react-star-ratings"
+import StarRatings from "react-star-ratings";
 
 // // Import Editor
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
-import ModalConfirmation from '../../../Components/Comon/ModalConfirmation'
+import ModalConfirmation from "../../../Components/Comon/ModalConfirmation";
 
-import { getActiveCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories, getCategories } from "../../../Core/ApiCore/Category";
 import {
   getProductViewEditSeller,
   SaveProduct,
   UpdateProduct,
   UploadImages,
-  UpdateImages
+  UpdateImages,
 } from "../../../Core/ApiCore/ProductSeller";
 
 import Breadcrumb from "../../../Components/Comon/Breadcrumb";
@@ -30,6 +30,7 @@ import dictionary from "../../../Core/dictionary";
 import ListSortable from "../../../Components/Comon/ListSortable";
 import { Link } from "react-router-dom";
 import TextEditor from "../../../Core/TextEditor";
+import CategorySelecter from "./CategorySelecter";
 
 const thumbsContainer = {
   display: "flex",
@@ -63,7 +64,6 @@ const img = {
 };
 
 const FormProduct = (props) => {
-
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const [isOpen, setIsOpen] = useState(false);
   const content = dictionary.product[language];
@@ -91,15 +91,14 @@ const FormProduct = (props) => {
   });
   const [productEdit, setProductEdit] = useState({});
   const [imagesEdit, setImagesEdit] = useState([]);
-  
-  const changeRating = ( newRating, name ) =>
-  {
+
+  const changeRating = (newRating, name) => {
     if (!isEmpty(productEdit)) {
-      setProductEdit({...productEdit, rating: newRating})
+      setProductEdit({ ...productEdit, rating: newRating });
     } else {
-      setProduct({...product, rating: newRating})
+      setProduct({ ...product, rating: newRating });
     }
-  }
+  };
 
   const handleDescription = (e) => {
     setProduct({
@@ -168,7 +167,7 @@ const FormProduct = (props) => {
       let newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
-          position:position++
+          position: position++,
         })
       );
       console.log(newFiles);
@@ -180,10 +179,9 @@ const FormProduct = (props) => {
   });
 
   const submitProduct = () => {
-    
     setIsOpen(!isOpen);
     console.log(product);
-    
+
     SaveProduct(product).then((res) => {
       if (res.success) {
         const slug = res.data.slug;
@@ -193,19 +191,21 @@ const FormProduct = (props) => {
         });
         // console.log("form", formData.getAll("photos"));
         UploadImages(slug, formData).then((res) => {
-          setProduct({...product, slug:slug});
+          setProduct({ ...product, slug: slug });
           toastr.options.progressBar = true;
           toastr.success(res.message ?? messages.insertProductSuccess, "");
           // props.history.push(`/seller/product/${slug}`);
         });
       } else {
         // console.log(res.message ?? messages.insertProductError ?? res.code);
-        toastr.error(res.message ?? messages.insertProductError ?? res.code, "");
+        toastr.error(
+          res.message ?? messages.insertProductError ?? res.code,
+          ""
+        );
       }
     });
   };
-  const confirmer = () =>
-  {
+  const confirmer = () => {
     if (!isEmpty(productEdit)) {
       console.log(productEdit);
       if (!productEdit.name) {
@@ -273,9 +273,8 @@ const FormProduct = (props) => {
       return true;
     }
     return false;
-  }
+  };
   const submitUpdateProduct = () => {
-    
     setIsOpen(!isOpen);
 
     productEdit.images = undefined;
@@ -284,26 +283,25 @@ const FormProduct = (props) => {
       .then((res) => {
         if (res.success) {
           const slug = res.data.slug;
-            UpdateImages(productEdit.slug, imagesEdit)
-            .then((res) => {
-              if (res && !isEmpty(files)) {
-                var formData = new FormData();
-                files.map((file) => {
-                  formData.append("photos", file);
-                });
-                UploadImages(slug, formData).then((res) => {
-                  setFiles([]);
-                  toastr.options.progressBar = true;
-                  toastr.success(messages.updateProductSuccess, "");
-                  // props.history.push(`/seller/product/${slug}`);
-                  chargeData();
-                });
-              } else {
+          UpdateImages(productEdit.slug, imagesEdit).then((res) => {
+            if (res && !isEmpty(files)) {
+              var formData = new FormData();
+              files.map((file) => {
+                formData.append("photos", file);
+              });
+              UploadImages(slug, formData).then((res) => {
+                setFiles([]);
                 toastr.options.progressBar = true;
                 toastr.success(messages.updateProductSuccess, "");
+                // props.history.push(`/seller/product/${slug}`);
                 chargeData();
-              }
-            })
+              });
+            } else {
+              toastr.options.progressBar = true;
+              toastr.success(messages.updateProductSuccess, "");
+              chargeData();
+            }
+          });
         } else {
           toastr.error(messages.updateProductError);
         }
@@ -312,39 +310,39 @@ const FormProduct = (props) => {
         toastr.error(messages.updateProductError);
       });
   };
-  
+
   const deleteImage = (imageGuid, position) => {
-    
     // RemoveImage(imageGuid).then((res) => {
     //   if (res.success) {
     //   }
     // });
-  
-    let newFiles = imagesEdit.filter(f => f.imageGuid !== imageGuid);
-    newFiles.forEach(f => { if(f.position > position) f.position-- })
+
+    let newFiles = imagesEdit.filter((f) => f.imageGuid !== imageGuid);
+    newFiles.forEach((f) => {
+      if (f.position > position) f.position--;
+    });
     setImagesEdit(newFiles);
-    console.log(imagesEdit.concat(files).map(e => e.position));
-  }
+    console.log(imagesEdit.concat(files).map((e) => e.position));
+  };
 
-  const deleteNewFiles = (value, index) =>
-  {
-    let newFiles = files.filter(f => f !== value);
-    newFiles.forEach(f => { if(f.position > value.position) f.position-- })
+  const deleteNewFiles = (value, index) => {
+    let newFiles = files.filter((f) => f !== value);
+    newFiles.forEach((f) => {
+      if (f.position > value.position) f.position--;
+    });
     setFiles(newFiles);
-    console.log(imagesEdit.concat(files).map(e => e.position));
-  }
+    console.log(imagesEdit.concat(files).map((e) => e.position));
+  };
 
-  const onSortEndHandler = (images, oldIndex, newIndex) =>
-  {
+  const onSortEndHandler = (images, oldIndex, newIndex) => {
     console.log(oldIndex, newIndex);
     setImagesEdit(images.filter((image) => image.image));
     setFiles(images.filter((image) => image.preview));
-    console.log(images.map(img => img.position));
-  }
-  const chargeData = () =>
-  {
+    console.log(images.map((img) => img.position));
+  };
+  const chargeData = () => {
     const slug = props.match.params.slug;
-    getActiveCategories().then((res) => {
+    getCategories(false).then((res) => {
       setCategories(res);
       if (!!slug) {
         getProductViewEditSeller(slug).then((res) => {
@@ -360,38 +358,48 @@ const FormProduct = (props) => {
         });
       }
     });
-  }
+  };
   useEffect(() => {
     chargeData();
   }, []);
-  
-  const ImageElement = ({value, index}) => value.preview ? (
-    <div style={thumb} key={index+imagesEdit.length} className="position-relative">
-      <div style={thumbInner}>
-        <span
-          onClick={() => deleteNewFiles(value, index)}
-          style={{ cursor: "pointer" }}
-          className="featured__offre"
-        >
-          X
-        </span>
-        <img src={value.preview} style={img} />
+
+  const ImageElement = ({ value, index }) =>
+    value.preview ? (
+      <div
+        style={thumb}
+        key={index + imagesEdit.length}
+        className="position-relative"
+      >
+        <div style={thumbInner}>
+          <span
+            onClick={() => deleteNewFiles(value, index)}
+            style={{ cursor: "pointer" }}
+            className="featured__offre"
+          >
+            X
+          </span>
+          <img src={value.preview} style={img} />
+        </div>
       </div>
-    </div>
-  ) : (
-    <div style={thumb} key={index} index={index} className="position-relative">
-      <div style={thumbInner}>
-        <span
-          onClick={() => deleteImage(value.imageGuid, value.position)}
-          style={{ cursor: "pointer" }}
-          className="featured__offre"
-        >
-          X
-        </span>
-        <img src={value.image} style={img} />
+    ) : (
+      <div
+        style={thumb}
+        key={index}
+        index={index}
+        className="position-relative"
+      >
+        <div style={thumbInner}>
+          <span
+            onClick={() => deleteImage(value.imageGuid, value.position)}
+            style={{ cursor: "pointer" }}
+            className="featured__offre"
+          >
+            X
+          </span>
+          <img src={value.image} style={img} />
+        </div>
       </div>
-    </div>
-  )
+    );
 
   return (
     <React.Fragment>
@@ -404,22 +412,39 @@ const FormProduct = (props) => {
             : content.titleAddProduit
         }
       />
-      <ModalConfirmation 
-        isOpen={isOpen} 
-        toggle={()=>setIsOpen(!isOpen)}
-        title={!isEmpty(productEdit) ? content.titleUpdateProductConfirmation : content.titleSaveProductConfirmation}
-        message={!isEmpty(productEdit) ? content.updateProductMessageConfirmation : content.saveProductMessageConfirmation}
+      <ModalConfirmation
+        isOpen={isOpen}
+        toggle={() => setIsOpen(!isOpen)}
+        title={
+          !isEmpty(productEdit)
+            ? content.titleUpdateProductConfirmation
+            : content.titleSaveProductConfirmation
+        }
+        message={
+          !isEmpty(productEdit)
+            ? content.updateProductMessageConfirmation
+            : content.saveProductMessageConfirmation
+        }
         buttonTextProcess={content.buttonSaveProductText}
-        buttonTextClose={content.buttonClose} 
-        handleProcess={!isEmpty(productEdit) ? submitUpdateProduct : submitProduct}
+        buttonTextClose={content.buttonClose}
+        handleProcess={
+          !isEmpty(productEdit) ? submitUpdateProduct : submitProduct
+        }
       />
       <form
-        onSubmit={(e)=>{ e.preventDefault(); if(confirmer()) setIsOpen(!isOpen); }}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
       >
         <div className="card">
           <div className="card-body">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-12">
+                <CategorySelecter categories={categories}/>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="name" className="">
                     {content.productName}
@@ -438,7 +463,7 @@ const FormProduct = (props) => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6">
+              {/* <div className="col-lg-6">
                 <div className="mb-3">
                   <label htmlFor="categoryId" className="">
                     {content.productCategory}
@@ -464,7 +489,7 @@ const FormProduct = (props) => {
                       ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="row">
               <div className="col-lg-6">
@@ -563,14 +588,18 @@ const FormProduct = (props) => {
                   </label>
                   <div className="text-muted mb-3">
                     <StarRatings
-                        rating={!isEmpty(productEdit) ? productEdit.rating : product.rating}
-                        starRatedColor="#F1B44C"
-                        starEmptyColor="#2D363F"
-                        numberOfStars={5}
-                        name="rating"
-                        starDimension="20px"
-                        starSpacing="6px"
-                        changeRating={changeRating}
+                      rating={
+                        !isEmpty(productEdit)
+                          ? productEdit.rating
+                          : product.rating
+                      }
+                      starRatedColor="#F1B44C"
+                      starEmptyColor="#2D363F"
+                      numberOfStars={5}
+                      name="rating"
+                      starDimension="20px"
+                      starSpacing="6px"
+                      changeRating={changeRating}
                     />
                   </div>
                   {/* <input
@@ -811,18 +840,19 @@ const FormProduct = (props) => {
             </section>
           </div>
         </div>
-      
+
         {(!isEmpty(imagesEdit) || !isEmpty(files)) && (
           <div className="card mt-4">
             <div className="card-body" style={thumbsContainer}>
-            <ListSortable
-                  items={imagesEdit.concat(files)} 
-                  onSortEndHandler={onSortEndHandler} 
-                  element={ImageElement} />
+              <ListSortable
+                items={imagesEdit.concat(files)}
+                onSortEndHandler={onSortEndHandler}
+                element={ImageElement}
+              />
             </div>
           </div>
         )}
-  
+
         <div className="card mt-4">
           <div className="card-body">
             <div className="row">
@@ -888,16 +918,22 @@ const FormProduct = (props) => {
             </div>
           </div>
         </div>
-        {product.slug && <div className="card mt-4">
-          <div className="card-body">
-            <Link to={"/product/"+product.slug} target="_blank" className="text-success">
-              <i className='bx bx-view'>Afficher details</i>
-            </Link>
+        {product.slug && (
+          <div className="card mt-4">
+            <div className="card-body">
+              <Link
+                to={"/product/" + product.slug}
+                target="_blank"
+                className="text-success"
+              >
+                <i className="bx bx-view">Afficher details</i>
+              </Link>
+            </div>
           </div>
-        </div>}
+        )}
         <div className="card mt-4">
           <div className="card-body">
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="button" onClick={()=>{if (confirmer()) setIsOpen(!isOpen)}} className="btn btn-primary w-100">
               {!isEmpty(productEdit)
                 ? content.buttonUpdateProduct
                 : content.buttonAddProduct}

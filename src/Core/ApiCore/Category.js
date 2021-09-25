@@ -65,7 +65,7 @@ export const canRemoveCategory = (categoryId)=>{
 }
 
 export const getActiveCategories = ()=>{
-    return fetch(`${API_URL}/Category/GetActiveCategories`,{
+    return fetch(`${API_URL}/Category/GetActiveCategoriesView`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -77,8 +77,8 @@ export const getActiveCategories = ()=>{
     .catch(err=>console.error(err))
 }
 
-export const getCategories = ()=>{
-    return fetch(`${API_URL}/Category/GetCategories`,{
+export const getCategories = (active)=>{
+    return fetch(`${API_URL}/Category/GetCategoriesView?active=${active ? 'true' : 'false'}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",

@@ -1,8 +1,8 @@
 import { isEmpty } from 'lodash'
 import React, { useState } from 'react'
 
-const FilterCategory = ({categories , handleFilters})=>{
-    const [checked] = useState(new Set())
+const FilterCategory = ({categories, checkedCategories, handleFilters})=>{
+    const [checked] = useState(new Set(checkedCategories))
 
     const handleCategory = (category)=>{
         if(checked.has(category.id)){
@@ -21,9 +21,10 @@ const FilterCategory = ({categories , handleFilters})=>{
                     <li key={i} className="list-unstyled my-2">
                         <input
                             type="checkbox" 
+                            checked={checked.has(category.id)}
                             id={category.id} 
                             className="form-check-input mx-2" 
-                            onClick={()=>handleCategory(category)}
+                            onChange={()=>handleCategory(category)}
                         />
                         <label htmlFor={category.id}>{category.name}</label>
                     </li>
