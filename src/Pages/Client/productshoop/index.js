@@ -19,11 +19,12 @@ const ProductsShop = (props) => {
   const [pagination, setPagination] = useState({
     pageNumber: 1,
     totalPage: 1,
+    length:10
   });
 
   const [filters, setFilters] = useState({
     pageNumber: 1,
-    length: 12,
+    length: 10,
     categories: [],
     price: [],
     search:''
@@ -41,6 +42,12 @@ const ProductsShop = (props) => {
     searchProducts();
   };
 
+  const onLengthPageChange =(length)=>{
+    handleFilters(length, 'length');
+    pagination.length = length;
+    setPagination({...pagination, length: length});
+  }
+  
   const handleFilters = (data, filterBy) => {
     setFilters({
       ...filters,
@@ -62,14 +69,16 @@ const ProductsShop = (props) => {
   }
   useEffect(() => {
     let category = props.match.params.category;
-    filters.categories = [category];
-    handleFilters([category], 'categories');
-    
+    if (category) {
+      category = parseInt(category);
+      filters.categories = [category];
+      handleFilters([category], 'categories');
+    }
     getActiveCategories().then((res) => {
       setCategories(res);
     });
     searchProducts();
-  }, []);
+  }, [filters]);
 
   return (
     <React.Fragment>
@@ -81,7 +90,7 @@ const ProductsShop = (props) => {
                 <FilterCategory
                   categories={categories}
                   checkedCategories={filters.categories}
-                  handleFilters={(data) => handleFilters(data, "categories")}
+                  handleFilters={(data) => {filters.categories=data;handleFilters(data, "categories");}}
                 />
               </div>
             </div>
@@ -117,6 +126,7 @@ const ProductsShop = (props) => {
             <Paginate
               pagination={pagination}
               onPageChange={onPageChange}
+              onLengthPageChange={onLengthPageChange}
               className="justify-content-center"
             />
           </div>

@@ -5,7 +5,7 @@ import { map } from "lodash";
 import { useSelector } from "react-redux";
 
 const Paginate = (props) => {
-  
+
   const arrayPages = (totalPages, pageNumber) => {
     var begin = pageNumber - 3;
     var end = pageNumber + 3;
@@ -20,7 +20,7 @@ const Paginate = (props) => {
         begin = 1;
       }
     }
-    
+
     var array = [];
     for (var index = begin; index <= end; index++) {
       array.push(index);
@@ -29,11 +29,12 @@ const Paginate = (props) => {
     console.log("pageNumber:" + pageNumber + ", end: " + end + ", totalPages:" + totalPages);
     return array;
   }
-  
-  const { pagination, onPageChange, className } = props;
-  const { pageNumber, totalPage } = pagination;
 
-  let pages = useSelector(()=>arrayPages(totalPage, pageNumber));
+  const { pagination, onPageChange, onLengthPageChange, className } = props;
+  const { pageNumber, length, totalPage } = pagination;
+  const lengthPage = [10, 25, 50, 100];
+
+  let pages = useSelector(() => arrayPages(totalPage, pageNumber));
 
   const handlePageClick = (newPage) => {
     onPageChange(newPage);
@@ -45,8 +46,17 @@ const Paginate = (props) => {
     <React.Fragment>
       <div className="col-lg-12">
         <nav aria-label="Page navigation example">
+          <select
+            className={`pagination mt-2 mb-5 pb-1 ${className}`}
+            id="length"
+            onChange={(e) =>onLengthPageChange ? onLengthPageChange(e.target.value):console.log()}
+            value={length}>
+            {lengthPage.map((e, i) => (
+              <option value={e}>{e}</option>
+            ))}
+          </select>
           <ul className={`pagination mt-2 mb-5 pb-1 ${className}`}>
-          <li
+            <li
               className={pageNumber === 1 ? "page-item disabled" : "page-item"}
             >
               <Link
