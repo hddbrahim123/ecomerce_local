@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
-import { getActiveCategories } from "../../../Core/ApiCore/Category";
+import { GetChildrenCategory } from "../../../Core/ApiCore/Category";
 import { getProductsViewClient } from "../../../Core/ApiCore/ProductClient";
 import FilterCategory from "./FilterCategory";
 import FilterPrice from "./FilterPrice";
@@ -19,7 +19,8 @@ const ProductsShop = (props) => {
   const [pagination, setPagination] = useState({
     pageNumber: 1,
     totalPage: 1,
-    length:10
+    length:10,
+    totalCount:0
   });
 
   const [filters, setFilters] = useState({
@@ -43,9 +44,11 @@ const ProductsShop = (props) => {
   };
 
   const onLengthPageChange =(length)=>{
+    filters.length = length;
     handleFilters(length, 'length');
     pagination.length = length;
     setPagination({...pagination, length: length});
+    searchProducts();
   }
   
   const handleFilters = (data, filterBy) => {
@@ -59,12 +62,16 @@ const ProductsShop = (props) => {
   // }, []);
   const searchProducts = () =>{
     getProductsViewClient(filters).then((res) => {
-      setProducts(res.list);
-      setPagination({
-        ...pagination,
-        pageNumber: res.pageNumber,
-        totalPage: res.totalPage,
-      });
+      if (res && res.list) {
+        setProducts(res.list);
+        pagination.totalPage = res.totalPage;
+        setPagination({
+          ...pagination,
+          pageNumber: res.pageNumber,
+          totalPage: res.totalPage,
+          totalCount: res.totalCount
+        });
+      }
     });
   }
   useEffect(() => {
@@ -74,11 +81,14 @@ const ProductsShop = (props) => {
       filters.categories = [category];
       handleFilters([category], 'categories');
     }
-    getActiveCategories().then((res) => {
+    GetChildrenCategory('', true).then((res) => {
       setCategories(res);
     });
+    // getActiveCategories().then((res) => {
+    //   setCategories(res);
+    // });
     searchProducts();
-  }, [filters]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -90,14 +100,14 @@ const ProductsShop = (props) => {
                 <FilterCategory
                   categories={categories}
                   checkedCategories={filters.categories}
-                  handleFilters={(data) => {filters.categories=data;handleFilters(data, "categories");}}
+                  handleFilters={(data) => {filters.categories=data;handleFilters(data, "categories");searchProducts();}}
                 />
               </div>
             </div>
             <div className="card my-2 shadow-sm">
               <div className="card-body">
                 <FilterPrice language={language}
-                  handleFilters={(data) => handleFilters(data, "price")}
+                  handleFilters={(data) => { handleFilters(data, "price");searchProducts(); }}
                 />
               </div>
             </div>
@@ -116,6 +126,15 @@ const ProductsShop = (props) => {
               </form>
             </div>
             <div className="row">
+              <p>{!isEmpty(products) ? `résultat : ${pagination.totalCount} produit(s)`:"aucun résultat"} </p>
+              {!isEmpty(products) && <Paginate
+                pagination={pagination}
+                onPageChange={onPageChange}
+                onLengthPageChange={onLengthPageChange}
+                className="justify-content-left"
+                />}
+            </div>
+            <div className="row">
               {!isEmpty(products) &&
                 products.map((product, i) => (
                   <div key={product.slug} className="col-3 p-0">
@@ -123,12 +142,14 @@ const ProductsShop = (props) => {
                   </div>
                 ))}
             </div>
-            <Paginate
-              pagination={pagination}
-              onPageChange={onPageChange}
-              onLengthPageChange={onLengthPageChange}
-              className="justify-content-center"
-            />
+            <div className="row">
+              <Paginate
+                pagination={pagination}
+                onPageChange={onPageChange}
+                onLengthPageChange={onLengthPageChange}
+                className="justify-content-left"
+                />
+            </div>
           </div>
         </div>
       </div>

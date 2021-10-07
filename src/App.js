@@ -17,7 +17,6 @@ import { authSeller, clientRoutes, sellerRoutes } from "./routes/allRouters";
 import SellerMiddleware from "./routes/middleware/SellerMiddleware";
 import ClientMiddleware from "./routes/middleware/ClientMiddleware";
 import AuthSellerMiddleware from "./routes/middleware/AuthSellerMiddleware";
-import Home from "./Pages/Client/Home/Home";
 
 const App = ()=>{
 

@@ -38,12 +38,12 @@ const ProductsCart = () => {
       
         <div className="container-fluid">
           <div className="row mx-lg-4">
-            <div className="col-lg-8">
+            <div className="col-8">
               {!isEmpty(products) ? (
                 <>
                   {products.map((product, i) => (
                     <div key={i} className="row">
-                      <div className="col-lg-12">
+                      <div className="col-12">
                         <div
                           data-aos="fade-down"
                           className="row productCart  mb-4 bg-white shadow-sm m-1 p-2"
@@ -57,7 +57,7 @@ const ProductsCart = () => {
                           >
                             X
                           </span>
-                          <div className="col-lg-2">
+                          <div className="col-2">
                             <img
                               src={product.images && product.images.length ? product.images[0] : ""}
                               alt="name"
@@ -65,7 +65,7 @@ const ProductsCart = () => {
                               width="100%"
                             />
                           </div>
-                          <div className="col-lg-10 d-flex flex-column justify-content-between">
+                          <div className="col-10 d-flex flex-column justify-content-between">
                             <h5 className="mb-3 text-capitalize  pt-3 fs-4 text-truncate">
                               <Link
                                 to={"/product/" + product.slug}
@@ -117,7 +117,7 @@ const ProductsCart = () => {
                 </div>
               )}
             </div>
-            <div className="col-lg-4 h-100">
+            <div className="col-4 h-100">
               <div className="card my-2 p-2 shadow-sm">
                 <div className="card-body">
                   <div className="d-flex justify-content-between mb-4">

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { isEmpty } from 'lodash'
 
-import { getCategories, removeCategory } from '../../../Core/ApiCore/Category'
+import { getAllCategories, getCategories, removeCategory } from '../../../Core/ApiCore/Category'
 
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
@@ -46,7 +46,7 @@ const Category = ()=>{
     })
   }
   useEffect(() => {
-    getCategories(false)
+    getAllCategories()
       .then(res=>{
         console.log(res)
         if (res) {
@@ -61,6 +61,11 @@ const Category = ()=>{
         <div className="row">
           <div className="col-md-3 ">
             <Link to="/seller/categories/create" className="pull-rigth">{content.buttonNewCategory}</Link>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-3 ">
+            {categories.length} categorie(s)
           </div>
         </div>
         <div className="row">

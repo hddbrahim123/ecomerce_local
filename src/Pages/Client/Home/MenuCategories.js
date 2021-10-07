@@ -1,9 +1,8 @@
 import { isEmpty } from "lodash";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const MenuCategories = ({ categories }) => {
-  const [down, setDown] = useState(true);
+  const [down] = useState(true);
 
   const CategoryItem = (category) =>
   {
@@ -38,11 +37,10 @@ const MenuCategories = ({ categories }) => {
             key={i}
             className="dropdown-item outline-success me-2 sub-dropdown"
           >
-            <div className="">
+            
               {CategoryItem(category)}
               {!isEmpty(category.children) && <div className="dropdown-content">
-                <div className="row">
-                  <div id="st_menu_block_117">
+                
                     <ul className="">
                       {category.children.map((category2,index2)=>(
                         <li key={index2} className="">
@@ -57,10 +55,9 @@ const MenuCategories = ({ categories }) => {
                         </li>
                       ))}
                       </ul>
-                  </div>
-                </div>
+
               </div>}
-            </div>
+            
           </li>
         ))}
       </ul>

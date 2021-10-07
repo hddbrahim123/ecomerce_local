@@ -12,7 +12,7 @@ const TopSale = (props)=>{
             <section>
                 <div className="container-fluid my-3">
                     <div className="row">
-                        <div className="col-lg-12 ">
+                        <div className="col-12 ">
                             <div className="card shadow-sm mx-lg-5">
                                 <div className="card-body">
                                     <div className="row">

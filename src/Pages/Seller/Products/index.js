@@ -43,7 +43,7 @@ const Products = (props) => {
     pageNumber: 1,
     length: 10,
     search:'',
-    categoryId:0
+    categoryId:undefined
   });
 
   //Handle Page click
@@ -61,8 +61,20 @@ const Products = (props) => {
     searchProducts(filters);
   };
 
+  const onLengthPageChange =(length)=>{
+    filters.length = length;
+    setFilters({
+      ...filters,
+      length: length,
+    });
+    pagination.length = length;
+    setPagination({...pagination, length: length});
+    searchProducts(filters);
+  }
+  
   const handleChange = (e) =>{
-    setFilters({...filters, [e.target.id]: e.target.value})
+    let value = e.target.id == 'categoryId' ? e.target.value == '' ? undefined : e.target.value : e.target.value;
+    setFilters({...filters, [e.target.id]: value})
   }
   
   const searchProducts = (filters) =>
@@ -75,6 +87,7 @@ const Products = (props) => {
           ...pagination,
           pageNumber: res.pageNumber,
           totalPage: res.totalPage,
+          totalCount: res.totalCount
         })
       }
     })
@@ -140,7 +153,15 @@ const Products = (props) => {
           buttonTextClose={content.buttonClose} 
           handleProcess={()=>{ deleteProduct(slug); setIsOpen(!isOpen);}} 
         />
-
+        <div className="row">
+          <p>{!isEmpty(products) ? `résultat : ${pagination.totalCount} produit(s)`:"aucun résultat"} </p>
+          {!isEmpty(products) && <Paginate
+            pagination={pagination}
+            onPageChange={onPageChange}
+            onLengthPageChange={onLengthPageChange}
+            className="justify-content-left"
+            />}
+        </div>
         <div className="row">
           <div className="table-rep-plugin ">
             <div
@@ -262,6 +283,7 @@ const Products = (props) => {
           <Paginate
             pagination={pagination}
             onPageChange={onPageChange}
+            onLengthPageChange={onLengthPageChange}
             className="justify-content-end"
           />
         </div>

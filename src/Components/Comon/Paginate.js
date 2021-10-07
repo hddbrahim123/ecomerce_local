@@ -44,18 +44,20 @@ const Paginate = (props) => {
 
   return (
     <React.Fragment>
-      <div className="col-lg-12">
+      <div className="col-3">
+        <select
+          className={`pagination mt-4 justify-content-center`}
+          id="length"
+          onChange={(e) =>onLengthPageChange ? onLengthPageChange(e.target.value):console.log()}
+          value={length}>
+          {lengthPage.map((e, i) => (
+            <option value={e}>{e}</option>
+          ))}
+        </select>
+      </div>
+      <div className="col-9">
         <nav aria-label="Page navigation example">
-          <select
-            className={`pagination mt-2 mb-5 pb-1 ${className}`}
-            id="length"
-            onChange={(e) =>onLengthPageChange ? onLengthPageChange(e.target.value):console.log()}
-            value={length}>
-            {lengthPage.map((e, i) => (
-              <option value={e}>{e}</option>
-            ))}
-          </select>
-          <ul className={`pagination mt-2 mb-5 pb-1 ${className}`}>
+          <ul className={`pagination mt-2 mb-5 pb-1 justify-content-left`}>
             <li
               className={pageNumber === 1 ? "page-item disabled" : "page-item"}
             >

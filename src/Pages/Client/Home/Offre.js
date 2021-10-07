@@ -1,11 +1,11 @@
 import { isEmpty } from 'lodash'
 import React from 'react'
-import {Link,withRouter} from "react-router-dom"
+import { withRouter } from "react-router-dom"
 import ProductHome from './ProductHome'
 // import dictionary from "../../../Core/dictionary"
 
 const Offre = (props)=>{
-    const {language,products,dictionary,history} = props
+    const { language,products,dictionary } = props
     const content = dictionary.homeContent[language]
     return (
         <React.Fragment>
