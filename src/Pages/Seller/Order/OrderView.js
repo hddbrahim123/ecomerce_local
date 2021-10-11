@@ -20,7 +20,7 @@ const OrderView = (props) => {
   return (
     <React.Fragment>
       <div className="row">
-        <div className="col-lg-12">
+        <div className="col-12">
           <div className="card m-lg-2 shadow-sm">
             <div className="card-header d-flex justify-content-between py-2 text-capitalize fw-bold ">
               <span>Commande : {order.orderNumber}</span>
@@ -31,9 +31,9 @@ const OrderView = (props) => {
               <div className="row">
                 {!isEmpty(order.items) &&
                   order.items.map((item, i) => (
-                    <div key={i} className="col-lg-6">
+                    <div key={i} className="col-6">
                       <div className="row productCart  mb-4 bg-white shadow-sm m-1 p-2">
-                        <div className="col-lg-2">
+                        <div className="col-2">
                           <img
                             src={item.image}
                             alt="name"
@@ -41,7 +41,7 @@ const OrderView = (props) => {
                             width="100%"
                           />
                         </div>
-                        <div className="col-lg-10">
+                        <div className="col-10">
                           <h5 className="mb-2 text-capitalize  fs-5 text-truncate">
                             <Link
                               to={"/product/" + item.slug}
@@ -68,7 +68,7 @@ const OrderView = (props) => {
         </div>
       </div>
       <div className="row">
-        <div className="col-lg-6">
+        <div className="col-6">
           <div className="card h-100 m-lg-2 my-4 shadow-sm">
             <div className="card-header text-capitalize fw-bold ">
             Informations de livraison
@@ -86,10 +86,14 @@ const OrderView = (props) => {
                 <span className="text-muted text-capitalize">Adresse</span>
                 <span className="fw-bold">{order.address}</span>
               </div>
+              <div className="d-flex justify-content-between mb-4">
+                <span className="text-muted text-capitalize">Note</span>
+                <span className="fw-bold">{order.orderNote}</span>
+              </div>
             </div>
           </div>
         </div>
-        <div className="col-lg-6">
+        <div className="col-6">
           <div className="card h-100 m-lg-2 shadow-sm">
             <div className="card-header text-capitalize fw-bold ">
               Montant Total

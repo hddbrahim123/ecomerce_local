@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { getActiveCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import {
   getProductsLatestProductsViewUser,
   getProductsOffer,
@@ -7,7 +7,6 @@ import {
   getProductsTopSale,
 } from "../../../Core/ApiCore/ProductHome";
 import TopRating from "./TopRating";
-// import Collection from "./Collection";
 import LatestProducts from "./LatestProducts";
 import TopSale from "./TopSale";
 import Home from "./Home";
@@ -46,6 +45,7 @@ const Index = () => {
       <TopRating language={language} products={productsTopRating} dictionary={dictionary} />
       <Offre language={language} products={productsOffre} dictionary={dictionary} />
     </React.Fragment>
+    
   );
 };
 

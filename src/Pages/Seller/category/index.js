@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { isEmpty } from 'lodash'
 
-import { getCategories, removeCategory } from '../../../Core/ApiCore/Category'
+import { getAllCategories, getCategories, removeCategory } from '../../../Core/ApiCore/Category'
 
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
@@ -46,7 +46,7 @@ const Category = ()=>{
     })
   }
   useEffect(() => {
-    getCategories(false)
+    getAllCategories()
       .then(res=>{
         console.log(res)
         if (res) {
@@ -64,6 +64,11 @@ const Category = ()=>{
           </div>
         </div>
         <div className="row">
+          <div className="col-md-3 ">
+            {categories.length} categorie(s)
+          </div>
+        </div>
+        <div className="row">
           <div className="table-rep-plugin ">
           <div
             className="table-responsive mb-0"
@@ -75,6 +80,7 @@ const Category = ()=>{
               <Thead>
                 <Tr>
                   <Th>Name</Th>
+                  <Th>Level</Th>
                   <Th>Status</Th>
                   <Th data-priority="6">Actions</Th>
                 </Tr>
@@ -82,9 +88,12 @@ const Category = ()=>{
               <Tbody>
                 {!isEmpty(categories) && categories.map((category,i)=>(
                 <Tr className="py-5" key={i}>
-                  <Th>
-                    <h5 className="my-3">{category.name}</h5>
-                  </Th>
+                  <Td>
+                    <h5 className="my-3">{category.name} ({category.countProducts})</h5>
+                  </Td>
+                  <Td>
+                    <h5 className="my-3">{category.level}</h5>
+                  </Td>
                   <Td>
                     {category.active 
                       ?(
@@ -100,9 +109,9 @@ const Category = ()=>{
                     <Link to={"/seller/categories/edit/"+category.id} className="text-success">
                       <i className='bx bx-edit'></i>
                     </Link>
-                    <Link to="#" onClick={()=>openModalConfirmation(category.id)} className="text-danger">
+                    {!category.countProducts && <Link to="#" onClick={()=>openModalConfirmation(category.id)} className="text-danger">
                         <i className='bx bx-trash'></i>
-                    </Link>
+                    </Link>}
                     </div>
                   </Td>
                 </Tr>

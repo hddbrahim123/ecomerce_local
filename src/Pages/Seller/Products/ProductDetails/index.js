@@ -45,7 +45,7 @@ const SellerProductDetails = (props) => {
                 <div className="row main__card">
                   <div
                     data-aos="fade-right"
-                    className="col-lg-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5"
+                    className="col-5 d-flex  align-items-center justify-content-center mb-2 p-lg-5"
                   >
                     <div className="gallery ">
                       <img
@@ -69,7 +69,7 @@ const SellerProductDetails = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div data-aos="fade-left" className="col-lg-7 p-lg-5">
+                  <div data-aos="fade-left" className="col-7 p-lg-5">
                     <div className="info">
                       <div className="data mb-3">
                         <span className="data__subtitle mb-2">
@@ -134,7 +134,7 @@ const SellerProductDetails = (props) => {
         </div>
         <div className="container-fluid pt-2 p-lg-4">
           <div className="row">
-            <div className="col-lg-12">
+            <div className="col-12">
               <div className="card">
                 <div className="card-body">
                   <h5 className="">{content.titleDetails}</h5>
@@ -150,7 +150,7 @@ const SellerProductDetails = (props) => {
         </div>
         <div className="container-fluid pt-2 p-lg-4">
           <div className="row">
-            <div className="col-lg-12">
+            <div className="col-12">
               <div className="card">
                 <div className="card-body">
                   <h5 className="">{content.titleSpecification}</h5>

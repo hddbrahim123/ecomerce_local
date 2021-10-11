@@ -33,10 +33,10 @@ const ReleatedProduct = (props) => {
                     }
                     key={i}
                     data-aos="fade-down"
-                    className="col-lg-4 "
+                    className="col-4 "
                   >
                     <div className="row releated__box shadow-sm">
-                      <div className="col-lg-4">
+                      <div className="col-4">
                         <img
                           src={releatedProduct.image}
                           alt="name"
@@ -44,7 +44,7 @@ const ReleatedProduct = (props) => {
                           width="100%"
                         />
                       </div>
-                      <div className="col-lg-8">
+                      <div className="col-8">
                         <div className="text-center text-md-left pt-4 ">
                           <h5 className="text-muted mb-3 text-truncate">
                             <Link

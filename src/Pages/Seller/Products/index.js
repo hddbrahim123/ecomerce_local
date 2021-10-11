@@ -43,7 +43,7 @@ const Products = (props) => {
     pageNumber: 1,
     length: 10,
     search:'',
-    categoryId:0
+    categoryId:undefined
   });
 
   //Handle Page click
@@ -61,8 +61,20 @@ const Products = (props) => {
     searchProducts(filters);
   };
 
+  const onLengthPageChange =(length)=>{
+    filters.length = length;
+    setFilters({
+      ...filters,
+      length: length,
+    });
+    pagination.length = length;
+    setPagination({...pagination, length: length});
+    searchProducts(filters);
+  }
+  
   const handleChange = (e) =>{
-    setFilters({...filters, [e.target.id]: e.target.value})
+    let value = e.target.id == 'categoryId' ? e.target.value == '' ? undefined : e.target.value : e.target.value;
+    setFilters({...filters, [e.target.id]: value})
   }
   
   const searchProducts = (filters) =>
@@ -75,6 +87,7 @@ const Products = (props) => {
           ...pagination,
           pageNumber: res.pageNumber,
           totalPage: res.totalPage,
+          totalCount: res.totalCount
         })
       }
     })
@@ -140,8 +153,16 @@ const Products = (props) => {
           buttonTextClose={content.buttonClose} 
           handleProcess={()=>{ deleteProduct(slug); setIsOpen(!isOpen);}} 
         />
-
-        <div className="row">
+        <div className="row" key={1}>
+          <p>{!isEmpty(products) ? `résultat : ${pagination.totalCount} produit(s)`:"aucun résultat"} </p>
+          {!isEmpty(products) && <Paginate
+            pagination={pagination}
+            onPageChange={onPageChange}
+            onLengthPageChange={onLengthPageChange}
+            className="justify-content-left"
+            />}
+        </div>
+        <div className="row" key={2}>
           <div className="table-rep-plugin ">
             <div
               className="table-responsive mb-0"
@@ -151,6 +172,7 @@ const Products = (props) => {
                 <Thead className="table-light">
                   <Tr>
                     <Th key={1} className="text-muted">{content.titleImage}</Th>
+                    <Th>Categorie</Th>
                     <Th key={8} className="text-muted">Position</Th>
                     <Th key={2} className="text-muted" data-priority="3">
                       {content.titleQuantity}
@@ -175,7 +197,7 @@ const Products = (props) => {
                   {!isEmpty(products) &&
                     products.map((product, i) => (
                       <Tr key={i}>
-                        <Th className="d-flex">
+                        <Td className="d-flex">
                           <img
                             src={product.image}
                             alt={product.name}
@@ -190,7 +212,8 @@ const Products = (props) => {
                               {product.name}
                             </Link>
                           </h5>
-                        </Th>
+                        </Td>
+                        <Td>{product.category}</Td>
                         <Td>{product.position}</Td>
                         <Td>{product.quantity}</Td>
                         <Td>{product.newPrice}</Td>
@@ -262,6 +285,7 @@ const Products = (props) => {
           <Paginate
             pagination={pagination}
             onPageChange={onPageChange}
+            onLengthPageChange={onLengthPageChange}
             className="justify-content-end"
           />
         </div>

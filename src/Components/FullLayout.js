@@ -3,9 +3,9 @@ import { withRouter } from "react-router-dom"
 
 const FullLayout = (props)=>{
  return (
-   <React.Fragment>
+   <div>
       {props.children}
-   </React.Fragment>
+   </div>
  )
 }
 

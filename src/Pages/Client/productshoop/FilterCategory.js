@@ -29,7 +29,7 @@ const FilterCategory = ({categories, checkedCategories, handleFilters})=>{
                             className="form-check-input mx-2" 
                             onChange={()=>handleCategory(category)}
                         />
-                        <label htmlFor={category.id}>{category.name}</label>
+                        <label htmlFor={category.id}>{category.name} ({category.countProducts})</label>
                     </li>
                 ))}
             </ul>

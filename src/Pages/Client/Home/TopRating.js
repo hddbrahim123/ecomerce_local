@@ -11,7 +11,7 @@ const TopRating = ({language, products, dictionary, history})=>{
             <section>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-12 ">
+                        <div className="col-12 ">
                             <div className="card shadow-sm mx-lg-5">
                                 <div className="card-body">
                                     <div className="row">

@@ -218,7 +218,7 @@ const FormSlide = (props) => {
           <div className="card-body">
 
           {/* <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="index" className="">
                     {content.labelSlideIndex}
@@ -236,7 +236,7 @@ const FormSlide = (props) => {
             </div> */}
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="title" className="">
                     {content.labelSlideTitle}
@@ -253,7 +253,7 @@ const FormSlide = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
                     {content.labelSlideDescription}
@@ -266,7 +266,7 @@ const FormSlide = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="link" className="form-label">
                     {content.labelSlideLink}

@@ -77,8 +77,38 @@ export const getActiveCategories = ()=>{
     .catch(err=>console.error(err))
 }
 
-export const getCategories = (active)=>{
-    return fetch(`${API_URL}/Category/GetCategoriesView?active=${active ? 'true' : 'false'}`,{
+export const GetChildrenCategory = (categoryId,active,hasProducts)=>{
+    active = active ? 'true' : 'false';
+    hasProducts = hasProducts ? 'true' : 'false';
+    return fetch(`${API_URL}/Category/GetChildrenCategory?categoryId=${categoryId}&active=${active}&hasProducts=${hasProducts}`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+        }
+    })
+    .then(res=>res.json())
+    .then(res=>res)
+    .catch(err=>console.error(err))
+}
+
+export const getAllCategories = ()=>{
+    return fetch(`${API_URL}/Category/GetAllCategoriesView`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+        }
+    })
+    .then(res=>res.json())
+    .then(res=>res)
+    .catch(err=>console.error(err))
+}
+
+export const getCategories = (active,hasProducts)=>{
+    active = active ? 'true' : 'false';
+    hasProducts = hasProducts ? 'true' : 'false';
+    return fetch(`${API_URL}/Category/GetCategoriesView?active=${active}&hasProducts=${hasProducts}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",

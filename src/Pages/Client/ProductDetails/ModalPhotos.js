@@ -33,7 +33,7 @@ const ModalPhotos = (props) => {
         <ModalHeader toggle={toggle}></ModalHeader>
         <ModalBody>
           <div className="row">
-            <div className="col-md-2 col-sm-2 col-lg-2">
+            <div className="col-md-2 col-sm-2 col-2">
               {images &&
                 images.length &&
                 images.map((image, i) => (
@@ -47,7 +47,7 @@ const ModalPhotos = (props) => {
                   </div>
                 ))}
             </div>
-            <div className="col-md-10 col-sm-10 col-lg-10">
+            <div className="col-md-10 col-sm-10 col-10">
               <div>
                 {images && images.length && (
                   <img

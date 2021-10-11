@@ -69,7 +69,7 @@ const Slides = ()=>{
         <div className="container-fluid">
         <div className="row">
           <div className="col-md-3 ">
-            <Link to="/seller/slide/create" className="pull-rigth">Nouveau Slide</Link>
+            <Link to="/seller/slide/create" className="pull-rigth">Créer Nouveau Slide</Link>
           </div>
         </div>
         <ModalConfirmation 

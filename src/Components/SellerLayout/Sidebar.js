@@ -35,7 +35,7 @@ const Sidebar = ({language})=>{
 
                   <div className="sidebar__dropdown">  
                     <Link to="#" className="sidebar__links" onClick={toggleSlideDropdown}>
-                        <i className='bx bx-home sidebar__icon' ></i>
+                        <i className='bx bx-slideshow sidebar__icon' ></i>
                         <span className="sidebar__name">{content.menuSlide}</span>
                         <i className='bx bx-chevron-down sidebar__icon sidebar__dropdown__icon'></i>
                     </Link>
@@ -53,7 +53,7 @@ const Sidebar = ({language})=>{
 
                   <div className="sidebar__dropdown">
                     <Link to="#" className="sidebar__links" onClick={toggleCategoryDropdown}>
-                        <i className='bx bx-home sidebar__icon' ></i>
+                        <i className='bx bx-category sidebar__icon' ></i>
                         <span className="sidebar__name">{content.menuCategories}</span>
                         <i className='bx bx-chevron-down sidebar__icon sidebar__dropdown__icon'></i>
                     </Link>
@@ -64,10 +64,9 @@ const Sidebar = ({language})=>{
                         </div>
                     </div>
                   </div>
-
                   <div className="sidebar__dropdown">  
                     <Link to="#" className="sidebar__links" onClick={toggleProductDropdown}>
-                        <i className='bx bx-home sidebar__icon' ></i>
+                        <i className='bx bxl-product-hunt sidebar__icon' ></i>
                         <span className="sidebar__name">{content.menuProduit}</span>
                         <i className='bx bx-chevron-down sidebar__icon sidebar__dropdown__icon'></i>
                     </Link>
@@ -80,13 +79,13 @@ const Sidebar = ({language})=>{
                   </div>
                   
                   <Link to="/seller/orders" className="sidebar__links">
-                    <i className='bx bx-home sidebar__icon' ></i>
+                    <i className='bx bx-command sidebar__icon' ></i>
                     <span className="sidebar__name">{content.menuShowOrders}</span>
                   </Link>
                 </div>                
-             </div>
-           </nav> 
-         </div>
+              </div>
+            </nav> 
+          </div>
         </React.Fragment>
     )
 }

@@ -14,7 +14,10 @@ import StarRatings from "react-star-ratings";
 // import "react-quill/dist/quill.snow.css";
 import ModalConfirmation from "../../../Components/Comon/ModalConfirmation";
 
-import { getActiveCategories, getCategories } from "../../../Core/ApiCore/Category";
+import {
+  getActiveCategories,
+  getCategories,
+} from "../../../Core/ApiCore/Category";
 import {
   getProductViewEditSeller,
   SaveProduct,
@@ -72,7 +75,7 @@ const FormProduct = (props) => {
   const [product, setProduct] = useState({
     name: "",
     categoryId: 0,
-    rating: 4,
+    rating: 3,
     oldPrice: "",
     newPrice: "",
     quantity: "",
@@ -91,7 +94,18 @@ const FormProduct = (props) => {
   });
   const [productEdit, setProductEdit] = useState({});
   const [imagesEdit, setImagesEdit] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({});
 
+  const onCategoryChange = (c) => {
+    setSelectedCategory(c);
+    if (!isEmpty(productEdit)) {
+      productEdit.categoryId = c.id;
+      setProductEdit({ ...productEdit, categoryId: c.id });
+    } else {
+      product.categoryId = c.id;
+      setProduct({ ...product, categoryId: c.id });
+    }
+  };
   const changeRating = (newRating, name) => {
     if (!isEmpty(productEdit)) {
       setProductEdit({ ...productEdit, rating: newRating });
@@ -155,7 +169,7 @@ const FormProduct = (props) => {
 
   //categories
   const [categories, setCategories] = useState([]);
-
+  const [selectedCategories, setSelectedCategories] = useState([]);
   // const [files, setFiles] = useState([]);
 
   const [files, setFiles] = useState([]);
@@ -170,8 +184,6 @@ const FormProduct = (props) => {
           position: position++,
         })
       );
-      console.log(newFiles);
-      console.log(position);
       setFiles([...files, ...newFiles]);
       //console.log(files.map(img => img.position));
       //console.log("files", files);
@@ -180,7 +192,7 @@ const FormProduct = (props) => {
 
   const submitProduct = () => {
     setIsOpen(!isOpen);
-    console.log(product);
+    //console.log(product);
 
     SaveProduct(product).then((res) => {
       if (res.success) {
@@ -207,7 +219,7 @@ const FormProduct = (props) => {
   };
   const confirmer = () => {
     if (!isEmpty(productEdit)) {
-      console.log(productEdit);
+      //console.log(productEdit);
       if (!productEdit.name) {
         toastr.error(messages.saveProductNameRequired, "");
         return false;
@@ -241,7 +253,7 @@ const FormProduct = (props) => {
       }
       return true;
     } else if (!isEmpty(product)) {
-      console.log(product);
+      //console.log(product);
       if (!product.name) {
         toastr.error(messages.saveProductNameRequired, "");
         return false;
@@ -322,7 +334,7 @@ const FormProduct = (props) => {
       if (f.position > position) f.position--;
     });
     setImagesEdit(newFiles);
-    console.log(imagesEdit.concat(files).map((e) => e.position));
+    //console.log(imagesEdit.concat(files).map((e) => e.position));
   };
 
   const deleteNewFiles = (value, index) => {
@@ -331,21 +343,37 @@ const FormProduct = (props) => {
       if (f.position > value.position) f.position--;
     });
     setFiles(newFiles);
-    console.log(imagesEdit.concat(files).map((e) => e.position));
+    //console.log(imagesEdit.concat(files).map((e) => e.position));
   };
 
   const onSortEndHandler = (images, oldIndex, newIndex) => {
-    console.log(oldIndex, newIndex);
+    //console.log(oldIndex, newIndex);
     setImagesEdit(images.filter((image) => image.image));
     setFiles(images.filter((image) => image.preview));
-    console.log(images.map((img) => img.position));
+    //console.log(images.map((img) => img.position));
   };
+  
+  const findCheminCategory = (cats, id) => {
+    let tab = [];
+    cats.forEach(category => {
+      if (category.id == id) {
+        tab = [category];
+      } else if (category.children) {
+        let t = findCheminCategory(category.children, id);
+        if (t.length) {
+          tab = [category, ...t];
+        }
+      }
+    });
+    return tab;
+  };
+
   const chargeData = () => {
     const slug = props.match.params.slug;
-    getCategories(false).then((res) => {
-      setCategories(res);
+    getCategories(false).then(categories => {
+      setCategories(categories);
       if (!!slug) {
-        getProductViewEditSeller(slug).then((res) => {
+        getProductViewEditSeller(slug).then(res => {
           if (res) {
             if (res.images) {
               setImagesEdit(res.images);
@@ -354,11 +382,23 @@ const FormProduct = (props) => {
             res.images = undefined;
             setProductEdit(res);
             setProduct({});
+            if (res.categoryId) {
+              // setSelectedCategory({...selectedCategory, id: res.categoryId});
+              if (res.categoryId) {
+                //console.log(res.categoryId);
+                let tab = findCheminCategory(categories, res.categoryId);
+                //console.log(tab);
+                if (tab.length) {
+                  setSelectedCategories(tab);
+                }
+              }
+            }
           }
         });
       }
     });
   };
+
   useEffect(() => {
     chargeData();
   }, []);
@@ -440,11 +480,16 @@ const FormProduct = (props) => {
           <div className="card-body">
             <div className="row">
               <div className="col-12">
-                <CategorySelecter categories={categories}/>
+                <CategorySelecter
+                  categories={categories}
+                  selectCategory={onCategoryChange}
+                  selectedCategories={selectedCategories}
+                  setSelectedCategories={setSelectedCategories}
+                />
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="name" className="">
                     {content.productName}
@@ -463,7 +508,7 @@ const FormProduct = (props) => {
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6">
+              {/* <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="categoryId" className="">
                     {content.productCategory}
@@ -492,7 +537,7 @@ const FormProduct = (props) => {
               </div> */}
             </div>
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="oldPrice" className="">
                     {content.productOldPrice}
@@ -513,7 +558,7 @@ const FormProduct = (props) => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6">
+              <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="newPrice" className="">
                     {content.productNewPrice}
@@ -536,7 +581,7 @@ const FormProduct = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="quantity" className="form-label">
                     {content.productLabelQuantity}
@@ -559,7 +604,7 @@ const FormProduct = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="form-check mb-3">
                   <input
                     type="checkbox"
@@ -581,7 +626,7 @@ const FormProduct = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="rating" className="">
                     {content.productRating}
@@ -620,7 +665,7 @@ const FormProduct = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="Description" className="form-label">
                     {content.productDescription}
@@ -642,7 +687,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="Details" className="form-label">
                     {content.productDetails}
@@ -664,7 +709,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="mainCharacteristics" className="form-label">
                     {content.productMainCharacteristics}
@@ -691,7 +736,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="technicalDescription" className="form-label">
                     {content.productTechnicalDescription}
@@ -718,7 +763,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="venduWith" className="form-label">
                     {content.productVenduWith}
@@ -741,7 +786,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="general" className="form-label">
                     {content.productGeneral}
@@ -763,7 +808,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="garantie" className="form-label">
                     {content.productGarantie}
@@ -785,7 +830,7 @@ const FormProduct = (props) => {
             </div>
 
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="mb-3">
                   <label htmlFor="Specification" className="form-label">
                     {content.productSpecification}
@@ -856,7 +901,7 @@ const FormProduct = (props) => {
         <div className="card mt-4">
           <div className="card-body">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="metTitle" className="form-label">
                     {content.labelMetaTitle}
@@ -894,7 +939,7 @@ const FormProduct = (props) => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6">
+              <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="metaDescription" className="form-label">
                     {content.labelMetaDescription}
@@ -918,11 +963,11 @@ const FormProduct = (props) => {
             </div>
           </div>
         </div>
-        {product.slug && (
+        {(product.slug || productEdit.slug) && (
           <div className="card mt-4">
             <div className="card-body">
               <Link
-                to={"/product/" + product.slug}
+                to={"/product/" + (product.slug ?? productEdit.slug)}
                 target="_blank"
                 className="text-success"
               >
@@ -933,7 +978,13 @@ const FormProduct = (props) => {
         )}
         <div className="card mt-4">
           <div className="card-body">
-            <button type="button" onClick={()=>{if (confirmer()) setIsOpen(!isOpen)}} className="btn btn-primary w-100">
+            <button
+              type="button"
+              onClick={() => {
+                if (confirmer()) setIsOpen(!isOpen);
+              }}
+              className="btn btn-primary w-100"
+            >
               {!isEmpty(productEdit)
                 ? content.buttonUpdateProduct
                 : content.buttonAddProduct}
