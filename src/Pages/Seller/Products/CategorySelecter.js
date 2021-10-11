@@ -95,7 +95,7 @@ function CategorySelecter({ categories,selectCategory,selectedCategories,setSele
                   handleClick(category, level);
                 }}
               >
-                {category.name}
+                {category.name} ({category.countProducts})
               </a>
             </li>
           ))}

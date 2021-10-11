@@ -9,7 +9,7 @@ function Main2(props) {
           <div id="sidebar" className="span3">
             <div className="well well-small">
               <a id="myCart" href="product_summary.html">
-                <img src="themes/images/ico-cart.png" alt="cart" />3 Items in
+                <img src="images/ico-cart.png" alt="cart" />3 Items in
                 your cart{" "}
                 <span className="badge badge-warning pull-right">$155.00</span>
               </a>
@@ -142,7 +142,7 @@ function Main2(props) {
             <br />
             <div className="thumbnail">
               <img
-                src="themes/images/products/panasonic.jpg"
+                src="images/products/panasonic.jpg"
                 alt="Bootshop panasonoc New camera"
               />
               <div className="caption">
@@ -164,7 +164,7 @@ function Main2(props) {
             <br />
             <div className="thumbnail">
               <img
-                src="themes/images/products/kindle.png"
+                src="images/products/kindle.png"
                 title="Bootshop New Kindel"
                 alt="Bootshop Kindel"
               />
@@ -187,7 +187,7 @@ function Main2(props) {
             <br />
             <div className="thumbnail">
               <img
-                src="themes/images/payment_methods.png"
+                src="images/payment_methods.png"
                 title="Bootshop Payment Methods"
                 alt="Payments Methods"
               />

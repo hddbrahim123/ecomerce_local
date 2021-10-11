@@ -35,7 +35,7 @@ function Footer2() {
               <img
                 width="60"
                 height="60"
-                src="themes/images/facebook.png"
+                src="images/facebook.png"
                 title="facebook"
                 alt="facebook"
               />
@@ -44,7 +44,7 @@ function Footer2() {
               <img
                 width="60"
                 height="60"
-                src="themes/images/twitter.png"
+                src="images/twitter.png"
                 title="twitter"
                 alt="twitter"
               />
@@ -53,7 +53,7 @@ function Footer2() {
               <img
                 width="60"
                 height="60"
-                src="themes/images/youtube.png"
+                src="images/youtube.png"
                 title="youtube"
                 alt="youtube"
               />

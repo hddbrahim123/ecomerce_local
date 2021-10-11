@@ -48,10 +48,10 @@ const Paginate = (props) => {
         <select
           className={`pagination mt-4 justify-content-center`}
           id="length"
-          onChange={(e) =>onLengthPageChange ? onLengthPageChange(e.target.value):console.log()}
+          onChange={(e) => onLengthPageChange ? onLengthPageChange(e.target.value):console.log()}
           value={length}>
           {lengthPage.map((e, i) => (
-            <option value={e}>{e}</option>
+            <option key={i} value={e}>{e}</option>
           ))}
         </select>
       </div>

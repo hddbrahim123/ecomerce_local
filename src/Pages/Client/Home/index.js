@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-// import { getActiveCategories } from "../../../Core/ApiCore/Category";
+import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import {
   getProductsLatestProductsViewUser,
   getProductsOffer,
   getProductsTopRating,
   getProductsTopSale,
 } from "../../../Core/ApiCore/ProductHome";
-//import TopRating from "./TopRating";
-// import Collection from "./Collection";
+import TopRating from "./TopRating";
 import LatestProducts from "./LatestProducts";
-// import TopSale from "./TopSale";
-// import Home from "./Home";
-// import Offre from "./Offre";
+import TopSale from "./TopSale";
+import Home from "./Home";
+import Offre from "./Offre";
 import dictionary from "../../../Core/dictionary"
 
 const Index = () => {
@@ -39,12 +38,12 @@ const Index = () => {
   }, []);
   return (
     <React.Fragment>
-      {/* <Home language={language} dictionary={dictionary} /> */}
+      <Home language={language} dictionary={dictionary} />
       <LatestProducts language={language} latestProducts={latestProducts} dictionary={dictionary} />
-      {/* <TopSale language={language} productsTopSale={productsTopSale} dictionary={dictionary} />
-      <Collection language={language} categories={categories} dictionary={dictionary} />
+      <TopSale language={language} productsTopSale={productsTopSale} dictionary={dictionary} />
+      {/* <Collection language={language} categories={categories} dictionary={dictionary} /> */}
       <TopRating language={language} products={productsTopRating} dictionary={dictionary} />
-      <Offre language={language} products={productsOffre} dictionary={dictionary} /> */}
+      <Offre language={language} products={productsOffre} dictionary={dictionary} />
     </React.Fragment>
     
   );

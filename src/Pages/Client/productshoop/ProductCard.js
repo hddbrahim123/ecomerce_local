@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 
@@ -61,7 +61,6 @@ const ProductCard = (props) => {
                                 <b>{product.newPrice} Dhs</b>
                             </h5>
                         )}
-
                     </div>
                 </div>
             </div>

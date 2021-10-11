@@ -80,6 +80,7 @@ const Category = ()=>{
               <Thead>
                 <Tr>
                   <Th>Name</Th>
+                  <Th>Level</Th>
                   <Th>Status</Th>
                   <Th data-priority="6">Actions</Th>
                 </Tr>
@@ -87,9 +88,12 @@ const Category = ()=>{
               <Tbody>
                 {!isEmpty(categories) && categories.map((category,i)=>(
                 <Tr className="py-5" key={i}>
-                  <Th>
-                    <h5 className="my-3">{category.name}</h5>
-                  </Th>
+                  <Td>
+                    <h5 className="my-3">{category.name} ({category.countProducts})</h5>
+                  </Td>
+                  <Td>
+                    <h5 className="my-3">{category.level}</h5>
+                  </Td>
                   <Td>
                     {category.active 
                       ?(
@@ -105,9 +109,9 @@ const Category = ()=>{
                     <Link to={"/seller/categories/edit/"+category.id} className="text-success">
                       <i className='bx bx-edit'></i>
                     </Link>
-                    <Link to="#" onClick={()=>openModalConfirmation(category.id)} className="text-danger">
+                    {!category.countProducts && <Link to="#" onClick={()=>openModalConfirmation(category.id)} className="text-danger">
                         <i className='bx bx-trash'></i>
-                    </Link>
+                    </Link>}
                     </div>
                   </Td>
                 </Tr>

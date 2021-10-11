@@ -153,7 +153,7 @@ const Products = (props) => {
           buttonTextClose={content.buttonClose} 
           handleProcess={()=>{ deleteProduct(slug); setIsOpen(!isOpen);}} 
         />
-        <div className="row">
+        <div className="row" key={1}>
           <p>{!isEmpty(products) ? `résultat : ${pagination.totalCount} produit(s)`:"aucun résultat"} </p>
           {!isEmpty(products) && <Paginate
             pagination={pagination}
@@ -162,7 +162,7 @@ const Products = (props) => {
             className="justify-content-left"
             />}
         </div>
-        <div className="row">
+        <div className="row" key={2}>
           <div className="table-rep-plugin ">
             <div
               className="table-responsive mb-0"

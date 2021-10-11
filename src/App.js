@@ -8,6 +8,7 @@ import './App.css'
 import ClientLayout from "./Components/ClientLayout";
 import SellerLayout from "./Components/SellerLayout";
 import FullLayout from "./Components/FullLayout";
+import Index from "./Pages/Client/Home"
 
 
 //imports Routes
@@ -24,12 +25,19 @@ const App = ()=>{
     <React.Fragment>
       <Router>
         <Switch>
+          <ClientMiddleware 
+            component={Index}
+            path='/'
+            layout={ClientLayout}
+            key={0}
+            exact
+          />
           {clientRoutes.map((route , i)=>(
             <ClientMiddleware 
               component={route.component}
               path={route.path}
               layout={ClientLayout}
-              key={i}
+              key={i+1}
               exact
             />
           ))}
@@ -54,17 +62,22 @@ const App = ()=>{
             />
           ))}
           
-          <ClientMiddleware 
-              component={clientRoutes[0].component}
-              path={clientRoutes[0].path}
-              layout={ClientLayout}
-              key={1}
-            />
+          {/* <ClientMiddleware 
+            component={clientRoutes[0].component}
+            path={clientRoutes[0].path}
+            layout={ClientLayout}
+            key={1}
+          /> */}
             
+          <ClientMiddleware 
+            component={Index}
+            path='/'
+            layout={ClientLayout}
+            key={1}
+          />
         </Switch>
       </Router>
     </React.Fragment>
-
   );
 }
 

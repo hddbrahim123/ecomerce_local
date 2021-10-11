@@ -12,6 +12,18 @@ import { SellerSignin } from '../../../Core/ApiCore/Auth';
 
 const SellerLogin = props => {
 
+  // document.head.innerHTML = `<meta charset="utf-8" />
+  // <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  // <meta name="theme-color" content="#000000" />
+  // <meta name="title" content="ETNT Shopping" />
+  // <meta name="description" content="ETNT Shopping" />
+  // <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  // <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  // <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+  //   integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  // <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  // <title>Ecomerce Shoop</title>`;
+
   const [seller , setSeller] = useState({
     "email":"",
     "password":""

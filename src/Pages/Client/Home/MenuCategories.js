@@ -17,7 +17,7 @@ const MenuCategories = ({ categories }) => {
               title={category.name}
               className="ma_level_1 ma_item"
             >
-              {category.name}
+              {category.name} ({category.countProducts})
             </a>
   }
 

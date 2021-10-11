@@ -6,9 +6,11 @@ import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 
 const SellerLayout = (props) => {
+
   const [language, setLanguage] = useState(
     localStorage.getItem("language") ?? "Fr"
   );
+  
   let isOpen = useSelector((state) => state.Layout.leftMenu);
 
   return (

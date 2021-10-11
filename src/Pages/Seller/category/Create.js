@@ -379,7 +379,7 @@ const CreateCateory = (props) => {
                     </div>
                     <div className="col-6">
                       <button
-                        disabled={!selectedCategory.name || !selectedCategory.id}
+                        disabled={!selectedCategory.name || !selectedCategory.id || selectedCategory.countProducts}
                         className="btn btn-danger form-control"
                         onClick={() => {
                           Remove();

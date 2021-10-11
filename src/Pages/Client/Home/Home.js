@@ -21,7 +21,7 @@ const Home = ({language}) => {
       setSlides(res);
       console.log(res);
     });
-    getCategories(true).then((res) => {
+    getCategories(true, true).then((res) => {
       if (res) { 
         setCategories(res)
       }
