@@ -1,0 +1,202 @@
+.head__main{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: $bg-color;
+    z-index: $z-fixed;
+}
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: $head-height;
+    padding: 0px 10px 0px 10px; 
+
+    &__icon{
+        font-size: $big-font-size;
+        cursor: pointer;
+    }
+    &__right{
+        display: flex;
+        align-items: center;
+    }
+    &__notification{
+        padding-right: 30px !important;
+        font-size: $medium-font-size;
+        cursor: pointer;
+    }
+    &__notification__toggle{
+        position: relative;
+        
+        span{
+            position: absolute;
+            top:-10px;
+            right: -10px;
+            font-size: $smaller-font-size;
+            background-color: $first-color;
+            padding: 0px 5px;
+            border-radius: 100%;
+            color: $white-color;
+            font-weight: $font-medium;
+        }
+    }
+    &__notification__collapse{
+        display: none;
+        position: absolute;
+        top: $head-height;
+        right: 0;
+        min-width: 100% !important;
+    }
+    &__notification__content{
+        background-color: $white-color;
+        border-radius: 5px;
+        margin: 8px;
+    }
+    &__notification__header{
+        font-size: $normal-font-size;
+        text-transform: capitalize;
+        padding: 18px;
+        color: $text-color;
+        background-color: $body-color;
+
+        &__link {
+            color: $first-color !important;
+        }
+    }
+    &__notification__body{
+        padding: 18px;
+        
+    }
+    .icon-circle {
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__profile{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: $text-color;
+        text-transform: capitalize;
+    }
+    &__profile img{
+        width: 35px !important;
+        height: 35px !important;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    &__profile span{
+        display: none;
+    }
+    &__profile__icon{
+        display: none;
+        margin-left: 8px;
+    }
+    &__toggle{
+        display: flex;
+        align-items: center;
+    }
+    &__brand{
+        display: none;
+    }
+    &__profile__collapse{
+        display: none;
+        position: absolute;
+        top: $head-height;
+        right: 0px;
+        min-width: 100% !important;
+        transition: .3s;
+    }
+    &__profile__content{
+        background-color: $white-color;
+        border-radius: 5px;
+        margin: 8px;
+        padding: 18px;
+    }
+
+    &__profile__link{
+        font-size: $normal-font-size;
+        font-weight: $font-medium;
+        letter-spacing: 1px;
+        line-height: 2;
+        text-transform: capitalize;
+        color: $text-color;
+
+    }
+    &__profile__link__icon{
+        font-weight: $font-bold;
+        margin-right: 12px;
+    }
+    &__profile__link:hover{
+        color: $first-color;
+    }
+}
+.show__profile{
+    display: block;
+}
+
+//queris
+
+@media screen and (min-width:968px) {
+    .head{
+        padding: 0px 20px 0px 20px;
+
+        &__brand{
+            display: flex;
+            align-items: center;
+            color: $text-color;
+            width: $sidebar-width;
+            font-size: $big-font-size;
+        }
+
+        &__logo{
+            font-size: $big-font-size;
+            text-transform: capitalize;       
+        }
+        &__brand i{
+            margin-right: 18px; 
+        }
+        &__notification{
+            position: relative;
+        }
+        &__notification__collapse{
+            position: absolute;
+            top: $head-height;
+            margin-top: -18px;
+            right: 0;
+            min-width: 350px !important;
+        }
+        &__profile span{
+            display: block;
+            color: $text-color;
+            font-weight: $font-bold;
+            letter-spacing: 1px;
+        }
+        &__profile__icon{
+            display: block;
+            color: $text-color;
+            font-weight: $font-bold;
+            padding-top: 4px;
+        }
+        &__profile:hover span{
+            color: $first-color;
+        }
+        &__profile:hover i{
+            color: $first-color;
+        }
+        &__profile__collapse{
+            min-width: 190px !important;
+        }
+        &__profile__content{
+            padding: 15px 8px;
+        }
+        &__profile__link{
+            padding-left: 8px;
+        }
+    }
+}
