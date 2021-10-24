@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getActiveCategories } from "../../../Core/ApiCore/Category";
 import {
-  getProductsLatestProductsViewUser,
+  getLatestProductsViewUser,
   getProductsOffer,
   getProductsTopRating,
   getProductsTopSale,
@@ -28,7 +28,7 @@ const Index = () => {
       setProductsOffre(res);
     });
 
-    getProductsLatestProductsViewUser(6).then((res) => setLatestProducts(res));
+    getLatestProductsViewUser(6).then((res) => setLatestProducts(res));
 
     getProductsTopSale(12).then((res) => setProductsTopSale(res));
 

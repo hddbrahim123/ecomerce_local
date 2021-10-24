@@ -1,7 +1,7 @@
 import { API_URL } from "../../config"
 
 export const GetSlideData = (count)=>{
-    return fetch(`${API_URL}/Home/GetSlideData`,{
+    return fetch(`${API_URL}Home/GetSlideData`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -15,7 +15,7 @@ export const GetSlideData = (count)=>{
 }
 
 export const getProductsTopRating = (count)=>{
-    return fetch(`${API_URL}/Home/GetProductsTopRating?count=${count}`,{
+    return fetch(`${API_URL}Home/GetProductsTopRating?count=${count}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -29,7 +29,7 @@ export const getProductsTopRating = (count)=>{
 } 
 
 export const getProductsOffer = (count)=>{
-    return fetch(`${API_URL}/Home/GetProductsOffer?count=${count}`,{
+    return fetch(`${API_URL}Home/GetProductsOffer?count=${count}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -43,7 +43,7 @@ export const getProductsOffer = (count)=>{
 }   
 
 export const getProductsTopSale = (count)=>{
-    return fetch(`${API_URL}/Home/GetProductsTopSale?count=${count}`,{
+    return fetch(`${API_URL}Home/GetProductsTopSale?count=${count}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -55,8 +55,8 @@ export const getProductsTopSale = (count)=>{
     .then(res=>res)
     .catch(err=>console.error(err))
 }  
-export const getProductsLatestProductsViewUser = (count)=>{
-    return fetch(`${API_URL}/Home/GetLatestProductsViewUser?count=${count}`,{
+export const getLatestProductsViewUser = (count)=>{
+    return fetch(`${API_URL}Home/GetLatestProductsViewUser?count=${count}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",

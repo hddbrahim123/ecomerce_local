@@ -19,6 +19,7 @@ import toastr from "toastr"
 import "toastr/build/toastr.min.css"
 import ModalConfirmation from '../../../Components/Comon/ModalConfirmation'
 import dictionary from '../../../Core/dictionary'
+import { API_URL } from '../../../config'
 
 
 const Slides = ()=>{
@@ -57,6 +58,9 @@ const Slides = ()=>{
         GetSlideData()
           .then(res=>setSlides(res))
       })
+    }
+    const urlImage = (image) =>{
+      return `${API_URL}User/ImageSlide?image=${image}`;
     }
     useEffect(() => {
         GetSlideData()
@@ -107,7 +111,7 @@ const Slides = ()=>{
                     <p className="my-3">{slide.index}</p>
                   </Td>
                   <Td>
-                    <img src={slide.image} alt={slide.title} width="100px" />
+                    <img src={urlImage(slide.image)} alt={slide.title} width="100px" />
                   </Td>
                   <Td>
                     <h5 className="my-3">{slide.title}</h5>

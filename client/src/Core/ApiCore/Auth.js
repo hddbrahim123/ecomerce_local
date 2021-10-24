@@ -1,7 +1,7 @@
 import { API_URL } from "../../config";
 
 export const SellerSignin = (user) => {
-  return fetch(`${API_URL}/Account/AuthenticateAdmin`, {
+  return fetch(`${API_URL}Account/AuthenticateAdmin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -14,7 +14,7 @@ export const SellerSignin = (user) => {
 };
 
 export const IsConnect = (token) => {
-  return fetch(`${API_URL}/Account/IsConnecte`, {
+  return fetch(`${API_URL}Account/IsConnecte`, {
     method: "POST",
     headers: {
       Accept: "application/json",

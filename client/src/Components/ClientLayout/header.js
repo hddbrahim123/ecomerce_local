@@ -15,7 +15,7 @@ const Header = ({language, handleStoreLanguage}) => {
   const [show, setShow] = useState(false);
   const toggleMenu = () => setShow(!show);
 
-  let countItem = useSelector(state => state.Cart.count)
+  let totalQty = useSelector(state => state.Cart.totalQty)
 
   useEffect(() => {
     Aos.init({
@@ -75,7 +75,7 @@ const Header = ({language, handleStoreLanguage}) => {
         <div className="nav__cart">
         <span className="">
           <Link to="/cart">
-            <img src={cart} alt="cart" /> {countItem > 0 && <span className="badge bg-warning">{countItem}</span>}
+            <img src={cart} alt="cart" /> {totalQty > 0 && <span className="badge bg-warning">{totalQty}</span>}
           </Link> 
         </span>
           

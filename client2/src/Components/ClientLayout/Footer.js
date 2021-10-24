@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -14,7 +13,7 @@ const Footer = (props) => {
     });
   }, []);
 
-  var content = footerContent[props.language];
+  //var content = footerContent[props.language];
   return (
     <footer className="footer mt-auto py-3">
       <div className="container">

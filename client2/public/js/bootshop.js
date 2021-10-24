@@ -1,9 +1,10 @@
-$(document).ready(function(){
+document.onreadystatechange =
+function(){
 	$('#myCarousel').carousel({
-	  interval: 4000
+		interval: 4000
 	})
-	 $('#featured').carousel({
-	  interval: 4000
+	$('#featured').carousel({
+		interval: 4000
 	})
 	$(function() {
 		$('#gallery a').lightBox();
@@ -52,4 +53,4 @@ $(document).ready(function(){
 			ul.slideDown(250);
 		}
 	});
-});
+}

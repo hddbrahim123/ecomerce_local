@@ -22,6 +22,7 @@ import ModalConfirmation from '../../../Components/Comon/ModalConfirmation'
 
 import dictionary from "../../../Core/dictionary";
 import TextEditor from "../../../Core/TextEditor";
+import { API_URL } from "../../../config";
 
 const thumbsContainer = {
   display: "flex",
@@ -165,6 +166,10 @@ const FormSlide = (props) => {
       })
     }
   }
+
+  const urlImage = (image) =>{
+    return `${API_URL}User/ImageSlide?image=${image}`;
+  }
   var content = dictionary.slide[language];
   
   useEffect(() => {
@@ -301,7 +306,7 @@ const FormSlide = (props) => {
                   files.map((image, i) => (
                     <div style={thumb} key={i}>
                       <div style={thumbInner}>
-                        <img src={image ? image.preview ?? image : image} style={img} />
+                        <img src={image ? image.preview ?? urlImage(image) : urlImage(image)} style={img} />
                       </div>
                     </div>
                   ))}

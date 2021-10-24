@@ -3,7 +3,7 @@ import isAuthSeller from "../helpers/isAuthSeller"
 
 export const getOrders = (filter)=>{
     const {token} = isAuthSeller()
-    return fetch(`${API_URL}/Admin/GetOrdersView`,{
+    return fetch(`${API_URL}Admin/GetOrdersView`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -19,7 +19,7 @@ export const getOrders = (filter)=>{
 
 export const getOrdersStatus = ()=>{
     const {token} = isAuthSeller()
-    return fetch(`${API_URL}/User/GetOrderStatus`,{
+    return fetch(`${API_URL}User/GetOrderStatus`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -34,7 +34,7 @@ export const getOrdersStatus = ()=>{
 
 export const GetOrderDetailsView = (orderNumber)=>{
     const {token} = isAuthSeller()
-    return fetch(`${API_URL}/Admin/GetOrderView?orderNumber=${orderNumber}`,{
+    return fetch(`${API_URL}Admin/GetOrderView?orderNumber=${orderNumber}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -50,7 +50,7 @@ export const GetOrderDetailsView = (orderNumber)=>{
 }
 
 export const createOrder = (order)=>{
-    return fetch(`${API_URL}/User/CreateOrder`,{
+    return fetch(`${API_URL}User/CreateOrder`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -64,7 +64,7 @@ export const createOrder = (order)=>{
 
 export const UpdateOrderStatus = (orderNumber, status)=>{
     const {token} = isAuthSeller()
-    return fetch(`${API_URL}/Admin/UpdateOrderStatus?orderNumber=${orderNumber}&status=${status}`,{
+    return fetch(`${API_URL}Admin/UpdateOrderStatus?orderNumber=${orderNumber}&status=${status}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",

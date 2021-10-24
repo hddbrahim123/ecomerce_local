@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -24,7 +24,7 @@ import dictionary from "../../../Core/dictionary";
 const CreateOrderModal = (props) => {
   const { isOpen, toggle, language } = props;
   let products = useSelector((state) => state.Cart.products);
-  let totalQty = useSelector((state) => state.Cart.count);
+  let totalQty = useSelector((state) => state.Cart.totalQty);
 
   const [order, setOrder] = useState({
     fullName: "",
@@ -155,7 +155,6 @@ const CreateOrderModal = (props) => {
         </ModalFooter>
       </div>
     </Modal>
-    
   );
 };
 

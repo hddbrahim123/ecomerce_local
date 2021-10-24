@@ -74,6 +74,8 @@ const ProductsShop = (props) => {
       }
     });
   }
+	const [isListView, setIsListView] = useState(true);
+
   useEffect(() => {
     let category = props.match.params.category;
     if (category) {
@@ -91,72 +93,100 @@ const ProductsShop = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
-      <div className="container-fluid pt-2 p-lg-4 p-lg-4">
-        <div className="row">
-          <div className="col-3">
-            <div className="card my-2 shadow-sm">
-              <div className="card-body">
-                <FilterCategory
-                  categories={categories}
-                  checkedCategories={filters.categories}
-                  handleFilters={(data) => {filters.categories=data;handleFilters(data, "categories");searchProducts();}}
-                />
+    <div class="span9">
+      <ul class="breadcrumb">
+      <li><a href="/">Accueil</a> <span class="divider">/</span></li>
+      <li class="active">Liste des produits</li>
+      </ul>
+      <h3> Liste des produits <small class="pull-right"> {products.length} produits sont disponibles </small></h3>	
+      <hr class="soft"/>
+      {/* <p>
+        Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
+      </p> */}
+      <hr class="soft"/>
+      <form class="form-horizontal span6">
+        <div class="control-group">
+          <label class="control-label alignL">Sort By </label>
+            <select>
+                  <option>Priduct name A - Z</option>
+                  <option>Priduct name Z - A</option>
+                  <option>Priduct Stoke</option>
+                  <option>Price Lowest first</option>
+                </select>
+        </div>
+      </form>
+      <div id="myTab" class="pull-right">
+      <a href="#listView" onClick={()=>setIsListView(true)} data-toggle="tab"><span className={`btn btn-large ${isListView ? "btn-primary":""}`}><i className="icon-list"></i></span></a>
+      <a href="#blockView" onClick={()=>setIsListView(false)} data-toggle="tab"><span className={`btn btn-large ${!isListView ? "btn-primary":""}`}><i className="icon-th-large"></i></span></a>
+      </div>
+      <br class="clr"/>
+      <div class="tab-content">
+        <div class="tab-pane active" id="listView">
+          {products.map((product,i)=>(
+            <div key={i}>
+              <div class="row">	  
+                <div class="span2">
+                  <img src={product.image} alt=""/>
+                </div>
+                <div class="span4">
+                  <h3>New | Available</h3>				
+                  <hr class="soft"/>
+                  <h5>{product.name} </h5>
+                  <p>
+                  {product.description}
+                  </p>
+                  <Link class="btn btn-small pull-right" to={"/Product/"+product.slug}>Voir les détails</Link>
+                  <br class="clr"/>
+                </div>
+                <div class="span3 alignR">
+                  <form class="form-horizontal qtyFrm">
+                    <h3> {product.newPrice} Dhs</h3>
+                    {/* <label class="checkbox">
+                      <input type="checkbox"/>  Adds product to compair
+                    </label><br/> */}
+                    <Link to={"/product/"+product.slug} class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></Link>
+                    {/* <Link to={"/product/"+product.slug} class="btn btn-large"><i class="icon-zoom-in"></i></Link> */}
+                  </form>
+                </div>
               </div>
+              <hr class="soft"/>
             </div>
-            <div className="card my-2 shadow-sm">
-              <div className="card-body">
-                <FilterPrice language={language}
-                  handleFilters={(data) => { handleFilters(data, "price"); searchProducts(); }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-9">
-            <div className="row">
-              <form action="">
-                <div className="input-group input-group-lg">
-                  <input id="search" value={filters.search} 
-                  onChange={(e)=>setFilters({...filters,search:e.target.value})} 
-                  type="search" 
-                  className="form-control mx-auto"/>
-                  <div className="mx-2">
-                      <Link onClick={searchProducts} to="#">
-                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAABNtJREFUaEPtmjFv20YUx/+PKhCpqD9AU1hKJ2fr0HRqlhiVYC/xlCzx5iXemiGZWg/uFg/pZi/tJC/Z7CUOGdhLt2rpFk2tZCT5ADYqF6j5iidTAU3dkcfjyQJrcbEBko/vd+/d/969E+GaXXTNeDED/r9HfBbhIhH+cokX/j3HPSIsgPHF8G/sYkYXhHcEdDwPnT8PqFvkezbvFo7wfJNveoRHABYB3MzpxHsAhyFj9zgg+X/ilzXwwn2eOzvDYwCrjrxsV6vY6e7TiSN7SjNWwI0WLzJjkwhzLp1jxgkRNno+Hbq0G7eVG7jR4qcOo6rjavd82poEtDGwpPDgDJt0MVe111CYgH0G3n5SwclImCJBmyPgNoD7SUEbM0jYq97AlusUNwaut/hFGiwBOzeqaJs6KAP4zxlWGUMdUF+Evd5r2nAZaSPgepOf0YUSj13MOGLgua3KisoTIPbvaezv9gN67go6E1gECsAL1Qclqn/5tO3CmVstXk+J9hNXQpYKPJy3A7xSqXEYYuP4De25gB3ZmP+OVzwPm0mbot61GpZNp0uaT6nAjRb/JAKTNJAV2SgrvgZwm/li6SKCrK9vQej0XtORzildpJnhJLW1wFEF9Uox2kf9gL5XORyByrKVVXFJVbWlS9N6k39WzemQsWyrFSN/tcA6odJ9NE3YdNEMGdvHAe0k7+sGOyuzTKaXFrjRYonupUilfdAGWBxkxlY/oHbSWU1qv+/5tGwCpl/pFHekSAhDvEzeqlZxN004dHM+y0HPw8Pkzimq1X9Lvqt6Nst+/L4ywqrRlQqqH9DDLOMx6A6AXZmnkfPfAMO1/I5CF5S2601+qdhiKjMiy6/UOawSDV3q6cRLJ0gp6+3YWltv8ioRRAQ/XlLo6ETTBFoZYdXIhoy144AkaoWvRot/SUZapQ/zTb7jEeTZOLBRpuWaw40W/+F67sTtqUAAdHo+rcWf02lJz6evbEddGWEVcJGPaNL+0qBKNdUP6G7yWde+TA3YNEJTAy66HJgCZqU0Mz70A1qysSfvTEW0TJ01neum9tKAx2rZPMtSHgfSnr2yZalI4eEKVuxcWeFhW1q6hL3S0jIa3QMifB6HcLFbMR0UTUV22vPpW1MbquecbQ+LOJF8dyrbQ20DADjs+/TEJWDSlqZDelqtYqlom2ciLZ4igzG1Fo84HQnHAYDPkhBX3MT7UKvhQdHoatfhOFxam1bXorGJ8HyTH3uEddW7LndqmX3pSLH1jXjgUIoS2+basBFPeKo71ZBNRaWCNVdnyUbAAp3VvpFof1rDrmnayXT5e4BHuqjGI+0S2hg4ms/PVH3qhHNdIuyFjK7qMM0jLDBjJfMwLZHbrqCNgUfft+1O5pzXpyqhdAGdGzhKbzlvklOJMfXOCXbpcdn6MfCDZEYY4tdJQFsBj5aswQDrulPFvOBylFKrYXukAVE97xzaGngEFB13yu88FpO1twH0KQFt3bnyJKALA8ehxMHzc0j/WXrPstx8/NmSpCsR3sk8lIZdpYLfTZYa19BOgQ0iavWIS+hSAMsouYIuDbAr6FIBG0BnHpqXDjgFer/n049ZIlFKYAW0EazR9jBrxKZ5P1oGV/L8rKm0EbYd6Bmw7ciV5b1ZhMsSKVs/ZxG2HbmyvHftIvwfVOSxW1outL8AAAAASUVORK5CYII="/>
-                      </Link>
+          ))}
+        </div>
+        <div class="tab-pane" id="blockView">
+          <ul class="thumbnails">
+            {products.map((product,i)=>(
+              <li class="span3">
+                <div class="thumbnail">
+                  <Link to={"/product/"+product.slug}><img src={product.image} alt=""/></Link>
+                  <div class="caption">
+                    <h5>{product.name}</h5>
+                    <p> 
+                    {product.description}
+                    </p>
+                    <h4 style={{textAlign:"center"}}> <Link className="btn" to={"/product/"+product.slug}>Ajouter <i class="icon-shopping-cart"></i></Link> <Link className="btn btn-primary" to={"/product/"+product.slug}>{product.newPrice} Dhs</Link></h4>
                   </div>
                 </div>
-              </form>
-            </div>
-            <div className="row">
-              <p>{!isEmpty(products) ? `résultat : ${pagination.totalCount} produit(s)`:"aucun résultat"} </p>
-              {!isEmpty(products) && <Paginate
-                pagination={pagination}
-                onPageChange={onPageChange}
-                onLengthPageChange={onLengthPageChange}
-                className="justify-content-left"
-                />}
-            </div>
-            <div className="row">
-              {!isEmpty(products) &&
-                products.map((product, i) => (
-                  <div key={product.slug} className="col-3 p-0">
-                    <ProductCard product={product} />
-                  </div>
-                ))}
-            </div>
-            <div className="row">
-              <Paginate
-                pagination={pagination}
-                onPageChange={onPageChange}
-                onLengthPageChange={onLengthPageChange}
-                className="justify-content-left"
-                />
-            </div>
-          </div>
+              </li>
+            ))}
+          </ul>
+          <hr class="soft"/>
         </div>
       </div>
-    </React.Fragment>
+      {/* <a href="compair.html" class="btn btn-large pull-right">Compair Product</a> */}
+      <div class="pagination">
+        <ul>
+          <li><a href="#">‹</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">›</a></li>
+        </ul>
+      </div>
+      <br class="clr"/>
+    </div>
   );
 };
 

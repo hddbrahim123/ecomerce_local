@@ -3,6 +3,7 @@ import
 { 
     REMOVE_PRODUCT_IN_CART,
     ADD_ITEM_TO_CART,
+    SET_PRODUCT_QTY,
     DEC_PRODUCT_QTY,
     INC_PRODUCT_QTY
 } 
@@ -22,6 +23,24 @@ export const addToCart = (item)=>{
     return{
         type:ADD_ITEM_TO_CART,
         payload:items
+    }
+}
+
+export const setProductQty = (item, qty)=>{
+    if(qty > -1){
+        let items = JSON.parse(localStorage.getItem('cart'))
+
+        items = items.map(product=> (product.slug === item.slug ? {...item , qty: qty } : product))
+        
+        localStorage.setItem('cart', JSON.stringify(items))
+
+        return{
+            type: SET_PRODUCT_QTY,
+            payload:items
+        }
+    }
+    return{
+        type:null
     }
 }
 
@@ -54,7 +73,6 @@ export const decProductQty = (item)=>{
     return{
         type:null
     }
-    
 }
 
 export const removeProductInCart = (slug)=>{

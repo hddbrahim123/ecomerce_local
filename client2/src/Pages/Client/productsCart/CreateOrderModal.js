@@ -24,11 +24,10 @@ import dictionary from "../../../Core/dictionary";
 const CreateOrderModal = (props) => {
   const { isOpen, toggle, language } = props;
   let products = useSelector((state) => state.Cart.products);
-  let totalQty = useSelector((state) => state.Cart.count);
+  let totalQty = useSelector((state) => state.Cart.totalQty);
 
   const [order, setOrder] = useState({
     fullName: "",
-    lastName: "",
     phone: "",
     address: "",
     ordersNote: "",

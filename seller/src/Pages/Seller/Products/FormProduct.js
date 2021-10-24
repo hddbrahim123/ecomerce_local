@@ -33,6 +33,7 @@ import ListSortable from "../../../Components/Comon/ListSortable";
 import { Link } from "react-router-dom";
 import TextEditor from "../../../Core/TextEditor";
 import CategorySelecter from "./CategorySelecter";
+import { API_URL } from "../../../config";
 
 const thumbsContainer = {
   display: "flex",
@@ -397,7 +398,9 @@ const FormProduct = (props) => {
       }
     });
   };
-
+  const urlImage = (image) =>{
+    return `${API_URL}User/Image?slug=${product.slug ?? productEdit.slug}&file=${image}`;
+  }
   useEffect(() => {
     chargeData();
   }, []);
@@ -435,7 +438,7 @@ const FormProduct = (props) => {
           >
             X
           </span>
-          <img src={value.image} style={img} />
+          <img src={urlImage(value.image)} style={img} />
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import isAuthSeller from "../helpers/isAuthSeller"
 
 export const UpSlide = (slideId)=>{
     const { token } = isAuthSeller();
-    return fetch(`${API_URL}/Home/UpSlide?slideId=${slideId}`,{
+    return fetch(`${API_URL}Home/UpSlide?slideId=${slideId}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -19,7 +19,7 @@ export const UpSlide = (slideId)=>{
 
 export const DownSlide = (slideId)=>{
     const { token } = isAuthSeller();
-    return fetch(`${API_URL}/Home/DownSlide?slideId=${slideId}`,{
+    return fetch(`${API_URL}Home/DownSlide?slideId=${slideId}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",

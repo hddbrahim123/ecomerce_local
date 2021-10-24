@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 
 function Main2(props) {
+  const {countItem, solde, categories} = props
   return (
     <div id="mainBody">
       <div className="container">
@@ -8,136 +11,41 @@ function Main2(props) {
           {/* Sidebar ================================================== */}
           <div id="sidebar" className="span3">
             <div className="well well-small">
-              <a id="myCart" href="product_summary.html">
-                <img src="images/ico-cart.png" alt="cart" />3 Items in
-                your cart{" "}
-                <span className="badge badge-warning pull-right">$155.00</span>
-              </a>
+              <Link id="myCart" to="/cart">
+                <img src="images/ico-cart.png" alt="cart" />{countItem} Articles en panier 
+                <span className="badge badge-warning pull-right">{solde} Dh</span>
+              </Link>
             </div>
-            <ul id="sideManu" className="nav nav-tabs nav-stacked">
-              <li className="subMenu open">
-                <a> ELECTRONICS [230]</a>
+
+
+            {/* <ul id="sideManu" className="nav nav-tabs nav-stacked">
+              <li className="subMenu"><a> ELECTRONICS [230]</a>
                 <ul>
-                  <li>
-                    <a className="active" href="products.html">
-                      <i className="icon-chevron-right"></i>Cameras (100){" "}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Computers, Tablets &amp;
-                      laptop (30)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Mobile Phone (80)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Sound &amp; Vision (15)
-                    </a>
-                  </li>
+                <li><a href=""><i className="icon-chevron-right"></i>Cameras (100) </a></li>
                 </ul>
               </li>
-              <li className="subMenu">
-                <a> CLOTHES [840] </a>
-                <ul style={{display:"none"}}>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Women's Clothing (45)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Women's Shoes (8)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Women's Hand Bags (5)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Men's Clothings (45)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Men's Shoes (6)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Kids Clothing (5)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Kids Shoes (3)
-                    </a>
-                  </li>
-                </ul>
+              <li className="subMenu"><a> CLOTHES [840] </a>
+              <ul>
+                <li><a href=""><i className="icon-chevron-right"></i>Women's Clothing (45)</a></li>
+                <li><a href=""><i className="icon-chevron-right"></i>Women's Shoes (8)</a></li>												
+              </ul>
               </li>
-              <li className="subMenu">
-                <a>FOOD AND BEVERAGES [1000]</a>
-                <ul style={{display:"none"}}>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Angoves (35)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Bouchard Aine &amp; Fils
-                      (8)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>French Rabbit (5)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Louis Bernard (45)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>BIB Wine (Bag in Box)
-                      (8)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Other Liquors &amp; Wine
-                      (5)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Garden (3)
-                    </a>
-                  </li>
-                  <li>
-                    <a href="products.html">
-                      <i className="icon-chevron-right"></i>Khao Shong (11)
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="products.html">HEALTH &amp; BEAUTY [18]</a>
-              </li>
-              <li>
-                <a href="products.html">SPORTS &amp; LEISURE [58]</a>
-              </li>
-              <li>
-                <a href="products.html">BOOKS &amp; ENTERTAINMENTS [14]</a>
-              </li>
+              <li className="subMenu"><a href="">HEALTH &amp; BEAUTY [18]</a></li>
+            </ul> */}
+
+            <ul id="sideManu" className="nav nav-tabs nav-stacked">
+              {categories.map((category,i)=>(
+                // {!!category.icon?ReactHtmlParser(category.icon.replace('class=','className=')):''}
+                <li key={i} className="subMenu">{category.children ? (<a> {category.name}</a>):(<a href={`/products/${category.id}`}> {category.name}</a>)}
+                  {category.children && (
+                    <ul>
+                      {category.children.map((subCategory,j)=>(
+                        <li key={j}><Link to={`/products/${subCategory.id}`}> <i className="icon-chevron-right"></i> {subCategory.name}</Link></li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
             </ul>
             <br />
             <div className="thumbnail">

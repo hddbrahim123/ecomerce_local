@@ -59,7 +59,6 @@ const ProductDetails = (props) => {
       getProductDetailViewClient(slug).then((res) => {
         if (res) {
           setProduct(res);
-          
           getRelatedProducts(slug, parseInt(3)).then((res) =>
             setReleatedProducts(res)
           );
@@ -130,7 +129,6 @@ const ProductDetails = (props) => {
                         <h1 className="data__title mb-2 text-capitalize">
                           {product.name}
                         </h1>
-
                         <div className="text-muted float-start me-3">
                           <StarRatings
                             rating={product.rating}
@@ -142,7 +140,6 @@ const ProductDetails = (props) => {
                             starSpacing="3px"
                           />
                         </div>
-
                         <div className="price my-4">
                           {content.labelPrice} : {""}
                           <span className="price__new ">
@@ -180,7 +177,9 @@ const ProductDetails = (props) => {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            dispatch(incProductQty(item));
+                            if (product.quantity > item.qty) {
+                              dispatch(incProductQty(item));
+                            }
                           }}
                         >
                           +

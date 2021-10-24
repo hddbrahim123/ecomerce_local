@@ -22,6 +22,7 @@ import "toastr/build/toastr.min.css";
 import ModalConfirmation from "../../../Components/Comon/ModalConfirmation";
 import Search from "./Search";
 import { getCategories } from "../../../Core/ApiCore/Category";
+import { API_URL } from "../../../config";
 
 const Products = (props) => {
   const [language] = useState(
@@ -118,7 +119,9 @@ const Products = (props) => {
       }
     });
   };
-
+  const urlImage = (product) =>{
+    return `${API_URL}User/Image?slug=${product.slug}&file=${product.image}`;
+  }
   useEffect(() => {
     getCategories(false)
       .then(res=>{
@@ -199,7 +202,7 @@ const Products = (props) => {
                       <Tr key={i}>
                         <Td className="d-flex">
                           <img
-                            src={product.image}
+                            src={urlImage(product)}
                             alt={product.name}
                             className="avatar__lg"
                           />

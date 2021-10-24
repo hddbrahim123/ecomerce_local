@@ -1,158 +1,249 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Aos from "aos";
-import "aos/dist/aos.css";
 import { isEmpty } from "lodash";
 import TotalPrice from "../../../Core/helpers/totalPrice";
 import { Link } from "react-router-dom";
 
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
+
 import {
-  removeProductInCart,
-  incProductQty,
-  decProductQty
+    removeProductInCart,
+    incProductQty,
+    decProductQty
 } from "../../../store/action";
-import CreateOrderModal from "./CreateOrderModal";
 import dictionary from "../../../Core/dictionary";
+import CreateOrderModal from "./CreateOrderModal";
+import { createOrder } from "../../../Core/ApiCore/Order";
 
-const ProductsCart = () => {
-  const [language] = useState(localStorage.getItem("language") ?? dictionary.defaultLanguage);
-  let products = useSelector((state) => state.Cart.products);
+const ProductsCart = (props) => {
+    const [language] = useState(localStorage.getItem("language") ?? dictionary.defaultLanguage);
+    const products = useSelector((state) => state.Cart.products);
+    const totalDiscount = useSelector((state) => state.Cart.totalDiscount);
+    const totalPrice = useSelector((state) => state.Cart.totalPrice);
+    const totalQty = useSelector((state) => state.Cart.totalQty);
 
-  const dispatch = useDispatch();
+    const content = dictionary.orderContent[language];
+    const messages = dictionary.messages[language];
+    
+    const [order, setOrder] = useState({
+        fullName: "",
+        phone: "",
+        address: "",
+        ordersNote: "",
+    });
+    
+    const handleOrder = (e) =>
+    setOrder({ ...order, [e.target.id]: e.target.value });
 
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => setModal(!modal);
+    const submitOrder = (e) => {
+        e.preventDefault();
+        order.totalAmount = totalPrice;
+        order.items = products;
+        order.totalQty = totalQty;
+        console.log(order);
+        if (!order.fullName) {
+            toastr.error(messages.ordreFullNameRequired, messages.checkForm);
+            return;
+        } else if (!order.phone) {
+            toastr.error(messages.ordrePhoneRequired, messages.checkForm);
+            return;
+        } else {
+            createOrder(order).then((res) => {
+                if (res.success) {
+                    toastr.options.progressBar = true;
+                    toastr.success(messages.ordreCreateSuccess, "");
+                    localStorage.removeItem("cart");
+                    // props.history.push("/products");
+                } else {
+                    toastr.options.progressBar = true;
+                    toastr.error(messages.ordreCreateError, messages.checkForm);
+                }
+                console.log(res);
+            });
+        }
+    };
+    const dispatch = useDispatch();
+    const [modal, setModal] = useState(false);
+    const toggleModal = () => setModal(!modal);
 
-  useEffect(() => {
-    Aos.init({ duration: 2000 });
-  }, []);
-  const content = dictionary.orderContent[language];
-  return (
-    <section>
-      <CreateOrderModal
-        language={language}
-        isOpen={modal}
-        toggle={toggleModal}
-      />
-      
-        <div className="container-fluid">
-          <div className="row mx-lg-4">
-            <div className="col-8">
-              {!isEmpty(products) ? (
-                <>
-                  {products.map((product, i) => (
-                    <div key={i} className="row">
-                      <div className="col-12">
-                        <div
-                          data-aos="fade-down"
-                          className="row productCart  mb-4 bg-white shadow-sm m-1 p-2"
-                        >
-                          <span
-                            className="featured__offre"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                              dispatch(removeProductInCart(product.slug));
-                            }}
-                          >
-                            X
-                          </span>
-                          <div className="col-2">
-                            <img
-                              src={product.images && product.images.length ? product.images[0] : ""}
-                              alt="name"
-                              className="productCart__img"
-                              width="100%"
-                            />
-                          </div>
-                          <div className="col-10 d-flex flex-column justify-content-between">
-                            <h5 className="mb-3 text-capitalize  pt-3 fs-4 text-truncate">
-                              <Link
-                                to={"/product/" + product.slug}
-                                className="first-color "
-                              >
-                                {product.name}
-                              </Link>
-                            </h5>
-                            <div className="d-flex justify-content-between align-items-end ">
-                              <h5 className="text-muted fs-6">
-                                {product.newPrice} X {product.qty} ={" "}
-                                <span className="first-color">
-                                  {product.newPrice * product.qty} Dhs
-                                </span>
-                              </h5>
-                              <div className="">
-                                <button
-                                  className="btn btn-primary"
-                                  onClick={() => {
-                                    dispatch(decProductQty(product));
-                                  }}
-                                >
-                                  -
-                                </button>
-                                <span className="px-2">{product.qty}</span>
-                                <button
-                                  className="btn btn-primary"
-                                  onClick={() => {
-                                    dispatch(incProductQty(product));
-                                  }}
-                                >
-                                  +
-                                </button>
-                              </div>
+    useEffect(() => {
+
+    }, []);
+    return (
+    <div className="span9">
+        <ul className="breadcrumb">
+            <li><a href="/">Accueil</a> <span className="divider">/</span></li>
+            <li className="active"> Panier</li>
+        </ul>
+        <h3>  Panier [ <small>{totalQty} Produits(s) </small>]<Link to="/Products" className="btn btn-large pull-right"><i className="icon-arrow-left"></i> Continuer vos achats </Link></h3>
+        <hr className="soft"/>
+        {/* <table className="table table-bordered">
+            <tbody>
+                <tr><th> I AM ALREADY REGISTERED  </th></tr>
+                <tr>
+                    <td>
+                        <form className="form-horizontal">
+                            <div className="control-group">
+                                <label className="control-label" htmlFor="inputUsername">Username</label>
+                                <div className="controls">
+                                    <input type="text" id="inputUsername" placeholder="Username"/>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                <div className="card m-lg-4">
-                  <div className="card-body">
-                    <div className="text-center">
-                      <h2 className="first-color">{content.cartEmpty}</h2>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="col-4 h-100">
-              <div className="card my-2 p-2 shadow-sm">
-                <div className="card-body">
-                  <div className="d-flex justify-content-between mb-4">
-                    <span className="text-muted text-capitalize">{content.labelSubTotal}</span>
-                    <span className="fw-bold">{TotalPrice(products)} Dhs</span>
-                  </div>
-                  <div className="d-flex justify-content-between mb-4">
-                    <span className="text-muted text-capitalize">{content.labelShipping}</span>
-                    <span className="fw-bold">-</span>
-                  </div>
-                  <div className="d-flex justify-content-between mb-4">
-                    <span className="text-muted text-capitalize">{content.labelSubTotal}</span>
-                    <span className="fw-bold">{TotalPrice(products)} Dhs</span>
-                  </div>
-                </div>
-              </div>
-              <div className="card my-2 p-2 shadow-sm">
-                <div className="card-body d-flex justify-content-between">
-                  <span className="text-capitalize text-muted">{content.labelTotal}</span>
-                  <span className="fw-bold">{TotalPrice(products)} Dhs</span>
-                </div>
-                <Link
-                  to="#"
-                  className="btn btn-primary border-0 text-white w-100"
-                  onClick={toggleModal}
-                >
-                  {content.buttonOrderText}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-    </section>
-  );
+                            <div className="control-group">
+                                <label className="control-label" htmlFor="inputPassword1">Password</label>
+                                <div className="controls">
+                                    <input type="password" id="inputPassword1" placeholder="Password"/>
+                                </div>
+                            </div>
+                            <div className="control-group">
+                                <div className="controls">
+                                    <button type="submit" className="btn">Sign in</button> OR <a href="register.html" className="btn">Register Now!</a>
+                                </div>
+                            </div>
+                            <div className="control-group">
+                                <div className="controls">
+                                    <a href="forgetpass.html" style={{textDecoration:"underline"}}>Forgot password ?</a>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table> */}
+        <table className="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Quantity/Update</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {products.map((product,i)=> !!product.qty && !!product.newPrice ? (
+                <tr key={i}>
+                    <td> <img width="60" src={!isEmpty(product.images)?product.images[0]:""} alt=""/></td>
+                    <td>{product.description}</td>
+                    <td>
+                    <div className="input-append"><input defaultValue={product.qty} className="span1" style={{maxWidth:"34px"}} placeholder="1" id="appendedInputButtons" size="16" type="text"/><button className="btn" type="button"><i className="icon-minus"></i></button><button className="btn" type="button"><i className="icon-plus"></i></button><button className="btn btn-danger" type="button"><i className="icon-remove icon-white"></i></button>				</div>
+                    </td>
+                    <td>{!!product.oldPrice ? product.oldPrice +" Dhs": !!product.newPrice ? product.newPrice +" Dhs" : "" }</td>
+                    <td>{(!!product.oldPrice && !!product.newPrice)? `${(product.oldPrice - product.newPrice)} Dhs` : ""}</td>
+                    <td>{(!!product.qty && !!product.newPrice)?product.newPrice * product.qty + " Dhs":""}</td>
+                </tr>
+                ):null)}
+                <tr>
+                    <td colSpan="5" style={{textAlign:"right"}}>Total Price:	</td>
+                    <td> {totalPrice} Dhs</td>
+                </tr>
+                <tr>
+                    <td colSpan="5" style={{textAlign:"right"}}>Total Discount:	</td>
+                    <td> {!!totalDiscount ? totalDiscount + " Dhs":""}</td>
+                </tr>
+                <tr>
+                    <td colSpan="5" style={{textAlign:"right"}}><strong>TOTAL ({totalPrice} - {totalDiscount??0} Dhs) =</strong></td>
+                    <td className="label label-important" style={{display:"block"}}> <strong> {totalPrice - (totalDiscount??0)} Dhs</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        {/* <table className="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <form className="form-horizontal">
+                            <div className="control-group">
+                                <label className="control-label"><strong> VOUCHERS CODE: </strong> </label>
+                                <div className="controls">
+                                    <input type="text" className="input-medium" placeholder="CODE"/>
+                                    <button type="submit" className="btn"> ADD </button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table> */}
+
+        <table className="table table-bordered">
+            <tbody>
+                <tr><th>ESTIMEZ VOTRE LIVRAISON </th></tr>
+                <tr>
+                    <td>
+                        <form className="form-horizontal">
+                            <div className="control-group">
+                                <label className="control-label" htmlFor="fullName">{content.labelFullName}</label>
+                                <div className="controls">
+                                    <input type="text" 
+                                        id="fullName"
+                                        className="form-control"
+                                        placeholder={content.placeHolderEnterFullName}
+                                        value={order.fullName}
+                                        onChange={handleOrder}
+                                        />
+                                </div>
+                            </div>
+                            <div className="control-group">
+                                <label className="control-label" htmlFor="phone">{content.labelPhone}</label>
+                                <div className="controls">
+                                    <input type="text" 
+                                        id="phone"
+                                        className="form-control"
+                                        placeholder={content.labelPlaceHolderPhone}
+                                        value={order.phone}
+                                        onChange={handleOrder}
+                                        />
+                                </div>
+                            </div>
+                            <div className="control-group">
+                                <label className="control-label" htmlFor="address">{content.labelAddress}</label>
+                                <div className="controls">
+                                    <textarea 
+                                        id="address"
+                                        className="form-control"
+                                        rows="3"
+                                        placeholder={content.labelPlaceHolderAddress}
+                                        value={order.address}
+                                        onChange={handleOrder}
+                                        />
+                                </div>
+                            </div>
+                            <div className="control-group">
+                                <label className="control-label" htmlFor="ordersNote">{content.labelOrderNotes}</label>
+                                <div className="controls">
+                                    <textarea id="ordersNote"
+                                        className="form-control"
+                                        rows="3"
+                                        placeholder={content.placeHolderOrderNote}
+                                        value={order.ordersNote}
+                                        onChange={handleOrder}
+                                        />
+                                </div>
+                            </div>
+                            <div className="control-group">
+                                <div className="controls">
+                                    <button onClick={submitOrder} className="btn">Acheter</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <Link to="/Products" className="btn btn-large"><i className="icon-arrow-left"></i> Continuer vos achats </Link>
+        {/* <button onClick={toggleModal} className="btn btn-large pull-right">Acheter</button> */}
+        <CreateOrderModal
+            language={language}
+            isOpen={modal}
+            toggle={toggleModal}
+        />
+    </div>
+);
 };
 
 export default ProductsCart;

@@ -4,10 +4,6 @@ import { withRouter } from "react-router";
 import Footer from "./Footer";
 import Header from "./header";
 
-import Header2 from "./Header2";
-import Main2 from "./Main2";
-import Footer2 from "./Footer2";
-
 const ClientLayout = (props) => {
 
   const [language, setLanguage] = useState(
@@ -16,10 +12,7 @@ const ClientLayout = (props) => {
 
   return (
     <div>
-      {/* <Header2 language={language} />
-      <Main2 language={language} {...props} />
-      <Footer2 language={language} /> */}
-
+      
       <div className="container">
         <div className="row">
           <div className="col-24 col-md-12">

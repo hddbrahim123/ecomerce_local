@@ -4,7 +4,7 @@ import isAuthSeller from "../helpers/isAuthSeller"
 
 export const createCategory = (category)=>{
     const { token } = isAuthSeller()
-    return fetch(`${API_URL}/Category/CreateCategory`,{
+    return fetch(`${API_URL}Category/CreateCategory`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -20,7 +20,7 @@ export const createCategory = (category)=>{
 
 export const updateCategory = (category)=>{
     const { token } = isAuthSeller()
-    return fetch(`${API_URL}/Category/UpdateCategory`,{
+    return fetch(`${API_URL}Category/UpdateCategory`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -36,7 +36,7 @@ export const updateCategory = (category)=>{
 
 export const removeCategory = (categoryId)=>{
     const { token } = isAuthSeller()
-    return fetch(`${API_URL}/Category/RemoveCategory?categoryId=${categoryId}`,{
+    return fetch(`${API_URL}Category/RemoveCategory?categoryId=${categoryId}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -51,7 +51,7 @@ export const removeCategory = (categoryId)=>{
 
 export const canRemoveCategory = (categoryId)=>{
     const { token } = isAuthSeller()
-    return fetch(`${API_URL}/Category/CanRemoveCategory?categoryId=${categoryId}`,{
+    return fetch(`${API_URL}Category/CanRemoveCategory?categoryId=${categoryId}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -65,7 +65,7 @@ export const canRemoveCategory = (categoryId)=>{
 }
 
 export const getActiveCategories = ()=>{
-    return fetch(`${API_URL}/Category/GetActiveCategoriesView`,{
+    return fetch(`${API_URL}Category/GetActiveCategoriesView`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -80,7 +80,7 @@ export const getActiveCategories = ()=>{
 export const GetChildrenCategory = (categoryId,active,hasProducts)=>{
     active = active ? 'true' : 'false';
     hasProducts = hasProducts ? 'true' : 'false';
-    return fetch(`${API_URL}/Category/GetChildrenCategory?categoryId=${categoryId}&active=${active}&hasProducts=${hasProducts}`,{
+    return fetch(`${API_URL}Category/GetChildrenCategory?categoryId=${categoryId}&active=${active}&hasProducts=${hasProducts}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -93,7 +93,7 @@ export const GetChildrenCategory = (categoryId,active,hasProducts)=>{
 }
 
 export const getAllCategories = ()=>{
-    return fetch(`${API_URL}/Category/GetAllCategoriesView`,{
+    return fetch(`${API_URL}Category/GetAllCategoriesView`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -108,7 +108,7 @@ export const getAllCategories = ()=>{
 export const getCategories = (active,hasProducts)=>{
     active = active ? 'true' : 'false';
     hasProducts = hasProducts ? 'true' : 'false';
-    return fetch(`${API_URL}/Category/GetCategoriesView?active=${active}&hasProducts=${hasProducts}`,{
+    return fetch(`${API_URL}Category/GetCategoriesView?active=${active}&hasProducts=${hasProducts}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -121,7 +121,7 @@ export const getCategories = (active,hasProducts)=>{
 }
 
 export const getCategory = (categoryId)=>{
-    return fetch(`${API_URL}/Category/GetCategory?categoryId=${categoryId}`,{
+    return fetch(`${API_URL}Category/GetCategory?categoryId=${categoryId}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
