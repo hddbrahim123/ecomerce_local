@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetChildrenCategory } from "../../Core/ApiCore/Category";
 
-function Header2({countItem,solde}) {
+function Header2({totalQty,solde}) {
 	
 	const [parentCategories, setParentCategories] = useState([])
 	let welcome = '';
@@ -43,7 +43,7 @@ function Header2({countItem,solde}) {
 						<a href="product_summary.html"><span>&pound;</span></a> */}
 						<Link to='/cart' className="btn btn-mini">{solde} Dhs</Link>
 						<span> </span>
-						<Link to='/cart' ><span className="btn btn-mini btn-primary"><i className="icon-shopping-cart icon-white"></i> [ {countItem} ] Itemes in your cart </span> </Link> 
+						<Link to='/cart' ><span className="btn btn-mini btn-primary"><i className="icon-shopping-cart icon-white"></i> [ {totalQty} ] Itemes in your cart </span> </Link> 
 					</div>
 				</div>
 			</div>

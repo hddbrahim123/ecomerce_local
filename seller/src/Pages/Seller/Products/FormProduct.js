@@ -67,6 +67,7 @@ const img = {
 };
 
 const FormProduct = (props) => {
+  const baseSiteUrl = "http://localhost:3000";
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const [isOpen, setIsOpen] = useState(false);
   const content = dictionary.product[language];
@@ -968,13 +969,13 @@ const FormProduct = (props) => {
         {(product.slug || productEdit.slug) && (
           <div className="card mt-4">
             <div className="card-body">
-              <Link
-                to={"/product/" + (product.slug ?? productEdit.slug)}
+              <a
+                href={baseSiteUrl+"/#/product/" + (product.slug ?? productEdit.slug)}
                 target="_blank"
                 className="text-success"
               >
                 <i className="bx bx-view">Afficher details</i>
-              </Link>
+              </a>
             </div>
           </div>
         )}

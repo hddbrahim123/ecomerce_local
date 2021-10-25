@@ -45,11 +45,10 @@ const ProductDetails = (props) => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
-	const addItemCart = (product, qty) => {
-		
-			const { slug, name, newPrice, oldPrice, images } = product;
-			addToCart({ slug, name, newPrice, oldPrice, images, qty });
-			//props.history.push("/cart");
+	const addItemCart = () => {
+		const { slug, name, newPrice, oldPrice, images } = product;
+		dispatch(addToCart({ slug, name, newPrice, oldPrice, images, qty:1 }));
+		//props.history.push("/cart");
 	};
 
 	const properties = [
@@ -83,7 +82,7 @@ const ProductDetails = (props) => {
 		if (qty > 0) {
 			if (qty <= product.quantity) {
 				if (isEmpty(item)) {
-					dispatch(addItemCart(product, qty));
+					addItemCart();
 				}else{
 					dispatch(setProductQty(item, qty));
 				}
@@ -190,13 +189,13 @@ const ProductDetails = (props) => {
 								+
 								</button>
 								</div>)} */}
-								<input type="number"
-									value={!!qty ? qty : 0}
-									className="span1" 
+								{!!item?.qty && <input type="number"
+									value={item.qty}
+									className="span1"
 									placeholder="Qty."
 									onChange={handleChangeQty}
-								/>
-								<button onClick={(e)=>{addItemCart(product,1)}} className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button>
+								/>}
+								{isEmpty(item) && <button onClick={addItemCart} className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button>}
 							</div>
 						</div>
 					</form>

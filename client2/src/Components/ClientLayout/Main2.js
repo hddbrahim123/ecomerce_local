@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
 
 function Main2(props) {
-  const {countItem, solde, categories} = props
+  const {totalQty, solde, categories} = props
   return (
     <div id="mainBody">
       <div className="container">
@@ -12,7 +12,7 @@ function Main2(props) {
           <div id="sidebar" className="span3">
             <div className="well well-small">
               <Link id="myCart" to="/cart">
-                <img src="images/ico-cart.png" alt="cart" />{countItem} Articles en panier 
+                <img src="images/ico-cart.png" alt="cart" />{totalQty} Articles en panier 
                 <span className="badge badge-warning pull-right">{solde} Dh</span>
               </Link>
             </div>

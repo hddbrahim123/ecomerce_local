@@ -11,7 +11,8 @@ import "toastr/build/toastr.min.css";
 import {
     removeProductInCart,
     incProductQty,
-    decProductQty
+    decProductQty,
+    setProductQty
 } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
 import CreateOrderModal from "./CreateOrderModal";
@@ -36,6 +37,25 @@ const ProductsCart = (props) => {
     
     const handleOrder = (e) =>
     setOrder({ ...order, [e.target.id]: e.target.value });
+
+    const increment = (itemCart)=>{
+        dispatch(incProductQty(itemCart))
+    }
+
+    const decrement = (itemCart)=>{
+        dispatch(decProductQty(itemCart))
+    }
+
+    const remove = (itemCart)=>{
+        dispatch(removeProductInCart(itemCart.slug))
+    }
+
+    const changeQty = (e,itemCart)=>{
+        let qty = e.target.value;
+        if (qty > 0) {
+            dispatch(setProductQty(itemCart,qty))
+        }
+    }
 
     const submitOrder = (e) => {
         e.preventDefault();
@@ -114,33 +134,33 @@ const ProductsCart = (props) => {
         <table className="table table-bordered">
             <thead>
                 <tr>
-                    <th>Product</th>
+                    <th>Produit</th>
                     <th>Description</th>
-                    <th>Quantity/Update</th>
-                    <th>Price</th>
-                    <th>Discount</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Remise</th>
                     <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                {products.map((product,i)=> !!product.qty && !!product.newPrice ? (
-                <tr key={i}>
-                    <td> <img width="60" src={!isEmpty(product.images)?product.images[0]:""} alt=""/></td>
-                    <td>{product.description}</td>
-                    <td>
-                    <div className="input-append"><input defaultValue={product.qty} className="span1" style={{maxWidth:"34px"}} placeholder="1" id="appendedInputButtons" size="16" type="text"/><button className="btn" type="button"><i className="icon-minus"></i></button><button className="btn" type="button"><i className="icon-plus"></i></button><button className="btn btn-danger" type="button"><i className="icon-remove icon-white"></i></button>				</div>
-                    </td>
-                    <td>{!!product.oldPrice ? product.oldPrice +" Dhs": !!product.newPrice ? product.newPrice +" Dhs" : "" }</td>
-                    <td>{(!!product.oldPrice && !!product.newPrice)? `${(product.oldPrice - product.newPrice)} Dhs` : ""}</td>
-                    <td>{(!!product.qty && !!product.newPrice)?product.newPrice * product.qty + " Dhs":""}</td>
-                </tr>
-                ):null)}
+                {products.map((product,i)=> (
+                    <tr key={i}>
+                        <td> <img width="60" src={!isEmpty(product.images)?product.images[0]:""} alt=""/></td>
+                        <td>{product.description}</td>
+                        <td>
+                        <div className="input-append"><input value={product.qty} onChange={(e)=>changeQty(e,product)} className="span1" style={{maxWidth:"34px"}} placeholder="1" id="appendedInputButtons" size="16" type="text"/><button className="btn" type="button" onClick={()=>decrement(product)}><i className="icon-minus"></i></button><button className="btn" type="button" onClick={()=>increment(product)}><i className="icon-plus"></i></button><button className="btn btn-danger" type="button" onClick={()=>remove(product)}><i className="icon-remove icon-white"></i></button>				</div>
+                        </td>
+                        <td>{!!product.oldPrice ? product.oldPrice +" Dhs": !!product.newPrice ? product.newPrice +" Dhs" : "" }</td>
+                        <td>{(!!product.oldPrice && !!product.newPrice)? `${(product.oldPrice - product.newPrice)} Dhs` : ""}</td>
+                        <td>{(!!product.qty && !!product.newPrice)?product.newPrice * product.qty + " Dhs":""}</td>
+                    </tr>
+                ))}
                 <tr>
                     <td colSpan="5" style={{textAlign:"right"}}>Total Price:	</td>
                     <td> {totalPrice} Dhs</td>
                 </tr>
                 <tr>
-                    <td colSpan="5" style={{textAlign:"right"}}>Total Discount:	</td>
+                    <td colSpan="5" style={{textAlign:"right"}}>Total Remise:	</td>
                     <td> {!!totalDiscount ? totalDiscount + " Dhs":""}</td>
                 </tr>
                 <tr>

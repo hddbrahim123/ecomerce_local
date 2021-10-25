@@ -45,7 +45,7 @@ export const setProductQty = (item, qty)=>{
 export const incProductQty = (item)=>{
     let items = JSON.parse(localStorage.getItem('cart')) || []
 
-    items = items.map(product=> (product.slug === item.slug ? {...item , qty: product.qty +=1 } : product))
+    items = items.map(product=> (product.slug === item.slug ? {...item , qty:parseInt(product.qty) +1 } : product))
 
     localStorage.setItem('cart', JSON.stringify(items))
 
@@ -85,5 +85,4 @@ export const removeProductInCart = (slug)=>{
             type: REMOVE_PRODUCT_IN_CART,
             payload:items
         }
-    
 }

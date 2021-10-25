@@ -39,6 +39,7 @@
     "react-super-responsive-table": "^5.2.0",
     "reactstrap": "^8.9.0",
     "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "toastr": "^2.1.4",
     "web-vitals": "^1.1.2"
