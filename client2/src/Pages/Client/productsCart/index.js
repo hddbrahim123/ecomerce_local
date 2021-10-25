@@ -60,7 +60,6 @@ const ProductsCart = (props) => {
                     toastr.options.progressBar = true;
                     toastr.error(messages.ordreCreateError, messages.checkForm);
                 }
-                console.log(res);
             });
         }
     };

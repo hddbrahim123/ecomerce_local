@@ -8,6 +8,7 @@ import ProductCard from "./ProductCard";
 
 import Paginate from "../../../Components/Comon/Paginate";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../../config";
 
 const ProductsShop = (props) => {
   const [language] = useState(
@@ -76,6 +77,10 @@ const ProductsShop = (props) => {
   }
 	const [isListView, setIsListView] = useState(true);
 
+  const urlImage = (product) => {
+    return `${API_URL}User/Image?slug=${product.slug}&file=${product.image}`;
+  }
+
   useEffect(() => {
     let category = props.match.params.category;
     if (category) {
@@ -93,20 +98,20 @@ const ProductsShop = (props) => {
   }, []);
 
   return (
-    <div class="span9">
-      <ul class="breadcrumb">
-      <li><a href="/">Accueil</a> <span class="divider">/</span></li>
-      <li class="active">Liste des produits</li>
+    <div className="span9">
+      <ul className="breadcrumb">
+      <li><a href="/">Accueil</a> <span className="divider">/</span></li>
+      <li className="active">Liste des produits</li>
       </ul>
-      <h3> Liste des produits <small class="pull-right"> {products.length} produits sont disponibles </small></h3>	
-      <hr class="soft"/>
+      <h3> Liste des produits <small className="pull-right"> {products.length} produits sont disponibles </small></h3>	
+      <hr className="soft"/>
       {/* <p>
         Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
       </p> */}
-      <hr class="soft"/>
-      <form class="form-horizontal span6">
-        <div class="control-group">
-          <label class="control-label alignL">Sort By </label>
+      <hr className="soft"/>
+      <form className="form-horizontal span6">
+        <div className="control-group">
+          <label className="control-label alignL">Sort By </label>
             <select>
                   <option>Priduct name A - Z</option>
                   <option>Priduct name Z - A</option>
@@ -115,66 +120,66 @@ const ProductsShop = (props) => {
                 </select>
         </div>
       </form>
-      <div id="myTab" class="pull-right">
+      <div id="myTab" className="pull-right">
       <a href="#listView" onClick={()=>setIsListView(true)} data-toggle="tab"><span className={`btn btn-large ${isListView ? "btn-primary":""}`}><i className="icon-list"></i></span></a>
       <a href="#blockView" onClick={()=>setIsListView(false)} data-toggle="tab"><span className={`btn btn-large ${!isListView ? "btn-primary":""}`}><i className="icon-th-large"></i></span></a>
       </div>
-      <br class="clr"/>
-      <div class="tab-content">
-        <div class="tab-pane active" id="listView">
+      <br className="clr"/>
+      <div className="tab-content">
+        <div className="tab-pane active" id="listView">
           {products.map((product,i)=>(
             <div key={i}>
-              <div class="row">	  
-                <div class="span2">
-                  <img src={product.image} alt=""/>
+              <div className="row">	  
+                <div className="span2">
+                  <img src={urlImage(product)} alt=""/>
                 </div>
-                <div class="span4">
+                <div className="span4">
                   <h3>New | Available</h3>				
-                  <hr class="soft"/>
+                  <hr className="soft"/>
                   <h5>{product.name} </h5>
                   <p>
                   {product.description}
                   </p>
-                  <Link class="btn btn-small pull-right" to={"/Product/"+product.slug}>Voir les détails</Link>
-                  <br class="clr"/>
+                  <Link className="btn btn-small pull-right" to={"/Product/"+product.slug}>Voir les détails</Link>
+                  <br className="clr"/>
                 </div>
-                <div class="span3 alignR">
-                  <form class="form-horizontal qtyFrm">
+                <div className="span3 alignR">
+                  <form className="form-horizontal qtyFrm">
                     <h3> {product.newPrice} Dhs</h3>
-                    {/* <label class="checkbox">
+                    {/* <label className="checkbox">
                       <input type="checkbox"/>  Adds product to compair
                     </label><br/> */}
-                    <Link to={"/product/"+product.slug} class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></Link>
-                    {/* <Link to={"/product/"+product.slug} class="btn btn-large"><i class="icon-zoom-in"></i></Link> */}
+                    <Link to={"/product/"+product.slug} className="btn btn-large btn-primary"> Ajouter <i className=" icon-shopping-cart"></i></Link>
+                    {/* <Link to={"/product/"+product.slug} className="btn btn-large"><i className="icon-zoom-in"></i></Link> */}
                   </form>
                 </div>
               </div>
-              <hr class="soft"/>
+              <hr className="soft"/>
             </div>
           ))}
         </div>
-        <div class="tab-pane" id="blockView">
-          <ul class="thumbnails">
+        <div className="tab-pane" id="blockView">
+          <ul className="thumbnails">
             {products.map((product,i)=>(
-              <li class="span3">
-                <div class="thumbnail">
-                  <Link to={"/product/"+product.slug}><img src={product.image} alt=""/></Link>
-                  <div class="caption">
+              <li key={i} className="span3">
+                <div className="thumbnail">
+                  <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
+                  <div className="caption">
                     <h5>{product.name}</h5>
                     <p> 
                     {product.description}
                     </p>
-                    <h4 style={{textAlign:"center"}}> <Link className="btn" to={"/product/"+product.slug}>Ajouter <i class="icon-shopping-cart"></i></Link> <Link className="btn btn-primary" to={"/product/"+product.slug}>{product.newPrice} Dhs</Link></h4>
+                    <h4 style={{textAlign:"center"}}> <Link className="btn" to={"/product/"+product.slug}>Ajouter <i className="icon-shopping-cart"></i></Link> <Link className="btn btn-primary" to={"/product/"+product.slug}>{product.newPrice} Dhs</Link></h4>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
-          <hr class="soft"/>
+          <hr className="soft"/>
         </div>
       </div>
-      {/* <a href="compair.html" class="btn btn-large pull-right">Compair Product</a> */}
-      <div class="pagination">
+      {/* <a href="compair.html" className="btn btn-large pull-right">Compair Product</a> */}
+      <div className="pagination">
         <ul>
           <li><a href="#">‹</a></li>
           <li><a href="#">1</a></li>
@@ -185,7 +190,7 @@ const ProductsShop = (props) => {
           <li><a href="#">›</a></li>
         </ul>
       </div>
-      <br class="clr"/>
+      <br className="clr"/>
     </div>
   );
 };

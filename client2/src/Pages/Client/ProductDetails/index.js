@@ -41,13 +41,15 @@ const ProductDetails = (props) => {
 	};
 
 	let item = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug) : {})
+	let qty = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug)?.qty : {})
 
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
 	const addItemCart = (product, qty) => {
-		const { slug, name, newPrice, oldPrice, images } = product;
-		addToCart({ slug, name, newPrice: newPrice ?? oldPrice, images, qty });
-		//props.history.push("/cart");
+		
+			const { slug, name, newPrice, oldPrice, images } = product;
+			addToCart({ slug, name, newPrice, oldPrice, images, qty });
+			//props.history.push("/cart");
 	};
 
 	const properties = [
@@ -76,16 +78,18 @@ const ProductDetails = (props) => {
 		//document.body.innerHTML += `<div id='modal-images'><div id="jquery-overlay"></div><div id="jquery-lightbox"><div id="lightbox-container-image-box"><div id="lightbox-container-image"><img id="lightbox-image"><div style="" id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src='${imageLoading}'></a></div></div></div><div id="lightbox-container-image-data-box"><div id="lightbox-container-image-data"><div id="lightbox-image-details"><span id="lightbox-image-details-caption"></span><span id="lightbox-image-details-currentNumber"></span></div><div id="lightbox-secNav"><a id="lightbox-secNav-btnClose" onClick="document.getElementById('modal-images').remove()" ><img src='${imageBtnClose}'></a></div></div></div></div></div>`
 	}
 	const handleChangeQty = (e) => {
-		if (e.target.value) {
-			if (e.target.value >= 0 && e.target.value <= product.quantity) {
+		let qty = e.target.value;
+		console.log(qty)
+		if (qty > 0) {
+			if (qty <= product.quantity) {
 				if (isEmpty(item)) {
-					addItemCart(product, e.target.value);
+					dispatch(addItemCart(product, qty));
 				}else{
-					setProductQty(item, e.target.value);
+					dispatch(setProductQty(item, qty));
 				}
 			}
 		} else {
-			removeProductInCart(product.slug)
+			dispatch(removeProductInCart(product.slug));
 		}
 	}
 	const urlImage = (image,product) =>{
@@ -185,13 +189,14 @@ const ProductDetails = (props) => {
 								>
 								+
 								</button>
-							</div>)} */}
-							<input type="number"
-								value={item?.qty??0}
-								className="span1" 
-								placeholder="Qty."
-								onChange={handleChangeQty}/>
-							<button onClick={addItemCart} className="btn btn-large btn-primary pull-right"> Add to cart <i className=" icon-shopping-cart"></i></button>
+								</div>)} */}
+								<input type="number"
+									value={!!qty ? qty : 0}
+									className="span1" 
+									placeholder="Qty."
+									onChange={handleChangeQty}
+								/>
+								<button onClick={(e)=>{addItemCart(product,1)}} className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button>
 							</div>
 						</div>
 					</form>
@@ -228,7 +233,7 @@ const ProductDetails = (props) => {
 						<table className="table table-bordered">
 							<tbody>
 								<tr className="techSpecRow"><th colSpan="2">Product Details</th></tr>
-								{properties.map((p,i)=> !product[p] ? '' : (
+								{properties.map((p,i)=> !product[p] ? undefined : (
 									<tr key={i} className="techSpecRow"><td className="techSpecTD1">{titles[i]}: </td><td className="techSpecTD2">{ReactHtmlParser(product[p])}</td></tr>
 								))}
 							{/* <tr className="techSpecRow"><td className="techSpecTD1">Brand: </td><td className="techSpecTD2">Fujifilm</td></tr>
@@ -275,7 +280,7 @@ const ProductDetails = (props) => {
 														</label> */}
 														<br/>
 														<div className="btn-group">
-															<button className="btn btn-large btn-primary"> Add to <i className=" icon-shopping-cart"></i></button>
+															<Link to={"/product/"+product.slug} className="btn btn-large btn-primary"> Ajouter au panier <i className=" icon-shopping-cart"></i></Link>
 															{/* <a href="" className="btn btn-large"><i className="icon-zoom-in"></i></a> */}
 														</div>
 													</form>

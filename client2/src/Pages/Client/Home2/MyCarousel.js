@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../../config";
 import { GetSlideData } from "../../../Core/ApiCore/ProductHome";
 
@@ -24,7 +25,7 @@ function MyCarousel() {
           {slides.map((slide,i) =>(
             <div key={i} className={`item${i === 0 ? ' active':''}`}>
               <div className="container">
-                <a href={slide.link}> <img style={{ minHeight: "100%" }} src={urlImage(slide.image)}/></a>
+                <Link to={slide.link}> <img style={{ minHeight: "100%" }} src={urlImage(slide.image)}/></Link>
               </div>
             </div>
           ))}

@@ -47,7 +47,7 @@ function Main2(props) {
                 </li>
               ))}
             </ul>
-            <br />
+            {/* <br />
             <div className="thumbnail">
               <img
                 src="images/products/panasonic.jpg"
@@ -102,7 +102,7 @@ function Main2(props) {
               <div className="caption">
                 <h5>Payment Methods</h5>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Sidebar end=============================================== */}
           {props.children}

@@ -15,11 +15,9 @@ export const addToCart = (item)=>{
     let index = items.findIndex(e=>e.slug === item.slug)
     if (index === -1) {
         //items = uniqBy([{...item , qty:1} , ...items],'slug')
-        items = [...items, {...item , qty:1}]
+        items = [...items, {...item , qty:item.qty}]
+        localStorage.setItem('cart', JSON.stringify(items))
     }
-
-    localStorage.setItem('cart', JSON.stringify(items))
-
     return{
         type:ADD_ITEM_TO_CART,
         payload:items
@@ -28,9 +26,9 @@ export const addToCart = (item)=>{
 
 export const setProductQty = (item, qty)=>{
     if(qty > -1){
-        let items = JSON.parse(localStorage.getItem('cart'))
+        let items = JSON.parse(localStorage.getItem('cart')) || []
 
-        items = items.map(product=> (product.slug === item.slug ? {...item , qty: qty } : product))
+        items = items.map(product=> (product.slug === item.slug ? {...product , qty: qty } : product))
         
         localStorage.setItem('cart', JSON.stringify(items))
 
@@ -45,7 +43,7 @@ export const setProductQty = (item, qty)=>{
 }
 
 export const incProductQty = (item)=>{
-    let items = JSON.parse(localStorage.getItem('cart'))
+    let items = JSON.parse(localStorage.getItem('cart')) || []
 
     items = items.map(product=> (product.slug === item.slug ? {...item , qty: product.qty +=1 } : product))
 
@@ -59,7 +57,7 @@ export const incProductQty = (item)=>{
 
 export const decProductQty = (item)=>{
     if(item.qty > 1){
-        let items = JSON.parse(localStorage.getItem('cart'))
+        let items = JSON.parse(localStorage.getItem('cart')) || []
 
         items = items.map(product=> (product.slug === item.slug ? {...item , qty: product.qty -=1 } : product))
         
@@ -77,7 +75,7 @@ export const decProductQty = (item)=>{
 
 export const removeProductInCart = (slug)=>{
 
-        let items = JSON.parse(localStorage.getItem('cart'))
+        let items = JSON.parse(localStorage.getItem('cart')) || []
 
         items = items.filter(product => (product.slug !== slug ))
         

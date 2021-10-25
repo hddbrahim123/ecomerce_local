@@ -23,15 +23,15 @@ function Footer2() {
           </div>
           <div className="span3">
             <h5>OUR OFFERS</h5>
-            <a href="#">NEW PRODUCTS</a>
-            <a href="#">TOP SELLERS</a>
+            <a>NEW PRODUCTS</a>
+            <a>TOP SELLERS</a>
             <a href="special_offer.html">SPECIAL OFFERS</a>
-            <a href="#">MANUFACTURERS</a>
-            <a href="#">SUPPLIERS</a>
+            <a>MANUFACTURERS</a>
+            <a>SUPPLIERS</a>
           </div>
           <div id="socialMedia" className="span3 pull-right">
             <h5>SOCIAL MEDIA </h5>
-            <a href="#">
+            <a>
               <img
                 width="60"
                 height="60"
@@ -40,7 +40,7 @@ function Footer2() {
                 alt="facebook"
               />
             </a>
-            <a href="#">
+            <a>
               <img
                 width="60"
                 height="60"
@@ -49,7 +49,7 @@ function Footer2() {
                 alt="twitter"
               />
             </a>
-            <a href="#">
+            <a>
               <img
                 width="60"
                 height="60"
