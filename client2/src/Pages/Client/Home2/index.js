@@ -53,9 +53,14 @@ const Index = () => {
       // getProductsTopRating(12).then((res) => setProductsTopRating(res));
     }, [])
 
+    const [filter, setFilter] = useState({
+      search:'',
+      categoryId:undefined
+    })
+  
   return (
     <div>
-      <Header2 language={language} totalQty={totalQty} solde={solde} />
+      <Header2 language={language} totalQty={totalQty} solde={solde} filter={filter} setFilter={setFilter} />
       <MyCarousel language={language} />
       <Main2 language={language} totalQty={totalQty} solde={solde} categories={categories} >
         <div className="span9">	

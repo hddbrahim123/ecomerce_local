@@ -8,7 +8,7 @@ function LatestProducts({products}) {
     }
     return (
         <div>
-            <h4>Latest Products </h4>
+            <h4>Derniers produits </h4>
             <ul className="thumbnails">
                 {products.map((product,i)=>(
                     <li key={i} className="span3">

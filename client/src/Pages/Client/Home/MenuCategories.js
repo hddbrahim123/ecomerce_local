@@ -31,7 +31,7 @@ const MenuCategories = ({ categories }) => {
       >
         Categories
       </button>
-      <ul className={down ? "form-control" : "form-control"}>
+      <ul id="list_1" className={down ? "form-control" : "form-control"}>
         {categories.map((category, i) => (
           <li
             key={i}

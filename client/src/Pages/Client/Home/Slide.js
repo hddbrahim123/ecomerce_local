@@ -9,6 +9,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import dictionary from "../../../Core/dictionary"
+import { API_URL } from '../../../config';
 const Slide = ({language,slides})=>{
     var settings = {
         dots: true,
@@ -22,6 +23,10 @@ const Slide = ({language,slides})=>{
         pauseOnHover: true,
     };
     const content = dictionary.homeContent[language]
+    
+    const urlImage = (image) =>{
+        return `${API_URL}User/ImageSlide?image=${image}`;
+      }
     return (
         <React.Fragment>
             <Slider {...settings}>
@@ -32,7 +37,7 @@ const Slide = ({language,slides})=>{
                             <div className="text-muted mb-3">{ slide.description ? ReactHtmlParser(slide.description) : "" }</div>
                             <Link className="home__slide__btn btn btn-primary py-2 px-2 my-4 border-0" to={slide.link}>{content.slideShoopLinkText}</Link>
                         </div>
-                        <img src={slide.image} alt={slide.title} className="home__slide__img my-1" height="450px" />
+                        <img src={urlImage(slide.image)} alt={slide.title} className="home__slide__img my-1" height="450px" />
                     </div>
                 ))}
             </Slider>

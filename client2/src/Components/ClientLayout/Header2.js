@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetChildrenCategory } from "../../Core/ApiCore/Category";
 
-function Header2({totalQty,solde}) {
-	
+function Header2(props) {
+	const {totalQty,solde} = props;
+
 	const [parentCategories, setParentCategories] = useState([])
 	let welcome = '';
 	let client = '';
@@ -14,12 +15,25 @@ function Header2({totalQty,solde}) {
 		categoryId:undefined
 	})
 
-	const handleChangeFilter = (e) =>{
-		let value = e.target.id === 'categoryId' ? e.target.value === '' ? undefined : e.target.value : e.target.value;
-		setFilter({...filter, [e.target.id]: value})
+	const handleChangeFilter = (e) => {
+		if (e.target.id === 'search') {
+			setFilter({...filter, 'search': e.target.value})
+		} else {
+			let value = e.target.value === '' ? undefined : e.target.value;
+			setFilter({...filter, 'categoryId': value})
+		}
+		// let value = e.target.id === 'categoryId' ? e.target.value === '' ? undefined : e.target.value : e.target.value;
+		// setFilter({...filter, [e.target.id]: value})
 	}
-
+	const goToProducts = () => {
+		window.location=(`/#/products/${filter.categoryId??0}/${filter.search.replaceAll(' ','_')}`);
+		window.location.reload();
+	}
 	useEffect(() => {
+		let url = window.location.hash.split('/')
+		if (url.length == 4) {
+			setFilter({...filter, categoryId: url[2], search: url[3]?.replaceAll('_',' ')?.replaceAll('%20',' ')})
+		}
 		GetChildrenCategory('', true, true)
 		.then((res) => {
 				if (res && res.length) {
@@ -33,6 +47,7 @@ function Header2({totalQty,solde}) {
 	return (
 	<div id="header">
 		<div className="container">
+			{JSON.stringify(filter)}
 			<div id="welcomeLine" className="row">
 				<div className="span6">{welcome}<strong> {client}</strong></div>
 				<div className="span6">
@@ -43,7 +58,7 @@ function Header2({totalQty,solde}) {
 						<a href="product_summary.html"><span>&pound;</span></a> */}
 						<Link to='/cart' className="btn btn-mini">{solde} Dhs</Link>
 						<span> </span>
-						<Link to='/cart' ><span className="btn btn-mini btn-primary"><i className="icon-shopping-cart icon-white"></i> [ {totalQty} ] Itemes in your cart </span> </Link> 
+						<Link to='/cart' ><span className="btn btn-mini btn-primary"><i className="icon-shopping-cart icon-white"></i> [ {totalQty} ] Articles en panier </span> </Link> 
 					</div>
 				</div>
 			</div>
@@ -57,12 +72,12 @@ function Header2({totalQty,solde}) {
 				<Link className="brand" to="/"><img src="images/logo.png" alt="Bootsshop"/></Link>
 					<form className="form-inline navbar-search" method="post" onSubmit={(e)=>e.preventDefault()} >
 					<input id="search" value={filter.search} onChange={handleChangeFilter} className="" type="text" />
-					<select value={filter.categoryId} onChange={handleChangeFilter} className="srchTxt">
-						<option>All</option>
+					<select id="categoryId" value={filter.categoryId} onChange={handleChangeFilter} className="srchTxt">
+						<option value="0">Tous</option>
 						{parentCategories.map((category,i) => 
 							(<option key={i} value={category.id}>{category.name}</option>))}
 					</select> 
-					<button type="submit" id="submitButton" className="btn btn-primary">Go</button>
+					<button onClick={goToProducts} className="btn btn-primary">Rechercher</button>
 					</form>
 					{/* <ul id="topMenu" className="nav pull-right">
 						<li className=""><a href="special_offer.html">Specials Offer</a></li>

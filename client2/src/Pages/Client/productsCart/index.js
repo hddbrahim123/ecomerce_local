@@ -146,7 +146,7 @@ const ProductsCart = (props) => {
                 {products.map((product,i)=> (
                     <tr key={i}>
                         <td> <img width="60" src={!isEmpty(product.images)?product.images[0]:""} alt=""/></td>
-                        <td>{product.description}</td>
+                        <td>{product.name}</td>
                         <td>
                         <div className="input-append"><input value={product.qty} onChange={(e)=>changeQty(e,product)} className="span1" style={{maxWidth:"34px"}} placeholder="1" id="appendedInputButtons" size="16" type="text"/><button className="btn" type="button" onClick={()=>decrement(product)}><i className="icon-minus"></i></button><button className="btn" type="button" onClick={()=>increment(product)}><i className="icon-plus"></i></button><button className="btn btn-danger" type="button" onClick={()=>remove(product)}><i className="icon-remove icon-white"></i></button>				</div>
                         </td>

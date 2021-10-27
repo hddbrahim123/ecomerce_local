@@ -5,7 +5,7 @@ import ProductsCart from "../Pages/Client/productsCart"
 import ProductsShop from "../Pages/Client/productshoop"
 
 const clientRoutes = [
-    { path:'/products/:category?', component: ProductsShop },
+    { path:'/products/:category?/:search?', component: ProductsShop },
     { path:'/cart', component: ProductsCart },
     { path:'/product/:slug', component: ProductDetails }
 ]

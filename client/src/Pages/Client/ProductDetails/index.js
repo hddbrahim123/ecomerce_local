@@ -20,6 +20,7 @@ import { addToCart, decProductQty, incProductQty } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
 import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
 import FicheTechnique from "./FicheTechnique";
+import { API_URL } from "../../../config";
 
 const ProductDetails = (props) => {
   const [language] = useState(
@@ -47,7 +48,9 @@ const ProductDetails = (props) => {
     dispatch(addToCart({ slug, name, newPrice: newPrice ?? oldPrice, images, qty:1 }));
     //props.history.push("/cart");
   };
-  
+  const urlImage = (image,product) =>{
+    return `${API_URL}User/Image?slug=${product.slug}&file=${image}`;
+  }
   useEffect(() => {
     Aos.init({
       duration: 2000,
@@ -58,6 +61,11 @@ const ProductDetails = (props) => {
     if (slug) {
       getProductDetailViewClient(slug).then((res) => {
         if (res) {
+          if (res.images) {
+						for (let i = 0; i < res.images.length; i++) {
+							res.images[i] = urlImage(res.images[i],res);
+						}
+					}
           setProduct(res);
           getRelatedProducts(slug, parseInt(3)).then((res) =>
             setReleatedProducts(res)

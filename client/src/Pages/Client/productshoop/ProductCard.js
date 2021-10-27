@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
-
 //Import Star Ratings
 import StarRatings from "react-star-ratings"
+import { API_URL } from '../../../config';
 
 const ProductCard = (props) => {
-    const { product, history } = props
-
+    const { product, history } = props;
+    const urlImage = (product) =>{
+        return `${API_URL}User/Image?slug=${product.slug}&file=${product.image}`;
+    }
     return (
         <React.Fragment>
             <div
@@ -22,9 +24,8 @@ const ProductCard = (props) => {
                                 {`-${product.offer}%`}
                             </span>
                         ) : ""}
-
                         <img
-                            src={product.image}
+                            src={urlImage(product)}
                             alt=""
                             className="img-fluid mx-auto d-block"
                         />

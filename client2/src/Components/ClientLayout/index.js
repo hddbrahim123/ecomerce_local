@@ -46,9 +46,14 @@ const ClientLayout = (props) => {
     });
   }, [])
 
+	const [filter, setFilter] = useState({
+		search:'',
+		categoryId:undefined
+	})
+
   return (
     <div>
-      <Header2 language={language} totalQty={totalQty} solde={solde} />
+      <Header2 language={language} totalQty={totalQty} solde={solde} filter={filter} setFilter={setFilter} />
       <Main2 language={language} totalQty={totalQty} solde={solde} categories={categories}>{props.children}</Main2>
       <Footer2 language={language} />
 

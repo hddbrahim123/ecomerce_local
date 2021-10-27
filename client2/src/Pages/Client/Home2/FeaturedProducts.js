@@ -24,7 +24,7 @@ const FeaturedProducts = ({products}) => {
     }
     return (
 		<div className="well well-small">
-			<h4>Featured Products <small className="pull-right">{products.length}+ featured products</small></h4>
+			<h4>Produits populaires <small className="pull-right">{products.length}+ Produits populaires</small></h4>
 			<div className="row-fluid">
 				<div id="featured" className="carousel slide">
 					<div className="carousel-inner">
@@ -83,7 +83,7 @@ const FeaturedProducts = ({products}) => {
 										<li key={j} className="span3">
 											<div className="thumbnail">
 												<i className="tag"></i>
-												<Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
+												<Link to={"/product/"+product.slug}><img style={{height:"200px"}} src={urlImage(product)} alt=""/></Link>
 												<div className="caption">
 													<h5>{product.name}</h5>
 													<h4><Link className="btn" to={"/product/"+product.slug}>VIEW</Link> <span className="pull-right">{product.newPrice} Dhs</span></h4>

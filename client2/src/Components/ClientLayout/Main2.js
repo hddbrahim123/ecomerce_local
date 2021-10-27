@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
 
 function Main2(props) {
-  const {totalQty, solde, categories} = props
+  const {totalQty, solde, categories} = props;
+  const [categoryId, setCategoryId] = useState();
+  let url = window.location.hash.split('/');
+  if (url.length == 3) {
+    //setFilter({...filter, categoryId: url[2], search: url[3]?.replaceAll('_',' ')?.replaceAll('%20',' ')})
+    setCategoryId(url[2]);
+  }
+  const goToProducts = (categoryId) => {
+		window.location=(`/#/products/${categoryId}/`);
+		window.location.reload();
+	}
   return (
     <div id="mainBody">
       <div className="container">
@@ -16,8 +26,6 @@ function Main2(props) {
                 <span className="badge badge-warning pull-right">{solde} Dh</span>
               </Link>
             </div>
-
-
             {/* <ul id="sideManu" className="nav nav-tabs nav-stacked">
               <li className="subMenu"><a> ELECTRONICS [230]</a>
                 <ul>
@@ -32,15 +40,14 @@ function Main2(props) {
               </li>
               <li className="subMenu"><a href="">HEALTH &amp; BEAUTY [18]</a></li>
             </ul> */}
-
             <ul id="sideManu" className="nav nav-tabs nav-stacked">
               {categories.map((category,i)=>(
                 // {!!category.icon?ReactHtmlParser(category.icon.replace('class=','className=')):''}
-                <li key={i} className="subMenu">{category.children ? (<a> {category.name}</a>):(<a href={`/products/${category.id}`}> {category.name}</a>)}
+                <li key={i} className="subMenu">{category.children ? (<a style={categoryId === category.id ? {}:{}}> {category.name}</a>):(<a style={categoryId === category.id ? {}:{}} href={`/products/${category.id}`}> {category.name}</a>)}
                   {category.children && (
                     <ul>
                       {category.children.map((subCategory,j)=>(
-                        <li key={j}><Link to={`/products/${subCategory.id}`}> <i className="icon-chevron-right"></i> {subCategory.name}</Link></li>
+                        <li key={j}><Link style={categoryId === subCategory.id ? {}:{}} onClick={()=>goToProducts(subCategory.id)}> <i className="icon-chevron-right"></i> {subCategory.name}</Link></li>
                       ))}
                     </ul>
                   )}

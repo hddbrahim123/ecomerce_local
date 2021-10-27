@@ -15,7 +15,7 @@ function Search({categories,filters,handleChange,searchProducts}) {
                             onChange={handleChange} className="btn">
                             <option value="">Selectionner categorie</option>
                             {categories && categories.map((cat,i)=>(
-                                <option key={i} value={cat.id}>{cat.name} ({cat.countProducts})</option>
+                                <option key={i} value={cat.id}>{cat.name} ({cat.countAllProducts})</option>
                             ))}
                         </select>
                     </div>

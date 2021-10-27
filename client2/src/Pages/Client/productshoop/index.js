@@ -1,4 +1,3 @@
-import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { GetChildrenCategory } from "../../../Core/ApiCore/Category";
 import { getProductsViewClient } from "../../../Core/ApiCore/ProductClient";
@@ -7,7 +6,7 @@ import FilterPrice from "./FilterPrice";
 import ProductCard from "./ProductCard";
 
 import Paginate from "../../../Components/Comon/Paginate";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import { API_URL } from "../../../config";
 
 const ProductsShop = (props) => {
@@ -23,7 +22,7 @@ const ProductsShop = (props) => {
     length:10,
     totalCount:0
   });
-
+  console.log(props)
   const [filters, setFilters] = useState({
     pageNumber: 1,
     length: 10,
@@ -62,6 +61,7 @@ const ProductsShop = (props) => {
   // useEffect(() => {
   // }, []);
   const searchProducts = () => {
+    console.log(filters)
     getProductsViewClient(filters).then((res) => {
       if (res && res.list) {
         setProducts(res.list);
@@ -75,19 +75,35 @@ const ProductsShop = (props) => {
       }
     });
   }
-	const [isListView, setIsListView] = useState(true);
+	const [isListView, setIsListView] = useState(false);
 
   const urlImage = (product) => {
     return `${API_URL}User/Image?slug=${product.slug}&file=${product.image}`;
   }
+  
+  
 
   useEffect(() => {
     let category = props.match.params.category;
-    if (category) {
-      category = parseInt(category);
-      filters.categories = [category];
-      handleFilters([category], 'categories');
-    }
+    let search = props.match.params.search?.replace('_',' ');
+    //const {category, search} = useParams();
+    filters.categories = !!category && category !== '0' ? [category] : [];
+    filters.search = search;
+    setFilters({
+      ...filters,
+      categories: !!category && category !== '0' ? [category] : [],
+      search:search
+    });
+
+    // if (category) {
+    //   category = parseInt(category);
+    //   filters.categories = [category];
+    //   filters.search = search;
+    //   handleFilters([category], 'categories');
+    // }
+    // if (search) {
+    //   handleFilters(search, 'search');
+    // }
     GetChildrenCategory('', true,true).then((res) => {
       setCategories(res);
     });
@@ -103,6 +119,7 @@ const ProductsShop = (props) => {
       <li><a href="/">Accueil</a> <span className="divider">/</span></li>
       <li className="active">Liste des produits</li>
       </ul>
+      {JSON.stringify(filters)}
       <h3> Liste des produits <small className="pull-right"> {products.length} produits sont disponibles </small></h3>	
       <hr className="soft"/>
       {/* <p>
@@ -126,7 +143,7 @@ const ProductsShop = (props) => {
       </div>
       <br className="clr"/>
       <div className="tab-content">
-        <div className="tab-pane active" id="listView">
+        <div className="tab-pane" id="listView">
           {products.map((product,i)=>(
             <div key={i}>
               <div className="row">	  
@@ -158,7 +175,7 @@ const ProductsShop = (props) => {
             </div>
           ))}
         </div>
-        <div className="tab-pane" id="blockView">
+        <div className="tab-pane active" id="blockView">
           <ul className="thumbnails">
             {products.map((product,i)=>(
               <li key={i} className="span3">

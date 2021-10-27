@@ -163,6 +163,8 @@ var dictionary = {
       titleAddProduit:"ajouter produit",
       titleSaveProduct:"Produits",
       productName:"Nom",
+      productShortName:"Nom court",
+      productPlaceHolderShortName:"Nom court...",
       productPlaceHolderName:"Nom...",
       productCategory:"Categorie",
       productOldPrice:"Ancien prix",
