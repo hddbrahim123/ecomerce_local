@@ -15,7 +15,7 @@ function LatestProducts({products}) {
                         <div className="thumbnail">
                             <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
                             <div className="caption">
-                            <h5>{product.name}</h5>
+                            <h6 title={product.name}>{product.shortName}</h6>
                             <p> 
                                 {product.description}
                             </p>

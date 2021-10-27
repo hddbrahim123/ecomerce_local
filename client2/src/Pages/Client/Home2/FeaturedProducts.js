@@ -85,8 +85,8 @@ const FeaturedProducts = ({products}) => {
 												<i className="tag"></i>
 												<Link to={"/product/"+product.slug}><img style={{height:"200px"}} src={urlImage(product)} alt=""/></Link>
 												<div className="caption">
-													<h5>{product.name}</h5>
-													<h4><Link className="btn" to={"/product/"+product.slug}>VIEW</Link> <span className="pull-right">{product.newPrice} Dhs</span></h4>
+													<h6 title={product.name}>{product.shortName}</h6>
+													<h4><Link className="btn" to={"/product/"+product.slug}>DETAIL</Link> <span className="pull-right">{product.newPrice} Dhs</span></h4>
 												</div>
 											</div>
 										</li>
@@ -95,8 +95,8 @@ const FeaturedProducts = ({products}) => {
 							</div>
 						))}
 					</div>
-				<a className="left carousel-control" href="#featured" data-slide="prev">‹</a>
-				<a className="right carousel-control" href="#featured" data-slide="next">›</a>
+				<a className="left carousel-control" href="#featured" data-slide="précédent">‹</a>
+				<a className="right carousel-control" href="#featured" data-slide="suivant">›</a>
 				</div>
 			</div>
 		</div>

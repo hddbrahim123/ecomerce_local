@@ -30,8 +30,8 @@ function Footer2() {
             <a>SUPPLIERS</a>
           </div>
           <div id="socialMedia" className="span3 pull-right">
-            <h5>SOCIAL MEDIA </h5>
-            <a>
+            <h5>DES MÉDIAS SOCIAUX </h5>
+            <a href="https://www.facebook.com/Hmizatofshop/">
               <img
                 width="60"
                 height="60"
@@ -40,7 +40,7 @@ function Footer2() {
                 alt="facebook"
               />
             </a>
-            <a>
+            <a href="https://twitter.com/HmizatTanger">
               <img
                 width="60"
                 height="60"
@@ -49,7 +49,7 @@ function Footer2() {
                 alt="twitter"
               />
             </a>
-            <a>
+            <a href="https://www.youtube.com/channel/UCNPuf2vFWWqDajNkN_fHFDg">
               <img
                 width="60"
                 height="60"

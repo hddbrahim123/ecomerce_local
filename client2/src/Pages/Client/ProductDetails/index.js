@@ -264,7 +264,7 @@ const ProductDetails = (props) => {
 												<div className="span4">
 													<h3>New | Available</h3>				
 													<hr className="soft"/>
-													<h5>{product.name} </h5>
+													<h5>{product.name}</h5>
 													<p>
 													{product.description}
 													</p>
