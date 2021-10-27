@@ -205,6 +205,7 @@ const Products = (props) => {
                             src={urlImage(product)}
                             alt={product.name}
                             className="avatar__lg"
+                            height="100px"
                           />
                           <h5 className="mx-3 text-capitalize">
                             <Link
