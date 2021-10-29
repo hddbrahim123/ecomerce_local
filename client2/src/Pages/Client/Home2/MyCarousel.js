@@ -25,7 +25,7 @@ function MyCarousel() {
           {slides.map((slide,i) =>(
             <div key={i} className={`item${i === 0 ? ' active':''}`}>
               <div className="container">
-                <Link to={slide.link}> <img style={{ height: "300px" }} src={urlImage(slide.image)}/></Link>
+                <Link to={slide.link}> <img style={{ width:'1170px', height: "480px" }} src={urlImage(slide.image)}/></Link>
               </div>
             </div>
           ))}

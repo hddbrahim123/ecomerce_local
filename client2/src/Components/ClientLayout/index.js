@@ -8,7 +8,7 @@ import Header2 from "./Header2";
 import Main2 from "./Main2";
 import Footer2 from "./Footer2";
 import { getCategories } from "../../Core/ApiCore/Category";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 const ClientLayout = (props) => {
 
@@ -16,8 +16,8 @@ const ClientLayout = (props) => {
     localStorage.getItem("language") ?? "Fr"
   );
 
-  const totalQty = useSelector(state => state.Cart.totalQty);
-	const solde = useSelector(state => !!state.Cart.solde ? state.Cart.solde : 0);
+  const totalQty = 0;
+	const solde = 0;
   const [categories, setCategories] = useState([]);
 
   document.head.innerHTML = `<meta charset="utf-8">

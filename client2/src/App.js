@@ -35,8 +35,8 @@ const App = ()=>{
               exact
             />
           ))}
-{/* 
-          {sellerRoutes.map((route , i)=>(
+
+          {/* {sellerRoutes.map((route , i)=>(
             <SellerMiddleware 
               component={route.component}
               path={route.path}

@@ -31,6 +31,15 @@ function Footer2() {
           </div>
           <div id="socialMedia" className="span3 pull-right">
             <h5>DES MÉDIAS SOCIAUX </h5>
+            <a href="https://wa.me/message/X5SWMV5DDRHWC1">
+              <img
+                width="60"
+                height="60"
+                src="images/whatsapp.png"
+                title="whatsapp"
+                alt="facebook"
+              />
+            </a>
             <a href="https://www.facebook.com/Hmizatofshop/">
               <img
                 width="60"

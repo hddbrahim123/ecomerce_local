@@ -37,16 +37,21 @@ const Paginate = (props) => {
   let pages = useSelector(() => arrayPages(totalPage, pageNumber));
 
   const handlePageClick = (newPage) => {
-    onPageChange(newPage);
+    if (newPage > 0 && newPage <= totalPage) {
+      onPageChange(newPage);
+    }
     //setPages(arrayPages(totalPage, newPage));
     //pages
   };
 
   return (
     <React.Fragment>
-      <div className="col-3">
+      <div className="">
+        
+      </div>
+      <div className="pagination" style={{position:'relative'}}>
         <select
-          className={`pagination mt-4 justify-content-center`}
+          className={`input-sm`}
           id="length"
           onChange={(e) => onLengthPageChange ? onLengthPageChange(e.target.value):console.log()}
           value={length}>
@@ -54,85 +59,26 @@ const Paginate = (props) => {
             <option key={i} value={e}>{e}</option>
           ))}
         </select>
+        <ul style={{position:'absolute',top:'0px',right:'10px'}}>
+          <li><a className={pageNumber === 1 ? 'disabled':'disabled'} onClick={() => handlePageClick(1)}>‹‹</a></li>
+          <li><a className={pageNumber === 1 ? 'disabled':'disabled'} onClick={() => handlePageClick(pageNumber - 1)}>‹</a></li>
+          {map(pages, (item, i) => (
+            <li key={i}><a style={item === pageNumber ? {background: 'darkgray'}:{}} className={ item === pageNumber ? 'active' : ''} onClick={() => handlePageClick(item)}>{item}</a></li>
+          ))}
+          <li><a className={pageNumber >= totalPage ? 'disabled':'disabled'} onClick={() => handlePageClick(pageNumber + 1)}>›</a></li>
+          <li><a className={pageNumber >= totalPage ? 'disabled':'disabled'} onClick={() => handlePageClick(totalPage)}>››</a></li>
+        </ul>
       </div>
-      <div className="col-9">
-        <nav aria-label="Page navigation example">
-          <ul className={`pagination mt-2 mb-5 pb-1 justify-content-left`}>
-            <li
-              className={pageNumber === 1 ? "page-item disabled" : "page-item"}
-            >
-              <Link
-                to="#"
-                onClick={() => handlePageClick(1)}
-                className="page-link pagination-rounded shadow-sm "
-                href="#"
-                aria-label="First"
-              >
-                <span aria-hidden="true">&laquo;</span>
-              </Link>
-            </li>
-            <li
-              className={pageNumber === 1 ? "page-item disabled" : "page-item"}
-            >
-              <Link
-                to="#"
-                onClick={() => handlePageClick(pageNumber - 1)}
-                className="page-link pagination-rounded shadow-sm "
-                href="#"
-                aria-label="Previous"
-              >
-                <span aria-hidden="true">&laquo;</span>
-              </Link>
-            </li>
-            {map(pages, (item, i) => (
-              <li key={i} className="page-item">
-                <Link
-                  to="#"
-                  onClick={() => handlePageClick(item)}
-                  className={
-                    item === pageNumber
-                      ? "page-link pagination-rounded active shadow-sm"
-                      : "page-link pagination-rounded shadow-sm"
-                  }
-                >
-                  {item}
-                </Link>
-              </li>
-            ))}
-
-            <li
-              className={
-                pageNumber >= totalPage ? "page-item disabled" : "page-item"
-              }
-            >
-              <Link
-                to="#"
-                onClick={() => handlePageClick(pageNumber + 1)}
-                className="page-link pagination-rounded shadow-sm"
-                href="#"
-                aria-label="Next"
-              >
-                <span aria-hidden="true">&raquo;</span>
-              </Link>
-            </li>
-            <li
-              className={
-                pageNumber >= totalPage ? "page-item disabled" : "page-item"
-              }
-            >
-              <Link
-                to="#"
-                onClick={() => handlePageClick(totalPage)}
-                className="page-link pagination-rounded shadow-sm"
-                href="#"
-                aria-label="Last"
-              >
-                <span aria-hidden="true">&raquo;</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <table>
+        <tbody>
+          <td>
+            
+          </td>
+          <td>
+            
+          </td>
+        </tbody>
+      </table>
     </React.Fragment>
   );
 };

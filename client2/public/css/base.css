@@ -76,7 +76,7 @@
 .navbar-search {margin-top: 8px;}
 /* Responsive--------------------- */
 /* Large desktop */
-@media (min-width: 1200px) {  }
+
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
 .navbar .brand {float: none;text-align: center;}
@@ -96,7 +96,7 @@
 #topMenu{height: auto;float: none;}
 #topMenu li{float: none;}
 .navbar .nav > li > a {border-top:1px solid #666; padding:0}
- }
+}
 /* Landscape phones and down */
 @media (max-width: 480px) {
 #header, #carouselBlk{margin: 0 -20px;}
@@ -104,4 +104,9 @@
 #topMenu{height: auto;float: none;}
 #topMenu li{float: none;}
 .navbar .nav > li > a {border-top:1px solid #666; padding:0}
+}
+@media (min-width: 1200px) { 
+    .thumbnails>li {
+        margin-left: 10px;
+    }
 }

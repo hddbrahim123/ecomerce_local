@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import MetaTags from "react-meta-tags";
+// import MetaTags from "react-meta-tags";
 
 // Import Star Ratings
 // import StarRatings from "react-star-ratings";
@@ -18,7 +18,7 @@ import ReactHtmlParser from "react-html-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, decProductQty, incProductQty, removeProductInCart, setProductQty } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
-import ModalPhotos from "./ModalPhotos";
+// import ModalPhotos from "./ModalPhotos";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
 // import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
@@ -36,15 +36,15 @@ const ProductDetails = (props) => {
 
 	const dispatch = useDispatch();
 
-	const handleImage = (i) => {
-		setIndex(i);
-	};
+	// const handleImage = (i) => {
+	// 	setIndex(i);
+	// };
 
 	let item = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug) : {})
-	let qty = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug)?.qty : {})
+	//let qty = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug)?.qty : {})
 
 	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => setIsOpen(!isOpen);
+	//const toggle = () => setIsOpen(!isOpen);
 	const addItemCart = () => {
 		const { slug, name, newPrice, oldPrice, images } = product;
 		dispatch(addToCart({ slug, name, newPrice, oldPrice, images, qty:1 }));
@@ -66,11 +66,11 @@ const ProductDetails = (props) => {
 		"VENDU AVEC LE PRODUIT",
 	];
 
-	const imageLoading = 'images/lightbox/lightbox-ico-loading.gif'
-	const imageBtnPrev = 'images/lightbox/lightbox-btn-prev.gif'
-	const imageBtnNext = 'images/lightbox/lightbox-btn-next.gif'
-	const imageBtnClose = 'images/lightbox/lightbox-btn-close.gif'
-	const imageBlank = 'images/lightbox/lightbox-blank.gif'
+	// const imageLoading = 'images/lightbox/lightbox-ico-loading.gif'
+	// const imageBtnPrev = 'images/lightbox/lightbox-btn-prev.gif'
+	// const imageBtnNext = 'images/lightbox/lightbox-btn-next.gif'
+	// const imageBtnClose = 'images/lightbox/lightbox-btn-close.gif'
+	// const imageBlank = 'images/lightbox/lightbox-blank.gif'
 
 	const selectImage = (e)=>{
 		setIndex(e)
@@ -124,11 +124,9 @@ const ProductDetails = (props) => {
 	//document.head.title = product.metaTitle ?? "Product Details";
 	return (
 		<div className="span9">
-			<MetaTags>
+			{/* <MetaTags>
 				<title>{product.metaTitle ?? "Product Details"}</title>
-				{/* <meta name="title" content={product.metaTitle ?? "Product Details"} />
-				<meta name="description" content={product.metaDescription ?? "Product Details"} /> */}
-			</MetaTags>
+			</MetaTags> */}
 			<ul className="breadcrumb">
 				<li><Link to="/">Accueil</Link> <span className="divider">/</span></li>
 				<li><Link to="/products">Produits</Link> <span className="divider">/</span></li>

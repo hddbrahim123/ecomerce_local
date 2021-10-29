@@ -8,6 +8,7 @@ import ProductCard from "./ProductCard";
 import Paginate from "../../../Components/Comon/Paginate";
 import { Link,useParams } from "react-router-dom";
 import { API_URL } from "../../../config";
+import { isEmpty } from "lodash";
 
 const ProductsShop = (props) => {
   const [language] = useState(
@@ -119,24 +120,29 @@ const ProductsShop = (props) => {
       <li><a href="/">Accueil</a> <span className="divider">/</span></li>
       <li className="active">Liste des produits</li>
       </ul>
-      {JSON.stringify(filters)}
-      <h3> Liste des produits <small className="pull-right"> {products.length} produits sont disponibles </small></h3>	
+      {/* <h3> Liste des produits <small className="pull-right"> {products.length} produits sont disponibles </small></h3>	 */}
       <hr className="soft"/>
       {/* <p>
         Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
       </p> */}
+      <p>{!isEmpty(products) ? `résultat : ${pagination.totalCount} produit(s)`:"aucun résultat"} </p>
+      {!isEmpty(products) && <Paginate
+        pagination={pagination}
+        onPageChange={onPageChange}
+        onLengthPageChange={onLengthPageChange}
+        />}
       <hr className="soft"/>
-      <form className="form-horizontal span6">
+      {/* <form className="form-horizontal span6">
         <div className="control-group">
-          <label className="control-label alignL">Sort By </label>
+          <label className="control-label alignL">Trier par </label>
             <select>
-                  <option>Priduct name A - Z</option>
-                  <option>Priduct name Z - A</option>
-                  <option>Priduct Stoke</option>
+                  <option>Product name A - Z</option>
+                  <option>Product name Z - A</option>
+                  <option>Product Stoke</option>
                   <option>Price Lowest first</option>
                 </select>
         </div>
-      </form>
+      </form> */}
       <div id="myTab" className="pull-right">
       <a href="#listView" onClick={()=>setIsListView(true)} data-toggle="tab"><span className={`btn btn-large ${isListView ? "btn-primary":""}`}><i className="icon-list"></i></span></a>
       <a href="#blockView" onClick={()=>setIsListView(false)} data-toggle="tab"><span className={`btn btn-large ${!isListView ? "btn-primary":""}`}><i className="icon-th-large"></i></span></a>
@@ -196,17 +202,11 @@ const ProductsShop = (props) => {
         </div>
       </div>
       {/* <a href="compair.html" className="btn btn-large pull-right">Compair Product</a> */}
-      <div className="pagination">
-        <ul>
-          <li><a href="#">‹</a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#">›</a></li>
-        </ul>
-      </div>
+      {!isEmpty(products) && <Paginate
+        pagination={pagination}
+        onPageChange={onPageChange}
+        onLengthPageChange={onLengthPageChange}
+        />}
       <br className="clr"/>
     </div>
   );
