@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { GetChildrenCategory } from "../../../Core/ApiCore/Category";
+//import { GetChildrenCategory } from "../../../Core/ApiCore/Category";
 import { getProductsViewClient } from "../../../Core/ApiCore/ProductClient";
-import FilterCategory from "./FilterCategory";
-import FilterPrice from "./FilterPrice";
-import ProductCard from "./ProductCard";
 
 import Paginate from "../../../Components/Comon/Paginate";
-import { Link,useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
 
 const ProductsShop = (props) => {
-  const [language] = useState(
-    localStorage.getItem("language") ?? "Fr"
-  );
-  const [categories, setCategories] = useState([]);
+  //const [language] = useState(localStorage.getItem("language") ?? "Fr");
+  //const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   //State Pagination
   const [pagination, setPagination] = useState({
@@ -105,9 +100,9 @@ const ProductsShop = (props) => {
     // if (search) {
     //   handleFilters(search, 'search');
     // }
-    GetChildrenCategory('', true,true).then((res) => {
-      setCategories(res);
-    });
+    // GetChildrenCategory('', true,true).then((res) => {
+    //   setCategories(res);
+    // });
     // getActiveCategories().then((res) => {
     //   setCategories(res);
     // });
@@ -152,27 +147,23 @@ const ProductsShop = (props) => {
         <div className="tab-pane" id="listView">
           {products.map((product,i)=>(
             <div key={i}>
-              <div className="row">	  
-                <div className="span2">
+              <div title={product.name} className="row">	  
+                <Link to={"/product/"+product.slug} className="span2">
                   <img src={urlImage(product)} alt=""/>
-                </div>
+                </Link>
                 <div className="span4">
-                  <h3>New | Available</h3>				
+                  <h3>{product.shortName}</h3>				
                   <hr className="soft"/>
-                  <h6 title={product.name}>{product.shortName}</h6>
-                  <p>
-                  {product.description}
-                  </p>
-                  <Link className="btn btn-small pull-right" to={"/Product/"+product.slug}>Voir les détails</Link>
+                  <h6 title={product.name}>{product.name}</h6>
+                  {/* <Link className="btn btn-small pull-right" to={"/Product/"+product.slug}>Voir les détails</Link> */}
                   <br className="clr"/>
                 </div>
                 <div className="span3 alignR">
                   <form className="form-horizontal qtyFrm">
-                    <h3> {product.newPrice} Dhs</h3>
                     {/* <label className="checkbox">
                       <input type="checkbox"/>  Adds product to compair
-                    </label><br/> */}
-                    <Link to={"/product/"+product.slug} className="btn btn-large btn-primary"> Ajouter <i className=" icon-shopping-cart"></i></Link>
+                    </label> */}
+                    <br/><Link to={"/product/"+product.slug} className="btn btn-large btn-primary"> <i className=" icon-shopping-cart"> </i> {product.newPrice} Dhs</Link>
                     {/* <Link to={"/product/"+product.slug} className="btn btn-large"><i className="icon-zoom-in"></i></Link> */}
                   </form>
                 </div>
@@ -185,14 +176,11 @@ const ProductsShop = (props) => {
           <ul className="thumbnails">
             {products.map((product,i)=>(
               <li key={i} className="span3">
-                <div className="thumbnail">
+                <div title={product.name} className="thumbnail">
                   <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
                   <div className="caption">
-                  <h6 title={product.name}>{product.shortName}</h6>
-                    <p> 
-                    {product.description}
-                    </p>
-                    <h4 style={{textAlign:"center"}}> <Link className="btn" to={"/product/"+product.slug}>Ajouter <i className="icon-shopping-cart"></i></Link> <Link className="btn btn-primary" to={"/product/"+product.slug}>{product.newPrice} Dhs</Link></h4>
+                    <h6 title={product.name}>{product.shortName}</h6>
+                    <h4><Link className="btn btn-primary" to={"/product/"+product.slug}><i className="icon-shopping-cart"></i> {product.newPrice} Dhs</Link></h4>
                   </div>
                 </div>
               </li>

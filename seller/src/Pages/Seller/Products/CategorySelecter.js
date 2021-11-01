@@ -87,9 +87,8 @@ function CategorySelecter({ categories,selectCategory,selectedCategories,setSele
               className=""
               style={selectedId === category.id ? { backgroundColor: "ActiveCaption" } : {}}
             >
-              <a
+              <a className="link-category"
                 style={selectedId === category.id ? { textDecoration: "underline" } : {}}
-                href="javascript:"
                 onClick={() => {
                   handleClick(category, level);
                 }}

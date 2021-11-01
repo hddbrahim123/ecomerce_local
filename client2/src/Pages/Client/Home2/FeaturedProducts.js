@@ -81,12 +81,12 @@ const FeaturedProducts = ({products}) => {
 								<ul className="thumbnails">
 									{products.map((product,j)=>
 										<li key={j} className="span3">
-											<div className="thumbnail">
+											<div title={product.name} className="thumbnail">
 												<i className="tag"></i>
 												<Link to={"/product/"+product.slug}><img style={{width:'160px',height:'160px'}} src={urlImage(product)} alt=""/></Link>
 												<div className="caption">
 													<h6 title={product.name}>{product.shortName}</h6>
-													<h4><Link className="btn" to={"/product/"+product.slug}>DETAIL</Link> <span className="pull-right">{product.newPrice} Dhs</span></h4>
+													<h4><Link className="btn" to={"/product/"+product.slug}> <i className="icon-shopping-cart"></i> {product.newPrice} Dhs</Link></h4>
 												</div>
 											</div>
 										</li>

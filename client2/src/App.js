@@ -1,8 +1,8 @@
 import React from "react";
 import { HashRouter as Router , Switch} from "react-router-dom";
 
-import './assets/scss/App.scss'
-import './App.css'
+// import './assets/scss/App.scss'
+// import './App.css'
 
 //imports Layouts
 import ClientLayout from "./Components/ClientLayout";

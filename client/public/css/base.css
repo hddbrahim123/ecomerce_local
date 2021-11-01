@@ -19,7 +19,7 @@
 #sidebar ul li li a{background:#eee; padding-left:14px;font-weight:normal;display:block;   font-size:13px; line-height:26px;}
 /* body--- */
 .thumbnail>a{display:block; text-align:center}
-.thumbnail h5,.thumbnail p{text-align:center}
+.thumbnail h6,.thumbnail p{text-align:center}
 /* Product page--- */
 .alignR{text-align:right;}
 .control-label.alignL, .alignL{text-align:left;}

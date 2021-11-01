@@ -6,28 +6,28 @@ function Footer2() {
       <div className="container">
         <div className="row">
           <div className="span3">
-            <h5>ACCOUNT</h5>
-            <a href="login.html">YOUR ACCOUNT</a>
-            <a href="login.html">PERSONAL INFORMATION</a>
-            <a href="login.html">ADDRESSES</a>
-            <a href="login.html">DISCOUNT</a>
-            <a href="login.html">ORDER HISTORY</a>
+            <h5>COMPTE</h5>
+            <a href="/">VOTRE COMPTE</a>
+            <a href="/">INFORMATIONS PERSONNELLES</a>
+            <a href="/">ADRESSES</a>
+            <a href="/">RÉDUCTION</a>
+            <a href="/">HISTORIQUE DES COMMANDES</a>
           </div>
           <div className="span3">
             <h5>INFORMATION</h5>
-            <a href="contact.html">CONTACT</a>
-            <a href="register.html">REGISTRATION</a>
-            <a href="legal_notice.html">LEGAL NOTICE</a>
-            <a href="tac.html">TERMS AND CONDITIONS</a>
-            <a href="faq.html">FAQ</a>
+            <a href="/">CONTACT</a>
+            <a href="/">ENREGISTREMENT</a>
+            <a href="/">MENTION LÉGALE</a>
+            <a href="/">TERMES ET CONDITIONS</a>
+            <a href="/">FAQ</a>
           </div>
           <div className="span3">
-            <h5>OUR OFFERS</h5>
-            <a>NEW PRODUCTS</a>
-            <a>TOP SELLERS</a>
-            <a href="special_offer.html">SPECIAL OFFERS</a>
-            <a>MANUFACTURERS</a>
-            <a>SUPPLIERS</a>
+            <h5>NOS OFFRES</h5>
+            <a>NOUVEAUX PRODUITS</a>
+            <a>MEILLEURES VENTES</a>
+            <a href="/">OFFRES SPÉCIALES</a>
+            <a>FABRICANTES</a>
+            <a>FOURNISSEUSES</a>
           </div>
           <div id="socialMedia" className="span3 pull-right">
             <h5>DES MÉDIAS SOCIAUX </h5>
@@ -69,7 +69,7 @@ function Footer2() {
             </a>
           </div>
         </div>
-        <p className="pull-right">© Bootshop</p>
+        <p className="pull-right">© Tous droits réservés</p>
       </div>
       {/* Container End */}
     </div>

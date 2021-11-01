@@ -4,7 +4,13 @@
     margin-top: $head-height;
     padding: 20px;
 }
-
+.link-category{
+    cursor: pointer;
+    color: #0d6efd;
+}
+.link-category:hover{
+    color: #0a58ca;
+}
 
 @media screen and (min-width:968px) {
     .content__page{

@@ -47,7 +47,6 @@ function Header2(props) {
 	return (
 	<div id="header">
 		<div className="container">
-			{JSON.stringify(filter)}
 			<div id="welcomeLine" className="row">
 				<div className="span6">{welcome}<strong> {client}</strong></div>
 				<div className="span6">

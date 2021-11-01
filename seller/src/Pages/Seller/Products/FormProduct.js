@@ -75,7 +75,7 @@ const FormProduct = (props) => {
   //handle product
   const [product, setProduct] = useState({
     name: "",
-    shortMame: "",
+    shortName: "",
     categoryId: 0,
     rating: 3,
     oldPrice: "",
@@ -499,12 +499,12 @@ const FormProduct = (props) => {
                     {content.productShortName}
                   </label>
                   <input
-                    id="shortMame"
+                    id="shortName"
                     type="text"
                     className="form-control"
                     placeholder={content.productPlaceHolderShortName}
                     value={
-                      !isEmpty(productEdit) ? productEdit.shortMame : product.shortMame
+                      !isEmpty(productEdit) ? productEdit.shortName : product.shortName
                     }
                     onChange={
                       !isEmpty(productEdit) ? handleProductEdit : handleProduct

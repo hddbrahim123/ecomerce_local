@@ -198,7 +198,7 @@ const ProductDetails = (props) => {
 						</div>
 					</form>
 					<hr className="soft"/>
-					<h4>{product.quantity} items in stock</h4>
+					<h4>{product.quantity} articles en stock</h4>
 					{/* <form className="form-horizontal qtyFrm pull-right">
 					<div className="control-group">
 						<label className="control-label"><span>Color</span></label>
@@ -212,8 +212,9 @@ const ProductDetails = (props) => {
 						</div>
 					</div>
 					</form> */}
-					<hr className="soft clr"/>
-					{ReactHtmlParser(product.details)}
+					{!!product.details && <hr className="soft clr"/>}
+					
+					{!!product.details && ReactHtmlParser(product.details)}
 					{/* <a className="btn btn-small pull-right" href="#detail">More Details</a>
 					<br className="clr"/>
 					<a href="#" name="detail"></a>
@@ -221,15 +222,15 @@ const ProductDetails = (props) => {
 				</div>
 				<div className="span9">
 					<ul id="productDetail" className="nav nav-tabs">
-						<li className="active"><a href="#home" data-toggle="tab">Product Details</a></li>
-						<li><a href="#profile" data-toggle="tab">Related Products</a></li>
+						<li className="active"><a href="#home" data-toggle="tab">Details Produit</a></li>
+						<li><a href="#profile" data-toggle="tab">Produits connexe</a></li>
 					</ul>
 					<div id="myTabContent" className="tab-content">
 						<div className="tab-pane fade active in" id="home">
-						<h4>Product Information</h4>
+						<h4>Informations de produit</h4>
 						<table className="table table-bordered">
 							<tbody>
-								<tr className="techSpecRow"><th colSpan="2">Product Details</th></tr>
+								{/* <tr className="techSpecRow"><th colSpan="2">Product Details</th></tr> */}
 								{properties.map((p,i)=> !product[p] ? undefined : (
 									<tr key={i} className="techSpecRow"><td className="techSpecTD1">{titles[i]}: </td><td className="techSpecTD2">{ReactHtmlParser(product[p])}</td></tr>
 								))}
@@ -240,9 +241,8 @@ const ProductDetails = (props) => {
 							<tr className="techSpecRow"><td className="techSpecTD1">Display size:</td><td className="techSpecTD2">3</td></tr> */}
 							</tbody>
 						</table>
-						
-						<h5>Features</h5>
-						{ReactHtmlParser(product.specification)}
+						{!!product.specification ? <h5>Spécification</h5> : ''}
+						{!!product.specification ? ReactHtmlParser(product.specification) : ''}
 						</div>
 						<div className="tab-pane fade" id="profile">
 							<div id="myTab" className="pull-right">
@@ -256,28 +256,24 @@ const ProductDetails = (props) => {
 									{releatedProducts.map((product,i)=>(
 										<div key={i}>
 											<div className="row">	  
-												<div className="span2">
-													<img src={product.image} alt=""/>
-												</div>
+												<Link onClick={()=>window.scrollTo(0,0)} to={`/product/${product.slug}`} className="span2">
+													<img src={urlImage(product.image,product)} alt=""/>
+												</Link>
 												<div className="span4">
-													<h3>New | Available</h3>				
+													<h3>{product.shortName}</h3>				
 													<hr className="soft"/>
 													<h5>{product.name}</h5>
-													<p>
-													{product.description}
-													</p>
-													<Link className="btn btn-small pull-right" to={`/product/${product.slug}`}>View Details</Link>
+													<Link className="btn btn-small pull-right" onClick={()=>window.scrollTo(0,0)} to={`/product/${product.slug}`}>View Details</Link>
 													<br className="clr"/>
 												</div>
 												<div className="span3 alignR">
 													<form className="form-horizontal qtyFrm">
-														<h3> {product.newPrice} Dhs</h3>
 														{/* <label className="checkbox">
 															<input type="checkbox"/>  Adds product to compair
 														</label> */}
 														<br/>
 														<div className="btn-group">
-															<Link to={"/product/"+product.slug} className="btn btn-large btn-primary"> Ajouter au panier <i className=" icon-shopping-cart"></i></Link>
+															<Link onClick={()=>window.scrollTo(0,0)} to={"/product/"+product.slug} className="btn btn-large btn-primary"> <i className=" icon-shopping-cart"></i> {product.newPrice} Dhs</Link>
 															{/* <a href="" className="btn btn-large"><i className="icon-zoom-in"></i></a> */}
 														</div>
 													</form>
@@ -291,12 +287,11 @@ const ProductDetails = (props) => {
 									<ul className="thumbnails">
 									{releatedProducts.map((product,i)=>(
 										<li key={i} className="span3">
-											<div className="thumbnail">
-												<Link to={`/product/${product.slug}`}><img src={product.image} alt=""/></Link>
+											<div title={product.name} className="thumbnail">
+												<Link onClick={()=>window.scrollTo(0,0)} to={`/product/${product.slug}`}><img src={urlImage(product.image,product)} alt=""/></Link>
 												<div className="caption">
-													<h5>{product.name}</h5>
-													<p>{product.description}</p>
-													<h4 style={{textAlign:"center"}}> <button className="btn">Add to <i className="icon-shopping-cart"></i></button> <a className="btn btn-primary" href="#">€222.00</a></h4>
+													<h5>{product.shortName}</h5>
+													<h4> <button className="btn btn-primary"> <i className="icon-shopping-cart"></i> {product.newPrice} Dh</button></h4>
 												</div>
 											</div>
 										</li>

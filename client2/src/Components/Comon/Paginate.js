@@ -46,9 +46,6 @@ const Paginate = (props) => {
 
   return (
     <React.Fragment>
-      <div className="">
-        
-      </div>
       <div className="pagination" style={{position:'relative'}}>
         <select
           className={`input-sm`}
@@ -69,16 +66,6 @@ const Paginate = (props) => {
           <li><a className={pageNumber >= totalPage ? 'disabled':'disabled'} onClick={() => handlePageClick(totalPage)}>››</a></li>
         </ul>
       </div>
-      <table>
-        <tbody>
-          <td>
-            
-          </td>
-          <td>
-            
-          </td>
-        </tbody>
-      </table>
     </React.Fragment>
   );
 };

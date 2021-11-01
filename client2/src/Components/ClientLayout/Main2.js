@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ReactHtmlParser from "react-html-parser";
 
 function Main2(props) {
   const {totalQty, solde, categories} = props;
-  const [categoryId, setCategoryId] = useState();
+  let categoryId = 0;
   let url = window.location.hash.split('/');
   if (url.length == 3) {
-    //setFilter({...filter, categoryId: url[2], search: url[3]?.replaceAll('_',' ')?.replaceAll('%20',' ')})
-    setCategoryId(url[2]);
+    categoryId = url[2];
   }
   const goToProducts = (categoryId) => {
 		window.location=(`/#/products/${categoryId}/`);
@@ -47,7 +45,7 @@ function Main2(props) {
                   {category.children && (
                     <ul>
                       {category.children.map((subCategory,j)=>(
-                        <li key={j}><Link style={categoryId === subCategory.id ? {}:{}} onClick={()=>goToProducts(subCategory.id)}> <i className="icon-chevron-right"></i> {subCategory.name}</Link></li>
+                        <li key={j}><a style={categoryId === subCategory.id ? {}:{}} onClick={()=>goToProducts(subCategory.id)}> <i className="icon-chevron-right"></i> {subCategory.name}</a></li>
                       ))}
                     </ul>
                   )}

@@ -12,12 +12,14 @@ function LatestProducts({products}) {
             <ul className="thumbnails">
                 {products.map((product,i)=>(
                     <li key={i} className="span2">
-                        <div className="thumbnail">
+                        <div title={product.name} className="thumbnail">
                             <Link to={"/product/"+product.slug}><img style={{width:'160px',height:'160px'}} src={urlImage(product)} alt=""/></Link>
                             <div className="caption">
                                 <h6 title={product.name}>{product.shortName}</h6>
-                                <p>{product.description}</p>
-                                <h4 style={{textAlign:"center"}}><Link to={"/product/"+product.slug} className="btn">Ajouter <i className="icon-shopping-cart"></i></Link> <Link className="btn btn-primary" to={"/product/"+product.slug}>{product.newPrice} Dh</Link></h4>
+                                {/* <p>{product.description}</p> */}
+                                <h4>
+                                {/* <Link to={"/product/"+product.slug} className="btn">Ajouter <i className="icon-shopping-cart"></i></Link> */}
+                                <Link className="btn btn-primary" to={"/product/"+product.slug}><i className="icon-shopping-cart"></i> {product.newPrice} Dh</Link></h4>
                             </div>
                         </div>
                     </li>
