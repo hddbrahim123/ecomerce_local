@@ -85,7 +85,7 @@ const FeaturedProducts = ({products}) => {
 												<i className="tag"></i>
 												<Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
 												<div className="caption">
-													<h6 title={product.name}>{product.shortName}</h6>
+													<h6 title={product.name}>{!!product.shortName ? product.shortName : product.name.substring(0,10)}</h6>
 													<h4><Link className="btn" to={"/product/"+product.slug}> <i className="icon-shopping-cart"></i> {product.newPrice} Dhs</Link></h4>
 												</div>
 											</div>

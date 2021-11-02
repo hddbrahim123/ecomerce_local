@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 function Main2(props) {
@@ -41,11 +41,11 @@ function Main2(props) {
             <ul id="sideManu" className="nav nav-tabs nav-stacked">
               {categories.map((category,i)=>(
                 // {!!category.icon?ReactHtmlParser(category.icon.replace('class=','className=')):''}
-                <li key={i} className="subMenu">{category.children ? (<a style={categoryId === category.id ? {}:{}}> {category.name}</a>):(<a style={categoryId === category.id ? {}:{}} href={`/products/${category.id}`}> {category.name}</a>)}
+                <li key={i} className="subMenu">{category.children ? (<a className={categoryId === category.id ? 'selected':''}> {category.name}</a>):(<Link className={categoryId === category.id ? 'selected':''} to={`/products/${category.id}`}> {category.name}</Link>)}
                   {category.children && (
                     <ul>
                       {category.children.map((subCategory,j)=>(
-                        <li key={j}><a style={categoryId === subCategory.id ? {}:{}} onClick={()=>goToProducts(subCategory.id)}> <i className="icon-chevron-right"></i> {subCategory.name}</a></li>
+                        <li key={j}><a className={categoryId === subCategory.id ? 'selected':''} onClick={()=>goToProducts(subCategory.id)}> <i className="icon-chevron-right"></i> {subCategory.name}</a></li>
                       ))}
                     </ul>
                   )}

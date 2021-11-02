@@ -6,7 +6,7 @@ export const getOrders = (filter)=>{
     return fetch(`${API_URL}Admin/GetOrdersView`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },
@@ -22,7 +22,7 @@ export const getOrdersStatus = ()=>{
     return fetch(`${API_URL}User/GetOrderStatus`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         }
@@ -37,7 +37,7 @@ export const GetOrderDetailsView = (orderNumber)=>{
     return fetch(`${API_URL}Admin/GetOrderView?orderNumber=${orderNumber}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },
@@ -53,7 +53,7 @@ export const createOrder = (order)=>{
     return fetch(`${API_URL}User/CreateOrder`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
         },
         body:JSON.stringify(order)
@@ -67,7 +67,7 @@ export const UpdateOrderStatus = (orderNumber, status)=>{
     return fetch(`${API_URL}Admin/UpdateOrderStatus?orderNumber=${orderNumber}&status=${status}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },

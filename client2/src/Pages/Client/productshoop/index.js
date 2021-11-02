@@ -152,7 +152,7 @@ const ProductsShop = (props) => {
                   <img className="list-view-image" src={urlImage(product)} alt=""/>
                 </Link>
                 <div className="span4">
-                  <h3>{product.shortName}</h3>				
+                  <h3>{!!product.shortName ? product.shortName : product.name.substring(0,10)}</h3>				
                   <hr className="soft"/>
                   <h6 title={product.name}>{product.name}</h6>
                   {/* <Link className="btn btn-small pull-right" to={"/Product/"+product.slug}>Voir les détails</Link> */}
@@ -179,7 +179,7 @@ const ProductsShop = (props) => {
                 <div title={product.name} className="thumbnail">
                   <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
                   <div className="caption">
-                    <h6 title={product.name}>{product.shortName}</h6>
+                    <h6 title={product.name}>{!!product.shortName ? product.shortName : product.name.substring(0,10)}</h6>
                     <h4><Link className="btn btn-primary" to={"/product/"+product.slug}><i className="icon-shopping-cart"></i> {product.newPrice} Dhs</Link></h4>
                   </div>
                 </div>

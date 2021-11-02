@@ -4,10 +4,9 @@ export const GetSlideData = ()=>{
     return fetch(`${API_URL}Home/GetSlideData`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
-        },
-        body:JSON.stringify({})
+        }
     })
     .then(res=>res.json())
     .then(res=>res)
@@ -18,10 +17,9 @@ export const getProductsTopRating = (count)=>{
     return fetch(`${API_URL}Home/GetProductsTopRating?count=${count}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
-        },
-        body:JSON.stringify({})
+        }
     })
     .then(res=>res.json())
     .then(res=>res)
@@ -32,10 +30,9 @@ export const getProductsOffer = (count)=>{
     return fetch(`${API_URL}Home/GetProductsOffer?count=${count}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
-        },
-        body:JSON.stringify({})
+        }
     })
     .then(res=>res.json())
     .then(res=>res)
@@ -46,10 +43,9 @@ export const getProductsTopSale = (count)=>{
     return fetch(`${API_URL}Home/GetProductsTopSale?count=${count}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
-        },
-        body:JSON.stringify({})
+        }
     })
     .then(res=>res.json())
     .then(res=>res)
@@ -59,10 +55,9 @@ export const getLatestProductsViewUser = (count)=>{
     return fetch(`${API_URL}Home/GetLatestProductsViewUser?count=${count}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
-        },
-        body:JSON.stringify({})
+        }
     })
     .then(res=>res.json())
     .then(res=>res)

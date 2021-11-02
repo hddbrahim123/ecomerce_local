@@ -6,7 +6,7 @@ export const UpSlide = (slideId)=>{
     return fetch(`${API_URL}Home/UpSlide?slideId=${slideId}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },
@@ -22,7 +22,7 @@ export const DownSlide = (slideId)=>{
     return fetch(`${API_URL}Home/DownSlide?slideId=${slideId}`,{
         method:"POST",
         headers:{
-            "Accept":"application/json",
+            Accept:"application/json",
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },

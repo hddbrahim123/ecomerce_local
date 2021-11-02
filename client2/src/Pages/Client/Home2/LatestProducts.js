@@ -15,7 +15,7 @@ function LatestProducts({products}) {
                         <div title={product.name} className="thumbnail">
                             <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
                             <div className="caption">
-                                <h6 title={product.name}>{product.shortName}</h6>
+                                <h6 title={product.name}>{!!product.shortName ? product.shortName : product.name.substring(0,10)}</h6>
                                 {/* <p>{product.description}</p> */}
                                 <h4>
                                 {/* <Link to={"/product/"+product.slug} className="btn">Ajouter <i className="icon-shopping-cart"></i></Link> */}

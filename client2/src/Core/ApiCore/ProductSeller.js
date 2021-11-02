@@ -7,9 +7,9 @@ export const getProductsSeller = (filters) => {
     return fetch(`${API_URL}Admin/GetProductsViewPage`, {
         method: "POST",
         headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(filters)
 
@@ -25,9 +25,9 @@ export const getProductViewSeller = (slug) => {
     return fetch(`${API_URL}Admin/GetProductDetailView?slug=${slug}`, {
         method: "POST",
         headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
         .then(res => res.json())
@@ -40,9 +40,9 @@ export const getProductViewEditSeller = (slug) => {
     return fetch(`${API_URL}Admin/GetProductEdit?slug=${slug}`, {
         method: "POST",
         headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
         .then(res => res.json())
@@ -56,7 +56,7 @@ export const SaveProduct = (product) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(product)
     })
@@ -70,7 +70,7 @@ export const UpdateProduct = (product) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(product)
     })
@@ -83,7 +83,7 @@ export const UploadImages = (slug, images) => {
     return fetch(`${API_URL}Admin/UploadImages?slug=${slug}`, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: images
     })
@@ -97,9 +97,9 @@ export const UpdateImages = (slug, images) => {
     return fetch(`${API_URL}Admin/UpdateImages?slug=${slug}`, {
         method: "POST",
         headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(images)
     })
@@ -113,7 +113,7 @@ export const RemoveProduct = (slug) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({})
     })
@@ -127,7 +127,7 @@ export const RemoveImage = (imageGuid) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({})
     })
@@ -140,7 +140,7 @@ export const UpProduct = (slug) => {
     return fetch(`${API_URL}Admin/UpProduct?slug=${slug}`, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
     .then(res => res.json())
@@ -151,7 +151,7 @@ export const DownProduct = (slug) => {
     return fetch(`${API_URL}Admin/DownProduct?slug=${slug}`, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
     .then(res => res.json())
@@ -163,7 +163,7 @@ export const OrderProducts = (force) => {
     return fetch(`${API_URL}Admin/OrderProducts?force=${force}`, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
     .then(res => res.json())
@@ -176,7 +176,7 @@ export const InsertSlide = (slide) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(slide)
     })
@@ -190,7 +190,7 @@ export const UpdateSlide = (slide) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(slide)
     })
@@ -203,7 +203,7 @@ export const UploadImageSlide = (id, images) => {
     return fetch(`${API_URL}Home/UploadSlideImage?slideId=${id}`, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: images
     })
@@ -217,7 +217,7 @@ export const RemoveSlide = (slideId) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
     .then(res => res.json())
@@ -229,7 +229,7 @@ export const GetSlide = (slideId) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
     .then(res => res.json())
@@ -241,7 +241,7 @@ export const GetLastSlideView = () => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     })
     .then(res => res.json())
