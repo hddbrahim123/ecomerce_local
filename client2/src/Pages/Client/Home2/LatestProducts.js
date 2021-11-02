@@ -13,7 +13,7 @@ function LatestProducts({products}) {
                 {products.map((product,i)=>(
                     <li key={i} className="span2">
                         <div title={product.name} className="thumbnail">
-                            <Link to={"/product/"+product.slug}><img style={{width:'160px',height:'160px'}} src={urlImage(product)} alt=""/></Link>
+                            <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
                             <div className="caption">
                                 <h6 title={product.name}>{product.shortName}</h6>
                                 {/* <p>{product.description}</p> */}

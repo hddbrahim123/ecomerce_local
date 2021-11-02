@@ -83,7 +83,7 @@ const FeaturedProducts = ({products}) => {
 										<li key={j} className="span3">
 											<div title={product.name} className="thumbnail">
 												<i className="tag"></i>
-												<Link to={"/product/"+product.slug}><img style={{width:'160px',height:'160px'}} src={urlImage(product)} alt=""/></Link>
+												<Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
 												<div className="caption">
 													<h6 title={product.name}>{product.shortName}</h6>
 													<h4><Link className="btn" to={"/product/"+product.slug}> <i className="icon-shopping-cart"></i> {product.newPrice} Dhs</Link></h4>

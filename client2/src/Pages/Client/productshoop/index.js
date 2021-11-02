@@ -149,7 +149,7 @@ const ProductsShop = (props) => {
             <div key={i}>
               <div title={product.name} className="row">	  
                 <Link to={"/product/"+product.slug} className="span2">
-                  <img src={urlImage(product)} alt=""/>
+                  <img className="list-view-image" src={urlImage(product)} alt=""/>
                 </Link>
                 <div className="span4">
                   <h3>{product.shortName}</h3>				
@@ -163,7 +163,7 @@ const ProductsShop = (props) => {
                     {/* <label className="checkbox">
                       <input type="checkbox"/>  Adds product to compair
                     </label> */}
-                    <br/><Link to={"/product/"+product.slug} className="btn btn-large btn-primary"> <i className=" icon-shopping-cart"> </i> {product.newPrice} Dhs</Link>
+                    <br/><Link to={"/product/"+product.slug} className="btn btn-large btn-primary btn-price"> <i className=" icon-shopping-cart"> </i> {product.newPrice} Dhs</Link>
                     {/* <Link to={"/product/"+product.slug} className="btn btn-large"><i className="icon-zoom-in"></i></Link> */}
                   </form>
                 </div>

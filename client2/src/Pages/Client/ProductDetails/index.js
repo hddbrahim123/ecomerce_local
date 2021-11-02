@@ -136,7 +136,7 @@ const ProductDetails = (props) => {
 			<div className="row">	  
 				<div id="gallery" className="span3">
 					{product.images && index > -1 && <a image={product.images[0]} title={product.name}>
-						<img src={product.images[0]} style={{width:"100%"}} alt={product.name}/>
+						<img src={product.images[0]} alt={product.name}/>
 					</a>}
 					<div id="differentview" className="moreOptopm carousel slide">
 						<div className="carousel-inner">
