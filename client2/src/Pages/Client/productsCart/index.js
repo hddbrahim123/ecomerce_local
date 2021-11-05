@@ -14,7 +14,6 @@ import {
     setProductQty
 } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
-import CreateOrderModal from "./CreateOrderModal";
 import { createOrder } from "../../../Core/ApiCore/Order";
 
 const ProductsCart = (props) => {
@@ -144,7 +143,7 @@ const ProductsCart = (props) => {
             <tbody>
                 {products.map((product,i)=> (
                     <tr key={i}>
-                        <td> <img width="60" src={!isEmpty(product.images)?product.images[0]:""} alt=""/></td>
+                        <td><Link to={"/product/"+product.slug}><img width="60" src={!isEmpty(product.images)?product.images[0]:""} alt=""/></Link></td>
                         <td>{product.name}</td>
                         <td>
                         <div className="input-append"><input value={product.qty} onChange={(e)=>changeQty(e,product)} className="span1" style={{maxWidth:"34px"}} placeholder="1" id="appendedInputButtons" size="16" type="text"/><button className="btn" type="button" onClick={()=>decrement(product)}><i className="icon-minus"></i></button><button className="btn" type="button" onClick={()=>increment(product)}><i className="icon-plus"></i></button><button className="btn btn-danger" type="button" onClick={()=>remove(product)}><i className="icon-remove icon-white"></i></button>				</div>
@@ -245,7 +244,7 @@ const ProductsCart = (props) => {
                             </div>
                             <div className="control-group">
                                 <div className="controls">
-                                    <button onClick={submitOrder} className="btn">Acheter</button>
+                                    <button onClick={submitOrder} className="btn" disabled={isEmpty(products)}>Acheter</button>
                                 </div>
                             </div>
                         </form>
@@ -255,11 +254,11 @@ const ProductsCart = (props) => {
         </table>
         <Link to="/Products" className="btn btn-large"><i className="icon-arrow-left"></i> Continuer vos achats </Link>
         {/* <button onClick={toggleModal} className="btn btn-large pull-right">Acheter</button> */}
-        <CreateOrderModal
+        {/* <CreateOrderModal
             language={language}
             isOpen={modal}
             toggle={toggleModal}
-        />
+        /> */}
     </div>
 );
 };

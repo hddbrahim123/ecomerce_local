@@ -2,10 +2,11 @@ import { API_URL } from "../../config"
 
 export const getProductsViewClient = (filters)=>{
     return fetch(`${API_URL}User/GetProductsViewPage`,{
+        //mode: 'cors',
         method:"POST",
         headers:{
-            Accept:"application/json",
-            "Content-Type":"application/json",
+            'Accept':"*/*",
+            'Content-Type':"application/json"
         },
         body:JSON.stringify(filters)
     })
@@ -13,7 +14,6 @@ export const getProductsViewClient = (filters)=>{
     .then(res=>res)
     .catch(err=>console.error(err))
 }
-
 
 export const getProductDetailViewClient = (slug)=>{
     return fetch(`${API_URL}User/GetProductDetailView?slug=${slug}`,{

@@ -105,23 +105,6 @@
 #topMenu li{float: none;}
 .navbar .nav > li > a {border-top:1px solid #666; padding:0}
 }
-.thumbnail img{
-    height: 160px;
-    /* width: 100%; */
-}
-#gallery a img{
-    width: 100%;
-}
-.list-view-image{
-    height: 160px;
-    width: 100%;
-}
-.btn-price{
-    width: 150px;
-}
-/* .carousel-inner .item a img {
-    width: 29%;
-} */
 @media (min-width: 1200px) { 
     .thumbnails > li {
         margin-left: 10px;
@@ -133,3 +116,23 @@
         width: 150px;
     }
 }
+.thumbnail img {
+    height: 160px;
+    /* width: 100%; */
+}
+#gallery a img {
+    width: 100%;
+}
+.list-view-image {
+    height: 160px;
+    width: 100%;
+}
+.btn-price {
+    width: 150px;
+}
+.short-image {
+    width: 29%;
+}
+/* .carousel-inner .item a img {
+    width: 29%;
+} */

@@ -4,8 +4,10 @@ export const SellerSignin = (user) => {
   return fetch(`${API_URL}Account/AuthenticateAdmin`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      'Accept':'application/json',
+      'Content-Type':'application/json; charset=utf-8',
+      'Server':'Kestrel',
+      'Transfer-Encoding':'chunked'
     },
     body: JSON.stringify(user),
   })

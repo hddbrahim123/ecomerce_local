@@ -134,7 +134,7 @@ const ProductDetails = (props) => {
 			</ul>
 			{/* <ModalPhotos /> */}
 			<div className="row">	  
-				<div id="gallery" className="span3">
+				<div id="" className="span3">
 					{product.images && index > -1 && <a image={product.images[0]} title={product.name}>
 						<img src={product.images[0]} alt={product.name}/>
 					</a>}
@@ -142,7 +142,7 @@ const ProductDetails = (props) => {
 						<div className="carousel-inner">
 							<div className='item active'>
 								{product.images && product.images.map((img,i)=>i==0 ? "":(
-									<a image={img} key={i} onClick={(e)=>selectImage(i)}> <img style={{width:"29%"}} src={img} alt=""/></a>
+									<a image={img} key={i} onClick={(e)=>selectImage(i)}><img className="short-image" src={img} alt=""/></a>
 								))}
 							</div>
 						</div>
