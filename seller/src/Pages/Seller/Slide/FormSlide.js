@@ -130,7 +130,7 @@ const FormSlide = (props) => {
               console.log(res);
               toastr.options.progressBar = true;
               toastr.success("Slide modifié avec succès", "");
-              window.location.reload()
+              //window.location.reload()
             });
           } else {
             toastr.options.progressBar = true;
@@ -305,7 +305,7 @@ const FormSlide = (props) => {
                 {!isEmpty(files) &&
                   files.map((image, i) => (
                     <div style={thumb} key={i}>
-                      <div style={thumbInner}>
+                      <div title={image.filename} style={thumbInner}>
                         <img src={image ? image.preview ?? urlImage(image) : urlImage(image)} style={img} />
                       </div>
                     </div>

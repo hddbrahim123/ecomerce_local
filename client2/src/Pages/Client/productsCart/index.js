@@ -11,7 +11,8 @@ import {
     removeProductInCart,
     incProductQty,
     decProductQty,
-    setProductQty
+    setProductQty,
+    emptyCart
 } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
 import { createOrder } from "../../../Core/ApiCore/Order";
@@ -70,10 +71,18 @@ const ProductsCart = (props) => {
         } else {
             createOrder(order).then((res) => {
                 if (res.success) {
+                    console.log(res);
                     toastr.options.progressBar = true;
                     toastr.success(messages.ordreCreateSuccess, "");
-                    localStorage.removeItem("cart");
+                    dispatch(emptyCart());
+                    setOrder({
+                        fullName: "",
+                        phone: "",
+                        address: "",
+                        ordersNote: ""
+                    });
                     // props.history.push("/products");
+                    //window.location.reload();
                 } else {
                     toastr.options.progressBar = true;
                     toastr.error(messages.ordreCreateError, messages.checkForm);

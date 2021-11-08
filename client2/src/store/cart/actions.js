@@ -5,7 +5,8 @@ import
     ADD_ITEM_TO_CART,
     SET_PRODUCT_QTY,
     DEC_PRODUCT_QTY,
-    INC_PRODUCT_QTY
+    INC_PRODUCT_QTY,
+    EMPTY_CART
 } 
 from "./actionTypes"
 
@@ -85,4 +86,15 @@ export const removeProductInCart = (slug)=>{
             type: REMOVE_PRODUCT_IN_CART,
             payload:items
         }
+}
+
+
+export const emptyCart = ()=>{
+
+    localStorage.setItem('cart', JSON.stringify([]))
+
+    return{
+        type: EMPTY_CART,
+        payload:[]
+    }
 }

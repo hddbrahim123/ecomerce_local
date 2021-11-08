@@ -136,3 +136,10 @@
 /* .carousel-inner .item a img {
     width: 29%;
 } */
+.link-category{
+    cursor: pointer;
+    color: #0d6efd;
+}
+.link-category:hover{
+    color: #0a58ca;
+}

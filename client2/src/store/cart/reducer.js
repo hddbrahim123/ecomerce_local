@@ -5,7 +5,8 @@ import
     SET_PRODUCT_QTY,
     DEC_PRODUCT_QTY,
     INC_PRODUCT_QTY,
-    REMOVE_PRODUCT_IN_CART
+    REMOVE_PRODUCT_IN_CART,
+    EMPTY_CART
 } 
 from "./actionTypes"
 
@@ -58,6 +59,15 @@ const cart = (state = INIT_STATE, action) => {
                 totalDiscount:action.payload.reduce((total,product)=>  total + (!!product.newPrice && !!product.qty && !!product.oldPrice ? product.qty * (product.oldPrice - product.newPrice) : 0), 0)
             }
         case REMOVE_PRODUCT_IN_CART:
+            return{
+                ...state,
+                products:action.payload,
+                totalQty:action.payload.reduce((total,product)=> total + (!!product.newPrice && !!product.qty) ? product.qty : 0 , 0),
+                solde:action.payload.reduce((solde,product)=>  solde + (!!product.newPrice && !!product.qty) ? product.qty * product.newPrice : 0, 0),
+                totalPrice:action.payload.reduce((total,product)=>  total + (!!product.newPrice && !!product.qty ? product.qty * product.oldPrice : 0), 0),
+                totalDiscount:action.payload.reduce((total,product)=>  total + (!!product.newPrice && !!product.qty && !!product.oldPrice ? product.qty * (product.oldPrice - product.newPrice) : 0), 0)
+            }
+        case EMPTY_CART:
             return{
                 ...state,
                 products:action.payload,

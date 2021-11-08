@@ -41,7 +41,7 @@ function Main2(props) {
             <ul id="sideManu" className="nav nav-tabs nav-stacked">
               {categories.map((category,i)=>(
                 // {!!category.icon?ReactHtmlParser(category.icon.replace('class=','className=')):''}
-                <li key={i} className="subMenu">{category.children ? (<a className={categoryId === category.id ? 'selected':''}> {category.name}</a>):(<Link className={categoryId === category.id ? 'selected':''} to={`/products/${category.id}`}> {category.name}</Link>)}
+                <li key={i} className="subMenu">{category.children ? (<a className={categoryId === category.id ? 'selected':''}> {category.name}</a>):(<a className={categoryId === category.id ? 'link-category selected':'link-category'} onClick={()=>goToProducts(category.id)}> {category.name}</a>)}
                   {category.children && (
                     <ul>
                       {category.children.map((subCategory,j)=>(

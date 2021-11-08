@@ -95,8 +95,8 @@ const FeaturedProducts = ({products}) => {
 							</div>
 						))}
 					</div>
-				<a className="left carousel-control" href="#featured" data-slide="précédent">‹</a>
-				<a className="right carousel-control" href="#featured" data-slide="suivant">›</a>
+				<a className="left carousel-control" href="#featured" data-slide="prev">‹</a>
+				<a className="right carousel-control" href="#featured" data-slide="next">›</a>
 				</div>
 			</div>
 		</div>

@@ -147,7 +147,7 @@ const ProductDetails = (props) => {
 							</div>
 						</div>
 					</div>
-					<div className="btn-toolbar">
+					{/* <div className="btn-toolbar">
 						<div className="btn-group">
 							<span className="btn"><i className="icon-envelope"></i></span>
 							<span className="btn"><i className="icon-print"></i></span>
@@ -156,7 +156,7 @@ const ProductDetails = (props) => {
 							<span className="btn"><i className=" icon-thumbs-up"></i></span>
 							<span className="btn"><i className="icon-thumbs-down"></i></span>
 						</div>
-					</div>
+					</div> */}
 				</div>
 				<div className="span6">
 					<h3>{product.name}</h3>

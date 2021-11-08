@@ -67,7 +67,7 @@ const img = {
 };
 
 const FormProduct = (props) => {
-  const baseSiteUrl = "http://localhost:3000";
+  const baseSiteUrl = "http://tsa5arli.xyz";
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const [isOpen, setIsOpen] = useState(false);
   const content = dictionary.product[language];
