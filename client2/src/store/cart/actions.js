@@ -16,8 +16,10 @@ export const addToCart = (item)=>{
     let index = items.findIndex(e=>e.slug === item.slug)
     if (index === -1) {
         //items = uniqBy([{...item , qty:1} , ...items],'slug')
-        items = [...items, {...item , qty:item.qty}]
+        items = [...items, {...item, qty: parseInt(item.qty)}];
         localStorage.setItem('cart', JSON.stringify(items))
+    }else{
+        items = items.filter(p => {return {...p, qty:p.qty}});
     }
     return{
         type:ADD_ITEM_TO_CART,
@@ -29,7 +31,7 @@ export const setProductQty = (item, qty)=>{
     if(qty > -1){
         let items = JSON.parse(localStorage.getItem('cart')) || []
 
-        items = items.map(product=> (product.slug === item.slug ? {...product , qty: qty } : product))
+        items = items.map(product=> (product.slug === item.slug ? {...product , qty: parseInt(qty) } : product))
         
         localStorage.setItem('cart', JSON.stringify(items))
 
@@ -60,7 +62,7 @@ export const decProductQty = (item)=>{
     if(item.qty > 1){
         let items = JSON.parse(localStorage.getItem('cart')) || []
 
-        items = items.map(product=> (product.slug === item.slug ? {...item , qty: product.qty -=1 } : product))
+        items = items.map(product=> (product.slug === item.slug ? {...item , qty:parseInt(product.qty) -1 } : product))
         
         localStorage.setItem('cart', JSON.stringify(items))
 

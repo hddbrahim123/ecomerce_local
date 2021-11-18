@@ -1,5 +1,6 @@
 {
   "name": "react-app",
+  "basename":"http://tsa5arli.xyz",
   "version": "1.1.0",
   "private": true,
   "dependencies": {

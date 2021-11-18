@@ -6,7 +6,7 @@ const ClientMiddleware = ({
   layout: Layout,
   ...rest
 }) => (
-    <Route
+    <Route basename="http://tsa5arli.xyz"
     {...rest}
     render={props=>(
             <Layout><Component {...props}  /></Layout>

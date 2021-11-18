@@ -77,8 +77,7 @@ const ProductDetails = (props) => {
 		//document.body.innerHTML += `<div id='modal-images'><div id="jquery-overlay"></div><div id="jquery-lightbox"><div id="lightbox-container-image-box"><div id="lightbox-container-image"><img id="lightbox-image"><div style="" id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src='${imageLoading}'></a></div></div></div><div id="lightbox-container-image-data-box"><div id="lightbox-container-image-data"><div id="lightbox-image-details"><span id="lightbox-image-details-caption"></span><span id="lightbox-image-details-currentNumber"></span></div><div id="lightbox-secNav"><a id="lightbox-secNav-btnClose" onClick="document.getElementById('modal-images').remove()" ><img src='${imageBtnClose}'></a></div></div></div></div></div>`
 	}
 	const handleChangeQty = (e) => {
-		let qty = e.target.value;
-		console.log(qty)
+		let qty = parseInt(e.target.value);
 		if (qty > 0) {
 			if (qty <= product.quantity) {
 				if (isEmpty(item)) {
@@ -109,6 +108,7 @@ const ProductDetails = (props) => {
 							res.images[i] = urlImage(res.images[i],res);
 						}
 					}
+					//res.quantity = 0;
 					setProduct(res);
 					getRelatedProducts(slug, parseInt(3)).then((res) =>
 						setReleatedProducts(res)
@@ -187,18 +187,24 @@ const ProductDetails = (props) => {
 								+
 								</button>
 								</div>)} */}
+								{isEmpty(item).toString()}
+								{ReactHtmlParser("</br>")}
 								{!!item?.qty && <input type="number"
 									value={item.qty}
 									className="span1"
 									placeholder="Qty."
 									onChange={handleChangeQty}
 								/>}
-								{isEmpty(item) && <button onClick={addItemCart} className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button>}
+								{(isEmpty(item) && product.quantity > 0) ? <button onClick={addItemCart} className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button> 
+								: (product.quantity < 1) ? <button disabled className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button>
+								: <button onClick={()=>dispatch(removeProductInCart(product.slug))} className="btn btn-large btn-primary pull-right"> Annuler <i className=" icon-shopping-cart"></i></button>}
 							</div>
 						</div>
 					</form>
 					<hr className="soft"/>
-					<h4>{product.quantity} articles en stock</h4>
+					{product.quantity > 0 ? <h4>{product.quantity} articles en stock</h4>
+					: <h4 style={{color:"red"}} className="text-danger">indisponible pour le moment</h4>}
+					
 					{/* <form className="form-horizontal qtyFrm pull-right">
 					<div className="control-group">
 						<label className="control-label"><span>Color</span></label>
@@ -213,13 +219,13 @@ const ProductDetails = (props) => {
 					</div>
 					</form> */}
 					{!!product.details && <hr className="soft clr"/>}
-					
 					{!!product.details && ReactHtmlParser(product.details)}
 					{/* <a className="btn btn-small pull-right" href="#detail">More Details</a>
 					<br className="clr"/>
 					<a href="#" name="detail"></a>
 					<hr className="soft"/> */}
 				</div>
+				<h3><Link to="/Products" className="btn btn-large pull-right my-3"><i className="icon-arrow-left"></i> Continuer vos achats </Link></h3>
 				<div className="span9">
 					<ul id="productDetail" className="nav nav-tabs">
 						<li className="active"><a href="#home" data-toggle="tab">Details Produit</a></li>
