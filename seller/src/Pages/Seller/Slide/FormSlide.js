@@ -24,36 +24,30 @@ import dictionary from "../../../Core/dictionary";
 import TextEditor from "../../../Core/TextEditor";
 import { API_URL } from "../../../config";
 
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-};
+// const thumbsContainer = {
+//   display: "flex",
+//   flexDirection: "row",
+//   flexWrap: "wrap",
+//   marginTop: 16,
+// };
 
-const thumb = {
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 8,
-  marginRight: 8,
-  width: 200,
-  height: 200,
-  padding: 4,
-  boxSizing: "border-box",
-};
+// const thumb = {
+//   display: "inline-flex",
+//   borderRadius: 2,
+//   border: "1px solid #eaeaea",
+//   marginBottom: 8,
+//   marginRight: 8,
+//   width: 200,
+//   height: 200,
+//   padding: 4,
+//   boxSizing: "border-box",
+// };
 
-const thumbInner = {
-  display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
-};
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
+// const thumbInner = {
+//   display: "flex",
+//   minWidth: 0,
+//   overflow: "hidden",
+// };
 
 const FormSlide = (props) => {
   const [language] = useState(
@@ -65,7 +59,8 @@ const FormSlide = (props) => {
     title: "",
     description: "",
     link: "product/",
-    index: 0
+    index: 0,
+    active: true
   });
 
   const handleChangeSlide = (e) => {
@@ -182,6 +177,8 @@ const FormSlide = (props) => {
           slide.description = res.description;
           slide.link = res.link;
           slide.index = res.index
+          slide.active = res.active
+          
           //setSlide(res);
           setSlide({
             ...slide,
@@ -189,7 +186,8 @@ const FormSlide = (props) => {
             title: res.title,
             description: res.description,
             link: res.link,
-            index: res.index
+            index: res.index,
+            active: res.active
           })
           setFiles([res.image])
         }
@@ -287,6 +285,22 @@ const FormSlide = (props) => {
                 </div>
               </div>
             </div>
+            <div className="row">
+              <div className="col-12">
+              <div className="form-check mb-3">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="active"
+                    checked={slide.active}
+                    onChange={handleChangeSlide}
+                  />
+                  <label className="form-check-label" htmlFor="active">
+                  Active
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="card mt-4">
@@ -301,12 +315,12 @@ const FormSlide = (props) => {
                   <p className="text-capitalize">{content.labelSlideImage}</p>
                 </div>
               </div>
-              <div className="card-body" style={thumbsContainer}>
+              <div className="card-body thumbsContainer">
                 {!isEmpty(files) &&
                   files.map((image, i) => (
-                    <div style={thumb} key={i}>
-                      <div title={image.filename} style={thumbInner}>
-                        <img src={image ? image.preview ?? urlImage(image) : urlImage(image)} style={img} />
+                    <div className="thumb" key={i}>
+                      <div title={image.filename} className="thumbInner">
+                        <img src={image ? image.preview ?? urlImage(image) : urlImage(image)} className="image-slide" />
                       </div>
                     </div>
                   ))}

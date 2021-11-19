@@ -11,7 +11,33 @@
 .link-category:hover{
     color: #0a58ca;
 }
-
+.image-slide{
+    display: block;
+    width: auto;
+    height: 480px;
+}
+.thumbInner{
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+}
+.thumbsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 16;
+}
+.thumb {
+    display: inline-flex;
+    border-radius: 2;
+    border: 1px solid #eaeaea;
+    margin-bottom: 8;
+    margin-right: 8;
+    width: 200;
+    height: 200;
+    padding: 4;
+    box-sizing: border-box;
+}
 @media screen and (min-width:968px) {
     .content__page{
         margin-top: $head-height;
@@ -23,6 +49,9 @@
 
     .active__padding{
         margin-left: $sidebar-width;
-
     }
+}
+img.img-h-100{
+    width:auto; 
+    height:100px;
 }

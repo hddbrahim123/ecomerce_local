@@ -9,7 +9,7 @@ function MyCarousel() {
     return `${API_URL}User/ImageSlide?image=${image}`;
   }
   useEffect(() => {
-    GetSlideData().then(res =>{
+    GetSlideData(false, true).then(res =>{
       if (res && res.length) {
         setSlides(res);
       }else{

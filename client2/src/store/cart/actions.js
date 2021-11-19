@@ -16,7 +16,7 @@ export const addToCart = (item)=>{
     let index = items.findIndex(e=>e.slug === item.slug)
     if (index === -1) {
         //items = uniqBy([{...item , qty:1} , ...items],'slug')
-        items = [...items, {...item , qty:item.qty}]
+        items = [...items, item]
         localStorage.setItem('cart', JSON.stringify(items))
     }
     return{
@@ -46,7 +46,7 @@ export const setProductQty = (item, qty)=>{
 export const incProductQty = (item)=>{
     let items = JSON.parse(localStorage.getItem('cart')) || []
 
-    items = items.map(product=> (product.slug === item.slug ? {...item , qty:parseInt(product.qty) +1 } : product))
+    items = items.map(product=> (product.slug === item.slug ? {...item , qty: product.qty +=1 } : product))
 
     localStorage.setItem('cart', JSON.stringify(items))
 
@@ -78,7 +78,7 @@ export const removeProductInCart = (slug)=>{
 
         let items = JSON.parse(localStorage.getItem('cart')) || []
 
-        items = items.filter(product => (product.slug !== slug ))
+        items = items.filter(product => product.slug !== slug)
         
         localStorage.setItem('cart', JSON.stringify(items))
 

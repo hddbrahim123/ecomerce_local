@@ -47,19 +47,19 @@ const Slides = ()=>{
     }
     const Down = (slide) =>{
       DownSlide(slide.id).then((res)=>{
-        GetSlideData()
+        GetSlideData(false, true)
           .then(res=>setSlides(res))
       })
       
     }
     const Up = (slide) =>{
       UpSlide(slide.id).then((res)=>{
-        GetSlideData()
+        GetSlideData(false, true)
           .then(res=>setSlides(res))
       })
     }
     useEffect(() => {
-        GetSlideData()
+        GetSlideData(false, true)
             .then(res=>setSlides(res))
     }, [])
     const [language] = useState(localStorage.getItem("language") ?? "Fr");

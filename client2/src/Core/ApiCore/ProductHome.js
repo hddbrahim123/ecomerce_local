@@ -1,7 +1,9 @@
 import { API_URL } from "../../config"
 
-export const GetSlideData = ()=>{
-    return fetch(`${API_URL}Home/GetSlideData`,{
+export const GetSlideData = (all, active)=>{
+    all = all === true ? 'true':'false';
+    active = active === true ? 'true':'false';
+    return fetch(`${API_URL}Home/GetSlideData?all=${all}&active=${active}`,{
         method:"POST",
         headers:{
             Accept:"application/json",

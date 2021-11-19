@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 // Import Star Ratings
 // import StarRatings from "react-star-ratings";
 // import ReleatedProduct from "./Releated";
-// import ModalPhotos from "./ModalPhotos";
 
 // import { isEmpty, map } from "lodash";
 // import Aos from "aos";
@@ -18,9 +17,9 @@ import ReactHtmlParser from "react-html-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, decProductQty, incProductQty, removeProductInCart, setProductQty } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
-// import ModalPhotos from "./ModalPhotos";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
+import ModalPhotos from "./ModalPhotos2";
 // import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
 // import FicheTechnique from "./FicheTechnique";
 
@@ -29,7 +28,7 @@ const ProductDetails = (props) => {
 		localStorage.getItem("language") ?? dictionary.defaultLanguage
 	);
 	const [product, setProduct] = useState({});
-
+	//const [images, setImages] = useState([])
 	const [releatedProducts, setReleatedProducts] = useState([]);
 
 	const [index, setIndex] = useState(0);
@@ -44,10 +43,10 @@ const ProductDetails = (props) => {
 	//let qty = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug)?.qty : {})
 
 	const [isOpen, setIsOpen] = useState(false);
-	//const toggle = () => setIsOpen(!isOpen);
+	const toggle = () => setIsOpen(!isOpen);
 	const addItemCart = () => {
 		const { slug, name, newPrice, oldPrice, images } = product;
-		dispatch(addToCart({ slug, name, newPrice, oldPrice, images, qty:1 }));
+		dispatch(addToCart({ slug, name, newPrice, oldPrice, qty:1, images }));
 		//props.history.push("/cart");
 	};
 
@@ -73,12 +72,14 @@ const ProductDetails = (props) => {
 	// const imageBlank = 'images/lightbox/lightbox-blank.gif'
 
 	const selectImage = (e)=>{
-		setIndex(e)
+		setIndex(e);
+		toggle();
+		
 		//document.body.innerHTML += `<div id='modal-images'><div id="jquery-overlay"></div><div id="jquery-lightbox"><div id="lightbox-container-image-box"><div id="lightbox-container-image"><img id="lightbox-image"><div style="" id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src='${imageLoading}'></a></div></div></div><div id="lightbox-container-image-data-box"><div id="lightbox-container-image-data"><div id="lightbox-image-details"><span id="lightbox-image-details-caption"></span><span id="lightbox-image-details-currentNumber"></span></div><div id="lightbox-secNav"><a id="lightbox-secNav-btnClose" onClick="document.getElementById('modal-images').remove()" ><img src='${imageBtnClose}'></a></div></div></div></div></div>`
 	}
 	const handleChangeQty = (e) => {
-		let qty = e.target.value;
-		console.log(qty)
+		let qty = parseInt(e.target.value);
+		
 		if (qty > 0) {
 			if (qty <= product.quantity) {
 				if (isEmpty(item)) {
@@ -108,6 +109,7 @@ const ProductDetails = (props) => {
 						for (let i = 0; i < res.images.length; i++) {
 							res.images[i] = urlImage(res.images[i],res);
 						}
+						//setImages(res.images);
 					}
 					setProduct(res);
 					getRelatedProducts(slug, parseInt(3)).then((res) =>
@@ -124,6 +126,7 @@ const ProductDetails = (props) => {
 	//document.head.title = product.metaTitle ?? "Product Details";
 	return (
 		<div className="span9">
+			
 			{/* <MetaTags>
 				<title>{product.metaTitle ?? "Product Details"}</title>
 			</MetaTags> */}
@@ -132,17 +135,18 @@ const ProductDetails = (props) => {
 				<li><Link to="/products">Produits</Link> <span className="divider">/</span></li>
 				<li className="active"> Details produit</li>
 			</ul>
-			{/* <ModalPhotos /> */}
-			<div className="row">	  
-				<div id="" className="span3">
-					{product.images && index > -1 && <a image={product.images[0]} title={product.name}>
-						<img src={product.images[0]} alt={product.name}/>
+			{JSON.stringify({index, isOpen})}
+			<div className="row">
+
+				<div id="gallery" className="span3">
+					{product.images && index > -1 && <a className="target-modal" title={product.name} onClick={(e)=>selectImage(0)}>
+						<img className="lg-image" src={product.images[0]} alt={product.name} />
 					</a>}
 					<div id="differentview" className="moreOptopm carousel slide">
 						<div className="carousel-inner">
 							<div className='item active'>
 								{product.images && product.images.map((img,i)=>i==0 ? "":(
-									<a image={img} key={i} onClick={(e)=>selectImage(i)}><img className="short-image" src={img} alt=""/></a>
+									<a className="target-modal" key={i} onClick={(e)=>selectImage(i)}><img className="short-image" src={img} alt=""/></a>
 								))}
 							</div>
 						</div>
@@ -304,6 +308,13 @@ const ProductDetails = (props) => {
 						</div>
 					</div>
 				</div>
+				<ModalPhotos
+					images={product.images}
+					isOpen={isOpen}
+					toggle={toggle}
+					index={index}
+					setIndex={setIndex}
+				/>
 			</div>
 		</div>
 	)

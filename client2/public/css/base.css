@@ -120,18 +120,23 @@
     height: 160px;
     /* width: 100%; */
 }
-#gallery a img {
+/* #gallery a img {
     width: 100%;
-}
+} */
 .list-view-image {
     height: 160px;
-    width: 100%;
+    width: auto;
 }
 .btn-price {
     width: 150px;
 }
+.lg-image {
+    height: 180px;
+    width: 100%;
+}
 .short-image {
     width: 29%;
+    height: 100px;
 }
 /* .carousel-inner .item a img {
     width: 29%;
@@ -142,4 +147,7 @@
 }
 .link-category:hover{
     color: #0a58ca;
+}
+.img-modal{
+    width: 100%;
 }

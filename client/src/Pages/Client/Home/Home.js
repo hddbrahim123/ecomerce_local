@@ -17,7 +17,7 @@ const Home = ({language}) => {
       duration: 2000,
     });
 
-    GetSlideData().then((res) => {
+    GetSlideData(false, true).then((res) => {
       setSlides(res);
       console.log(res);
     });

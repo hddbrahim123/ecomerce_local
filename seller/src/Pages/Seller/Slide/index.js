@@ -48,14 +48,14 @@ const Slides = ()=>{
     }
     const Down = (slide) =>{
       DownSlide(slide.id).then((res)=>{
-        GetSlideData()
+        GetSlideData(true, true)
           .then(res=>setSlides(res))
       })
       
     }
     const Up = (slide) =>{
       UpSlide(slide.id).then((res)=>{
-        GetSlideData()
+        GetSlideData(true, true)
           .then(res=>setSlides(res))
       })
     }
@@ -63,7 +63,7 @@ const Slides = ()=>{
       return `${API_URL}User/ImageSlide?image=${image}`;
     }
     useEffect(() => {
-        GetSlideData()
+        GetSlideData(true, true)
             .then(res=>setSlides(res))
     }, [])
     const [language] = useState(localStorage.getItem("language") ?? "Fr");
@@ -111,7 +111,7 @@ const Slides = ()=>{
                     <p className="my-3">{slide.index}</p>
                   </Td>
                   <Td>
-                    <img src={urlImage(slide.image)} alt={slide.title} width="100px" height="100px" />
+                    <img src={urlImage(slide.image)} alt={slide.title} className="img-h-100" />
                   </Td>
                   <Td>
                     <h5 className="my-3">{slide.title}</h5>

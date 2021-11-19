@@ -6,9 +6,9 @@ function(){
 	$('#featured').carousel({
 		interval: 4000
 	})
-	$(function() {
-		$('#gallery a').lightBox();
-	});
+	// $(function() {
+	// 	$('#gallery a').lightBox();
+	// });
 	
 	$('.subMenu > a').click(function(e)
 	{
@@ -53,4 +53,5 @@ function(){
 			ul.slideDown(250);
 		}
 	});
+	
 }
