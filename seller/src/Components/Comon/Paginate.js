@@ -25,8 +25,8 @@ const Paginate = (props) => {
     for (var index = begin; index <= end; index++) {
       array.push(index);
     }
-    console.log(array);
-    console.log("pageNumber:" + pageNumber + ", end: " + end + ", totalPages:" + totalPages);
+    //console.log(array);
+    //console.log("pageNumber:" + pageNumber + ", end: " + end + ", totalPages:" + totalPages);
     return array;
   }
 

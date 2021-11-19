@@ -99,6 +99,9 @@ const ProductDetails = (props) => {
 		// Aos.init({
 		// 	duration: 2000,
 		// });
+		// if (window.location.href.indexOf('?') > -1) {
+		// 	window.location = window.location.href.replace('?','')
+		// }
 		let slug = props.match.params.slug;
 		if (slug) {
 			getProductDetailViewClient(slug).then((res) => {
@@ -119,7 +122,7 @@ const ProductDetails = (props) => {
 			});
 		}
 	}, [props]);
-	
+	const baseSiteUrl = window.location.origin.toString() + "/#";
 	const content = dictionary.detailProductContent[language];
 	//document.head.title = product.metaTitle ?? "Product Details";
 	return (
@@ -128,8 +131,8 @@ const ProductDetails = (props) => {
 				<title>{product.metaTitle ?? "Product Details"}</title>
 			</MetaTags> */}
 			<ul className="breadcrumb">
-				<li><Link to="/">Accueil</Link> <span className="divider">/</span></li>
-				<li><Link to="/products">Produits</Link> <span className="divider">/</span></li>
+				<li><a href={baseSiteUrl}>Accueil</a> <span className="divider">/</span></li>
+				<li><a href={baseSiteUrl+`/products`}>Produits</a> <span className="divider">/</span></li>
 				<li className="active"> Details produit</li>
 			</ul>
 			{/* <ModalPhotos /> */}
@@ -187,7 +190,7 @@ const ProductDetails = (props) => {
 								+
 								</button>
 								</div>)} */}
-								{isEmpty(item).toString()}
+								
 								{ReactHtmlParser("</br>")}
 								{!!item?.qty && <input type="number"
 									value={item.qty}

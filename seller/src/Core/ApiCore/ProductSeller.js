@@ -20,7 +20,6 @@ export const getProductsSeller = (filters) => {
 
 export const getProductViewSeller = (slug) => {
     const { token } = isAuthSeller()
-    console.log('getProductViewSeller')
     return fetch(`${API_URL}Admin/GetProductDetailView?slug=${slug}`, {
         method: "POST",
         headers: {
@@ -91,7 +90,6 @@ export const UploadImages = (slug, images) => {
 }
 
 export const UpdateImages = (slug, images) => {
-    console.log(images)
     const { token } = isAuthSeller()
     return fetch(`${API_URL}Admin/UpdateImages?slug=${slug}`, {
         method: "POST",

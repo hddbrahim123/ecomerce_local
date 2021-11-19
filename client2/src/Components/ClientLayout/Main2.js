@@ -1,33 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ListCategories from "./ListCategories";
 
-const baseSiteUrl = "http://tsa5arli.xyz";
+const baseSiteUrl = window.location.origin.toString() + "/#";
 
 function Main2(props) {
   const {totalQty, solde, categories, history} = props;
   let categoryId = 0;
+  //const [categoryId, setCategoryId] = useState(0)
   let url = window.location.hash.split('/');
   if (url.length == 3) {
+    //setCategoryId(url[2]);
     categoryId = url[2];
   }
   const goToProducts = (categoryId) => {
-    //window.location.replace('?','');
-    //history.push(`${window.location.origin.toString()}/products/${categoryId}/`);
-		window.location=(`${baseSiteUrl}/#/products/${categoryId}/`);
-		//window.location.reload();
+		window.location=(`${baseSiteUrl}/products/${categoryId}/`);
+		window.location.reload();
 	}
   return (
     <div id="mainBody">
-      {window.location.pathname}
       <div className="container">
         <div className="row">
           {/* Sidebar ================================================== */}
           <div id="sidebar" className="span3">
             <div className="well well-small">
-              <Link id="myCart" to="/cart">
+              <a id="myCart" href={`${baseSiteUrl}/cart`}>
                 <img src="images/ico-cart.png" alt="cart" />{totalQty} Articles en panier 
                 <span className="badge badge-warning pull-right">{solde} Dh</span>
-              </Link>
+              </a>
             </div>
             {/* <ul id="sideManu" className="nav nav-tabs nav-stacked">
               <li className="subMenu"><a> ELECTRONICS [230]</a>
@@ -43,20 +43,8 @@ function Main2(props) {
               </li>
               <li className="subMenu"><a href="">HEALTH &amp; BEAUTY [18]</a></li>
             </ul> */}
-            <ul id="sideManu" className="nav nav-tabs nav-stacked">
-              {categories.map((category,i)=>(
-                // {!!category.icon?ReactHtmlParser(category.icon.replace('class=','className=')):''}
-                <li key={i} className="subMenu">{category.children ? (<a className={categoryId === category.id ? 'selected':''}> {category.name}</a>):(<a className={categoryId === category.id ? 'link-category selected':'link-category'} onClick={()=>goToProducts(category.id)}> {category.name}</a>)}
-                  {category.children && (
-                    <ul>
-                      {category.children.map((subCategory,j)=>(
-                        <li key={j}><a className={categoryId === subCategory.id ? 'selected':''} onClick={()=>goToProducts(subCategory.id)}> <i className="icon-chevron-right"></i> {subCategory.name}</a></li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
+            {/* List Categories  */}
+            <ListCategories categoryId={categoryId} categories={categories} />
             {/* <br />
             <div className="thumbnail">
               <img

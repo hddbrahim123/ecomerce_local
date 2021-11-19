@@ -257,7 +257,6 @@ const CreateCateory = (props) => {
     let categoryId = props.match.params.id;
     if (categoryId > 0) {
       getCategory(categoryId).then((res) => {
-        console.log(res);
         if (res) {
           setCategory(res);
         }

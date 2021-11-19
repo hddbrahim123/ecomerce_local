@@ -5,7 +5,7 @@ import { GetChildrenCategory } from "../../Core/ApiCore/Category";
 
 function Header2(props) {
 	const {totalQty,solde} = props;
-
+	const baseSiteUrl = window.location.origin.toString() + "/#";
 	const [parentCategories, setParentCategories] = useState([])
 	let welcome = '';
 	let client = '';
@@ -26,7 +26,7 @@ function Header2(props) {
 		// setFilter({...filter, [e.target.id]: value})
 	}
 	const goToProducts = () => {
-		window.location=(`/#/products/${filter.categoryId??0}/${filter.search.replaceAll(' ','_')}`);
+		window.location=(baseSiteUrl+`/products/${filter.categoryId??0}/${filter.search.replaceAll(' ','_')}`);
 		window.location.reload();
 	}
 	useEffect(() => {
@@ -55,9 +55,9 @@ function Header2(props) {
 						<a href="product_summary.html"><span className="">Es</span></a>
 						<span className="btn btn-mini">En</span>
 						<a href="product_summary.html"><span>&pound;</span></a> */}
-						<Link to='/cart' className="btn btn-mini">{solde} Dhs</Link>
+						<a href={`${baseSiteUrl}/cart`} className="btn btn-mini">{solde} Dhs</a>
 						<span> </span>
-						<Link to='/cart' ><span className="btn btn-mini btn-primary"><i className="icon-shopping-cart icon-white"></i> [ {totalQty} ] Articles en panier </span> </Link> 
+						<a href={`${baseSiteUrl}/cart`} ><span className="btn btn-mini btn-primary"><i className="icon-shopping-cart icon-white"></i> [ {totalQty} ] Articles en panier </span> </a> 
 					</div>
 				</div>
 			</div>
@@ -68,7 +68,7 @@ function Header2(props) {
 				<span className="icon-bar"></span>
 			</a>
 			<div className="navbar-inner">
-				<Link className="brand" to="/"><img src="images/logo.png" alt="Bootsshop"/></Link>
+				<a className="brand" href={`${baseSiteUrl}`}><img src="images/logo.png" alt="Bootsshop"/></a>
 					<form className="form-inline navbar-search" method="post" onSubmit={(e)=>e.preventDefault()} >
 					<input id="search" value={filter.search} onChange={handleChangeFilter} className="" type="text" />
 					<select id="categoryId" value={filter.categoryId} onChange={handleChangeFilter} className="srchTxt">

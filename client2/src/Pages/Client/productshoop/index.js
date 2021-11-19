@@ -6,6 +6,7 @@ import Paginate from "../../../Components/Comon/Paginate";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
+import { useSelector } from "react-redux";
 
 const ProductsShop = (props) => {
   //const [language] = useState(localStorage.getItem("language") ?? "Fr");
@@ -18,7 +19,6 @@ const ProductsShop = (props) => {
     length:10,
     totalCount:0
   });
-  console.log(props)
   const [filters, setFilters] = useState({
     pageNumber: 1,
     length: 10,
@@ -54,10 +54,8 @@ const ProductsShop = (props) => {
     });
   };
 
-  // useEffect(() => {
-  // }, []);
   const searchProducts = () => {
-    console.log(filters)
+    //console.log(filters)
     getProductsViewClient(filters).then((res) => {
       if (res && res.list) {
         setProducts(res.list);
@@ -77,10 +75,12 @@ const ProductsShop = (props) => {
     return `${API_URL}User/Image?slug=${product.slug}&file=${product.image}`;
   }
   
-  
+  const category = useSelector((state)=>props.match.params.category)
+  //setCategory(props.match.params.category)
 
   useEffect(() => {
-    let category = props.match.params.category;
+    //let category = props.match.params.category;
+    
     let search = props.match.params.search?.replace('_',' ');
     //const {category, search} = useParams();
     filters.categories = !!category && category !== '0' ? [category] : [];
@@ -91,23 +91,8 @@ const ProductsShop = (props) => {
       search:search
     });
 
-    // if (category) {
-    //   category = parseInt(category);
-    //   filters.categories = [category];
-    //   filters.search = search;
-    //   handleFilters([category], 'categories');
-    // }
-    // if (search) {
-    //   handleFilters(search, 'search');
-    // }
-    // GetChildrenCategory('', true,true).then((res) => {
-    //   setCategories(res);
-    // });
-    // getActiveCategories().then((res) => {
-    //   setCategories(res);
-    // });
     searchProducts();
-  }, []);
+  }, [category]);
 
   return (
     <div className="span9">

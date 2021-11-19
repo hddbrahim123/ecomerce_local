@@ -61,7 +61,7 @@ const ProductsCart = (props) => {
         order.totalAmount = totalPrice;
         order.items = products;
         order.totalQty = totalQty;
-        console.log(order);
+        //console.log(order);
         if (!order.fullName) {
             toastr.error(messages.ordreFullNameRequired, messages.checkForm);
             return;
@@ -71,7 +71,7 @@ const ProductsCart = (props) => {
         } else {
             createOrder(order).then((res) => {
                 if (res.success) {
-                    console.log(res);
+                    //console.log(res);
                     toastr.options.progressBar = true;
                     toastr.success(messages.ordreCreateSuccess, "");
                     dispatch(emptyCart());

@@ -32,16 +32,16 @@ function Footer2() {
           <div id="socialMedia" className="span3 pull-right">
             <h5>DES MÉDIAS SOCIAUX </h5>
             <a href="https://wa.me/message/X5SWMV5DDRHWC1">
-              <img
-                width="60"
-                height="60"
+              <img className="social-media-width"
+                width="30%"
+                height="30%"
                 src="images/whatsapp.png"
                 title="whatsapp"
                 alt="facebook"
               />
             </a>
             <a href="https://www.facebook.com/Hmizatofshop/">
-              <img
+              <img className="social-media-width"
                 width="60"
                 height="60"
                 src="images/facebook.png"
@@ -50,7 +50,7 @@ function Footer2() {
               />
             </a>
             <a href="https://twitter.com/HmizatTanger">
-              <img
+              <img className="social-media-width"
                 width="60"
                 height="60"
                 src="images/twitter.png"
@@ -59,7 +59,7 @@ function Footer2() {
               />
             </a>
             <a href="https://www.youtube.com/channel/UCNPuf2vFWWqDajNkN_fHFDg">
-              <img
+              <img className="social-media-width"
                 width="60"
                 height="60"
                 src="images/youtube.png"

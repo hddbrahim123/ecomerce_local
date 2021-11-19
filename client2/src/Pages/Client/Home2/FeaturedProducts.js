@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { API_URL } from '../../../config'
 
 const FeaturedProducts = ({products}) => {
-	
+	const baseSiteUrl = window.location.origin.toString() + "/#";
 	const matrice = (split) => {
 		let tab = []
 		let sub = [];
@@ -83,10 +83,10 @@ const FeaturedProducts = ({products}) => {
 										<li key={j} className="span3">
 											<div title={product.name} className="thumbnail">
 												<i className="tag"></i>
-												<Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
+												<a href={baseSiteUrl+"/product/"+product.slug}><img src={urlImage(product)} alt=""/></a>
 												<div className="caption">
 													<h6 title={product.name}>{!!product.shortName ? product.shortName : product.name.substring(0,10)}</h6>
-													<h4><Link className="btn" to={"/product/"+product.slug}> <i className="icon-shopping-cart"></i> {product.newPrice} Dhs</Link></h4>
+													<h4><a className="btn" href={baseSiteUrl+"/product/"+product.slug}> <i className="icon-shopping-cart"></i> {product.newPrice} Dhs</a></h4>
 												</div>
 											</div>
 										</li>

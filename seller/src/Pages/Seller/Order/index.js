@@ -47,7 +47,6 @@ const Orders = (props) => {
   const [order, setOrder] = useState();
   
   const LoadOrders = () => {
-    console.log(filter);
     getOrders(filter).then((res) => {
       if (res && res.length) {
         setOrders(res);
@@ -59,7 +58,6 @@ const Orders = (props) => {
 
   const toggle = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   }
 
   const handleChangeFilter = (e) =>

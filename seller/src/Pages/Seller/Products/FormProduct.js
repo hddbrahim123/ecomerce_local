@@ -67,7 +67,8 @@ const img = {
 };
 
 const FormProduct = (props) => {
-  const baseSiteUrl = "http://tsa5arli.xyz";
+  //const baseSiteUrl = "http://tsa5arli.xyz/#";
+  const baseSiteUrl = window.location.origin.toString() + "/#";
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const [isOpen, setIsOpen] = useState(false);
   const content = dictionary.product[language];
@@ -992,7 +993,7 @@ const FormProduct = (props) => {
           <div className="card mt-4">
             <div className="card-body">
               <a
-                href={baseSiteUrl+"/#/product/" + (product.slug ?? productEdit.slug)}
+                href={`${baseSiteUrl}/product/${(product.slug ?? productEdit.slug)}`}
                 target="_blank"
                 className="text-success"
               >
