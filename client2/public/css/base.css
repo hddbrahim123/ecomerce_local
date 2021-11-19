@@ -1,5 +1,6 @@
 #mainBody {/* background: url(../images/seperator.png) repeat-x 0 0; */ border-top:2px solid #dedede; padding-top: 18px;}
-#carouselBlk,#header{background: url(../images/headerRepeat.png) repeat-x 0 0 #f7f7f7;}
+#carouselBlk,#header{background: url(../images/headerRepeat.png) repeat-x 0 0 #f7f7f7;
+margin-left: 200px;}
 #srchFld {background: url(../images/search.png) no-repeat 4px center #fff;}
 .tag {background:url(../images/new.png) no-repeat 0 0; position: absolute; display:block; top: -4px;right: -18px; height:48px; width:48px;}
 .clr{clear:both;}
@@ -30,10 +31,11 @@
 #sm{text-align:right}
 #sm a {margin: 4px;width:32px;}
 /* Carousel  */
-#myCarousel{text-align:center; margin-bottom:0}
+#myCarousel{text-align:center;
+background-color: #0d6efd;}
 #myCarousel .btn{position:absolute; bottom:10%; right:17%; padding:2% 6%; z-index:9999}
 #myCarousel .carousel-caption{display:none;}
-#myCarousel.homCar .item img{width:100%; max-height:506px}
+#myCarousel.homCar .item img{width:100%; max-height:20px}
 #productView .btn-toolbar{padding-left:3px;}
 #productDetail > li, .nav-pills > li {float: right;}
 #myTabContent{text-align:justify}
@@ -90,7 +92,7 @@
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
 .navbar .brand {float: none;text-align: center;}
-#header, #carouselBlk{margin: 0 -20px;}
+/* #header, #carouselBlk{margin: 0 -20px;} */
 #sideManu,#topMenu{height:0}
 .navbar-search {margin-top: 8px;width: 100%;float: none;}
 #topMenu{height: auto;float: none;}
@@ -137,27 +139,19 @@
     width: 29%;
 } */
 .link-category{
-    cursor: pointer !important;
-    
-}
-.link-selected{
-    color: #0a58ca !important;
-    text-decoration: underline !important;
+    cursor: pointer;
+    color: #0d6efd;
 }
 .link-category:hover{
-    color: #0a58ca !important;
-    text-decoration: underline !important;
+    color: #0a58ca;
 }
 .my-3{
     margin-top: 6px;
     margin-bottom: 6px;
 }
 
-.main {
+.main{
     display: inline-flex;
     /* width: 100%; */
     /* height: 1000px; */
-}
-.social-media-width{
-    width: 30px;
 }
