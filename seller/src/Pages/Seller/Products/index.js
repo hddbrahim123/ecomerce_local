@@ -25,6 +25,7 @@ import { getCategories } from "../../../Core/ApiCore/Category";
 import { API_URL } from "../../../config";
 
 const Products = (props) => {
+  const baseSiteUrl = "http://tsa5arli.xyz/#"; // "http://localhost:3000/#";
   const [language] = useState(
     localStorage.getItem("language") ?? dictionary.defaultLanguage
   );
@@ -75,6 +76,7 @@ const Products = (props) => {
   
   const handleChange = (e) =>{
     let value = e.target.id === 'categoryId' ? e.target.value === '' ? undefined : e.target.value : e.target.value;
+    console.log(value)
     setFilters({...filters, [e.target.id]: value})
   }
   
@@ -208,13 +210,13 @@ const Products = (props) => {
                             height="100px"
                           />
                           <h5 className="mx-3 text-capitalize">
-                            <Link
+                            <a
                               target="_blank"
-                              to={"/product/" + product.slug}
+                              href={`${baseSiteUrl}/product/${(product.slug)}`}
                               className="text-dark"
                             >
                               {product.name}
-                            </Link>
+                            </a>
                           </h5>
                         </Td>
                         <Td>{product.category}</Td>

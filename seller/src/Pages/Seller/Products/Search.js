@@ -14,9 +14,18 @@ function Search({categories,filters,handleChange,searchProducts}) {
                             value={filters.categoryId} 
                             onChange={handleChange} className="btn">
                             <option value="">Selectionner categorie</option>
-                            {categories && categories.map((cat,i)=>(
-                                <option key={i} value={cat.id}>{cat.name} ({cat.countAllProducts})</option>
+                            
+                            {categories && categories.map((cat,i)=> (
+                                <optgroup key={i} value={cat.id} label={`${cat.name}`}>
+                                    <option value={cat.id}>{cat.name} ({cat.countAllProducts})</option>
+                                    {cat.children && cat.children.map((child,j)=>(
+                                        <option key={j} value={child.id}>{child.name} ({child.countProducts})</option>
+                                    ))}
+                                </optgroup>
                             ))}
+                            {/* {categories && categories.map((cat,i)=>(
+                                <option key={i} value={cat.id}>{cat.name} ({cat.countAllProducts})</option>
+                            ))} */}
                         </select>
                     </div>
                     <input id="search" value={filters.search} onChange={handleChange} type="search" className="form-control mx-auto"/>

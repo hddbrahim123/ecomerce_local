@@ -60,14 +60,8 @@ const thumbInner = {
   overflow: "hidden",
 };
 
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
-
 const FormProduct = (props) => {
-  const baseSiteUrl = "http://tsa5arli.xyz/#";
+  const baseSiteUrl = "http://tsa5arli.xyz/#"; // "http://localhost:3000/#";
   //const baseSiteUrl = window.location.origin.toString() + "/#";
   const [language] = useState(localStorage.getItem("language") ?? "Fr");
   const [isOpen, setIsOpen] = useState(false);
@@ -423,7 +417,7 @@ const FormProduct = (props) => {
           >
             X
           </span>
-          <img src={value.preview} style={img} />
+          <img src={value.preview} className="image-previos" />
         </div>
       </div>
     ) : (
@@ -441,7 +435,7 @@ const FormProduct = (props) => {
           >
             X
           </span>
-          <img src={urlImage(value.image)} style={img} />
+          <img src={urlImage(value.image)} className="image-previos" />
         </div>
       </div>
     );

@@ -1,12 +1,12 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GetChildrenCategory } from "../../Core/ApiCore/Category";
+import { getCategories, GetChildrenCategory } from "../../Core/ApiCore/Category";
 
 function Header2(props) {
 	const {totalQty,solde} = props;
 	const baseSiteUrl = window.location.origin.toString() + "/#";
-	const [parentCategories, setParentCategories] = useState([])
+	const [categories, setCategories] = useState([])
 	let welcome = '';
 	let client = '';
 
@@ -34,12 +34,12 @@ function Header2(props) {
 		if (url.length == 4) {
 			setFilter({...filter, categoryId: url[2], search: url[3]?.replaceAll('_',' ')?.replaceAll('%20',' ')})
 		}
-		GetChildrenCategory('', true, true)
+		getCategories(true, true)
 		.then((res) => {
 				if (res && res.length) {
-					setParentCategories(res);
+					setCategories(res);
 				}else{
-					setParentCategories([]);
+					setCategories([]);
 				}
 			})
 	}, [])
@@ -73,8 +73,15 @@ function Header2(props) {
 					<input id="search" value={filter.search} onChange={handleChangeFilter} className="" type="text" />
 					<select id="categoryId" value={filter.categoryId} onChange={handleChangeFilter} className="srchTxt">
 						<option value="0">Tous</option>
-						{parentCategories.map((category,i) => 
-							(<option key={i} value={category.id}>{category.name}</option>))}
+						{categories.map((cat,i) => 
+						(
+							<optgroup key={i} value={cat.id} label={`${cat.name}`}>
+								<option key={i} value={cat.id}>{cat.name}</option>
+								{cat.children && cat.children.map((child,j)=>(
+									<option key={j} value={child.id}>{child.name}</option>
+								))}
+							</optgroup>
+						))}
 					</select> 
 					<button onClick={goToProducts} className="btn btn-primary">Rechercher</button>
 					</form>
