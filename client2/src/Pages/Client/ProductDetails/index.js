@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 // Import Star Ratings
 // import StarRatings from "react-star-ratings";
 // import ReleatedProduct from "./Releated";
-// import ModalPhotos from "./ModalPhotos";
 
 // import { isEmpty, map } from "lodash";
 // import Aos from "aos";
@@ -18,7 +17,6 @@ import ReactHtmlParser from "react-html-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, decProductQty, incProductQty, removeProductInCart, setProductQty } from "../../../store/action";
 import dictionary from "../../../Core/dictionary";
-// import ModalPhotos from "./ModalPhotos";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
 import ModalPhotos from "./ModalPhotos";
@@ -137,7 +135,6 @@ const ProductDetails = (props) => {
 				<li><a href={baseSiteUrl+`/products`}>Produits</a> <span className="divider">/</span></li>
 				<li className="active"> Details produit</li>
 			</ul>
-			{/* <ModalPhotos /> */}
 			<div className="row">
 				<div id="" className="span3">
 					{product.images && index > -1 && <a image={product.images[0]} title={product.name}>
