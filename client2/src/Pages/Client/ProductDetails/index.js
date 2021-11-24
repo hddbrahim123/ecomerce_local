@@ -21,6 +21,7 @@ import dictionary from "../../../Core/dictionary";
 // import ModalPhotos from "./ModalPhotos";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
+import ModalPhotos from "./ModalPhotos";
 // import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
 // import FicheTechnique from "./FicheTechnique";
 
@@ -44,6 +45,7 @@ const ProductDetails = (props) => {
 	//let qty = useSelector(state => product.slug ? state.Cart.products.find(p => p.slug == product.slug)?.qty : {})
 
 	const [isOpen, setIsOpen] = useState(false);
+	const toggle = () => setIsOpen(!isOpen);
 	//const toggle = () => setIsOpen(!isOpen);
 	const addItemCart = () => {
 		const { slug, name, newPrice, oldPrice, images } = product;
@@ -73,8 +75,8 @@ const ProductDetails = (props) => {
 	// const imageBlank = 'images/lightbox/lightbox-blank.gif'
 
 	const selectImage = (e)=>{
-		setIndex(e)
-		//document.body.innerHTML += `<div id='modal-images'><div id="jquery-overlay"></div><div id="jquery-lightbox"><div id="lightbox-container-image-box"><div id="lightbox-container-image"><img id="lightbox-image"><div style="" id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src='${imageLoading}'></a></div></div></div><div id="lightbox-container-image-data-box"><div id="lightbox-container-image-data"><div id="lightbox-image-details"><span id="lightbox-image-details-caption"></span><span id="lightbox-image-details-currentNumber"></span></div><div id="lightbox-secNav"><a id="lightbox-secNav-btnClose" onClick="document.getElementById('modal-images').remove()" ><img src='${imageBtnClose}'></a></div></div></div></div></div>`
+		setIndex(e);
+		setIsOpen(!isOpen);
 	}
 	const handleChangeQty = (e) => {
 		let qty = parseInt(e.target.value);
@@ -82,7 +84,7 @@ const ProductDetails = (props) => {
 			if (qty <= product.quantity) {
 				if (isEmpty(item)) {
 					addItemCart();
-				}else{
+				} else {
 					dispatch(setProductQty(item, qty));
 				}
 			}
@@ -136,7 +138,7 @@ const ProductDetails = (props) => {
 				<li className="active"> Details produit</li>
 			</ul>
 			{/* <ModalPhotos /> */}
-			<div className="row">	  
+			<div className="row">
 				<div id="" className="span3">
 					{product.images && index > -1 && <a image={product.images[0]} title={product.name}>
 						<img src={product.images[0]} alt={product.name}/>
@@ -314,6 +316,13 @@ const ProductDetails = (props) => {
 					</div>
 				</div>
 			</div>
+			<ModalPhotos
+				images={product.images}
+				isOpen={isOpen}
+				toggle={toggle}
+				index={index}
+				setIndex={setIndex}
+			/>
 		</div>
 	)
 }
