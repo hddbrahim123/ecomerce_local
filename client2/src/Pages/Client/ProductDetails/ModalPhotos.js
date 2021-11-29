@@ -36,29 +36,31 @@ const ModalPhotos = (props) => {
       isOpen={isOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      style={customStyles}
+      // style={customStyles}
+      // className="modal-images"
       contentLabel="Example Modal"
     >
-      <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-      <div className="row">
-        <div className="col-md-2 col-sm-2 col-2">
-          {images &&
-            images.length &&
-            images.map((image, i) => (
-              <div key={"pic_" + i} className="gallery__small__img m-1">
-                <img src={image} onClick={() => setIndex(i)} alt="photo"></img>
-              </div>
-            ))}
-        </div>
-        <div className="col-md-10 col-sm-10 col-10">
-          <div>
-            {images && images.length && (
-              <img
-                src={images[index]}
-                alt="product"
-                className="img-large"
-              ></img>
-            )}
+      <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
+      <div className="m-row">
+        <div className="m-col">
+          <div className="slider">
+            <div className="product">
+              {images &&
+                images.length &&
+                images.map((image, i) => (
+                  <img
+                    key={i}
+                    src={image}
+                    onClick={() => setIndex(i)}
+                    alt="photo"
+                  ></img>
+                ))}
+            </div>
+            <div className="preview">
+              {images && images.length && (
+                <img src={images[index]} alt="product" className=""></img>
+              )}
+            </div>
           </div>
         </div>
       </div>

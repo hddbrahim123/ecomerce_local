@@ -6,33 +6,29 @@ import { useSelector } from "react-redux";
 
 const Paginate = (props) => {
 
-  const arrayPages = (totalPages, pageNumber) => {
-    var begin = pageNumber - 3;
-    var end = pageNumber + 3;
-    if (begin < 1) {
-      begin = 1;
-      end += (3 - pageNumber)
-    }
-    if (end > totalPages) {
-      end = totalPages;
-      begin -= (pageNumber + 3 - totalPage)
-      if (begin < 1) {
-        begin = 1;
-      }
-    }
-
-    var array = [];
-    for (var index = begin; index <= end; index++) {
-      array.push(index);
-    }
-    // console.log(array);
-    // console.log("pageNumber:" + pageNumber + ", end: " + end + ", totalPages:" + totalPages);
-    return array;
-  }
-
   const { pagination, onPageChange, onLengthPageChange } = props;
   const { pageNumber, length, totalPage } = pagination;
   const lengthPage = [10, 25, 50, 100];
+
+  const arrayPages = (totalPages, pageNumber) => {
+    let range = 5, start = 1;
+    let paging = [];
+    if (pageNumber < (range / 2) + 1 ) {
+        start = 1;
+    } else if (pageNumber >= (totalPages - (range / 2) )) {
+        start = Math.floor(totalPages - range + 1);
+    } else {
+        start = (pageNumber - Math.floor(range / 2));
+    }
+    let end = ((start + range) - 1);
+    if (end > totalPages) {
+      end = totalPages;
+    }
+    for (let i = start; i <= end; i++) {
+            paging.push(i);
+    }
+    return paging;
+  }
 
   let pages = useSelector(() => arrayPages(totalPage, pageNumber));
 

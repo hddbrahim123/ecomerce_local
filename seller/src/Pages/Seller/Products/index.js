@@ -86,6 +86,8 @@ const Products = (props) => {
     {
       if (res && res.list) {
         setProducts(res.list);
+        pagination.pageNumber = res.pageNumber;
+        pagination.totalPage = res.totalPage;
         setPagination({
           ...pagination,
           pageNumber: res.pageNumber,
@@ -109,10 +111,10 @@ const Products = (props) => {
   const deleteProduct = (slug) => {
     RemoveProduct(slug).then((res) => {
       if (res.success) {
-        let productList = products;
-        productList = productList.filter((product) => product.slug !== slug);
-        setProducts(productList);
-
+        // let productList = products;
+        // productList = productList.filter((product) => product.slug !== slug);
+        // setProducts(productList);
+        searchProducts(filters);
         toastr.options.progressBar = true;
         toastr.success(messages.removeProductSuccess, "");
       } else {
@@ -209,7 +211,7 @@ const Products = (props) => {
                             className="avatar__lg"
                             height="100px"
                           />
-                          <h5 className="mx-3 text-capitalize">
+                          <h5 className="mx-3">
                             <a
                               target="_blank"
                               href={`${baseSiteUrl}/product/${(product.slug)}`}

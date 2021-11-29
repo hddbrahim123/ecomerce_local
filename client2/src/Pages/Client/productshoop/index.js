@@ -59,7 +59,6 @@ const ProductsShop = (props) => {
     getProductsViewClient(filters).then((res) => {
       if (res && res.list) {
         setProducts(res.list);
-        pagination.totalPage = res.totalPage;
         setPagination({
           ...pagination,
           pageNumber: res.pageNumber,

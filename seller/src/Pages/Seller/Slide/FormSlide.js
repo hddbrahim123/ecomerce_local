@@ -24,37 +24,6 @@ import dictionary from "../../../Core/dictionary";
 import TextEditor from "../../../Core/TextEditor";
 import { API_URL } from "../../../config";
 
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-};
-
-const thumb = {
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 8,
-  marginRight: 8,
-  width: 200,
-  height: 200,
-  padding: 4,
-  boxSizing: "border-box",
-};
-
-const thumbInner = {
-  display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
-};
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
-
 const FormSlide = (props) => {
   const [language] = useState(
     localStorage.getItem("language") ?? dictionary.defaultLanguage
@@ -301,12 +270,12 @@ const FormSlide = (props) => {
                   <p className="text-capitalize">{content.labelSlideImage}</p>
                 </div>
               </div>
-              <div className="card-body" style={thumbsContainer}>
+              <div className="card-body" className="thumbsContainer">
                 {!isEmpty(files) &&
                   files.map((image, i) => (
-                    <div style={thumb} key={i}>
-                      <div title={image.filename} style={thumbInner}>
-                        <img src={image ? image.preview ?? urlImage(image) : urlImage(image)} style={img} />
+                    <div className="thumb" key={i}>
+                      <div title={image.filename} className="thumbInner">
+                        <img src={image ? image.preview ?? urlImage(image) : urlImage(image)} className="img-previous" />
                       </div>
                     </div>
                   ))}

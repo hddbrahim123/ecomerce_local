@@ -110,8 +110,8 @@ const Slides = ()=>{
                   <Td>
                     <p className="my-3">{slide.index}</p>
                   </Td>
-                  <Td>
-                    <img src={urlImage(slide.image)} alt={slide.title} width="100px" height="100px" />
+                  <Td className="slide-img">
+                    <img src={urlImage(slide.image)} alt={slide.title} className="slide-small-img" />
                   </Td>
                   <Td>
                     <h5 className="my-3">{slide.title}</h5>

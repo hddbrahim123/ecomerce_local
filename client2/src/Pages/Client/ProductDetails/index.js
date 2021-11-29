@@ -50,6 +50,9 @@ const ProductDetails = (props) => {
 		dispatch(addToCart({ slug, name, newPrice, oldPrice, images, qty:1 }));
 		//props.history.push("/cart");
 	};
+	const toCart = () => {
+		window.location = `${baseSiteUrl}/cart`;
+	};
 
 	const properties = [
 		"mainCharacteristics",
@@ -86,7 +89,7 @@ const ProductDetails = (props) => {
 					dispatch(setProductQty(item, qty));
 				}
 			}
-		} else {
+		} else if (qty < 1){
 			dispatch(removeProductInCart(product.slug));
 		}
 	}
@@ -199,7 +202,8 @@ const ProductDetails = (props) => {
 								/>}
 								{(isEmpty(item) && product.quantity > 0) ? <button onClick={addItemCart} className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button> 
 								: (product.quantity < 1) ? <button disabled className="btn btn-large btn-primary pull-right"> Ajouter au panier <i className=" icon-shopping-cart"></i></button>
-								: <button onClick={()=>dispatch(removeProductInCart(product.slug))} className="btn btn-large btn-primary pull-right"> Annuler <i className=" icon-shopping-cart"></i></button>}
+								: (<div className="pull-right mx-3"><button onClick={()=>dispatch(removeProductInCart(product.slug))} className="btn btn-large btn-primary "> Annuler  </button>
+								<a href={`${baseSiteUrl}/cart`} className="btn btn-large btn-danger mx-3"> Acheter <i className=" icon-shopping-cart"></i></a></div>)}
 							</div>
 						</div>
 					</form>

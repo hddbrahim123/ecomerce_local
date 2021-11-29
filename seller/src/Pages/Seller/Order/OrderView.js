@@ -42,7 +42,7 @@ const OrderView = (props) => {
                           />
                         </div>
                         <div className="col-10">
-                          <h5 className="mb-2 text-capitalize  fs-5 text-truncate">
+                          <h5 className="mb-2 fs-5 text-truncate">
                             <Link
                               to={"/product/" + item.slug}
                               className="first-color"
@@ -75,19 +75,19 @@ const OrderView = (props) => {
             </div>
             <div className="card-body">
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Nom complet</span>
+                <span className="text-muted">Nom complet</span>
                 <span className="fw-bold">{order.fullName}</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Téléphone</span>
+                <span className="text-muted">Téléphone</span>
                 <span className="fw-bold">{order.phone}</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Adresse</span>
+                <span className="text-muted">Adresse</span>
                 <span className="fw-bold">{order.address}</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Note</span>
+                <span className="text-muted">Note</span>
                 <span className="fw-bold">{order.orderNote}</span>
               </div>
             </div>
@@ -95,21 +95,21 @@ const OrderView = (props) => {
         </div>
         <div className="col-6">
           <div className="card h-100 m-lg-2 shadow-sm">
-            <div className="card-header text-capitalize fw-bold ">
+            <div className="card-header fw-bold ">
               Montant Total
             </div>
             <div className="card-body">
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Sous-total</span>
+                <span className="text-muted">Sous-total</span>
                 <span className="fw-bold">{order.totalAmount} Dhs</span>
               </div>
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Livraison</span>
+                <span className="text-muted">Livraison</span>
                 <span className="fw-bold">-</span>
               </div>
               <hr />
               <div className="d-flex justify-content-between mb-4">
-                <span className="text-muted text-capitalize">Total</span>
+                <span className="text-muted">Total</span>
                 <span className="fw-bold">{order.totalAmount} Dhs</span>
               </div>
             </div>
