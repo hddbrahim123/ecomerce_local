@@ -19,7 +19,7 @@ import { addToCart, decProductQty, incProductQty, removeProductInCart, setProduc
 import dictionary from "../../../Core/dictionary";
 import { API_URL } from "../../../config";
 import { isEmpty } from "lodash";
-import ModalPhotos from "./ModalPhotos";
+import ModalImages from "./ModalImages";
 // import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap'
 // import FicheTechnique from "./FicheTechnique";
 
@@ -77,7 +77,6 @@ const ProductDetails = (props) => {
 
 	const selectImage = (e)=>{
 		setIndex(e);
-		setIsOpen(!isOpen);
 	}
 	const handleChangeQty = (e) => {
 		let qty = parseInt(e.target.value);
@@ -97,7 +96,7 @@ const ProductDetails = (props) => {
         return `${API_URL}User/Image?slug=${product.slug}&file=${image}`;
     }
 	const [isListView, setIsListView] = useState(false);
-	
+	const divider = '>';
 	useEffect(() => {
 		// Aos.init({
 		// 	duration: 2000,
@@ -134,20 +133,23 @@ const ProductDetails = (props) => {
 				<title>{product.metaTitle ?? "Product Details"}</title>
 			</MetaTags> */}
 			<ul className="breadcrumb">
-				<li><a href={baseSiteUrl}>Accueil</a> <span className="divider">/</span></li>
-				<li><a href={baseSiteUrl+`/products`}>Produits</a> <span className="divider">/</span></li>
-				<li className="active"> Details produit</li>
+				<li><a href={baseSiteUrl}>Accueil</a></li>
+				{/* <li><a href={baseSiteUrl+`/products`}>Produits</a> <span className="divider">/</span></li>
+				<li className="active"> Details produit</li> */}
+				{product.categories && product.categories.map((c,i)=>(
+					<li><span className="divider">{divider}</span><a href={`${baseSiteUrl}/products/${c.id}`}>{c.name}</a></li>
+				))}
 			</ul>
 			<div className="row">
 				<div id="" className="span3">
-					{product.images && index > -1 && <a image={product.images[0]} title={product.name}>
-						<img src={product.images[0]} alt={product.name}/>
+					{product.images && index > -1 && <a onClick={(e)=>setIsOpen(!isOpen)} title={product.name}>
+						<img src={product.images[index]} className="medium-image" alt={product.name}/>
 					</a>}
 					<div id="differentview" className="moreOptopm carousel slide">
 						<div className="carousel-inner">
 							<div className='item active'>
-								{product.images && product.images.map((img,i)=>i==0 ? "":(
-									<a image={img} key={i} onClick={(e)=>selectImage(i)}><img className="short-image" src={img} alt=""/></a>
+								{product.images && product.images.map((img,i)=>(
+									<a key={i} onClick={(e)=>selectImage(i)}><img className="short-image" src={img} alt=""/></a>
 								))}
 							</div>
 						</div>
@@ -317,7 +319,7 @@ const ProductDetails = (props) => {
 					</div>
 				</div>
 			</div>
-			<ModalPhotos
+			<ModalImages
 				images={product.images}
 				isOpen={isOpen}
 				toggle={toggle}

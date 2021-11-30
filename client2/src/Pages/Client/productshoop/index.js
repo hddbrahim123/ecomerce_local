@@ -159,7 +159,7 @@ const ProductsShop = (props) => {
         <div className="tab-pane active" id="blockView">
           <ul className="thumbnails">
             {products.map((product,i)=>(
-              <li key={i} className="span3">
+              <li key={i} className="span-5">
                 <div title={product.name} className="thumbnail">
                   <Link to={"/product/"+product.slug}><img src={urlImage(product)} alt=""/></Link>
                   <div className="caption">

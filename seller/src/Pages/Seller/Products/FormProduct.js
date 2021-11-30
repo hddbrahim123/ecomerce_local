@@ -30,7 +30,6 @@ import Breadcrumb from "../../../Components/Comon/Breadcrumb";
 import { useDropzone } from "react-dropzone";
 import dictionary from "../../../Core/dictionary";
 import ListSortable from "../../../Components/Comon/ListSortable";
-import { Link } from "react-router-dom";
 import TextEditor from "../../../Core/TextEditor";
 import CategorySelecter from "./CategorySelecter";
 import { API_URL } from "../../../config";
