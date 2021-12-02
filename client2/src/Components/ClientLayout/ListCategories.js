@@ -1,24 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 
 const ListCategories = (props) => {
     const { categories,categoryId } = props
-    //const categoryId = useSelector((state)=>props.match.params.category)
     const baseSiteUrl = window.location.origin.toString() + "/#";
-    //const [categoryId, setCategoryId] = useState(0)
-    //let categoryId = 0;
-    let url = window.location.hash.split('/');
-    if (url.length == 3) {
-        //categoryId = url[2];
-        //setCategoryId(url[2])
-        
-    }
-    const goToProducts = (id) => {
-        //categoryId = id;
-        //setCategoryId(id)
-        window.location = (`${baseSiteUrl}/products/${id}`);
-        window.location.reload();
-    }
+    
     console.log(categoryId)
     return (
         <ul id="sideManu" className="nav nav-tabs nav-stacked">

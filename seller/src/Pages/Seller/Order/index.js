@@ -165,7 +165,7 @@ const Orders = (props) => {
                             {paymentStatus[order.statusName]}
                           </span>
                         </Td>
-                        <Td>{moment(order.Date).calendar()}</Td>
+                        <Td>{moment(order.createdAt).calendar()}</Td>
                         <Td>
                           <button
                             className="btn-sm btn-primary btn-rounded"

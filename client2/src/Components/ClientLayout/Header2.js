@@ -30,7 +30,9 @@ function Header2(props) {
 		window.location.reload();
 	}
 	useEffect(() => {
-		let url = window.location.hash.split('/')
+		let url = decodeURIComponent(window.location.hash).split('/');
+		
+		console.log(window.location);
 		if (url.length == 4) {
 			setFilter({...filter, categoryId: url[2], search: url[3]?.replaceAll('_',' ')?.replaceAll('%20',' ')})
 		}

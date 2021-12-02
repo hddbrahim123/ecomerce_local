@@ -1,20 +1,26 @@
 import { isEmpty } from "lodash";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../../config";
 
 
 import { GetOrderDetailsView } from "../../../Core/ApiCore/Order";
 
 const OrderView = (props) => {
+  const baseSiteUrl = "http://tsa5arli.xyz/#"; // "http://localhost:3000/#";
   const [order, setOrder] = useState({});
-
+  const urlImage = (product) =>{
+    return `${API_URL}User/Image?slug=${product.slug}&file=${product.image}`;
+  }
   useEffect(() => {
     let orderNumber = props.match.params.orderNumber;
-    console.log(orderNumber);
-
     GetOrderDetailsView(orderNumber).then((res) => {
-      console.log(res);
-      setOrder(res);
+      if (res) {
+        setOrder(res);
+      }else{
+        setOrder({});
+      }
     });
   }, []);
   return (
@@ -24,8 +30,8 @@ const OrderView = (props) => {
           <div className="card m-lg-2 shadow-sm">
             <div className="card-header d-flex justify-content-between py-2 text-capitalize fw-bold ">
               <span>Commande : {order.orderNumber}</span>
-              {order.processAt && <span>Placé sur: {order.processAt}</span>}
-              {order.deliveredAt && <span>Livré le: {order.deliveredAt}</span>}
+              {order.processAt && <span>Placé sur: {moment(order.processAt).calendar("YYYY/MM/DD")}</span>}
+              {order.deliveredAt && <span>Livré le: {moment(order.deliveredAt).calendar("YYYY/MM/DD")}</span>}
             </div>
             <div className="card-body">
               <div className="row">
@@ -35,7 +41,7 @@ const OrderView = (props) => {
                       <div className="row productCart  mb-4 bg-white shadow-sm m-1 p-2">
                         <div className="col-2">
                           <img
-                            src={item.image}
+                            src={urlImage(item)}
                             alt="name"
                             className="productCart__img"
                             width="100%"
@@ -43,12 +49,13 @@ const OrderView = (props) => {
                         </div>
                         <div className="col-10">
                           <h5 className="mb-2 fs-5 text-truncate">
-                            <Link
-                              to={"/product/" + item.slug}
+                            <a
+                              href={`${baseSiteUrl}/product/${item.slug}`}
+                              target="_blank"
                               className="first-color"
                             >
                               {item.name}
-                            </Link>
+                            </a>
                           </h5>
                           <div className="d-flex justify-content-between align-items-end ">
                             <h5 className="text-muted fs-6">
@@ -88,7 +95,7 @@ const OrderView = (props) => {
               </div>
               <div className="d-flex justify-content-between mb-4">
                 <span className="text-muted">Note</span>
-                <span className="fw-bold">{order.orderNote}</span>
+                <span className="fw-bold">{order.ordersNote}</span>
               </div>
             </div>
           </div>
