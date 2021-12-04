@@ -20,8 +20,8 @@ function TextEditor(props) {
           [{ color: [] }, { background: [] }], // dropdown with defaults from theme
           [{ font: [] }],
           [{ align: [] }],
-    
           ["clean"], // remove formatting button
+          ["image", "video"],
         ],
       };
 
@@ -39,6 +39,7 @@ function TextEditor(props) {
     //     "indent",
     //     "link",
     //     "image",
+    //     "video"
     // ];
 
   return <ReactQuill theme="snow" modules={modules} {...props} />;
