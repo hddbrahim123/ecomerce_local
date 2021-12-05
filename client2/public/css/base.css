@@ -460,7 +460,7 @@
     padding: 0;
   }
   .thumbnails .span-5  {
-    width: calc(94% / 2);
+    width: calc(92% / 2);
   }
   .span3 {
     width: calc(100% / 3);
@@ -576,6 +576,9 @@ m-1{
 }
 h6 {
   font-size: 9px;
+}
+.tab-content {
+  overflow: visible !important;
 }
 /* .gallery__main__img{
     width: 50% !important;
