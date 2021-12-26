@@ -19,7 +19,13 @@ const ClientLayout = (props) => {
   const totalQty = useSelector(state => state.Cart.totalQty);
 	const solde = useSelector(state => state.Cart.solde);
   const [categories, setCategories] = useState([]);
-
+  
+  function clickCategory(category) {
+    console.log(category);
+    let isOpen = category.open === true ? false : true;
+    setCategories(categories.map(e => category.id == e.id ? {...e, open: isOpen} : e));
+  }
+  
   // document.head.innerHTML = `<meta charset="utf-8">
 	// <title>ETNT Shopping</title>
 	// <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +60,7 @@ const ClientLayout = (props) => {
   return (
     <div>
       <Header2 language={language} totalQty={totalQty} solde={solde} filter={filter} setFilter={setFilter} />
-      <Main2 language={language} totalQty={totalQty} solde={solde} categories={categories}>{props.children}</Main2>
+      <Main2 language={language} totalQty={totalQty} solde={solde} categories={categories} setCategories={setCategories}>{props.children}</Main2>
       <Footer2 language={language} />
 
       {/* <div className="container">

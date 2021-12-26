@@ -5,7 +5,7 @@ import ListCategories from "./ListCategories";
 const baseSiteUrl = window.location.origin.toString() + "/#";
 
 function Main2(props) {
-  const {totalQty, solde, categories, history} = props;
+  const {totalQty, solde, categories, setCategories, history} = props;
   let categoryId = 0;
   //const [categoryId, setCategoryId] = useState(0)
   let url = window.location.hash.split('/');
@@ -44,7 +44,7 @@ function Main2(props) {
               <li className="subMenu"><a href="">HEALTH &amp; BEAUTY [18]</a></li>
             </ul> */}
             {/* List Categories  */}
-            <ListCategories categoryId={categoryId} categories={categories} />
+            <ListCategories categoryId={categoryId} categories={categories} setCategories={setCategories} />
             {/* <br />
             <div className="thumbnail">
               <img

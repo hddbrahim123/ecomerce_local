@@ -32,7 +32,7 @@ function Header2(props) {
 	useEffect(() => {
 		let url = decodeURIComponent(window.location.hash).split('/');
 		
-		console.log(window.location);
+		//console.log(window.location);
 		if (url.length == 4) {
 			setFilter({...filter, categoryId: url[2], search: url[3]?.replaceAll('_',' ')?.replaceAll('%20',' ')})
 		}
